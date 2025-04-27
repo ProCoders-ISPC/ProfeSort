@@ -39,3 +39,43 @@
 <p align="left">El proyecto se encuentra en su fase inicial de desarrollo. En este momento estamos definiendo las historias de usuario y preparando la documentación básica. A continuación, construiremos una maqueta estática para diseñar el frontend y establecer la estructura general del sistema, con la previsión de incorporar Angular para lograr una interfaz dinámica e interactiva. Una vez completada esta etapa, avanzaremos con la implementación del backend utilizando Django</p>
 
 ###
+
+###
+
+<h3 align="left">Tecnologías que se emplearán en el proyecto:</h3>
+
+###
+
+<h4 align="left">Maqueta estática:</h4>
+
+###
+
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40" alt="html5 logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="40" alt="css3 logo"  />
+</div>
+
+###
+
+<h4 align="left">Frontend:</h4>
+
+###
+
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" height="40" alt="angularjs logo"  />
+</div>
+
+###
+
+<h4 align="left">Backend:</h4>
+
+###
+
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="python logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" height="40" alt="django logo"  />
+</div>
+
+###
