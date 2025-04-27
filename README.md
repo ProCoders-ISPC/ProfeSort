@@ -17,12 +17,12 @@
 
 <ul align="left">
   <li>Visualización pública de un sitio web responsive con secciones de inicio, login/registro y sobre nosotros.</li><br>
-  <li>Carga y gestión de la información de alumnos inscriptos por parte de los administradores del Plan FinEs.</li><br>
+  <li>Carga y gestión de la información de los estudiantes inscriptos por parte de los administradores del Plan FinEs.</li><br>
   <li>Gestión de materias: registro de materias y su asociación con áreas académicas específicas.</li><br>
   <li>Asignación de materias a los docentes correspondientes.</li><br>
   <li>Visualización de métricas básicas desde un panel de administración, como:
     <ul>
-      <li>Cantidad total de alumnos inscriptos.</li>
+      <li>Cantidad total de estudiantes inscriptos.</li>
       <li>Porcentaje de inscriptos por materia.</li>
       <li>Número y porcentaje de estudiantes desmatriculados.</li>
     </ul>
