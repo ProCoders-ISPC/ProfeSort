@@ -31,3 +31,11 @@
 </ul>
 
 ###
+
+<h3 align="left">Estado del Proyecto:</h3>
+
+###
+
+<p align="left">El proyecto se encuentra en su fase inicial de desarrollo. En este momento estamos definiendo las historias de usuario y preparando la documentación básica. A continuación, construiremos una maqueta estática para diseñar el frontend y establecer la estructura general del sistema, con la previsión de incorporar Angular para lograr una interfaz dinámica e interactiva. Una vez completada esta etapa, avanzaremos con la implementación del backend utilizando Django</p>
+
+###
