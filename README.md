@@ -79,3 +79,29 @@
 </div>
 
 ###
+
+
+###
+
+<h2 align="left">📁Estructura de carpetas y justificacion</h2>
+
+````bash
+maqueta/
+````
+<p>
+
+En esta carpeta se almacenarán los prototipos de las interfaces del sistema. Estos diseños permitirán definir la estructura visual y la distribución de los elementos de cada pantalla.
+ </p>
+
+````bash
+frontend/
+````
+<p> En esta carpeta se desarrollará la interfaz del sistema usando Angular, incluyendo componentes, vistas y estilos. </p>
+
+
+````bash
+backend/
+````
+<p> Esta carpeta contendrá la lógica de negocio, los servicios, y la conexión con la base de datos. Su desarrollo se realizará en una etapa posterior al diseño de la maqueta y la implementación del frontend. </p>
+
+###
