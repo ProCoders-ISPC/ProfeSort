@@ -83,7 +83,7 @@
 
 ###
 
-<h2 align="left">📁Estructura de carpetas y justificacion</h2>
+<h2 align="left">Estructura de carpetas y justificacion</h2>
 
 ````bash
 maqueta/
@@ -103,5 +103,27 @@ frontend/
 backend/
 ````
 <p> Esta carpeta contendrá la lógica de negocio, los servicios, y la conexión con la base de datos. Su desarrollo se realizará en una etapa posterior al diseño de la maqueta y la implementación del frontend. </p>
+
+###
+
+###
+
+<h2 align="left">Instrucciones para probar el proyecto</h2>
+
+###
+<p>Para comenzar con ProfeSort, sigue estos pasos:</p> 
+
+<ol>
+  <li>Asegúrate de tener Git instalado en tu equipo.</li>
+  <li>Abre una terminal y sitúate en la carpeta donde deseas clonar el repositorio.</li>
+  <li>Ejecuta el comando<br>
+    <code>git clone https://github.com/ProCoders-ISPC/ProfeSort.git</code>
+  </li>
+  <li>Entra en el directorio del proyecto:<br>
+    <code>cd ProfeSort</code>
+  </li>
+</ol>
+
+<p>Dado que actualmente ProfeSort se encuentra en su fase inicial de desarrollo, aún no cuenta con instrucciones de ejecución. Próximamente añadiremos detalles sobre cómo instalar dependencias y levantar tanto la maqueta estática como el frontend y el backend.</p>
 
 ###
