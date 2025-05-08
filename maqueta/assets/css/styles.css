@@ -21,8 +21,14 @@ flex-direction: column;
     justify-content: space-around;
 }
 
-.novedades-section-contenedor_noticias > div{
+.contenedor_noticias-card{
     border: 1px solid red;
     height: 80px;
     width: 80px;
+}
+
+.contenedor_noticias-card > img{
+height: 100%;
+width: 100%;
+
 }
