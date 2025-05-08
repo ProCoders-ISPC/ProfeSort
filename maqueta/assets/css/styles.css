@@ -1,0 +1,28 @@
+
+/*Aca esta el css del titulo*/
+
+.title{
+    font-size: 15px;
+}
+
+
+/*Aca esta el css de la seccion de novedades del Home*/
+.novedades{
+display: flex;
+flex-direction: column;
+
+}
+.novedades-section-contenedor_noticias{
+    height: 150px;
+    width: 100%;
+    border: 1px solid red;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.novedades-section-contenedor_noticias > div{
+    border: 1px solid red;
+    height: 80px;
+    width: 80px;
+}
