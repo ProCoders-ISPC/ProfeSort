@@ -1,0 +1,77 @@
+@font-face {
+  font-family: 'Acephimere';
+  src: url('../fonts/Acephimere.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.login {
+  background-color: #d6ecec;
+  font-family: 'Acephimere', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__container {
+  background-color: #084c4e;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: #0A2826;
+  max-width: 400px;
+  width: 100%;
+  color: #FFFFFF;
+}
+
+.login__title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login__label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.login__input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.login__button {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #0A2826;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.login__button:hover {
+  background-color: #007d80;
+}
+
+.login__help {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login__help a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.login__help a:hover {
+  text-decoration: underline;
+}
