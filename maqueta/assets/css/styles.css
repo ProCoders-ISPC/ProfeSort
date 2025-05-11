@@ -5,6 +5,13 @@
     font-style: normal;
 }
   
+@font-face {
+    font-family: 'Acephimere_Bold';
+    src: url('../fonts/Acephimere Bold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 
 body {
@@ -45,13 +52,16 @@ body {
   
   .hero-text h2 {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 50px;
+    font-weight: bold;
     color: #ffffff;
   }
   
   .hero-text h1 {
     margin: 10px 0;
-    font-size: 45px;
+    font-size: 100px;
+    font-family: 'Acephimere_Bold', sans-serif;
+    font-weight: bold;
     color: #ffffff;
   }
   
@@ -73,8 +83,7 @@ body {
     max-width: 50%;
     height: auto;
     border-radius: 10px;
-
-    
+    min-width: 600px;
 
   }
 
