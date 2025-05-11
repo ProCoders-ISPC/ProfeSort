@@ -1,35 +1,168 @@
-
-/*Aca esta el css del titulo*/
-
-.title{
-    font-size: 30px;
-    color: red;
+@font-face {
+    font-family: 'Acephimere';
+    src: url('../fonts/Acephimere.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
+  
 
 
-/*Aca esta el css de la seccion de novedades del Home*/
-.novedades{
-display: flex;
-flex-direction: column;
-
-}
-.novedades-section-contenedor_noticias{
-    height: 150px;
-    width: 100%;
-    border: 1px solid red;
-    display:flex;
+body {
+    font-family: 'Acephimere', sans-serif;
+    margin: 0;
+    font-size: 16px;
+    color: #222;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: #084c4e;
+    color: white;
     align-items: center;
-    justify-content: space-around;
-}
+  }
+  
+  header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(229, 175, 36);
+  }
+  
+  header nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+  }
+  
+  .hero {
+    display: flex;
+    padding: 60px 40px;
+    background-color: #d6ecec;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .hero-text h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #084c4e;
+  }
+  
+  .hero-text h1 {
+    margin: 10px 0;
+    font-size: 2.5rem;
+    color: #1b686c;
+  }
+  
+  .hero-text p {
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-text button {
+    background-color: rgb(229, 175, 36);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .hero-img img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 10px;
 
-.contenedor_noticias-card{
-    border: 1px solid red;
-    height: 80px;
-    width: 80px;
-}
+    
 
-.contenedor_noticias-card > img{
-height: 100%;
-width: 100%;
+  }
 
-}
+  .novedades {
+    padding: 40px;
+    background-color: #f6f6f6;
+  }
+  
+  .novedades h2 {
+    margin-bottom: 30px;
+  }
+  
+  .cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 250px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+  
+  .contacto {
+    padding: 40px;
+  }
+  
+  .contacto-img img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .contacto-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+
+  }
+  
+  .contacto form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .contacto form input,
+  .contacto form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .contacto form button {
+    background-color: #084c4e;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  footer {
+    background-color: rgb(229, 175, 36);
+    padding: 30px 40px;
+    text-align: center;
+  }
+  
+  .footer-logo {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #084c4e;
+    font-weight: bold;
+  }
+  
+  .footer-links a {
+    margin: 0 10px;
+    color: #084c4e;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  

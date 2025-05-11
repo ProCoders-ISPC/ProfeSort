@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'Acephimere';
+  src: url('../fonts/Acephimere.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Acephimere', sans-serif;
+  margin: 0;
+  font-size: 16px;
+  color: #222;
+  background-color: #d6ecec;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #084c4e;
+  color: white;
+  padding: 20px 40px;
+}
+
+.header__logo {
+  font-size: 1.5rem;
+  color: rgb(229, 175, 36);
+  font-weight: bold;
+}
+
+.header__nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.about {
+  padding: 40px 20px;
+}
+
+.about__section {
+  background-color: #084c4e;
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 1500px;
+  margin: 0 auto 40px auto;
+  line-height: 1.6;
+}
+
+.about__section--team {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  background-color: #005e60;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.about__photo-container img {
+  width: 350px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.about__list {
+  flex: 1;
+}
+
+.about__list-title {
+  margin-top: 0;
+}
+
+.about__list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about__list li {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.footer {
+  background-color: rgb(229, 175, 36);
+  padding: 30px 40px;
+  text-align: center;
+}
+
+.footer__logo {
+  font-size: 1.5rem;
+  color: #084c4e;
+}
+
+.footer__links a {
+  margin: 0 10px;
+  color: #084c4e;
+  text-decoration: none;
+}

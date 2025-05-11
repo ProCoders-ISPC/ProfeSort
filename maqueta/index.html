@@ -1,26 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/maqueta/assets/css/styles.css">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ProfeSort</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-    <h1 class="title">Esto es un h1 de prueba para asegurar que esta linkeado el css</h1>
 
-    
-    <section class="novedades">
-        <h2>Novedades</h2>
-        <div class="novedades-section-contenedor_noticias">
-            <div class="contenedor_noticias-card">
-                <img src="/maqueta//assets/img/img-flores.jpg" alt="">
-            </div>
+  <header>
+    <div class="logo">ProfeSort</div>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="pages/about.html">Quiénes Somos</a>
+      <a href="#">Registro</a>
+      <a href="#">Iniciar Sesión</a>
+    </nav>
+  </header>
 
-        </div>
+  <section class="hero">
+    <div class="hero-text">
+      <h2>SUMATE A LA EXPERIENCIA</h2>
+      <h1>ProfeSort</h1>
+      <p>La plataforma diseñada exclusivamente para facilitar la administración de inscripciones, asignaciones y el seguimiento académico de estudiantes del Plan Fines.</p>
+      <button>Ver más</button>
+    </div>
+    <div class="hero-img">
+      <img src="assets/img/home/presentacion/img-presentacion01.png" alt="Imagen de presentación" />
+    </div>
+  </section>
 
+  <section class="novedades">
+    <h2>Novedades</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="assets/img/home/novedades/img-novedades01.jpg" alt="Noticia 1" />
+        <h3>Subheading</h3>
+        <p>Body text for whatever you'd like to add more to the subheading.</p>
+      </div>
+      <div class="card">
+        <img src="assets/img/home/novedades/img-novedades06.webp" alt="Noticia 2" />
+        <h3>Subheading</h3>
+        <p>Body text for whatever you'd like to expand on the main point.</p>
+      </div>
+      <div class="card">
+        <img src="assets/img/home/novedades/img-novedades03.jpg" alt="Noticia 3" />
+        <h3>Subheading</h3>
+        <p>Body text for whatever you'd like to share more.</p>
+      </div>
+    </div>
+  </section>
 
+  <section class="contacto">
+    <h2>Contacto</h2>
+    <div class="contacto-container">
+      <form>
+        <input type="text" placeholder="Nombre y Apellido" required />
+        <input type="email" placeholder="Ingrese su mail" required />
+        <textarea placeholder="Ingrese su mensaje" required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+      <div class="hero-img">
+      <img src="assets/img/home/contacto/img-contacto01.jpg" alt="Contacto imagen" />
+      </div>
+    </div>
+  </section>
 
-    </section>
+  <footer>
+    <div class="footer-logo">ProfeSort</div>
+    <div class="footer-links">
+      <a href="#">Topic</a>
+      <a href="#">Topic</a>
+      <a href="#">Topic</a>
+    </div>
+    <p>&copy; 2025 ProfeSort | Plataforma Educativa. Todos los derechos reservados.</p>
+  </footer>
+
 </body>
 </html>
