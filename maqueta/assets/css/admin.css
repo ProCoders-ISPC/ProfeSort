@@ -12,7 +12,8 @@
     
 }
 
-body {
+body,html {
+    font-family: 'Acephimere', sans-serif;
     background-color: #f5f5f5;
 }
 
@@ -24,7 +25,7 @@ body {
 
 .sidebar {
     width: 250px;
-    background-color: #2c3e50;
+    background-color: #043237;
     color: white;
     transition: all 0.3s;
 }
@@ -32,7 +33,7 @@ body {
 .sidebar-header {
     padding: 20px;
     text-align: center;
-    border-bottom: 1px solid #34495e;
+    border-bottom: 1px solid #043237;
 }
 
 .sidebar-logo {
@@ -53,11 +54,11 @@ body {
 }
 
 .menu-item:hover {
-    background-color: #34495e;
+    background-color: #3abdcc;
 }
 
 .menu-item.active {
-    background-color: #3498db;
+    background-color: #0F8795;
 }
 
 .menu-icon {
@@ -79,7 +80,7 @@ body {
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ffffff;
 }
 
 
@@ -98,7 +99,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #3498db;
+    background-color: #E5AF24;
     color: white;
     display: flex;
     align-items: center;
@@ -141,12 +142,12 @@ body {
 }
 
 .btn-primary {
-    background-color: #3498db;
+    background-color: #0F8795;
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    background-color: #E5AF24;
 }
 
 table {

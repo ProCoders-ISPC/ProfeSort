@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../assets/css/admin.css" />
 </head>
 <body>
-    <div class="container_siderbar">
+    <div class="container">
        	<div class="sidebar" id="sidebar">
         	<div class="sidebar-header">
             	<div class="sidebar-logo">ProfeSort Admin</div>
@@ -55,7 +55,7 @@
 		<div class="main-content">
         	<div class="header">
             	<button class="responsive-toggle" id="sidebarToggle">☰</button>
-            	<div class="page-title">Dashboard Educativo</div>
+            	<div class="page-title">Panel</div>
             	<div class="user-profile">
                 	<div class="user-avatar">A</div>
                 	<div>Director</div>
@@ -110,12 +110,11 @@
 	</div>
     
 	<script>
-    	// Toggle sidebar on mobile
+    
     	document.getElementById('sidebarToggle').addEventListener('click', function() {
         	document.getElementById('sidebar').classList.toggle('active');
     	});
    	 
-    	// Menu items click event
     	const menuItems = document.querySelectorAll('.menu-item');
     	menuItems.forEach(item => {
         	item.addEventListener('click', function() {
