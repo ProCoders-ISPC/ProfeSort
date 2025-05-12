@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrativo</title>
-    <link rel="stylesheet" href="assets/css/……..css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Administrativo</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
     <div class="container_siderbar">
@@ -38,16 +38,91 @@
                 	<div>Estudiantes</div>
             	</div>
                    <div class="menu-item">
-                	<div class="menu-icon">⚙️</div>
+                	<div class="menu-icon">
+						<img src="assets/img/icons/config_icon.svg" alt="Configuracion"/>
+					</div>
                 	<div>Configuración</div>
             	</div>
             	<div class="menu-item">
-                	<div class="menu-icon">📤</div>
+                	<div class="menu-icon"> 
+					<img src="assets/img/icons/cerrarsesion_icon.svg" alt="Cerrar sesion"/>
+					</div>
                 	<div>Cerrar Sesión</div>
             	</div>
         	</div>
     	</div>
 
+		<div class="main-content">
+        	<div class="header">
+            	<button class="responsive-toggle" id="sidebarToggle">☰</button>
+            	<div class="page-title">Dashboard Educativo</div>
+            	<div class="user-profile">
+                	<div class="user-avatar">A</div>
+                	<div>Director</div>
+            	</div>
+        	</div>
+
+    	<div class="form-container">
+            	<div class="table-header">
+                	<div class="table-title">Añadir Nuevo Usuario</div>
+            	</div>
+            	<form>
+                	<div class="form-group">
+                    	<label class="form-label" for="name">Nombre Completo</label>
+                    	<input type="text" class="form-control" id="name" placeholder="Nombre completo">
+                	</div>
+                	<div class="form-group">
+                    	<label class="form-label" for="email">Email</label>
+                    	<input type="email" class="form-control" id="email" placeholder="correo@ejemplo.com">
+                	</div>
+                	<div class="form-group">
+                    	<label class="form-label" for="role">Rol</label>
+                    	<select class="form-control" id="role">
+                        	<option value="">Seleccionar rol</option>
+                        	<option value="admin">Administrador</option>
+                        	<option value="teacher">Docente</option>
+                        	<option value="student">Estudiante</option>
+                    	</select>
+                	</div>
+                	<div class="form-group">
+                    	<label class="form-label" for="department">Departamento/Carrera</label>
+                    	<select class="form-control" id="department">
+                        	<option value="">Seleccionar departamento/carrera</option>
+                        	<option value="matematica">Matemáticas</option>
+                        	<option value="ciencias_naturales">Ciencias Naturales</option>
+                        	<option value="lengua">Lengua y Literatura</option>
+                        	<option value="ingles">Inglés</option>
+                        	<option value="ciencias_sociales">Ciencias Sociales</option>
+							<option value="especialidades">Especialidades</option>
+                    	</select>
+                	</div>
+                	<div class="form-group">
+                    	<label class="form-label" for="password">Contraseña</label>
+                    	<input type="password" class="form-control" id="password">
+                	</div>
+                	<div class="form-actions">
+                    	<button type="button" class="btn">Cancelar</button>
+                    	<button type="submit" class="btn btn-primary">Guardar</button>
+                	</div>
+            	</form>
+        	</div>
+    	</div>
+	</div>
     
+	<script>
+    	// Toggle sidebar on mobile
+    	document.getElementById('sidebarToggle').addEventListener('click', function() {
+        	document.getElementById('sidebar').classList.toggle('active');
+    	});
+   	 
+    	// Menu items click event
+    	const menuItems = document.querySelectorAll('.menu-item');
+    	menuItems.forEach(item => {
+        	item.addEventListener('click', function() {
+            	menuItems.forEach(i => i.classList.remove('active'));
+            	this.classList.add('active');
+        	});
+    	});
+	</script>
 </body>
 </html>
