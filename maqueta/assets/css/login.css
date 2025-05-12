@@ -26,9 +26,27 @@
   color: #FFFFFF;
 }
 
+.login__box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 20% 60% 20%;
+  gap: 8px;
+}
+
 .login__title {
-  text-align: center;
-  margin-bottom: 20px;
+  grid-column: span 5;
+}
+
+.login__form {
+  grid-column: span 5;
+  grid-row: span 3;
+  grid-row-start: 2;
+}
+
+.login__help {
+  grid-column: span 5;
+  grid-row-start: 5;
+  
 }
 
 .login__label {
@@ -68,7 +86,7 @@
 }
 
 .login__help a {
-  color: #FFFFFF;
+  color: #E5AF24;
   text-decoration: none;
 }
 
