@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Docentes</title>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">ProfeSort Docente</div>
+      </div>
+      <div class="sidebar-menu">
+        <div class="menu-item active" id="menu-estudiantes">
+          <div class="menu-icon">
+            <img src="../assets/img/icons/credencial_icon.svg" alt="Estudiantes" height="20" />
+          </div>
+          <div>Mis Estudiantes</div>
+        </div>
+        <div class="menu-item" id="menu-editar">
+          <div class="menu-icon">
+            <img src="../assets/img/icons/profe_icon.svg" alt="Editar datos" height="20" />
+          </div>
+          <div>Editar mis datos</div>
+        </div>
+        <div class="menu-item" id="menu-logout">
+          <div class="menu-icon">
+            <img src="../assets/img/icons/cerrasesion_icon.svg" alt="Cerrar sesión" height="20" />
+          </div>
+          <div>Cerrar sesión</div>
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="header">
+        <button class="responsive-toggle" id="sidebarToggle">☰</button>
+        <div class="page-title">Panel Docente</div>
+        <div class="user-profile">
+          <div class="user-avatar">D</div>
+          <div id="nombre-docente">Nombre del Profesor</div>
+        </div>
+      </div>
+      <div class="form-container">
+        <section class="welcome-section">
+          <h2>Bienvenido, <span id="nombre-docente-bienvenida">Nombre del Profesor</span></h2>
+          <p>Utiliza el menú para gestionar tus estudiantes o editar tus datos.</p>
+        </section>
+        <section id="panel-content"></section>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+      item.addEventListener('click', function() {
+        menuItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+  <script src="../scripts/panel-user.js"></script>
+</body>
+</html>
