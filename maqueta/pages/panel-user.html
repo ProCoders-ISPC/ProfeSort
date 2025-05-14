@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Panel de Docentes</title>
-  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="../assets/css/panel-user.css">
 </head>
 <body>
   <div class="container">
@@ -34,14 +34,13 @@
     </div>
     <div class="main-content">
       <div class="header">
-        <button class="responsive-toggle" id="sidebarToggle">☰</button>
         <div class="page-title">Panel Docente</div>
         <div class="user-profile">
           <div class="user-avatar">D</div>
           <div id="nombre-docente">Nombre del Profesor</div>
         </div>
       </div>
-      <div class="form-container">
+      <div class="form-container-docente">
         <section class="welcome-section">
           <h2>Bienvenido, <span id="nombre-docente-bienvenida">Nombre del Profesor</span></h2>
           <p>Utiliza el menú para gestionar tus estudiantes o editar tus datos.</p>
@@ -50,19 +49,6 @@
       </div>
     </div>
   </div>
-  <script>
-    document.getElementById('sidebarToggle').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('active');
-    });
 
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(item => {
-      item.addEventListener('click', function() {
-        menuItems.forEach(i => i.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
-  </script>
-  <script src="../scripts/panel-user.js"></script>
 </body>
 </html>
