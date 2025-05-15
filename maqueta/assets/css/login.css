@@ -1,3 +1,10 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 @font-face {
   font-family: 'Acephimere';
   src: url('../fonts/Acephimere.otf') format('truetype');
@@ -5,11 +12,8 @@
   font-style: normal;
 }
 
-.login {
-  background-color: #d6ecec;
+body,html{
   font-family: 'Acephimere', sans-serif;
-  margin: 0;
-  padding: 0;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -24,6 +28,8 @@
   max-width: 400px;
   width: 100%;
   color: #FFFFFF;
+  position: relative;
+  z-index: 10;
 }
 
 .login__box {
@@ -94,3 +100,75 @@
 .login__help a:hover {
   text-decoration: underline;
 }
+
+       .background {
+            top: -20%;
+            position: fixed;
+            width: 100%;
+            height: 120%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 0; 
+
+        }
+        .backgroud__row {
+            position: relative;
+            width: 100%;
+            display: flex;
+            padding: 10px 0;
+            white-space: nowrap;
+            font-size: 64px;
+            transform: rotate(-30deg); 
+            top: -350px; 
+            user-select: none;
+            cursor: default;
+            transition: 1S;
+
+        }
+        .backgroud__row i {
+            color: rgba(191, 191, 194, 0.356); 
+            transition: 1s;
+            padding: 0 5px;
+            user-select: none;
+            cursor: default;
+
+        }
+        .backgroud__row i:hover {
+            transition: 0s;
+            color: #084c4e;
+            text-shadow: 0 0 60px #084c4e;
+        }
+        .backgroud__row div {
+            animation: animate1 640s linear infinite; 
+            animation-delay: -640s; 
+
+        }
+        @keyframes animate1 {
+            0% { transform: translatex(100%);}
+            100% { transform: translatex(-100%);}
+        }
+        .backgroud__row div:nth-child(2) {
+            animation: animate2 640s linear infinite; 
+            animation-delay: -320s; 
+        }
+        @keyframes animate2 {
+            0% { transform: translatex(0);}
+            100% { transform: translatex(-200%);}
+        }
+        .backgroud__row:nth-child(even) div {
+            animation: animate3 640s linear infinite; 
+            animation-delay: -640s;
+        }
+        @keyframes animate3 {
+            0% { transform: translatex(-100%);}
+            100% { transform: translatex(100%);}
+        }
+        .backgroud__row:nth-child(even) div:nth-child(2) {
+            animation: animate4 640s linear infinite; 
+            animation-delay: -320s; 
+        }
+        @keyframes animate4 {
+            0% { transform: translatex(-200%);}
+            100% { transform: translatex(0);} 
+        }
