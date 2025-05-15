@@ -27,14 +27,15 @@
 }
 
 .login__box {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 20% 60% 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   gap: 8px;
 }
 
 .login__title {
   grid-column: span 5;
+  text-align: center;
 }
 
 .login__form {
