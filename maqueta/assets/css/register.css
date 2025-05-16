@@ -1,3 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px; 
+}
+
+body {
+  font-family: 'Acephimere', sans-serif;
+  min-height: 100vh;
+  line-height: 1.6; 
+}
+
 @font-face {
   font-family: 'Acephimere';
   src: url('../fonts/Acephimere.otf') format('truetype');
@@ -7,21 +23,18 @@
 
 .registro {
   background-color: #d6ecec;
-  font-family: 'Acephimere', sans-serif;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px; 
 }
 
 .registro__container {
   background-color: #084c4e;
   padding: 40px;
   border-radius: 12px;
-  box-shadow: #0A2826;
-  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 700px;
   width: 100%;
   color: #FFFFFF;
 }
@@ -46,6 +59,27 @@
   box-sizing: border-box;
 }
 
+.registro__form-group {
+  margin-bottom: 15px; 
+}
+
+
+@media (min-width: 768px) { 
+  .registro__form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; 
+  }
+
+  .registro__form-group {
+    flex: 1; 
+    margin-bottom: 0;
+  }
+   .registro__form-group--full-width {
+    flex-basis: 100%;
+  }
+
+
 .registro__button {
   width: 100%;
   margin-top: 20px;
@@ -60,4 +94,32 @@
 
 .registro__button:hover {
   background-color: #007d80;
+}
+
+.registro__terms {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-size: 0.9rem; 
+}
+
+.registro__checkbox-input {
+  width: 20px;
+  height: 20px; 
+  margin-right: 10px;
+  accent-color: #80dfff;
+}
+
+.registro__checkbox-label {
+  color: #FFFFFF;
+}
+
+.registro__link {
+  color: #80dfff; 
+  text-decoration: none;
+}
+
+.registro__link:hover {
+  text-decoration: underline;
 }
