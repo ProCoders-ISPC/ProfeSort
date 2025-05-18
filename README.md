@@ -7,7 +7,7 @@
 
 ###
 
-<h2 align="left">⭐ Funcionalidades Principales (Primera Etapa)</h2>
+<h2 align="left">Funcionalidades Principales (Primera Etapa)</h2>
 
 ###
 
@@ -91,8 +91,7 @@ maqueta/
 ````
 <p>
 
-En esta carpeta se almacenarán los prototipos de las interfaces del sistema. Estos diseños permitirán definir la estructura visual y la distribución de los elementos de cada pantalla.
- </p>
+<p>Es la base estática del proyecto. En esta carpeta se diseñan los prototipos iniciales del sistema, que permiten visualizar la estructura y distribución de los elementos. Contiene:</p> <ul> <li><b>assets/</b>: Archivos estáticos como hojas de estilo (<code>css/</code>), fuentes (<code>fonts/</code>), imágenes (<code>img/</code>) y scripts (<code>js/</code>).</li> <li><b>pages/</b>: Vistas individuales del sistema como <code>about.html</code>, <code>login.html</code>, <code>register.html</code>, <code>panel-user.html</code> y <code>panel-admin.html</code>.</li> <li><b>index.html</b>: Archivo principal de inicio del sitio, ubicado directamente dentro de la carpeta <code>maqueta/</code>.</li> </ul> </p>
 
 ````bash
 frontend/
