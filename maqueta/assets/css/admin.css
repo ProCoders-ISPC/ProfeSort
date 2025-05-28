@@ -114,6 +114,7 @@ body,html {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .table-header {
@@ -125,6 +126,7 @@ body,html {
 .table-title {
     font-size: 18px;
     color: #2c3e50;
+    margin-top: 60px;
 }
 
 .table-actions {
@@ -295,7 +297,7 @@ tr:hover {
 .docente-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .docente-table th,
