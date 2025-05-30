@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel Administrativo</title>
   <link rel="stylesheet" href="../../assets/css/admin.css" >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
     <div class="container">
@@ -58,30 +60,11 @@
             	<div class="page-title">Panel</div>
             	<div class="user-profile">
                 	<div class="user-avatar">A</div>
-                	<div>Director</div>
+                	<div>Administrador</div>
             	</div>
         	</div>
      <div class="form-container">
-        <div class="table-header">
-          <div class="table-title">Listado de Docentes</div>
-        </div>
-        <table class="docente-table">
-          <thead>
-            <tr>
-              <th>Nombre Completo</th>
-              <th>Correo Electrónico</th>
-              <th>Nº de Legajo</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="docente-list">
-          </tbody>
-        </table>
-		<div>
-			
-		</div>
-        <div class="table-header">
+			<div class="table-header">
           <div class="table-title">Formulario Docente</div>
         </div>
         <form id="docente-form">
@@ -110,9 +93,28 @@
             <button type="submit" class="btn btn-primary">Guardar</button>
           </div>
         </form>
+                <div class="table-header">
+          <div class="table-title">Listado de Docentes</div>
+        </div>
+        <div class="table-responsive">
+          <table class="docente-table table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Correo Electrónico</th>
+                <th>Nº de Legajo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="docente-list">
       </div>
     </div>
   </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 	<script>
     
@@ -127,6 +129,57 @@
             	this.classList.add('active');
         	});
     	});
+
+      function editarDocente(id) {
+        alert('Editando docente con ID: ' + id);
+      }
+
+      function eliminarDocente(id) {
+        if (confirm('¿Está seguro de que desea eliminar este docente?')) {
+          alert('Eliminando docente con ID: ' + id);
+        }
+      }
+
+
+      document.getElementById('docente-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const legajo = document.getElementById('legajo').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (password !== confirmPassword) {
+          alert('Las contraseñas no coinciden');
+          return;
+        }
+
+        const tbody = document.getElementById('docente-list');
+        const newRow = document.createElement('tr');
+        const newId = Date.now(); 
+        
+        newRow.innerHTML = `
+          <td>${name}</td>
+          <td>${email}</td>
+          <td>${legajo}</td>
+          <td><span class="badge bg-success">Activo</span></td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary me-1" onclick="editarDocente(${newId})">
+              <i class="fas fa-edit"></i> Editar
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="eliminarDocente(${newId})">
+              <i class="fas fa-trash"></i> Eliminar
+            </button>
+          </td>
+        `;
+        
+        tbody.appendChild(newRow);
+      
+        this.reset();
+        
+        alert('Docente agregado exitosamente');
+      });
 	</script>
 </body>
 </html>
