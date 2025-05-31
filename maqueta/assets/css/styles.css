@@ -616,5 +616,19 @@ tr:hover {
 }
 
 
+/* ===== SWIPER SLIDES ===== */
+.swiper-slide.slide-1 {
+  background-color: #f9e79f;
+}
+
+.swiper-slide.slide-2 {
+  background-color: #aed6f1;
+}
+
+.swiper-slide.slide-3 {
+  background-color: #d5f5e3;
+}
+
+
 
 
