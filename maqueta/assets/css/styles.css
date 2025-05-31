@@ -509,6 +509,7 @@ tr:hover {
 .login__help a:hover {
   text-decoration: underline;
 }
+
 /* ===== REGISTRO - FORMULARIOS RESPONSIVOS ===== */
 @media (min-width: 768px) {
   .registro__form-row {
@@ -554,4 +555,66 @@ tr:hover {
 .registro__link:hover {
   text-decoration: underline;
 }
+
+/* ===== HERO SECTION ===== */
+.hero {
+  display: flex;
+  background-color: var(--primary-light);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero .swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.hero .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+  background-color: var(--primary-light);
+}
+
+.hero-text h2 {
+  margin: 0;
+  font-size: 50px;
+  font-weight: bold;
+  color: var(--primary-dark);
+}
+
+.hero-text h1 {
+  margin: 10px 0;
+  font-size: 100px;
+  font-family: 'Acephimere_Bold', sans-serif;
+  font-weight: bold;
+  color: var(--primary-dark);
+}
+
+.hero-text p {
+  width: 120%;
+  max-width: none;
+  margin-bottom: 30px;
+  color: var(--primary-dark);
+}
+
+.hero-text button {
+  background-color: var(--accent-yellow);
+  border: none;
+  padding: 20px 30px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.hero-img img {
+  max-width: 50%;
+  height: auto;
+  border-radius: 10px;
+  min-width: 600px;
+  margin-left: 600px;
+}
+
+
+
 
