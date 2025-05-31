@@ -40,3 +40,30 @@ html {
   --white: #ffffff;
 }
 
+/* ===== ESTILOS BASE DEL BODY ===== */
+body {
+  font-family: 'Acephimere', sans-serif;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+
+body.admin,
+body.panel-user {
+  background-color: var(--background-light);
+  color: var(--secondary-dark);
+}
+
+body.about {
+  background-color: var(--background-blue);
+}
+
+body.login,
+body.register {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
