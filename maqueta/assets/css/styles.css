@@ -270,3 +270,24 @@ tr:hover {
   background-color: #f9f9f9;
 }
 
+/* ===== ESTADOS Y STATUS ===== */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status-active {
+  background-color: #e8f7ef;
+  color: #2ecc71;
+}
+
+.status-pending {
+  background-color: #fef8e8;
+  color: #f39c12;
+}
+
+.status-inactive {
+  background-color: #feeae9;
+  color: #e74c3c;
+}
