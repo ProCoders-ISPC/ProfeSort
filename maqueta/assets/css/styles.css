@@ -67,3 +67,59 @@ body.register {
   align-items: center;
 }
 
+/* ===== HEADERS ===== */
+header,
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: 5px 40px;
+}
+
+.header {
+  padding: 20px 40px;
+}
+
+header .logo,
+.header__logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-yellow);
+}
+
+header nav a,
+.header__nav a {
+  color: var(--white);
+  margin-left: 20px;
+  text-decoration: none;
+}
+/* ===== HEADERS ===== */
+header,
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: 5px 40px;
+}
+
+.header {
+  padding: 20px 40px;
+}
+
+header .logo,
+.header__logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-yellow);
+}
+
+header nav a,
+.header__nav a {
+  color: var(--white);
+  margin-left: 20px;
+  text-decoration: none;
+}
