@@ -10,68 +10,101 @@
 
   <header>
     <div class="logo">
-      <img src="../assets/img/home/logo/ProfeSort_yellow.svg" alt="Clase en curso" height="80"></div>
+      <img src="../assets/img/home/logo/ProfeSort_yellow.svg" alt="Clase en curso" height="80">
+    </div>
     <nav>
       <a href="../index.html">Inicio</a>
-  
       <a href="../pages/register.html" target="_blank">Registro</a>
       <a href="../pages/login.html" target="_blank">Iniciar Sesión</a>
     </nav>
   </header>
 
-  <main class="about">
+  <main>
 
-  <section class="about__section">
-    <h1 class="about__title">ProfeSort</h1>
-    <p>
-      <strong>ProfeSort</strong> es una plataforma educativa diseñada para docentes del Plan Fines. Facilita la gestión de inscripciones, asignaciones y el seguimiento académico de los estudiantes de forma clara y eficiente.
+    <section id="hero">
+      <video muted autoplay loop>
+        <source src="../assets/videos/about-video.mp4" type="video/mp4">
+      </video>
+      <div class="capa"></div>
+
+      <div class="promo">
+        <h1>ProfeSort</h1>
+        <p>Herramienta administrativa para el Plan Fines</p>
+        <button type="button" onclick="document.getElementById('profesort').scrollIntoView({ behavior: 'smooth' });">Conocer más</button>
+      </div>
+    </section>
+
+    <section class="about__ProfeSort" id="profesort">
+      <div class="container">
+        <h2>¿Qué es ProfeSort?</h2>
+        <p>
+          <strong>ProfeSort</strong> es una plataforma educativa diseñada para docentes del Plan Fines. Facilita la gestión de inscripciones, asignaciones y el seguimiento académico de los estudiantes de forma clara y eficiente.
       Con una interfaz amigable y funcionalidades enfocadas en el aula, nuestro objetivo es que cada profesor pueda dedicar más tiempo a enseñar, y menos a tareas administrativas.
-    </p>
-  </section>
+        </p>
+      </div>
+    </section>
 
-  <section class="about__section">
-    <h2 class="about__subtitle">¿Quiénes Somos?</h2>
+    <section class="about__Quienes__Somos">
+      <div class="container">
+        <h2>¿Quiénes Somos?</h2>
+        <p>
+          Somos <strong>ProCoders</strong>, un equipo de estudiantes del segundo año de la Tecnicatura en Desarrollo de Software.
+          Este proyecto nace como parte de nuestro recorrido académico, aplicando conocimientos de diseño, desarrollo web y trabajo en equipo para dar vida a soluciones reales.
+          Creemos en el aprendizaje constante, la innovación y el compromiso con el trabajo bien hecho.
+        </p>
+      </div>
+    </section>
+
+
+    <section class="about__contacto__portfolios">
+  <div class="container">
+    <h2>Conectá con Nosotros</h2>
     <p>
-      Somos <strong>ProCoders</strong>, un equipo de estudiantes del segundo año de la Tecnicatura en Desarrollo de Software.
-      Este proyecto nace como parte de nuestro recorrido académico, aplicando conocimientos de diseño, desarrollo web y trabajo en equipo para dar vida a soluciones reales.
-      Creemos en el aprendizaje constante, la innovación y el compromiso con el trabajo bien hecho.
+      Seguinos y conocé el trabajo de cada integrante del equipo en sus perfiles de GitHub.
     </p>
-  </section>
 
-
-
-  <section class="about__section">
-  <h2 class="about__subtitle">Conectá con Nosotros</h2>
-  <p>Podés seguir el desarrollo de <strong>ProfeSort</strong> y conocer el trabajo individual de cada miembro del equipo en sus perfiles de GitHub:</p>
-
-  <ul>
-    <li><a href="https://github.com/Malvadapapa" target="_blank" rel="noopener noreferrer">Cristian Vargas</a></li>
-    <li><a href="https://github.com/danicba03" target="_blank" rel="noopener noreferrer">Daniel Nicolás Paez</a></li>
-    <li><a href="https://github.com/juangioda" target="_blank" rel="noopener noreferrer">Juan Ignacio Gioda</a></li>
-    <li><a href="https://github.com/lauzarg" target="_blank" rel="noopener noreferrer">Laura Micaela Zárate</a></li>
-    <li><a href="https://github.com/JPsanchezbrandan" target="_blank" rel="noopener noreferrer">Juan Pablo Sánchez</a></li>
-    <li><a href="https://github.com/KaryQuinteros" target="_blank" rel="noopener noreferrer">Karina Quinteros</a></li>
-  </ul>
-  
+    <div class="cards">
+      <a href="https://github.com/Malvadapapa" target="_blank" class="card">
+        <img src="../assets/img/about/github-png.png" alt="GitHub">
+        <span>Cristian Vargas</span>
+      </a>
+      <a href="https://github.com/danicba03" target="_blank" class="card">
+        <img src="../assets/img/about/github-png.png" alt="GitHub">
+        <span>Daniel Nicolás Paez</span>
+      </a>
+      <a href="https://github.com/juangioda" target="_blank" class="card">
+        <img src="../assets/img/about/github-png.png" alt="GitHub">
+        <span>Juan Ignacio Gioda</span>
+      </a> <br>
+      <a href="https://github.com/lauzarg" target="_blank" class="card">
+        <img src="../assets/img/about/github-png.png" alt="GitHub">
+        <span>Laura Micaela Zárate</span>
+      </a>
+      <a href="https://github.com/JPsanchezbrandan" target="_blank" class="card">
+        <img src="../assets/img/about/github-png.png" alt="GitHub">
+        <span>Juan Pablo Sánchez</span>
+      </a>
+      <a href="https://github.com/KaryQuinteros" target="_blank" class="card">
+        <img src="../assets/img/about/github-png.png" alt="GitHub">
+        <span>Karina Quinteros</span>
+      </a>
+    </div>
+  </div>
 </section>
 
-</main>
 
+    </section>
+
+  </main>
 
   <footer class="footer">
     <div class="footer__logo">
-        <img src="../assets/img/home/logo/ProfeSort_darkgreen.svg" alt="Clase en curso" height="200">
+      <img src="../assets/img/home/logo/ProfeSort_darkgreen.svg" alt="Clase en curso" height="100">
     </div>
     <div class="footer__links">
-      <a href="#" aria-label="Facebook">
-        <img src="../assets/img/socialmedia-icons/facebook.png" alt="Facebook">
-      </a>
-      <a href="#" aria-label="Instagram">
-        <img src="../assets/img/socialmedia-icons/instagram.png" alt="Instagram">
-      </a>
-      <a href="#" aria-label="WhatsApp">
-        <img src="../assets/img/socialmedia-icons/whatsapp.png" alt="WhatsApp">
-      </a>
+      <a href="#" aria-label="Facebook"><img src="../assets/img/socialmedia-icons/facebook.png" alt="Facebook"></a>
+      <a href="#" aria-label="Instagram"><img src="../assets/img/socialmedia-icons/instagram.png" alt="Instagram"></a>
+      <a href="#" aria-label="WhatsApp"><img src="../assets/img/socialmedia-icons/whatsapp.png" alt="WhatsApp"></a>
     </div>
     <p>&copy; 2025 ProfeSort | Plataforma Educativa. Todos los derechos reservados.</p>
   </footer>
