@@ -422,4 +422,91 @@ tr:hover {
   gap: 10px;
 }
 
+/* ===== CONTENEDORES DE LOGIN Y REGISTRO ===== */
+.login__container,
+.registro {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login__container,
+.registro__container {
+  background-color: var(--primary-dark);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-medium);
+  max-width: 400px;
+  width: 100%;
+  color: var(--white);
+  position: relative;
+  z-index: 10;
+}
+
+.registro__container {
+  max-width: 700px;
+}
+
+.login__box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.login__title,
+.registro__title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login__label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.login__input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.login__button,
+.registro__button {
+  width: 100%;
+  margin-top: 20px;
+  background-color: var(--secondary-dark);
+  color: var(--white);
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.login__button:hover,
+.registro__button:hover {
+  background-color: var(--secondary-teal);
+}
+
+.login__help {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login__help a {
+  color: var(--accent-yellow);
+  text-decoration: none;
+}
+
+.login__help a:hover {
+  text-decoration: underline;
+}
 
