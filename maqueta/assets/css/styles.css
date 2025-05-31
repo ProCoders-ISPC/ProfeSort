@@ -509,4 +509,49 @@ tr:hover {
 .login__help a:hover {
   text-decoration: underline;
 }
+/* ===== REGISTRO - FORMULARIOS RESPONSIVOS ===== */
+@media (min-width: 768px) {
+  .registro__form-row {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+  }
+
+  .registro__form-group {
+	flex: 1;
+	margin-bottom: 0;
+  }
+
+  .registro__form-group--full-width {
+	flex-basis: 100%;
+  }
+}
+
+.registro__terms {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.registro__checkbox-input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  accent-color: var(--light-blue);
+}
+
+.registro__checkbox-label {
+  color: var(--white);
+}
+
+.registro__link {
+  color: var(--light-blue);
+  text-decoration: none;
+}
+
+.registro__link:hover {
+  text-decoration: underline;
+}
 
