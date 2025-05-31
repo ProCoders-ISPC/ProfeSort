@@ -291,3 +291,21 @@ tr:hover {
   background-color: #feeae9;
   color: #e74c3c;
 }
+/* ===== BOTONES ===== */
+.btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--accent-teal);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-yellow);
+}
