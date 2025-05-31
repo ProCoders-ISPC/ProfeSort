@@ -661,6 +661,60 @@ tr:hover {
 }
 
 
+/* ===== CONTACTO ===== */
+.contacto {
+  padding: 40px;
+}
+
+.contacto-container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contacto form {
+  flex: 0 0 40%;
+  max-width: 40%;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: 100%;
+}
+
+.contacto form input,
+.contacto form textarea {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.contacto form button {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.contacto .hero-img {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  width: 400px;
+}
+
+.contacto .hero-img img,
+.contacto-img img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+  height: auto;
+}
+
+
 
 
 
