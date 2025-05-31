@@ -123,3 +123,53 @@ header nav a,
   margin-left: 20px;
   text-decoration: none;
 }
+/* ===== LAYOUT CONTAINERS ===== */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 250px;
+  background-color: var(--primary-medium);
+  color: var(--white);
+  transition: all 0.3s;
+}
+
+.sidebar-header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--primary-medium);
+}
+
+.sidebar-logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sidebar-menu {
+  padding: 20px 0;
+}
+
+.menu-item {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.menu-item:hover {
+  background-color: var(--accent-blue);
+}
+
+.menu-item.active {
+  background-color: var(--accent-teal);
+}
+
+.menu-icon {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
