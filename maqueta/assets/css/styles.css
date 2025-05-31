@@ -291,6 +291,7 @@ tr:hover {
   background-color: #feeae9;
   color: #e74c3c;
 }
+
 /* ===== BOTONES ===== */
 .btn {
   padding: 8px 15px;
@@ -309,3 +310,116 @@ tr:hover {
 .btn-primary:hover {
   background-color: var(--accent-yellow);
 }
+
+/* ===== ACCIONES ===== */
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #f1f1f1;
+}
+
+.action-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-icons i {
+  cursor: pointer;
+  font-size: 16px;
+  color: #3498db;
+  transition: color 0.2s;
+}
+
+.action-icons i:hover {
+  color: var(--text-dark);
+}
+
+/* ===== FORMULARIOS ===== */
+.form-container {
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--shadow-light);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.admin .form-container {
+  margin-bottom: 15px;
+}
+
+.form-container-docente {
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--shadow-light);
+  padding: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  min-height: 300px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.registro__form-group {
+  margin-bottom: 15px;
+}
+
+.form-label,
+.registro__label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.registro__label {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: var(--white);
+}
+
+.form-control,
+.registro__input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.registro__input {
+  border: none;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
