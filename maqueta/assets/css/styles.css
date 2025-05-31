@@ -629,6 +629,38 @@ tr:hover {
   background-color: #d5f5e3;
 }
 
+/* ===== SECCIONES DE CONTENIDO ===== */
+.novedades {
+  padding: 40px;
+  background-color: var(--background-lighter);
+}
+
+.novedades h2 {
+  margin-bottom: 30px;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: var(--white);
+  padding: 15px;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 250px;
+  box-shadow: 0 2px 4px var(--shadow-light);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+
 
 
 
