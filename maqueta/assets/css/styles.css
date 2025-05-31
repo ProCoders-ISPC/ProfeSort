@@ -186,6 +186,7 @@ header nav a,
   font-size: 24px;
   color: var(--text-dark);
 }
+
 /* ===== PERFIL DE USUARIO ===== */
 .user-profile {
   display: flex;
@@ -233,3 +234,39 @@ header nav a,
   display: flex;
   gap: 10px;
 }
+
+/* ===== TABLAS ===== */
+table,
+.docente-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.docente-table {
+  margin-top: 40px;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  font-weight: bold;
+  color: var(--text-medium);
+}
+
+.docente-table th {
+  background-color: #f0f0f0;
+  color: var(--text-dark);
+}
+
+.docente-table td {
+  background-color: var(--white);
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
