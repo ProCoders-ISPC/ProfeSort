@@ -727,87 +727,164 @@ tr:hover {
 }
 
 /* ===== ABOUT PAGE ===== */
-.about {
-  max-width: 900px;
-  margin: 40px auto 80px auto;
-  padding: 0 20px;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: var(--text-light);
-  font-family: 'Acephimere', sans-serif;
+#hero{
+  position:relative;
+  height:100vh;
+  overflow:hidden;
 }
 
-.about__section {
-  background-color: var(--primary-dark);
-  color: var(--white);
-  padding: 30px 35px;
-  border-radius: 10px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-  margin-bottom: 45px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+#hero video{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  z-index:0;
+}
+#hero .capa{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:#1c1c1c;
+  opacity:.5;
+  z-index:1;
+}
+.promo{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:#f3fef3;
+  padding:0 20px;
 }
 
-.about__section:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+.promo h1{
+  font-size:3.5rem;
+  font-weight:700;
+  margin-bottom:20px}
+
+.promo p{
+  font-size:2rem;
+  font-weight:600;
+  margin-bottom:30px
 }
 
-.about__title {
-  font-size: 2.8rem;
-  margin-bottom: 25px;
-  color: var(--accent-yellow);
+#about__button{
+  background:#e5af24;
+  border:none;border-radius:30px;
+  height:50px;width:200px;
+  font-size:1.2rem;font-weight:bold;color:#3f3f3f;
+  cursor:pointer;transition:transform .2s;
+}
+
+#about__button:hover{
+  transform:translateY(-5px)
+}
+
+#about__button:focus{
+  outline:none
+}
+
+.about__ProfeSort{
+  background:#fff;
+  color:#084c4e;
+  padding:60px 20px;
+  text-align:center;
+}
+.about__ProfeSort .about__container{
+  max-width:1000px;
+  margin:auto;
+}
+
+.about__ProfeSort h2{
+  font-size:2.5rem;
+  margin-bottom:20px
+}
+.about__ProfeSort p{
+  font-size:1.2rem;
+  line-height:1.6
+}
+
+
+
+.about__Quienes__Somos{
+  background:#fff;
+  color:#084c4e;
+  padding:60px 20px;
+  text-align:center;
+}
+.about__Quienes__Somos .about__container{
+  max-width:1000px;
+  margin:auto;
+}
+
+.about__Quienes__Somos h2{
+  font-size:2.5rem;
+  margin-bottom:20px
+}
+.about__Quienes__Somos p{
+  font-size:1.2rem;
+  line-height:1.6
+}
+
+
+.about__contacto__portfolios {
+  background: #f0f4f4;
+  color: #084c4e;
+  padding: 80px 20px;
   text-align: center;
-  letter-spacing: 1.5px;
-  font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
-.about__subtitle {
-  font-size: 1.9rem;
+.about__contacto__portfolios .about__container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.about__contacto__portfolios h2 {
+  font-size: 2.8rem;
   margin-bottom: 20px;
-  border-bottom: 3px solid var(--accent-yellow);
-  padding-bottom: 8px;
-  font-weight: 600;
 }
 
-.about__section p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  letter-spacing: 0.03em;
+.about__contacto__portfolios p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
 }
 
-.about__section ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 14px 30px;
+
+.about__contacto__portfolios .about__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
 }
 
-.about__section ul li {
-  font-size: 1.1rem;
-  background-color: rgba(255, 255, 255, 0.15);
-  padding: 10px 15px;
+.about__contacto__portfolios .about__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 160px;
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.15);
-  transition: background-color 0.3s ease;
-}
-
-.about__section ul li a {
-  color: var(--accent-yellow);
   text-decoration: none;
+  color: #084c4e;
   font-weight: 600;
-  display: block;
-  transition: color 0.3s ease;
+  font-size: 1rem;
 }
 
-.about__section ul li a:hover {
-  color: var(--white);
-  text-decoration: underline;
-  background-color: rgba(229, 175, 36, 0.3);
-  padding: 10px 15px;
-  border-radius: 8px;
+.about__contacto__portfolios .about__card img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.about__contacto__portfolios .about__card span {
+  text-align: center;
 }
 
 
@@ -990,12 +1067,3 @@ footer {
 	grid-template-columns: 1fr;
   }
 }
-
-
-
-
-
-
-
-
-
