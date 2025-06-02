@@ -124,7 +124,13 @@
           </div>
 
           <button class="registro__button" type="submit">Registrarse</button>
+          <p id="mensaje-exito" style="display:none; color: #00ffcc; text-align: center; margin-top: 15px;">
+  ¡Registro exitoso! Redirigiendo al inicio de sesión...
+</p>
         </form>
+        <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+  <a href="index.html" class="btn btn-primary">Volver al inicio</a>
+</div>
       </div>
     </section>
 
@@ -1193,5 +1199,16 @@
         </div>
       </div>
     </div>
+    <script>
+  document.querySelector(".registro__form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const mensaje = document.getElementById("mensaje-exito");
+    mensaje.style.display = "block";
+
+    setTimeout(() => {
+      window.location.href = "login.html";
+    }, 2500);
+  });
+</script>
   </body>
 </html>
