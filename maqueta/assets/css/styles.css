@@ -597,19 +597,22 @@ tr:hover {
 }
 
 .hero-text h1 {
-  margin: 10px 0;
+  margin: 10px 40px 10px 0; 
   font-size: 100px;
   font-family: 'Acephimere_Bold', sans-serif;
   font-weight: bold;
   color: var(--primary-dark);
 }
 
+
 .hero-text p {
-  width: 120%;
-  max-width: none;
+  width: 100%;               
+  max-width: 600px;          
   margin-bottom: 30px;
   color: var(--primary-dark);
+  word-wrap: break-word;     
 }
+
 
 .hero-text button {
   background-color: var(--accent-yellow);
@@ -620,11 +623,12 @@ tr:hover {
 }
 
 .hero-img img {
-  max-width: 50%;
+  max-width: 100%;
   height: auto;
   border-radius: 10px;
-  min-width: 600px;
-  margin-left: 600px;
+  margin-left: 0;        
+  margin-right: 0;
+  object-fit: contain;   
 }
 
 
