@@ -49,6 +49,7 @@ body {
   color: var(--text-light);
 }
 
+
 body.admin,
 body.panel-user {
   background-color: var(--background-light);
@@ -59,13 +60,7 @@ body.about {
   background-color: var(--background-blue);
 }
 
-body.login,
-body.register {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 /* ===== HEADERS ===== */
 header,
@@ -424,7 +419,7 @@ tr:hover {
 
 /* ===== CONTENEDORES DE LOGIN Y REGISTRO ===== */
 .login__container,
-.registro {
+.registro__container {
   position: relative;
   z-index: 10;
   display: flex;
@@ -435,26 +430,43 @@ tr:hover {
 
 .login__container,
 .registro__container {
-  background-color: var(--primary-dark);
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px var(--shadow-medium);
-  max-width: 400px;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  color: var(--white);
-  position: relative;
-  z-index: 10;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
 }
 
-.registro__container {
-  max-width: 700px;
-}
 
-.login__box {
+
+.login__box{
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 8px;
+  background-color: var(--primary-dark);
+  box-shadow: 0 4px 15px var(--shadow-medium);
+  border-radius: 10px;
+  padding: 20px;  
+  width: 100%;
+  max-width: 400px;
+  color: var(--white);
+}
+
+.registro__box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  background-color: var(--primary-dark);
+  box-shadow: 0 4px 15px var(--shadow-medium);
+  border-radius: 10px;
+  padding: 20px;  
+  width: 100%;
+  max-width: 600px;
+  color: var(--white);
 }
 
 .login__title,
