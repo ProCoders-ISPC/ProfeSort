@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark contenedor-nav-principal">
+  <div class="container-fluid">
+    <a class="navbar-brand titulo-principal m-0" href="#hola" style="font-size:2rem;"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="#hola">HOLA</a></li>
+        <li class="nav-item"><a class="nav-link" href="#conocimientos">CONOCIMIENTOS</a></li>
+        <li class="nav-item"><a class="nav-link" href="#proyectos">PROYECTOS</a></li>
+        <li class="nav-item"><a class="nav-link link-contacto-nav-principal" href="#contacto">CONTACTO</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <main>
+        
+        <section class="seccion margin-section-presentacion" id="hola">
+            <div class="contenido-presentacion">
+                <div>
+                    <p class="seccion-presentacion-saludo">¡Hola! Soy</p>
+                    <h1 class="titulo-principal">Karina Quinteros</h1>
+                    <p class="seccion-presentacion-descripcion">
+                        Estudiante de la Tecnicatura Superior en Desarrollo de Software ⏰
+                    </p>
+                    <a class="link-seccion-presentacion" href="#proyectos">LO QUE HAGO</a>
+                </div>
+                <div>
+                    <div style="width: 100%; height: 300px; background: rgba(255, 255, 255, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                        <img src="img/portofio-principal.jpg" alt="Portfolio" class="imagen-principal">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="seccion color-fondo-seccion-skills" id="conocimientos">
+            <div class="contenedor-seccion-skills">
+                <h2>Mis Conocimientos</h2>
+                <p>
+                    Estos son los conocimientos que voy adquiriendo a lo largo<br>
+                    de este hermoso camino de desafíos y aprendizajes.
+                </p>
+                <div class="contenedor-skills">
+                    <div class="skills">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">
+                            <img src="img/html-5.svg" alt="HTML" style="width: 60px; height: 60px;">
+                        </div>
+                        <p>HTML</p>
+                    </div>
+                    <div class="skills">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">
+                            <img src="img/css3.svg" alt="CSS" style="width: 60px; height: 60px;">
+                        </div>
+                        <p>CSS</p>
+                    </div>
+                    <div class="skills">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">
+                           <img src="img/js.webp" alt="JS" style="width: 60px; height: 60px;"> 
+                        </div>
+                        <p>JavaScript</p>
+                    </div>
+                    <div class="skills">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">
+                            <img src="img/python.png" alt="Python" style="width: 60px; height: 60px;">
+                        </div>
+                        <p>Python</p>
+                    </div>
+                    <div class="skills">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">
+                            <img src="img/git.svg" alt="Git" style="width: 60px; height: 60px;">
+                        </div>
+                        <p>Git</p>
+                    </div>
+                    <div class="skills">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">
+                            <img src="img/github.png" alt="Github" style="width: 60px; height: 60px;">
+                        </div>
+                        <p>GitHub</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <blockquote class="seccion color-fondo-cita">
+            <div class="contenedor-cita">
+                <i aria-hidden="true" class="fa fa-quote-right"></i>
+                <div class="texto-cita">
+                    <p>
+                        El éxito no se mide por lo alto que hayas llegado, sino por cuántas veces te levantaste después de caer.<br>
+                        Never give up!
+                    </p>
+                </div>
+                <p class="nombre-autor-cita">Autor desconocido</p>
+            </div>
+        </blockquote>
+
+        
+        <section class="seccion" id="proyectos">
+            <div>
+                <h2>Mis proyectos</h2>
+                <p class="texto-seccion-proyectos">
+                    En esta sección podés visualizar mis desarrollos<br>
+                    más recientes.
+                </p>
+
+                <div class="contenedor-cards-proyectos">
+                    <a href="https://github.com/KaryQuinteros/Portfolio" class="cards-proyectos" target="_blank">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">💼</div>
+                        <p>Portfolio</p>
+                    </a>
+                    
+                    <a href="https://github.com/ProCoders-ISPC/sistemas-operativos" class="cards-proyectos" target="_blank">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">🛠️</div>
+                        <p>Toolkit-linux</p>
+                    </a>
+                    
+                    <a href="https://github.com/Innovacoders-devs/ArgBroker" class="cards-proyectos" target="_blank">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">💰</div>
+                        <p>ArgBroker</p>
+                    </a>
+
+                    <a href="https://github.com/ProCoders-ISPC/ProfeSort" class="cards-proyectos" target="_blank">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">📚</div>
+                        <p>ProfeSort</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="seccion-contacto-formulario" id="contacto">
+            <div class="contenedor-contactame-escribime">
+                
+                <div class="apartado-contactame">
+                    <h2>Contactame</h2>
+                    <p>
+                        ¿Tenés alguna idea en mente y querés verla materializada? Buscame por mis redes, escribime y ¡charlamos!
+                    </p>
+                    <section class="contenedor-links-redes">
+                        <h2 class="visually-hidden">Redes sociales</h2>
+                        <ul class="links-redes-sociales">
+                            
+                            <li>
+                                <a aria-label="github" href="https://github.com/KaryQuinteros" target="_blank">
+                                    <i class="fa fa-github"></i>
+                                    Github
+                                </a>
+                            </li>
+                            <li>
+                                <a aria-label="linkedin" href="https://www.linkedin.com/in/karina-quinteros-690953121/" target="_blank">
+                                    <i class="fa fa-linkedin"></i>
+                                    Linkedin
+                                </a>
+                            </li>
+                            <li>
+                                <a aria-label="gmail" href="mailto:karinaq38@gmail.com" target="_blank">
+                                    <i class="fa fa-envelope"></i>
+                                    Email
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+
+               
+                <div class="apartado-escribime">
+                    <h2>Escribime</h2>
+                    <form class="apartado-escribime" action="#">
+                        <div class="campos-nombre-apellido">
+                            <div class="campo-nombre">
+                                <label for="nombre">Nombre *</label>
+                                <input type="text" name="nombre" id="nombre" placeholder="Por ej: Juan">
+                            </div>
+                            <div>
+                                <label for="apellido">Apellido *</label>
+                                <input type="text" name="apellido" id="apellido" placeholder="Por ej: Perez">
+                            </div>
+                        </div>
+
+                        <label for="email">Email *</label>
+                        <input type="email" name="email" id="email" placeholder="Por ej: juanperez@gmail.com">
+
+                        <label for="mensaje">Mensaje *</label>
+                        <textarea name="mensaje" id="mensaje" cols="30" rows="10" placeholder="Escriba su mensaje aquí"></textarea>
+
+                        <input class="enviar-formulario" type="submit" name="enviar" value="Enviar">
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+  
+    <footer class="seccion color-fondo-footer">
+        <div class="contenedor-footer">
+            <div class="lista-principal-footer">
+                <ul>
+                    <li><a href="#hola">HOLA</a></li>
+                    <li><a href="#conocimientos">CONOCIMIENTOS</a></li>
+                    <li><a href="#proyectos">PROYECTOS</a></li>
+                    <li><a href="#contacto">CONTACTO</a></li>
+                </ul>
+            </div>
+            <div class="lista-redes-sociales-footer">
+                <ul>
+                    <li>
+                        <a aria-label="github" href="#" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a aria-label="linkedin" href="#" target="_blank">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a aria-label="gmail" href="#" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p>Hecho con 💜 por Karina Quinteros</p>
+        </div>
+    </footer>
+
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/bubbles.js"></script>
+</body>
+</html>
