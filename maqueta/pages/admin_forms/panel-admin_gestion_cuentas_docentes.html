@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel Administrativo</title>
-  <link rel="stylesheet" href="../../assets/css/admin.css" >
+  <link rel="stylesheet" href="../../assets/css/styles.css" >
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -65,7 +65,7 @@
         	</div>
      <div class="form-container">
 			<div class="table-header">
-          <div class="table-title">Formulario Docente</div>
+          <div class="table-title" id="form-title">Formulario Docente</div>
         </div>
         <form id="docente-form">
           <div class="form-group">
@@ -89,8 +89,8 @@
             <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
           </div>
           <div class="form-actions">
-            <button type="reset" class="btn">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn" id="cancel-btn">Cancelar</button>
+            <button type="submit" class="btn btn-primary" id="save-btn">Guardar</button>
           </div>
         </form>
                 <div class="table-header">
@@ -108,78 +108,190 @@
               </tr>
             </thead>
             <tbody id="docente-list">
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-<div></div>
-
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 	<script>
-    
-    	document.getElementById('sidebarToggle').addEventListener('click', function() {
-        	document.getElementById('sidebar').classList.toggle('active');
-    	});
-   	 
-    	const menuItems = document.querySelectorAll('.menu-item');
-    	menuItems.forEach(item => {
-        	item.addEventListener('click', function() {
-            	menuItems.forEach(i => i.classList.remove('active'));
-            	this.classList.add('active');
-        	});
-    	});
 
-      function editarDocente(id) {
-        alert('Editando docente con ID: ' + id);
+    let docentes = [
+      {
+        id: 1,
+        name: "Karina del Valle Quinteros",
+        email: "karinaq38@gmail.com",
+        legajo: "DOC001",
+        estado: "Activo"
+      },
+      {
+        id: 2,
+        name: "Juan Pablo Sanchez Brandán",
+        email: "sanchezbrandan@gmail.com",
+        legajo: "DOC002",
+        estado: "Activo"
+      },
+      {
+        id: 3,
+        name: "Juanm Ignacio Gioda",
+        email: "juangioda@gmail.com",
+        legajo: "DOC003",
+        estado: "Inactivo"
+      },
+      {
+        id: 4,
+        name: "Daniel Nicolas Paez",
+        email: "dani.mercadolibre03@gmail.com",
+        legajo: "DOC004",
+        estado: "Activo"
       }
+    ];
 
-      function eliminarDocente(id) {
-        if (confirm('¿Está seguro de que desea eliminar este docente?')) {
-          alert('Eliminando docente con ID: ' + id);
-        }
-      }
+    let editingId = null;
 
 
-      document.getElementById('docente-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const legajo = document.getElementById('legajo').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
-
-        if (password !== confirmPassword) {
-          alert('Las contraseñas no coinciden');
-          return;
-        }
-
-        const tbody = document.getElementById('docente-list');
+    function renderTable() {
+      const tbody = document.getElementById('docente-list');
+      tbody.innerHTML = '';
+      
+      docentes.forEach(docente => {
         const newRow = document.createElement('tr');
-        const newId = Date.now(); 
+        const estadoBadge = docente.estado === 'Activo' ? 
+          '<span class="badge bg-success">Activo</span>' : 
+          '<span class="badge bg-secondary">Inactivo</span>';
         
         newRow.innerHTML = `
-          <td>${name}</td>
-          <td>${email}</td>
-          <td>${legajo}</td>
-          <td><span class="badge bg-success">Activo</span></td>
+          <td>${docente.name}</td>
+          <td>${docente.email}</td>
+          <td>${docente.legajo}</td>
+          <td>${estadoBadge}</td>
           <td>
-            <button class="btn btn-sm btn-outline-primary me-1" onclick="editarDocente(${newId})">
+            <button class="btn btn-sm btn-outline-primary me-1" onclick="editarDocente(${docente.id})">
               <i class="fas fa-edit"></i> Editar
             </button>
-            <button class="btn btn-sm btn-outline-danger" onclick="eliminarDocente(${newId})">
+            <button class="btn btn-sm btn-outline-danger" onclick="eliminarDocente(${docente.id})">
               <i class="fas fa-trash"></i> Eliminar
             </button>
           </td>
         `;
         
         tbody.appendChild(newRow);
-      
-        this.reset();
-        
-        alert('Docente agregado exitosamente');
       });
-	</script>
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      renderTable();
+    });
+    
+    document.getElementById('sidebarToggle').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('active');
+    });
+   	 
+
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+      item.addEventListener('click', function() {
+        menuItems.forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    function editarDocente(id) {
+      const docente = docentes.find(d => d.id === id);
+      if (docente) {
+        editingId = id;
+        
+        document.getElementById('form-title').textContent = 'Editar Docente';
+        
+        document.getElementById('name').value = docente.name;
+        document.getElementById('email').value = docente.email;
+        document.getElementById('legajo').value = docente.legajo;
+        document.getElementById('password').value = '••••••••'; 
+        document.getElementById('confirm-password').value = '••••••••';
+        
+
+        document.getElementById('save-btn').textContent = 'Actualizar';
+        
+
+        document.getElementById('docente-form').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+
+    function eliminarDocente(id) {
+      const docente = docentes.find(d => d.id === id);
+      if (docente && confirm(`¿Está seguro de que desea eliminar al docente "${docente.name}"?`)) {
+
+        docentes = docentes.filter(d => d.id !== id);
+        
+
+        renderTable();
+        
+
+        alert('Docente eliminado exitosamente');
+      }
+    }
+
+
+    function resetForm() {
+      editingId = null;
+      document.getElementById('form-title').textContent = 'Formulario Docente';
+      document.getElementById('save-btn').textContent = 'Guardar';
+      document.getElementById('docente-form').reset();
+    }
+
+    document.getElementById('cancel-btn').addEventListener('click', function() {
+      resetForm();
+    });
+
+
+    document.getElementById('docente-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const legajo = document.getElementById('legajo').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword && password !== '••••••••') {
+        alert('Las contraseñas no coinciden');
+        return;
+      }
+
+      if (editingId) {
+
+        const index = docentes.findIndex(d => d.id === editingId);
+        if (index !== -1) {
+          docentes[index] = {
+            ...docentes[index],
+            name: name,
+            email: email,
+            legajo: legajo
+          };
+          alert('Docente actualizado exitosamente');
+        }
+      } else {
+
+        const newDocente = {
+          id: Date.now(),
+          name: name,
+          email: email,
+          legajo: legajo,
+          estado: "Activo"
+        };
+        
+        docentes.push(newDocente);
+        alert('Docente agregado exitosamente');
+
+      renderTable();
+      resetForm();
+    }
+  });
+
+  </script>
 </body>
 </html>
