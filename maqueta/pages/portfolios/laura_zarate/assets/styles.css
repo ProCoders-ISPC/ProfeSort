@@ -14,11 +14,14 @@
   font-size: 16px;
 }
 
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -351,8 +354,6 @@ footer {
     transform: translateY(-7px) rotate(-45deg);
   }
 
-
-
   .section {
     padding: 40px 10px;
   }
@@ -361,7 +362,6 @@ footer {
     padding: 15px;
   }
 
-  
   .hamburger.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
