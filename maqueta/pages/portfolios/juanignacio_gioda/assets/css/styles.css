@@ -104,7 +104,9 @@ nav a:hover {
     }
 
     .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+        max-width: 600px;
     }
 
     .project-card {
@@ -199,6 +201,12 @@ nav a:hover {
     #hero p {
         font-size: 1rem;
     }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        max-width: 300px;
+    }
 }
 
 #hero h1 {
@@ -244,21 +252,23 @@ h2 {
 }
 
 .projects-grid {
-    display: flex; /* Cambiamos a flexbox para mejor control */
-    justify-content: center; /* Centramos horizontalmente */
-    align-items: center; /* Centramos verticalmente */
-    gap: 2rem; /* Espacio entre tarjetas */
-    flex-wrap: wrap; /* Por si no caben en una línea */
-    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 900px;
     margin: 0 auto;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
 }
 
 .project-card {
     box-sizing: border-box;
     width: 190px;
     height: 254px;
+    margin: 0 auto;
     background: var(--color3);
-    border: none; /* Remove white border */
+    border: none; 
     backdrop-filter: blur(6px);
     border-radius: 17px;
     text-align: center;
@@ -277,7 +287,7 @@ h2 {
 
 .project-card:hover {
     transform: scale(1.05);
-    background: var(--color5); /* Optional: change background on hover */
+    background: var(--color5); 
 }
 
 .project-card:active {
@@ -296,7 +306,7 @@ h2 {
     font-size: 1.2rem;
 }
 
-/* Update media queries for responsive design */
+
 @media (max-width: 768px) {
     .project-card {
         width: 170px;
@@ -413,4 +423,37 @@ footer {
     .skills-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+}
+
+.navbar {
+    background-color: var(--color4) !important;
+}
+
+.navbar-brand {
+    color: var(--color5) !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.nav-link {
+    color: var(--color5) !important;
+    font-weight: 700;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--color3) !important;
+}
+
+.btn-primary {
+    background-color: var(--color5) !important;
+    border-color: var(--color5) !important;
+    color: var(--color4) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--color3) !important;
+    border-color: var(--color3) !important;
+    color: var(--color1) !important;
 }
