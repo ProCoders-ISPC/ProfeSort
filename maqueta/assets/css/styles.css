@@ -1,71 +1,13 @@
+@import url('./base/reset.css');
+@import url('./base/variables.css');
 @import url('./components/buttons.css');
 @import url('./components/footer.css');
 @import url('./components/background.css');
-@import url('./components/forms.css'); /* Agrega esta línea */
+@import url('./components/forms.css'); 
 
 @import url('./pages/register.css');
 @import url('./pages/login.css');
 
-/* ===== RESET Y CONFIGURACIÓN BASE ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 16px;
-}
-
-/* ===== TIPOGRAFÍAS ===== */
-@font-face {
-  font-family: "Acephimere";
-  src: url("../fonts/Acephimere.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* ===== VARIABLES DE COLOR (como custom properties) ===== */
-:root {
-  --primary-dark: #084c4e;
-  --primary-medium: #043237;
-  --primary-light: #4b8f8c;
-  --accent-blue: #3abdcc;
-  --accent-teal: #0f8795;
-  --accent-yellow: #e5af24;
-  --secondary-dark: #0a2826;
-  --secondary-teal: #007d80;
-  --light-blue: #80dfff;
-  --background-light: #f5f5f5;
-  --background-lighter: #f6f6f6;
-  --background-blue: #d6ecec;
-  --text-dark: #2c3e50;
-  --text-medium: #7f8c8d;
-  --text-light: #222;
-  --border-color: #ddd;
-  --shadow-light: rgba(0, 0, 0, 0.1);
-  --shadow-medium: rgba(0, 0, 0, 0.2);
-  --white: #ffffff;
-}
-
-/* ===== ESTILOS BASE DEL BODY ===== */
-body {
-  font-family: "Acephimere", sans-serif;
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--text-light);
-}
-
-body.admin,
-body.panel-user {
-  background-color: var(--background-light);
-  color: var(--secondary-dark);
-}
-
-body.about {
-  background-color: var(--background-blue);
-}
 
 /* ===== HEADERS ===== */
 header,
@@ -516,8 +458,11 @@ tr:hover {
   }
 
   .contacto .hero-img {
-    flex: none; 
+    display: none;
+  }
+  .contacto .form {
+    width: 100%;
     max-width: 100%;
-    flex-basis: auto; 
+    flex-basis: 100%;
   }
 }
