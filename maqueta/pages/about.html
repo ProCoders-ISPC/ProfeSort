@@ -6,17 +6,34 @@
   <title>Quiénes Somos</title>
   <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
-<body>
+<body class="about">
 
   <header>
     <div class="logo">
       <img src="../assets/img/home/logo/ProfeSort_yellow.svg" alt="Clase en curso" height="80">
     </div>
-    <nav>
+    
+    <!-- Navegación normal para desktop -->
+    <nav class="header__nav-desktop">
       <a href="../index.html">Inicio</a>
-      <a href="../pages/register.html" >Registro</a>
-      <a href="../pages/login.html" >Iniciar Sesión</a>
+      <a href="../pages/register.html">Registro</a>
+      <a href="../pages/login.html">Iniciar Sesión</a>
     </nav>
+    
+    <!-- Menú hamburguesa para móvil -->
+    <div class="header__burger">
+      <input type="checkbox" id="header-burger-checkbox" class="header__burger-checkbox">
+      <label for="header-burger-checkbox" class="header__burger-toggle">
+        <div class="header__burger-bar"></div>
+        <div class="header__burger-bar"></div>
+        <div class="header__burger-bar"></div>
+      </label>
+      <nav class="header__nav-mobile">
+        <a href="../index.html">Inicio</a>
+        <a href="../pages/register.html">Registro</a>
+        <a href="../pages/login.html">Iniciar Sesión</a>
+      </nav>
+    </div>
   </header>
 
   <main>
@@ -30,7 +47,7 @@
       <div class="promo">
         <h1>ProfeSort</h1>
         <p>Herramienta administrativa para el Plan Fines</p>
-        <button id="about__button"  type="button" onclick="document.getElementById('profesort').scrollIntoView({ behavior: 'smooth' });">Conocer más</button>
+        <button id="about__button" type="button" onclick="document.getElementById('profesort').scrollIntoView({ behavior: 'smooth' });">Conocer más</button>
       </div>
     </section>
 
@@ -39,7 +56,7 @@
         <h2>¿Qué es ProfeSort?</h2>
         <p>
           <strong>ProfeSort</strong> es una plataforma educativa diseñada para docentes del Plan Fines. Facilita la gestión de inscripciones, asignaciones y el seguimiento académico de los estudiantes de forma clara y eficiente.
-      Con una interfaz amigable y funcionalidades enfocadas en el aula, nuestro objetivo es que cada profesor pueda dedicar más tiempo a enseñar, y menos a tareas administrativas.
+        Con una interfaz amigable y funcionalidades enfocadas en el aula, nuestro objetivo es que cada profesor pueda dedicar más tiempo a enseñar, y menos a tareas administrativas.
         </p>
       </div>
     </section>
@@ -55,44 +72,40 @@
       </div>
     </section>
 
-
     <section class="about__contacto__portfolios">
-  <div class="about__container">
-    <h2>Conectá con Nosotros</h2>
-    <p>
-      Seguinos y conocé el trabajo de cada integrante del equipo en sus perfiles de GitHub.
-    </p>
+      <div class="about__container">
+        <h2>Conectá con Nosotros</h2>
+        <p>
+          Seguinos y conocé el trabajo de cada integrante del equipo en sus perfiles de GitHub.
+        </p>
 
-    <div class="about__cards">
-      <a href="https://github.com/Malvadapapa" target="_blank" class="about__card">
-        <img src="../assets/img/about/github-png.png" alt="GitHub">
-        <span>Cristian Vargas</span>
-      </a>
-      <a href="https://github.com/danicba03" target="_blank" class="about__card">
-        <img src="../assets/img/about/github-png.png" alt="GitHub">
-        <span>Daniel Nicolás Paez</span>
-      </a>
-      <a href="https://github.com/juangioda" target="_blank" class="about__card">
-        <img src="../assets/img/about/github-png.png" alt="GitHub">
-        <span>Juan Ignacio Gioda</span>
-      </a> <br>
-      <a href="https://github.com/lauzarg" target="_blank" class="about__card">
-        <img src="../assets/img/about/github-png.png" alt="GitHub">
-        <span>Laura Micaela Zárate</span>
-      </a>
-      <a href="https://github.com/JPsanchezbrandan" target="_blank" class="about__card">
-        <img src="../assets/img/about/github-png.png" alt="GitHub">
-        <span>Juan Pablo Sánchez</span>
-      </a>
-      <a href="https://github.com/KaryQuinteros" target="_blank" class="about__card">
-        <img src="../assets/img/about/github-png.png" alt="GitHub">
-        <span>Karina Quinteros</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-
+        <div class="about__cards">
+          <a href="https://github.com/Malvadapapa" target="_blank" class="about__card">
+            <img src="../assets/img/about/github-png.png" alt="GitHub">
+            <span>Cristian Vargas</span>
+          </a>
+          <a href="https://github.com/danicba03" target="_blank" class="about__card">
+            <img src="../assets/img/about/github-png.png" alt="GitHub">
+            <span>Daniel Nicolás Paez</span>
+          </a>
+          <a href="https://github.com/juangioda" target="_blank" class="about__card">
+            <img src="../assets/img/about/github-png.png" alt="GitHub">
+            <span>Juan Ignacio Gioda</span>
+          </a>
+          <a href="https://github.com/lauzarg" target="_blank" class="about__card">
+            <img src="../assets/img/about/github-png.png" alt="GitHub">
+            <span>Laura Micaela Zárate</span>
+          </a>
+          <a href="https://github.com/JPsanchezbrandan" target="_blank" class="about__card">
+            <img src="../assets/img/about/github-png.png" alt="GitHub">
+            <span>Juan Pablo Sánchez</span>
+          </a>
+          <a href="https://github.com/KaryQuinteros" target="_blank" class="about__card">
+            <img src="../assets/img/about/github-png.png" alt="GitHub">
+            <span>Karina Quinteros</span>
+          </a>
+        </div>
+      </div>
     </section>
 
   </main>
