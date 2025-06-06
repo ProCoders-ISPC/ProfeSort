@@ -114,11 +114,11 @@
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 10px; /* o 12px según tu última configuración */
+  padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 16px;
-  box-sizing: border-box; /* Muy importante para que width: 100% incluya padding y borde */
+  box-sizing: border-box;
   font-family: inherit;
 }
 
@@ -186,6 +186,27 @@
   top: 20px;
   left: 20px;
   z-index: 1000;
+}
+
+/* ===== BOTÓN PRINCIPAL DE FORMULARIO ===== */
+.form-primary-button {
+  width: 100%;
+  padding: 14px 0;
+  background-color: var(--primary-darker, #063c3e); 
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+.form-primary-button:hover,
+.form-primary-button:focus {
+  background-color: var(--primary-dark, #084c4e);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -266,24 +287,4 @@
     font-size: 1.2rem;
     margin-bottom: 16px;
   }
-}
-
-.form-primary-button {
-  width: 100%;
-  padding: 14px 0;
-  background-color: var(--primary-darker, #063c3e); 
-  color: var(--white);
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-  margin-top: 10px;
-  box-sizing: border-box;
-}
-
-.form-primary-button:hover,
-.form-primary-button:focus {
-  background-color: var(--primary-dark, #084c4e);
 }
