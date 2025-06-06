@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cristian Vargas - Desarrollo Web & Apps</title>
+    <meta name="title" content="Cristian Vargas - Desarrollo Web & Apps">
+    <meta name="description" content="Diseño y desarrollo tu app web, mobile o de escritorio con tecnologias modernas. ¿Charlamos?">
+
+    <link rel="icon" href="assets/images/meta-data/profile-icon.png" type="image/png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cristianvargas.vercel.app/">
+    <meta property="og:title" content="Cristian Vargas - Desarrollo Web & Apps">
+    <meta property="og:description" content="Diseño y desarrollo tu app web, mobile o de escritorio con tecnologias modernas. ¿Charlamos?">
+    <meta property="og:image" content="https://cristianvargas.vercel.app/assets/images/meta-data/profile-baner.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cristianvargas.vercel.app/">
+    <meta property="twitter:title" content="Cristian Vargas - Desarrollo Web & Apps">
+    <meta property="twitter:description" content="Diseño y desarrollo tu app web, mobile o de escritorio con tecnologias modernas. ¿Charlamos?">
+    <meta property="twitter:image" content="https://cristianvargas.vercel.app/assets/images/meta-data/profile-baner.png">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="header__logo">
+                <img src="assets/images/header-logo/logo-light-theme.png" alt="Logo Cristian Vargas" id="site-logo">
+            </a>
+            <nav class="header__nav">
+                <ul class="header__list">
+                    <li class="header__item"><a href="pages/about.html" class="header__link">Sobre Mi</a></li>
+                    <li class="header__item">
+                        <a href="https://drive.google.com/file/d/1QWBX72jzV664El7PdRLUHfQmXtWlN_1b/view?usp=sharing" class="btn" target="_blank">
+                            Curriculum
+                            <ion-icon name="download-outline" class="btn-icon"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <button class="header__toggle" id="theme-toggle" aria-label="Cambiar tema">
+                <span class="toggle-circle">
+                    <ion-icon class="toggle-sun" name="sunny"></ion-icon>
+                    <ion-icon class="toggle-moon" name="moon"></ion-icon>
+                </span>
+            </button>
+            <div class="header__hamburger" id="hamburger">
+                <span class="header__line"></span>
+                <span class="header__line"></span>
+                <span class="header__line"></span>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+
+        <section id="home" class="section section--hero fade-in">
+            <div class="hero hero--row">
+                <div class="hero__content">
+                    <h2 class="hero__title hero__title--animated">
+                      <span class="static-title">Desarrollador</span>
+                      <span class="dropping-texts">
+                        <span>Full Stack</span>
+                        <span>Frontend</span>
+                        <span>Backend</span>
+                        <span>Mobile</span>  
+                        <span>IoT</span>     
+                      </span>
+                    </h2>
+                    <p class="hero__description">
+                        Amo la tecnologia, la programacion me apasiona.
+                        Siempre estoy enfocado en encontrar soluciones.
+                    </p>
+                    <div class="hero__buttons">
+                        <a href="#projects" class="btn">
+                            Ver Proyectos
+                            <ion-icon name="code-outline" class="btn-icon"></ion-icon>
+                        </a>
+                        <a href="#contact" class="btn">
+                            Contacto
+                            <ion-icon name="mail-outline" class="btn-icon"></ion-icon>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero__image-container">
+                    <span class="hero__image-animated-border"></span>
+                    <img 
+                        src="assets/images/hero/profile-img.webp" 
+                        alt="Foto de Cristian Vargas" 
+                        class="hero__profile-img hero__profile-img--large"
+                    >
+                </div>
+            </div>
+        </section>
+
+
+        <section id="skills" class="section section--skills fade-in">
+            <h2 class="section__title">Skills</h2>
+            <div class="tech-icons">
+                <div class="tech-icon html-icon">
+                    <ion-icon name="logo-html5"></ion-icon>
+                    <span>HTML</span>
+                </div>
+                <div class="tech-icon css-icon">
+                    <ion-icon name="logo-css3"></ion-icon>
+                    <span>CSS</span>
+                </div>
+                <div class="tech-icon js-icon">
+                    <ion-icon name="logo-javascript"></ion-icon>
+                    <span>JavaScript</span>
+                </div>
+                <div class="tech-icon angular-icon">
+                    <ion-icon name="logo-angular"></ion-icon>
+                    <span>Angular</span>
+                </div>
+                <div class="tech-icon node-icon">
+                    <ion-icon name="logo-nodejs"></ion-icon>
+                    <span>Node.js</span>
+                </div>
+                <div class="tech-icon python-icon">
+                    <ion-icon name="logo-python"></ion-icon>
+                    <span>Python</span>
+                </div>
+                <div class="tech-icon flask-icon">
+                    <ion-icon name="flask-outline"></ion-icon> 
+                    <span>Flask</span>
+                </div>
+                <div class="tech-icon sql-icon">
+                    <ion-icon name="server-outline"></ion-icon>
+                    <span>SQL</span>
+                </div>
+                <div class="tech-icon git-icon">
+                    <ion-icon name="git-branch-outline"></ion-icon>
+                    <span>Git</span>
+                </div>
+                <div class="tech-icon scrum-icon">
+                    <ion-icon name="sync-outline"></ion-icon>
+                    <span>Scrum</span>
+                </div>
+            </div>
+        </section>
+
+  
+        <section id="projects" class="section section--projects slide-in-left">
+            <h2 class="section__title">Mis Proyectos</h2>
+            
+
+            <div class="swiper projectsSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="projects">
+                            <div class="project">
+                                <div class="project__image">
+                                    <img src="assets/images/projects/github-portfolio-js.png" alt="Portafolio Web Personal">
+                                </div>
+                                <div class="project__content">
+                                    <h3 class="project__title">Portafolio Web Personal</h3>
+                                    <p class="section__description">
+                                        Sitio web personal diseñado para mostrar proyectos, habilidades y experiencia como desarrollador. Cuenta con un diseño adaptable a diferentes dispositivos, modo oscuro/claro, navegación intuitiva y efectos visuales atractivos.
+                                    </p>
+                                    <div class="project__tags">
+                                        <span class="tag">HTML</span>
+                                        <span class="tag">CSS</span>
+                                        <span class="tag">JavaScript</span>
+                                    </div>
+                                    <div class="project__links">
+                                        <a href="https://cristianvargas.vercel.app" class="btn" target="_blank">
+                                            Ver Demo
+                                            <ion-icon name="open-outline" class="btn-icon"></ion-icon>
+                                        </a>
+                                        <a href="https://github.com/Malvadapapa/portfolio-js" class="btn" target="_blank">
+                                            Código del Proyecto
+                                            <ion-icon name="logo-github" class="btn-icon"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project">
+                                <div class="project__image">
+                                    <img src="assets/images/projects/github-ecomerce-js.png" alt="PurpleSky Store">
+                                </div>
+                                <div class="project__content">
+                                    <h3 class="project__title">PurpleSky Store</h3>
+                                    <p class="section__description">
+                                        Tienda en línea especializada en moda urbana y skateboarding. Ofrece una experiencia de compra fluida con funcionalidades como carrito de compras, registro de usuarios y promociones destacadas.
+                                    </p>
+                                    <div class="project__tags">
+                                        <span class="tag">HTML</span>
+                                        <span class="tag">CSS</span>
+                                        <span class="tag">JavaScript</span>
+                                    </div>
+                                    <div class="project__links">
+                                        <a href="https://purplesky.vercel.app" class="btn" target="_blank">
+                                            Ver Demo
+                                            <ion-icon name="open-outline" class="btn-icon"></ion-icon>
+                                        </a>
+                                        <a href="https://github.com/Malvadapapa/purpleSkyStore" class="btn" target="_blank">
+                                            Código del Proyecto
+                                            <ion-icon name="logo-github" class="btn-icon"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project">
+                                <div class="project__image">
+                                    <img src="assets/images/projects/github-backend-bomba-agua.png" alt="Sistema de Control de Bomba de Agua - Backend">
+                                </div>
+                                <div class="project__content">
+                                    <h3 class="project__title">Sistema de Control de Bomba de Agua - Backend</h3>
+                                    <p class="section__description">
+                                        Backend desarrollado en Python utilizando Flask para gestionar el funcionamiento de una bomba de agua mediante sensores y comunicación MQTT. Permite la automatización y monitoreo del sistema en tiempo real.
+                                    </p>
+                                    <div class="project__tags">
+                                        <span class="tag">Python</span>
+                                        <span class="tag">Flask</span>
+                                        <span class="tag">MQTT</span>
+                                    </div>
+                                    <div class="project__links">
+                                        <a href="https://github.com/Malvadapapa/backend-bomba-agua" class="btn" target="_blank">
+                                            Código del Proyecto
+                                            <ion-icon name="logo-github" class="btn-icon"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="projects">
+                            <div class="project">
+                                <div class="project__image">
+                                    <img src="assets/images/projects/github-argbroker.png" alt="ArgBroker">
+                                </div>
+                                <div class="project__content">
+                                    <h3 class="project__title">ArgBroker</h3>
+                                    <p class="section__description">
+                                        Aplicación de consola desarrollada en Python para gestionar inversiones bursátiles. Permite a los usuarios registrar cuentas, iniciar sesión, visualizar su portafolio de activos y realizar operaciones de compra y venta de acciones.
+                                    </p>
+                                    <div class="project__tags">
+                                        <span class="tag">Python</span>
+                                        <span class="tag">MySQL</span>
+                                        <span class="tag">SOLID</span>
+                                    </div>
+                                    <div class="project__links">
+                                        <a href="https://github.com/Innovacoders-devs/ArgBroker" class="btn" target="_blank">
+                                            Código del Proyecto
+                                            <ion-icon name="logo-github" class="btn-icon"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project">
+                                <div class="project__image">
+                                    <img src="assets/images/projects/wokwi-bomba-agua.png" alt="Simulación de Control de Bomba de Agua">
+                                </div>
+                                <div class="project__content">
+                                    <h3 class="project__title">Simulación de Control de Bomba de Agua</h3>
+                                    <p class="section__description">
+                                        Simulación interactiva de un sistema de control de bomba de agua utilizando MicroPython en la plataforma Wokwi. El sistema integra sensores de temperatura y humedad, control de motor, pantalla OLED y comunicación MQTT.
+                                    </p>
+                                    <div class="project__tags">
+                                        <span class="tag">MicroPython</span>
+                                        <span class="tag">MQTT</span>
+                                        <span class="tag">Wokwi</span>
+                                        <span class="tag">IoT</span>
+                                    </div>
+                                    <div class="project__links">
+                                        <a href="https://wokwi.com/projects/422873688765137921" class="btn" target="_blank">
+                                            Ver Demo
+                                            <ion-icon name="open-outline" class="btn-icon"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project">
+                                <div class="project__image">
+                                    <img src="assets/images/projects/wokwi-sensor-ambiental.png" alt="Sistema de Monitoreo Ambiental">
+                                </div>
+                                <div class="project__content">
+                                    <h3 class="project__title">Sistema de Monitoreo Ambiental</h3>
+                                    <p class="section__description">
+                                        Simulación de un sistema de control ambiental que utiliza un sensor DHT para medir temperatura y humedad. Los datos se visualizan en una pantalla OLED, y se utiliza una barra de LED para representar el nivel de humedad.
+                                    </p>
+                                    <div class="project__tags">
+                                        <span class="tag">MicroPython</span>
+                                        <span class="tag">Wokwi</span>
+                                        <span class="tag">IoT</span>
+                                        <span class="tag">Sensores</span>
+                                    </div>
+                                    <div class="project__links">
+                                        <a href="https://wokwi.com/projects/413649035582706689" class="btn" target="_blank">
+                                            Ver Demo
+                                            <ion-icon name="open-outline" class="btn-icon"></ion-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="swiper-pagination projects-pagination"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="section section--contact slide-in-right">
+            <h2 class="section__title">Como contactarme</h2>
+            <div class="contact">
+                <div class="contact__text">
+                    <p class="section__description">
+                      Siempre estoy con ganas de conocer nuevos proyectos, ideas  u oportunidades, si querés charlar, colaborar o simplemente saludar, no dudes en escribirme! ¡Estoy atento!
+                    </p>
+                </div>
+                <div class="contact__links">
+                    <div class="contact__methods">
+                        <div class="contact__method">
+                            <ion-icon name="mail-outline" class="contact__icon"></ion-icon>
+                            <a href="mailto:cristian.v62@gmail.com" class="contact__link">cristian.v62@gmail.com</a>
+                        </div>
+                        <div class="contact__method">
+                            <ion-icon name="logo-linkedin" class="contact__icon"></ion-icon>
+                            <a href="https://www.linkedin.com/in/cristian-vargas-npm/" target="_blank" class="contact__link">LinkedIn Profile</a>
+                        </div>
+                        <div class="contact__method">
+                            <ion-icon name="logo-github" class="contact__icon"></ion-icon>
+                            <a href="https://github.com/Malvadapapa" target="_blank" class="contact__link">GitHub Profile</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__content">
+                <p>© 2025 <span class="malvada">Malvada</span> <span class="papa">Papa</span>. Todos los derechos reservados.</p>
+            </div>
+            <div class="footer__links">
+                <a href="https://www.linkedin.com/in/cristian-vargas-npm/" target="_blank" class="footer__link">
+                    <ion-icon name="logo-linkedin"></ion-icon>
+                </a>
+                <a href="https://github.com/Malvadapapa" target="_blank" class="footer__link">
+                    <ion-icon name="logo-github"></ion-icon>
+                </a>
+                <a href="https://x.com/malvada_papa" target="_blank" class="footer__link">
+                    <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="src/main.js"></script>
+</body>
+</html>
