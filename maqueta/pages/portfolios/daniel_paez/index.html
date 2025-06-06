@@ -7,25 +7,33 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <header class="header">
+  <header class="header container-fluid">
     <div class="header__container">
       <h1 class="header__title">Portfolio de Daniel Paez</h1>
     </div>
-    <nav class="navbar">
-      <ul class="navbar__list">
-        <li><a href="#habilidades" class="navbar__link">Habilidades</a></li>
-        <li><a href="#proyectos" class="navbar__link">Proyectos</a></li>
-        <li><a href="#contacto" class="navbar__link">Contacto</a></li>
-      </ul>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto navbar__list">
+            <li class="nav-item"><a href="#habilidades" class="nav-link navbar__link">Habilidades</a></li>
+            <li class="nav-item"><a href="#proyectos" class="nav-link navbar__link">Proyectos</a></li>
+            <li class="nav-item"><a href="#contacto" class="nav-link navbar__link">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
     </nav>
   </header>
 
   <main>
     <!-- Hero -->
-    <section class="hero" id="inicio">
+    <section class="hero container" id="inicio">
       <div class="hero__glass">
         <div class="hero__content">
           <div class="hero__text">
@@ -42,7 +50,7 @@
     </section>
 
 <!-- Habilidades -->
-<section class="skills" id="habilidades">
+<section class="skills container" id="habilidades">
   <h2 class="skills__title">Tecnologías y habilidades</h2>
   <ul class="skills__list">
     <li class="skills__item">
@@ -58,7 +66,7 @@
       JavaScript
     </li>
     <li class="skills__item">
-      <img src="/maqueta/pages/portfolios/daniel_paez/assets/img/Python-logo-notext.svg.png" alt="Python" class="skills__icon" />
+      <img src="/assets/img/Python-logo-notext.svg.png" alt="Python" class="skills__icon" />
       Python
     </li>
     <li class="skills__item">
@@ -77,28 +85,34 @@
 </section>
 
     <!-- Proyectos -->
-    <section class="projects" id="proyectos">
+    <section class="projects container" id="proyectos">
       <h2 class="projects__title">Proyectos Destacados</h2>
-      <div class="projects__list">
-        <div class="card shadow">
-          <div class="card__content">
-            <h3 class="card__title">App de Gestión de Clientes</h3>
-            <p class="card__description">Aplicación CRUD con Python y MySQL. Permite administrar clientes de forma segura.</p>
-            <a href="https://github.com/usuario/proyecto1" class="card__link" target="_blank">Ver en GitHub</a>
+      <div class="projects__list row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+          <div class="card shadow">
+            <div class="card__content">
+              <h3 class="card__title">App de Gestión de Clientes</h3>
+              <p class="card__description">Aplicación CRUD con Python y MySQL. Permite administrar clientes de forma segura.</p>
+              <a href="https://github.com/usuario/proyecto1" class="card__link" target="_blank">Ver en GitHub</a>
+            </div>
           </div>
         </div>
-        <div class="card shadow">
-          <div class="card__content">
-            <h3 class="card__title">Dashboard con Grafana y MQTT</h3>
-            <p class="card__description">Monitoreo de datos en tiempo real desde un ESP32 usando Wokwi y Grafana.</p>
-            <a href="https://wokwi.com/projects/413413392235150337" class="card__link" target="_blank">Ver en Wokwi</a>
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+          <div class="card shadow">
+            <div class="card__content">
+              <h3 class="card__title">Dashboard con Grafana y MQTT</h3>
+              <p class="card__description">Monitoreo de datos en tiempo real desde un ESP32 usando Wokwi y Grafana.</p>
+              <a href="https://wokwi.com/projects/413413392235150337" class="card__link" target="_blank">Ver en Wokwi</a>
+            </div>
           </div>
         </div>
-         <div class="card shadow">
-          <div class="card__content">
-            <h3 class="card__title">ProfeSort</h3>
-            <p class="card__description">Aplicación para gestionar de forma eficiente y moderna el Plan FinEs.</p>
-            <a href="https://github.com/ProCoders-ISPC" class="card__link" target="_blank">Ver en github</a>
+         <div class="col-12 col-md-6 col-lg-4 mb-4">
+          <div class="card shadow">
+            <div class="card__content">
+              <h3 class="card__title">ProfeSort</h3>
+              <p class="card__description">Aplicación para gestionar de forma eficiente y moderna el Plan FinEs.</p>
+              <a href="https://github.com/ProCoders-ISPC" class="card__link" target="_blank">Ver en github</a>
+            </div>
           </div>
         </div>
       </div>
@@ -107,31 +121,40 @@
     </section>
 
     <!-- Contacto -->
-    <section class="contact" id="contacto">
+    <section class="contact container" id="contacto">
       <h2 class="contact__title">Contacto</h2>
-      <form class="contact__form">
-        <label for="nombre">Nombre</label>
-        <input id="nombre" name="nombre" class="contact__input" type="text" placeholder="Tu nombre" required>
-
-        <label for="email">Correo electrónico</label>
-        <input id="email" name="email" class="contact__input" type="email" placeholder="ejemplo@correo.com" required>
-
-        <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" name="mensaje" class="contact__textarea" placeholder="Escribe tu mensaje" required></textarea>
-
-        <button type="submit" class="button contact__button">
-          <span>Enviar</span>
-        </button>
+      <form class="contact__form row g-3">
+        <div class="col-md-6">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input id="nombre" name="nombre" class="form-control contact__input" type="text" placeholder="Tu nombre" required>
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input id="email" name="email" class="form-control contact__input" type="email" placeholder="ejemplo@correo.com" required>
+        </div>
+        <div class="col-12">
+          <label for="mensaje" class="form-label">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" class="form-control contact__textarea" placeholder="Escribe tu mensaje" required></textarea>
+        </div>
+        <div class="col-12 text-center">
+          <button type="submit" class="button contact__button">
+            <span>Enviar</span>
+          </button>
+        </div>
       </form>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer container-fluid">
     <p class="footer__copy">&copy; 2025 Daniel Paez</p>
     <div class="footer__social">
       <a class="footer__link" href="https://www.linkedin.com/in/daniel-nicolás-paez-1132252b8/" target="_blank">LinkedIn</a>
       <a class="footer__link" href="https://github.com/danicba03" target="_blank">GitHub</a>
     </div>
   </footer>
+
+  <!-- Bootstrap JS y Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

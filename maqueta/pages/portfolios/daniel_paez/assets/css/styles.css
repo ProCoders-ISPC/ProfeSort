@@ -138,41 +138,55 @@ html, body {
   margin-bottom: 2rem;
 }
 
+/* Ajustando el contenedor de las tarjetas */
 .projects__list {
   display: flex;
   justify-content: center;
+  align-items: stretch;
   gap: 2rem;
   flex-wrap: wrap;
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
 }
 
-.projects__card {
-  background: var(--primary);
-  padding: 2rem;
-  border-radius: 8px;
-  color: var(--secondary);
+/* Ajustando las dimensiones y espaciado de las tarjetas */
+.card {
+  width: 100%;         /* Cambiado de 190px fijo a 100% */
+  min-height: 280px;   /* Altura mínima en lugar de height fijo */
+  height: auto;        /* Permite que crezca según contenido */
+  margin: 0;          /* Elimina márgenes externos */
+  background: var(--secondary);
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-/*Ajuste contenido cards #proyectos*/
+/* Ajustando el contenedor Bootstrap */
+.col-12.col-md-6.col-lg-4.mb-4 {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  max-width: 350px;   /* Ancho máximo para las tarjetas */
+  margin: 0 auto;     /* Centra las tarjetas */
+}
 
-.projects__card {
-  background: var(--primary);
-  padding: 2rem;
-  border-radius: 8px;
-  color: var(--secondary);
-  text-align: center; /* <-- esto centra todo el texto dentro de la tarjeta */
+.card__content {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 1rem;
 }
 
-.projects__card a {
-  color: var(--secondary);
-  text-decoration: underline;
-  display: inline-block;
-  margin-top: 1rem;
+/* Media query para responsividad */
+@media (max-width: 768px) {
+  .projects__list {
+    gap: 1rem;
+  }
+  
+  .col-12.col-md-6.col-lg-4.mb-4 {
+    padding: 0 1rem;
+  }
 }
 
 /* Contact */
@@ -256,6 +270,7 @@ html, body {
 }
 
 .card__content {
+  text-align: center;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -263,6 +278,7 @@ html, body {
 }
 
 .card__title {
+  text-align: center;
   color: var(--primary);        /* Se mantiene */
   font-weight: 700;            /* Añadido para mejor legibilidad */
   font-size: 1.15rem;
@@ -270,6 +286,7 @@ html, body {
 }
 
 .card__description {
+  text-align: center;
   color: var(--text);          /* Cambiado a blanco para contraste */
   font-size: 0.9rem;
   line-height: 1.2;
@@ -411,3 +428,48 @@ button:hover span {
   height: auto;
 }
 
+
+* Ajustes para Bootstrap */
+.navbar-toggler {
+  border-color: var(--secondary);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(116, 78, 62, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background: var(--primary);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+
+  .navbar__link {
+    padding: 0.5rem 1rem;
+    display: block;
+  }
+}
+
+/* Ajustes para formularios Bootstrap */
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary);
+  color: var(--text);
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent);
+  color: var(--text);
+  box-shadow: 0 0 0 0.25rem rgba(232, 196, 181, 0.25);
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-label {
+  color: var(--text);
+}
