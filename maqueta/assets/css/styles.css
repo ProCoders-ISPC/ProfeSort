@@ -48,7 +48,7 @@ header .logo,
   color: var(--accent-yellow);
 }
 
-/* ===== HEADER BURGER MENU (RESPONSIVE) ===== */
+/* ===== HEADER BURGER MENU (RESPONSIVE) - OPTIMIZADO ===== */
 .header__burger {
   display: none;
   position: relative;
@@ -59,9 +59,7 @@ header .logo,
 }
 
 .header__burger-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  position: relative;
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -82,16 +80,49 @@ header .logo,
   background-color: var(--accent-yellow);
   border-radius: 2px;
   transition: all 0.3s ease;
-  transform-origin: center;
+}
+
+/* Botón de cerrar dentro del menú móvil */
+.header__close-btn {
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 40px;
+  height: 40px;
+  background: var(--primary-dark);
+  border-radius: 4px;
+  color: var(--accent-yellow);
+  cursor: pointer;
+  z-index: 1200;
+  transition: color 0.2s;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.header__close-btn::before {
+  content: "×";
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.header__close-btn:hover {
+  color: var(--accent-blue);
 }
 
 @media screen and (max-width: 900px) {
+
   .header__nav-desktop {
     display: none;
   }
 
   .header__burger {
-    display: block;
+    display: flex;
+    align-items: center;
   }
 
   .header__nav-mobile {
@@ -140,22 +171,17 @@ header .logo,
     right: 0;
   }
 
-  .header__burger-checkbox:checked + .header__burger-toggle .header__burger-bar:nth-child(1) {
-    transform: rotate(45deg);
-    position: absolute;
+  .header__burger-checkbox:checked + .header__burger-toggle {
+    display: none;
   }
-  
-  .header__burger-checkbox:checked + .header__burger-toggle .header__burger-bar:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .header__burger-checkbox:checked + .header__burger-toggle .header__burger-bar:nth-child(3) {
-    transform: rotate(-45deg);
-    position: absolute;
+
+  .header__burger-checkbox:checked ~ .header__nav-mobile .header__close-btn {
+    display: block;
   }
 
   header {
     padding: 15px 20px;
+    min-height: 60px;
   }
 }
 
@@ -164,11 +190,53 @@ header .logo,
     font-size: 1.1rem;
     padding: 14px 0;
   }
-  
-  .header__burger-toggle {
-    top: 15px;
-    right: 15px;
-  }
+}
+
+.header__close-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--accent-yellow);
+  cursor: pointer;
+  z-index: 1200;
+  transition: color 0.2s;
+}
+
+.header__close-btn:hover {
+  color: var(--accent-blue);
+}
+
+.header__close-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 2.5rem;
+  color: var(--accent-yellow);
+  cursor: pointer;
+  z-index: 1200;
+  transition: color 0.2s;
+  user-select: none;
+}
+
+.header__close-btn::before {
+  content: "×";
+}
+
+.header__burger-checkbox:checked + .header__burger-toggle {
+  display: none;
+}
+
+
+.header__burger-checkbox:checked ~ .header__nav-mobile .header__close-btn {
+  display: block;
+}
+
+
+.header__close-btn {
+  display: none;
 }
 
 /* ===== LAYOUT CONTAINERS ===== */
