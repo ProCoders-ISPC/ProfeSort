@@ -574,157 +574,183 @@ tr:hover {
 
 /* ===== ABOUT PAGE ===== */
 body.about {
-  background: var(--background-blue);
-  color: var(--text-dark);
+  background-color: var(--background-blue);
 }
 
+/* Hero Section */
 #hero {
   position: relative;
-  width: 100%;
-  height: 350px;
+  height: 100vh;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #hero video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.7);
   position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 #hero .capa {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(8, 76, 78, 0.5);
-  z-index: 2;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #1c1c1c;
+  opacity: .5;
+  z-index: 1;
 }
 
-#hero .promo {
+.promo {
   position: relative;
-  z-index: 3;
-  color: var(--white);
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  color: #f3fef3;
+  padding: 0 20px;
 }
 
-#hero .promo h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-  color: var(--accent-yellow);
-}
-
-#hero .promo p {
-  font-size: 1.3rem;
+.promo h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
-#about__button {
-  background: var(--accent-yellow);
-  color: var(--primary-dark);
-  border: none;
-  padding: 12px 32px;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-#about__button:hover {
-  background: var(--accent-blue);
-  color: var(--white);
-}
-
-.about__container {
-  max-width: 900px;
-  margin: 40px auto;
-  background: var(--white);
-  border-radius: 12px;
-  box-shadow: 0 2px 10px var(--shadow-light);
-  padding: 40px 30px;
-}
-
-.about__container h2 {
+.promo p {
   font-size: 2rem;
-  margin-bottom: 18px;
-  color: var(--primary-dark);
+  font-weight: 600;
+  margin-bottom: 30px;
 }
 
-.about__container p {
-  font-size: 1.1rem;
-  line-height: 1.7;
+#about__button {
+  background: #e5af24;
+  border: none;
+  border-radius: 30px;
+  height: 50px; width: 200px;
+  font-size: 1.2rem; font-weight: bold; color: #3f3f3f;
+  cursor: pointer; transition: transform .2s;
 }
 
-.about__cards {
+#about__button:hover {
+  transform: translateY(-5px);
+}
+
+#about__button:focus {
+  outline: none;
+}
+
+/* Sección ¿Qué es ProfeSort? */
+.about__ProfeSort {
+  background: #fff;
+  color: #084c4e;
+  padding: 60px 20px;
+  text-align: center;
+}
+.about__ProfeSort .about__container {
+  max-width: 1000px;
+  margin: auto;
+}
+.about__ProfeSort h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+.about__ProfeSort p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Sección ¿Quiénes Somos? */
+.about__Quienes__Somos {
+  background: #fff;
+  color: #084c4e;
+  padding: 60px 20px;
+  text-align: center;
+}
+.about__Quienes__Somos .about__container {
+  max-width: 1000px;
+  margin: auto;
+}
+.about__Quienes__Somos h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+.about__Quienes__Somos p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Sección Portfolios */
+.about__contacto__portfolios {
+  background: #f0f4f4;
+  color: #084c4e;
+  padding: 80px 20px;
+  text-align: center;
+}
+.about__contacto__portfolios .about__container {
+  max-width: 1100px;
+  margin: auto;
+}
+.about__contacto__portfolios h2 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+.about__contacto__portfolios p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+.about__contacto__portfolios .about__cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 30px;
   justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
 }
-
-.about__card {
-  background: var(--background-light);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px var(--shadow-light);
-  padding: 18px 24px;
+.about__contacto__portfolios .about__card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 160px;
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   text-decoration: none;
-  color: var(--primary-dark);
-  transition: transform 0.2s, box-shadow 0.2s;
-  min-width: 160px;
-  max-width: 200px;
+  color: #084c4e;
+  font-weight: 600;
+  font-size: 1rem;
 }
-
-.about__card img {
-  width: 48px;
-  height: 48px;
+.about__contacto__portfolios .about__card img {
+  width: 40px;
+  height: 40px;
   margin-bottom: 10px;
 }
-
-.about__card span {
-  font-weight: 500;
-  font-size: 1rem;
+.about__contacto__portfolios .about__card span {
   text-align: center;
 }
 
-.about__card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 16px var(--shadow-medium);
-  background: var(--accent-blue);
-  color: var(--white);
-}
-
-/* Responsive */
+/* Responsive para About */
 @media (max-width: 900px) {
-  .about__container {
-    padding: 25px 10px;
+  #hero { height: 220px; }
+  .about__ProfeSort, .about__Quienes__Somos, .about__contacto__portfolios {
+    padding: 30px 5vw;
   }
-  .about__cards {
-    gap: 12px;
-  }
-  #hero {
-    height: 220px;
+  .about__contacto__portfolios .about__cards {
+    gap: 10px;
   }
 }
-
 @media (max-width: 600px) {
-  .about__container {
-    margin: 20px 2vw;
-    padding: 12px 4vw;
+  #hero { height: 120px; }
+  .promo h1 { font-size: 2rem; }
+  .promo p { font-size: 1.1rem; }
+  .about__ProfeSort h2, .about__Quienes__Somos h2, .about__contacto__portfolios h2 {
+    font-size: 1.5rem;
   }
-  .about__cards {
+  .about__contacto__portfolios .about__cards {
     flex-direction: column;
     align-items: center;
-  }
-  #hero {
-    height: 120px;
   }
 }
