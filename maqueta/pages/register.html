@@ -14,7 +14,13 @@
       href="https://kit.fontawesome.com/d7a00b9964.css"
       crossorigin="anonymous">
   </head>
-  <body class="registro">
+  <body >
+    <div class="registro__actions">
+  <a href="../index.html" class="comeback-button" aria-label="Volver al inicio">
+    <i class="fa fa-arrow-left comeback-button__icon" aria-hidden="true"></i>
+    <span class="comeback-button__text">Volver al inicio</span>
+  </a>
+</div>
     <section class="registro__container">
       <div class="registro__box">
         <h2 class="registro__title">Registrate para usar la Plataforma</h2>
@@ -123,13 +129,12 @@
             >
           </div>
 
-          <button class="registro__button" type="submit">Registrarse</button>
+          <button class="form-primary-button" type="submit">Registrarse</button>
           <p id="mensaje-exito" style="display:none; color: #00ffcc; text-align: center; margin-top: 15px;">
   ¡Registro exitoso! Redirigiendo al inicio de sesión...
 </p>
         </form>
         <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-  <a href="../index.html" class="btn btn-primary">Volver al inicio</a>
 </div>
 
 </div>

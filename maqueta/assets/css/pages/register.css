@@ -1,0 +1,30 @@
+.registro__actions {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.registro__container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: 100vh;
+
+}
+
+.registro__box {
+  background-color: var(--primary-dark);
+  box-shadow: 0 4px 15px var(--shadow-medium);
+  border-radius: 10px;
+  padding: 40px 30px;
+  max-width: 600px;
+  width: 100%;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 30;
+}

@@ -1,6 +1,8 @@
 @import url('./components/buttons.css');
 @import url('./components/footer.css');
 
+@import url('./pages/register.css');
+
 /* ===== RESET Y CONFIGURACIÓN BASE ===== */
 * {
   margin: 0;
@@ -376,14 +378,14 @@ tr:hover {
 /* ===== CONTENEDORES DE LOGIN Y REGISTRO ===== */
 .login__container,
 .registro__container {
-  position: relative; 
-       
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-    height: 100vh;
+  height: 100vh;
 }
+
 .login__box{
 
   z-index: 10;  
