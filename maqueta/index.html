@@ -1,172 +1,229 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ProfeSort</title>
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProfeSort</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="assets/img/home/logo/ProfeSort_yellow.svg"
+          alt="Clase en curso"
+          height="80"
+        />
+      </div>
 
-  <header>
-    <div class="logo">
-      <img src="assets/img/home/logo/ProfeSort_yellow.svg" alt="Clase en curso" height="80">
-    </div>
-    
-    <nav class="header__nav-desktop">
-      <a href="pages/about.html">Quiénes Somos</a>
-      <a href="pages/register.html">Registro</a>
-      <a href="pages/login.html">Iniciar Sesión</a>
-    </nav>
-    
-
-    <div class="header__burger">
-      <input type="checkbox" id="header-burger-checkbox" class="header__burger-checkbox">
-      <label for="header-burger-checkbox" class="header__burger-toggle">
-        <span class="header__burger-bar"></span>
-        <span class="header__burger-bar"></span>
-        <span class="header__burger-bar"></span>
-      </label>
-      <nav class="header__nav-mobile">
-        <label for="header-burger-checkbox" class="header__close-btn"></label>
+      <nav class="header__nav-desktop">
         <a href="pages/about.html">Quiénes Somos</a>
         <a href="pages/register.html">Registro</a>
         <a href="pages/login.html">Iniciar Sesión</a>
       </nav>
-    </div>
-  </header>
 
-  <section class="hero">
-    <div class="swiper hero-swiper">
-      <div class="swiper-wrapper">
+      <div class="header__burger">
+        <input
+          type="checkbox"
+          id="header-burger-checkbox"
+          class="header__burger-checkbox"
+        />
+        <label for="header-burger-checkbox" class="header__burger-toggle">
+          <span class="header__burger-bar"></span>
+          <span class="header__burger-bar"></span>
+          <span class="header__burger-bar"></span>
+        </label>
+        <nav class="header__nav-mobile">
+          <label for="header-burger-checkbox" class="header__close-btn"></label>
+          <a href="pages/about.html">Quiénes Somos</a>
+          <a href="pages/register.html">Registro</a>
+          <a href="pages/login.html">Iniciar Sesión</a>
+        </nav>
+      </div>
+    </header>
 
-        <div class="swiper-slide slide-1">
-          <div class="hero-text">
-            <h2>SUMATE A LA EXPERIENCIA</h2>
-            <h1>ProfeSort</h1>
-            <p>La plataforma diseñada exclusivamente para facilitar la administración de inscripciones, asignaciones y el seguimiento académico de estudiantes del Plan Fines.</p>
-            <button aria-label="Ver más sobre ProfeSort">Ver más</button>
+    <section class="hero">
+      <div class="swiper hero-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide slide-1">
+            <div class="hero-text">
+              <h2>SUMATE A LA EXPERIENCIA</h2>
+              <h1>ProfeSort</h1>
+              <p>
+                La plataforma diseñada exclusivamente para facilitar la
+                administración de inscripciones, asignaciones y el seguimiento
+                académico de estudiantes del Plan Fines.
+              </p>
+              <button aria-label="Ver más sobre ProfeSort">Ver más</button>
+            </div>
+            <div class="hero-img">
+              <img
+                src="assets/img/home/presentation/img-presentation01.webp"
+                alt="Imagen de presentación"
+              />
+            </div>
           </div>
-          <div class="hero-img">
-            <img src="assets/img/home/presentation/img-presentation01.webp" alt="Imagen de presentación">
+
+          <div class="swiper-slide slide-2">
+            <div class="hero-text">
+              <h2>GESTIÓN ÁGIL</h2>
+              <h1>Inscripciones</h1>
+              <p>
+                Registrá estudiantes de manera rápida y ordenada, evitando
+                errores y optimizando el tiempo de los docentes.
+              </p>
+              <button aria-label="Ver más sobre inscripción">Ver más</button>
+            </div>
+            <div class="hero-img">
+              <img
+                src="assets/img/home/presentation/slider-2.webp"
+                alt="Gestión de inscripciones"
+              />
+            </div>
+          </div>
+
+          <div class="swiper-slide slide-3">
+            <div class="hero-text">
+              <h2>CONTROL TOTAL</h2>
+              <h1>Seguimiento</h1>
+              <p>
+                Visualizá el rendimiento de cada estudiante: asistencia,
+                calificaciones y asignaciones en un solo panel.
+              </p>
+              <button aria-label="Ver más sobre seguimiento académico">
+                Ver más
+              </button>
+            </div>
+            <div class="hero-img">
+              <img
+                src="assets/img/home/presentation/slider-3.webp"
+                alt="Seguimiento académico"
+              />
+            </div>
           </div>
         </div>
-
- <div class="swiper-slide slide-2">
-  <div class="hero-text">
-    <h2>GESTIÓN ÁGIL</h2>
-    <h1>Inscripciones</h1>
-    <p>Registrá estudiantes de manera rápida y ordenada, evitando errores y optimizando el tiempo de los docentes.</p>
-    <button aria-label="Ver más sobre inscripción">Ver más</button>
-  </div>
-  <div class="hero-img">
-    <img src="assets/img/home/presentation/slider-2.webp" alt="Gestión de inscripciones">
-  </div>
-</div>
-
-<div class="swiper-slide slide-3">
-  <div class="hero-text">
-    <h2>CONTROL TOTAL</h2>
-    <h1>Seguimiento</h1>
-    <p>Visualizá el rendimiento de cada estudiante: asistencia, calificaciones y asignaciones en un solo panel.</p>
-    <button aria-label="Ver más sobre seguimiento académico">Ver más</button>
-  </div>
-  <div class="hero-img">
-    <img src="assets/img/home/presentation/slider-3.webp" alt="Seguimiento académico">
-  </div>
-</div>
-
+        <div class="swiper-pagination"></div>
       </div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </section>
+    </section>
 
-  <section class="novedades">
-    <h2>Novedades</h2>
-    <div class="cards">
-      <div class="card">
-        <img src="assets/img/home/news/img-news01.webp" alt="Noticia 1">
-        <h3>¿Cómo es la modalidad FINES?</h3>
-        <p>Enterate acá cómo podés terminar tus estudios con una cursada flexible y adaptada a tus tiempos.</p>
-      </div>
-      <div class="card">
-        <img src="assets/img/home/news/img-news06.webp" alt="Noticia 2">
-        <h3>Inscripciones cerradas.</h3>
-        <p>Finalizó el período de inscripción para el plan FINES; agradecemos a todos los que se anotaron.</p>
-      </div>
-      <div class="card">
-        <img src="assets/img/home/news/img-news03.webp" alt="Noticia 3">
-        <h3>¡Inicio de cursada la próxima semana!</h3>
-        <p>Comenzamos una nueva etapa de aprendizaje; revisá tu correo para más detalles.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="contacto">
-    <h2>Contacto</h2>
-    <div class="contacto-container">
-      <form class="form">
-        <div class="form-group">
-          <label class="form-label" for="contact-name">Nombre y Apellido</label>
-          <input 
-            class="form-input" 
-            type="text" 
-            id="contact-name"
-            placeholder="Nombre y Apellido" 
-            required>
+    <section class="novedades">
+      <h2>Novedades</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="assets/img/home/news/img-news01.webp" alt="Noticia 1" />
+          <h3>¿Cómo es la modalidad FINES?</h3>
+          <p>
+            Enterate acá cómo podés terminar tus estudios con una cursada
+            flexible y adaptada a tus tiempos.
+          </p>
         </div>
-        
-        <div class="form-group">
-          <label class="form-label" for="contact-email">Correo electrónico</label>
-          <input 
-            class="form-input" 
-            type="email" 
-            id="contact-email"
-            placeholder="Ingrese su mail" 
-            required>
+        <div class="card">
+          <img src="assets/img/home/news/img-news06.webp" alt="Noticia 2" />
+          <h3>Inscripciones cerradas.</h3>
+          <p>
+            Finalizó el período de inscripción para el plan FINES; agradecemos a
+            todos los que se anotaron.
+          </p>
         </div>
-        
-        <div class="form-group">
-          <label class="form-label" for="contact-message">Mensaje</label>
-          <textarea 
-            class="form-input" 
-            id="contact-message"
-            placeholder="Ingrese su mensaje" 
-            rows="5"
-            required></textarea>
+        <div class="card">
+          <img src="assets/img/home/news/img-news03.webp" alt="Noticia 3" />
+          <h3>¡Inicio de cursada la próxima semana!</h3>
+          <p>
+            Comenzamos una nueva etapa de aprendizaje; revisá tu correo para más
+            detalles.
+          </p>
         </div>
-        
-        <div class="form-actions">
-          <button class="form-primary-button" type="submit">Enviar</button>
-        </div>
-      </form>
-      
-      <div class="hero-img">
-        <img src="assets/img/home/contact/img-contact01.webp" alt="Contacto imagen">
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <div class="footer-logo">
-      <img src="assets/img/home/logo/ProfeSort_darkgreen.svg" alt="Clase en curso" height="200">
-    </div>
-    <div class="footer-links">
-      <a href="#" aria-label="Facebook">
-        <img src="assets/img/socialmedia-icons/facebook.png" alt="Facebook">
-      </a>
-      <a href="#" aria-label="Instagram">
-        <img src="assets/img/socialmedia-icons/instagram.png" alt="Instagram">
-      </a>
-      <a href="#" aria-label="WhatsApp">
-        <img src="assets/img/socialmedia-icons/whatsapp.png" alt="WhatsApp">
-      </a>
-    </div>
-    <p>&copy; 2025 ProfeSort | Plataforma Educativa. Todos los derechos reservados.</p>
-  </footer>
+    <section class="contacto">
+      <h2>Contacto</h2>
+      <div class="contacto-container">
+        <form class="form">
+          <div class="form-group">
+            <label class="form-label" for="contact-name"
+              >Nombre y Apellido</label
+            >
+            <input
+              class="form-input"
+              type="text"
+              id="contact-name"
+              placeholder="Nombre y Apellido"
+              required
+            />
+          </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="assets/js/home.js"></script>
-</body>
+          <div class="form-group">
+            <label class="form-label" for="contact-email"
+              >Correo electrónico</label
+            >
+            <input
+              class="form-input"
+              type="email"
+              id="contact-email"
+              placeholder="Ingrese su mail"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Mensaje</label>
+            <textarea
+              class="form-input"
+              id="contact-message"
+              placeholder="Ingrese su mensaje"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="form-primary-button" type="submit">Enviar</button>
+          </div>
+        </form>
+
+        <div class="hero-img">
+          <img
+            src="assets/img/home/contact/img-contact01.webp"
+            alt="Contacto imagen"
+          />
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-logo">
+        <img
+          src="assets/img/home/logo/ProfeSort_darkgreen.svg"
+          alt="Clase en curso"
+          height="200"
+        />
+      </div>
+      <div class="footer-links">
+        <a href="#" aria-label="Facebook">
+          <img src="assets/img/socialmedia-icons/facebook.png" alt="Facebook" />
+        </a>
+        <a href="#" aria-label="Instagram">
+          <img
+            src="assets/img/socialmedia-icons/instagram.png"
+            alt="Instagram"
+          />
+        </a>
+        <a href="#" aria-label="WhatsApp">
+          <img src="assets/img/socialmedia-icons/whatsapp.png" alt="WhatsApp" />
+        </a>
+      </div>
+      <p>
+        &copy; 2025 ProfeSort | Plataforma Educativa. Todos los derechos
+        reservados.
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="assets/js/home.js"></script>
+  </body>
 </html>
