@@ -802,23 +802,116 @@ body.about {
 
 /* Responsive para About */
 @media (max-width: 900px) {
-  #hero { height: 220px; }
+  #hero { 
+    height: 70vh;
+    min-height: 400px;
+  }
+  .promo h1 { 
+    font-size: 2.8rem; 
+  }
+  .promo p { 
+    font-size: 1.6rem; 
+  }
+  #about__button {
+    width: 180px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
   .about__ProfeSort, .about__Quienes__Somos, .about__contacto__portfolios {
-    padding: 30px 5vw;
+    padding: 40px 5vw;
   }
   .about__contacto__portfolios .about__cards {
-    gap: 10px;
+    gap: 15px;
   }
 }
+
 @media (max-width: 600px) {
-  #hero { height: 120px; }
-  .promo h1 { font-size: 2rem; }
-  .promo p { font-size: 1.1rem; }
+  #hero { 
+    height: 60vh;
+    min-height: 350px;
+  }
+  .promo {
+    padding: 0 15px;
+  }
+  .promo h1 { 
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+  }
+  .promo p { 
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+  }
+  #about__button {
+    width: 160px;
+    height: 40px;
+    font-size: 1rem;
+  }
   .about__ProfeSort h2, .about__Quienes__Somos h2, .about__contacto__portfolios h2 {
-    font-size: 1.5rem;
+    font-size: 2rem;
+  }
+  .about__ProfeSort p, .about__Quienes__Somos p {
+    font-size: 1.1rem;
   }
   .about__contacto__portfolios .about__cards {
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .about__contacto__portfolios .about__card {
+    width: 100%;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 560px) {
+  #hero {
+    height: 50vh;
+    min-height: 300px;
+  }
+  .promo h1 { 
+    font-size: 1.9rem;
+  }
+  .promo p { 
+    font-size: 1.2rem;
+  }
+  #about__button {
+    width: 150px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+  .about__contacto__portfolios .about__cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 400px) {
+  #hero {
+    height: 45vh;
+    min-height: 280px;
+  }
+  .promo h1 { 
+    font-size: 1.7rem;
+  }
+  .promo p { 
+    font-size: 1.1rem;
+  }
+  #about__button {
+    width: 140px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+  .about__contacto__portfolios .about__cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 300px;
+  }
+  .about__contacto__portfolios .about__card {
+    min-width: 120px;
+    padding: 12px;
+    font-size: 0.9rem;
   }
 }
