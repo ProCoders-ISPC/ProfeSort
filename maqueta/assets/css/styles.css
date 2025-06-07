@@ -550,6 +550,21 @@ tr:hover {
   padding: 20px 30px;
   cursor: pointer;
   font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.hero-text button:hover {
+  background-color: var(--accent-blue);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.hero-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero-img img {
