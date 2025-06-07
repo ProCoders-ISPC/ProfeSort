@@ -506,7 +506,7 @@ body {
             margin-left: calc(50% - 50vw);
             margin-right: calc(50% - 50vw);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 3rem 2rem 2rem;
+            padding: 1.5rem 2rem 1.5rem;
             text-align: center;
             box-sizing: border-box;
             border-radius: 0;  
@@ -517,24 +517,7 @@ body {
             margin: 0 auto;
         }
 
-        .lista-principal-footer ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .lista-principal-footer a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .lista-principal-footer a:hover {
-            opacity: 0.7;
-        }
+        
 
         .lista-redes-sociales-footer ul {
             display: flex;
