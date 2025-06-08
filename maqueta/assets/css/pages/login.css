@@ -22,8 +22,7 @@
 
 .form-container--auth .form-label {
   color: var(--white);
-  margin-top: 15px;
-  margin-bottom: 5px;
+  margin-top: 20px;
 }
 
 .form-container--auth .form-input::placeholder {

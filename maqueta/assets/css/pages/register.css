@@ -5,6 +5,7 @@
   margin: 20px auto;
   z-index: 10;
   position: relative;
+  padding: 25px 32px;
 }
 
 .form-container--register .form-input {
