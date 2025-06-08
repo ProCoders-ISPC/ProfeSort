@@ -122,6 +122,9 @@
                           <button class="btn btn-info btn-sm" onclick="verFicha(1)">
                             <i class="fas fa-eye"></i>
                           </button>
+                          <button class="btn btn-warning btn-sm ms-2" onclick="editarFicha(1)">
+                            <i class="fas fa-edit"></i>
+                          </button>
                           <button class="btn btn-danger btn-sm ms-2" onclick="eliminarEstudiante(1)">
                             <i class="fas fa-trash"></i>
                           </button>
@@ -135,6 +138,9 @@
                         <td class="text-center">
                           <button class="btn btn-info btn-sm" onclick="verFicha(2)">
                             <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-warning btn-sm ms-2" onclick="editarFicha(2)">
+                            <i class="fas fa-edit"></i>
                           </button>
                           <button class="btn btn-danger btn-sm ms-2" onclick="eliminarEstudiante(2)">
                             <i class="fas fa-trash"></i>
@@ -417,6 +423,9 @@
                   <button class="btn btn-info btn-sm" onclick="verFicha('${nuevoEstudiante.dni}')">
                     <i class="fas fa-eye"></i>
                   </button>
+                  <button class="btn btn-warning btn-sm ms-2" onclick="editarFicha('${nuevoEstudiante.dni}')">
+                    <i class="fas fa-edit"></i>
+                  </button>
                   <button class="btn btn-danger btn-sm ms-2" onclick="eliminarEstudiante('${nuevoEstudiante.dni}')">
                     <i class="fas fa-trash"></i>
                   </button>
@@ -437,6 +446,67 @@
               form.reportValidity();
             }
           }
+
+          function editarFicha(dni) {
+
+  const estudiante = obtenerDatosEstudiante(dni);
+  
+
+  document.querySelectorAll('#modalVerFicha .form-control-plaintext').forEach(campo => {
+    const id = campo.id;
+    const valor = campo.textContent;
+    campo.innerHTML = `<input type="text" class="form-control" value="${valor}" id="edit_${id}">`;
+  });
+  
+
+  document.querySelector('#modalVerFicha .modal-footer').innerHTML = `
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="guardarCambiosFicha('${dni}')">Guardar Cambios</button>
+  `;
+  
+
+  const modal = new bootstrap.Modal(document.getElementById('modalVerFicha'));
+  modal.show();
+}
+
+function guardarCambiosFicha(dni) {
+
+  const estudianteActualizado = {
+    nombreApellido: document.getElementById('edit_fichaNombreApellido').value,
+    dni: document.getElementById('edit_fichaDNI').value,
+    direccionNivel: document.getElementById('edit_fichaDireccionNivel').value,
+    escuela: document.getElementById('edit_fichaEscuela').value,
+    direccion: document.getElementById('edit_fichaDireccion').value,
+    telefono: document.getElementById('edit_fichaTelefono').value,
+    cp: document.getElementById('edit_fichaCP').value,
+    departamento: document.getElementById('edit_fichaDepartamento').value,
+    provincia: document.getElementById('edit_fichaProvincia').value,
+    anio: document.getElementById('edit_fichaAnio').value,
+    resolucion: document.getElementById('edit_fichaResolucion').value,
+    fecha: document.getElementById('edit_fichaFecha').value,
+    email: document.getElementById('edit_fichaEmail').value
+  };
+
+
+  const fila = document.querySelector(`tr[data-dni="${dni}"]`);
+  if (fila) {
+    fila.cells[0].textContent = estudianteActualizado.nombreApellido;
+    fila.cells[1].textContent = estudianteActualizado.dni;
+    fila.cells[2].textContent = estudianteActualizado.escuela;
+    fila.cells[3].textContent = estudianteActualizado.anio;
+  }
+
+
+  const mensaje = document.getElementById('mensajeExito');
+  mensaje.textContent = 'Ficha actualizada exitosamente';
+  mensaje.classList.add('show');
+  setTimeout(() => {
+    mensaje.classList.remove('show');
+  }, 3000);
+
+
+  bootstrap.Modal.getInstance(document.getElementById('modalVerFicha')).hide();
+}
 
         document.addEventListener('DOMContentLoaded', function() {
         const sidebarToggle = document.getElementById('sidebarToggle');
