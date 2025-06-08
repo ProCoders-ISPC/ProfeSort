@@ -30,7 +30,7 @@
 
 .form-title {
   text-align: center;
-    font-size: 1.8rem;
+  font-size: 1.8rem;
 }
 
 .form-group {
@@ -153,104 +153,6 @@
   background-color: var(--primary-dark, #084c4e);
 }
 
-/* ===== ESTILOS ESPECÍFICOS LOGIN (AUTH) ===== */
-.form-container--auth {
-  background-color: var(--primary-dark) !important;
-  color: var(--white);
-  z-index: 10;
-  width: 100%;
-  max-width: 400px;
-  height: 400px;
-  position: relative;
-}
-
-.form-container--auth .form-input {
-  border: none;
-  border-radius: 6px;
-  background-color: var(--white);
-  color: var(--text-dark);
-}
-
-.form-container--auth .form-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
-}
-
-.form-container--auth .form-label {
-  color: var(--white);
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
-.form-container--auth .form-input::placeholder {
-  color: #666;
-}
-
-.form-container--auth .form-checkbox-input {
-  accent-color: var(--light-blue);
-}
-
-.form-container--auth .form-help {
-  color: var(--white);
-}
-
-.form-container--auth .form-help a {
-  color: var(--accent-yellow);
-}
-
-.form-container.form-container--auth .form-label {
-  color: var(--white) !important;
-}
-
-/* ===== ESTILOS ESPECÍFICOS REGISTRO ===== */
-.form-container--register {
-  background-color: var(--primary-dark) !important;
-  color: var(--white) ;
-  max-width: 600px;
-  margin: 20px auto;
-  z-index: 10;
-  position: relative;
-}
-
-.form-container--register .form-input {
-  border: none;
-  border-radius: 6px;
-  background-color: var(--white);
-  color: var(--text-dark);
-}
-
-.form-container--register .form-textarea {
-  border: none;
-  border-radius: 6px;
-  background-color: var(--white);
-  color: var(--text-dark);
-}
-
-.form-container--register .form-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
-}
-
-.form-container--register .form-textarea:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
-}
-
-.form-container--register .form-label {
-  color: var(--white) !important;
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-.form-container--register .form-input::placeholder,
-.form-container--register .form-textarea::placeholder {
-  color: #666;
-}
-
-.form-container--register .form-help {
-  color: var(--white);
-}
-
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 768px) {
   .form-container {
@@ -277,14 +179,6 @@
     justify-content: stretch;
     flex-direction: column;
   }
-
-  .form-container--auth {
-    padding: 24px 20px;
-  }
-
-  .form-container--register {
-    padding: 24px 20px;
-  }
 }
 
 @media screen and (max-width: 600px) {
@@ -292,30 +186,12 @@
     padding: 12px;
     padding-top: 70px;
   }
-
-  .form-container--auth {
-    padding: 20px 16px;
-    margin: 0;
-  }
-
-  .form-container--register {
-    padding: 20px 16px;
-    margin: 0;
-  }
 }
 
 @media screen and (max-width: 400px) {
   .page-container {
     padding: 10px;
     padding-top: 60px;
-  }
-
-  .form-container--auth {
-    padding: 18px 14px;
-  }
-
-  .form-container--register {
-    padding: 18px 14px;
   }
 
   .form-title {
