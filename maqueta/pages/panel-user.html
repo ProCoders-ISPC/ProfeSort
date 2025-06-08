@@ -31,12 +31,14 @@
                     </div>
                 	<div>Docentes</div>
             	</div>
-            	<div class="menu-item">
-                	<div class="menu-icon">
-                            <img src="../assets/img/icons/subjects_icon.svg" alt="Icono Materias" height="20">
-                    </div>
-                	<div>Materias</div>
-            	</div>
+            	 <div class="menu-item">
+              <a href="panel-materias.html" class="d-flex align-items-center text-decoration-none text-reset">
+                <div class="menu-icon">
+                  <img src="../assets/img/icons/subjects_icon.svg" alt="Icono Materias" height="20">
+                </div>
+              <div>Materias</div>
+              </a>
+            </div>
             	<div class="menu-item">
                 	<div class="menu-icon">
                             <img src="../assets/img/icons/credential_icon.svg" alt="Icono Estudiantes" height="20">
@@ -221,7 +223,6 @@
           menuItems.forEach(i => i.classList.remove('active'));
           this.classList.add('active');
           
-          // Cerrar sidebar en móvil
           if (window.innerWidth <= 768) {
             sidebar.classList.remove('active');
             sidebarOverlay.classList.remove('active');
