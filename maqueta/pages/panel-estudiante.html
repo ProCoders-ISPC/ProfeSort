@@ -390,11 +390,36 @@
   modal.show();
 }
 
-          function eliminarEstudiante(id) {
-            if(confirm('¿Está seguro de eliminar este estudiante?')) {
-              alert('Estudiante ' + id + ' eliminado');
-            }
-          }
+          function eliminarEstudiante(dni) {
+  Swal.fire({
+    title: '¿Está seguro?',
+    text: "Esta acción eliminará permanentemente al estudiante",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const tabla = document.getElementById('tablaEstudiantes');
+      const filas = tabla.getElementsByTagName('tr');
+      
+      Array.from(filas).forEach(fila => {
+        if(fila.cells[1].textContent === dni.toString()) {
+          fila.remove();
+          
+          const mensaje = document.getElementById('mensajeExito');
+          mensaje.textContent = 'Estudiante eliminado exitosamente';
+          mensaje.classList.add('show');
+          setTimeout(() => {
+            mensaje.classList.remove('show');
+          }, 3000);
+        }
+      });
+    }
+  });
+}
 
           function guardarEstudiante() {
             const form = document.getElementById('formNuevoEstudiante');
