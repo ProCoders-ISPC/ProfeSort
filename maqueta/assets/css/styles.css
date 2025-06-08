@@ -245,6 +245,12 @@ header .logo,
   min-height: 100vh;
 }
 
+.container-fluid {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
 /* ===== SIDEBAR ===== */
 .sidebar {
   width: 250px;
@@ -295,13 +301,10 @@ header .logo,
 .main-content {
   flex: 1;
   width: 100%;
+  min-height: 100vh;
   padding: 20px;
   overflow-y: auto;
   margin-left: 0;
-}
-
-.page-title {
-  font-size: 24px;
 }
 
 /* ===== PERFIL DE USUARIO ===== */
@@ -500,7 +503,45 @@ tr:hover {
   gap: 10px;
 }
 
-/* ===== HERO SECTION ===== */
+
+.form-container form {
+  max-width: 100%;
+  margin: 0;
+  padding: 20px;
+}
+
+.form-container .mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.form-container .form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.form-container .form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-container .form-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .form-container form {
+    padding: 15px;
+  }
+}
+
 .hero {
   display: flex;
   background-color: var(--primary-light);
@@ -576,7 +617,7 @@ tr:hover {
   object-fit: contain;
 }
 
-/* ===== SWIPER SLIDES ===== */
+
 .swiper-slide.slide-1 {
   background-color: #f9e79f;
 }
@@ -589,7 +630,7 @@ tr:hover {
   background-color: #d5f5e3;
 }
 
-/* ===== SECCIONES DE CONTENIDO ===== */
+
 .novedades {
   padding: 40px;
   background-color: var(--background-lighter);
@@ -620,7 +661,7 @@ tr:hover {
   border-radius: 6px;
 }
 
-/* ===== CONTACTO ===== */
+
 .contacto {
   padding: 40px;
 }
@@ -655,12 +696,10 @@ tr:hover {
   object-fit: cover;
 }
 
-/* ===== ABOUT PAGE ===== */
 body.about {
   background-color: var(--background-blue);
 }
 
-/* Hero Section */
 #hero {
   position: relative;
   height: 100vh;
@@ -726,7 +765,6 @@ body.about {
   outline: none;
 }
 
-/* Sección ¿Qué es ProfeSort? */
 .about__ProfeSort {
   background: #fff;
   color: #084c4e;
@@ -746,7 +784,6 @@ body.about {
   line-height: 1.6;
 }
 
-/* Sección ¿Quiénes Somos? */
 .about__Quienes__Somos {
   background: #fff;
   color: #084c4e;
@@ -766,7 +803,6 @@ body.about {
   line-height: 1.6;
 }
 
-/* Sección Portfolios */
 .about__contacto__portfolios {
   background: #f0f4f4;
   color: #084c4e;
@@ -818,7 +854,6 @@ body.about {
   text-align: center;
 }
 
-/* Responsive para About */
 @media (max-width: 900px) {
   #hero { 
     height: 70vh;
@@ -931,5 +966,48 @@ body.about {
     min-width: 120px;
     padding: 12px;
     font-size: 0.9rem;
+  }
+}
+
+.container-fluid {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  overflow-y: auto;
+  margin-left: 0;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -250px;
+    transition: left 0.3s ease;
+    z-index: 1001;
+  }
+
+  .sidebar.active {
+    left: 0;
   }
 }
