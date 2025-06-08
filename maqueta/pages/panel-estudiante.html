@@ -162,20 +162,24 @@
           <div class="modal-body">
             <form id="formNuevoEstudiante">
               <div class="mb-3">
-                <label class="form-label">Nombre y Apellido</label>
-                <input type="text" class="form-control" required>
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombreEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellidoEstudiante" required>
               </div>
               <div class="mb-3">
                 <label class="form-label">DNI</label>
-                <input type="text" class="form-control" required>
+                <input type="text" class="form-control" id="dniEstudiante" required>
               </div>
               <div class="mb-3">
                 <label class="form-label">Escuela de Procedencia</label>
-                <input type="text" class="form-control" required>
+                <input type="text" class="form-control" id="escuelaEstudiante" required>
               </div>
               <div class="mb-3">
                 <label class="form-label">Año a Cursar</label>
-                <select class="form-control" required>
+                <select class="form-control" id="anioEstudiante" required>
                   <option value="">Seleccionar año</option>
                   <option>1° año</option>
                   <option>2° año</option>
@@ -183,6 +187,18 @@
                   <option>4° año</option>
                   <option>5° año</option>
                 </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccionEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefonoEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" id="emailEstudiante" required>
               </div>
             </form>
           </div>
@@ -192,6 +208,12 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Agregar el div para mensajes después del header -->
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="mensajeExito">
+      Estudiante guardado exitosamente
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
     <!-- Scripts -->
@@ -219,11 +241,50 @@
             }
           }
 
+          // Reemplazar la función guardarEstudiante actual con esta nueva versión
           function guardarEstudiante() {
             const form = document.getElementById('formNuevoEstudiante');
             if(form.checkValidity()) {
-              alert('Estudiante guardado correctamente');
+              // Crear objeto con datos del estudiante
+              const nuevoEstudiante = {
+                nombre: document.getElementById('nombreEstudiante').value,
+                apellido: document.getElementById('apellidoEstudiante').value,
+                dni: document.getElementById('dniEstudiante').value,
+                escuela: document.getElementById('escuelaEstudiante').value,
+                anio: document.getElementById('anioEstudiante').value,
+                direccion: document.getElementById('direccionEstudiante').value,
+                telefono: document.getElementById('telefonoEstudiante').value,
+                email: document.getElementById('emailEstudiante').value
+              };
+
+              // Agregar estudiante a la tabla
+              const tabla = document.getElementById('tablaEstudiantes');
+              const fila = tabla.insertRow();
+              fila.innerHTML = `
+                <td>${nuevoEstudiante.nombre} ${nuevoEstudiante.apellido}</td>
+                <td>${nuevoEstudiante.dni}</td>
+                <td>${nuevoEstudiante.escuela}</td>
+                <td>${nuevoEstudiante.anio}</td>
+                <td class="text-center">
+                  <button class="btn btn-info btn-sm" onclick="verFicha('${nuevoEstudiante.dni}')">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm ms-2" onclick="eliminarEstudiante('${nuevoEstudiante.dni}')">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              `;
+
+              // Mostrar mensaje de éxito
+              const mensaje = document.getElementById('mensajeExito');
+              mensaje.classList.add('show');
+              setTimeout(() => {
+                mensaje.classList.remove('show');
+              }, 3000);
+
+              // Cerrar modal y resetear formulario
               bootstrap.Modal.getInstance(document.getElementById('modalNuevoEstudiante')).hide();
+              form.reset();
             } else {
               form.reportValidity();
             }
