@@ -1,9 +1,9 @@
-/* ===== CONTENEDORES DE FORMULARIOS ===== */
+/* ===== ESTILOS GENERALES DE FORMULARIOS ===== */
 .form-container {
   background-color: var(--white);
   border-radius: 8px;
   box-shadow: 0 2px 10px var(--shadow-light);
-  padding: 20px;
+  padding: 15px;
   margin-bottom: 30px;
 }
 
@@ -15,50 +15,6 @@
   min-height: 300px;
 }
 
-/* ===== ESTILOS ESPECÍFICOS PARA AUTH ===== */
-.form-container--auth {
-  background-color: var(--primary-dark) !important;
-  color: var(--white);
-  z-index: 10;
-  width: 100%;
-  max-width: 400px;
-}
-
-.form-container--register {
-  background-color: rgba(8, 76, 78, 0.97) !important;
-  color: var(--white);
-  max-width: 600px;
-  margin: 20px auto;
-}
-
-/* ===== OVERRIDES PARA FORMULARIOS AUTH ===== */
-.form-container--auth .form-input {
-  border: none;
-  border-radius: 6px;
-  background-color: var(--white);
-  color: var(--text-dark);
-}
-
-.form-container--auth .form-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
-}
-
-.form-container--register .form-input,
-.form-container--register .form-textarea {
-  border: none;
-  border-radius: 6px;
-  background-color: var(--white);
-  color: var(--text-dark);
-}
-
-.form-container--register .form-input:focus,
-.form-container--register .form-textarea:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
-}
-
-/* ===== WRAPPERS DE PÁGINA ===== */
 .page-container {
   position: relative;
   display: flex;
@@ -72,10 +28,9 @@
   height: 100vh;
 }
 
-/* ===== ELEMENTOS DE FORMULARIO ===== */
 .form-title {
   text-align: center;
-  margin-bottom: 20px;
+    font-size: 1.8rem;
 }
 
 .form-group {
@@ -105,12 +60,6 @@
   color: var(--text-dark);
 }
 
-.form-container--auth .form-label {
-  color: var(--white);
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-
 .form-input,
 .form-textarea {
   width: 100%;
@@ -134,7 +83,12 @@
   box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
 }
 
-/* ===== ELEMENTOS ESPECIALES ===== */
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
 .form-checkbox {
   display: flex;
   align-items: center;
@@ -149,30 +103,22 @@
   accent-color: var(--accent-blue);
 }
 
-.form-container--auth .form-checkbox-input {
-  accent-color: var(--light-blue);
-}
-
 .form-help {
   text-align: center;
   margin-top: 15px;
   font-size: 0.9rem;
+  color: var(--white);
 }
 
 .form-help a {
-  color: var(--accent-blue);
-  text-decoration: none;
-}
-
-.form-container--auth .form-help a {
   color: var(--accent-yellow);
+  text-decoration: none;
 }
 
 .form-help a:hover {
   text-decoration: underline;
 }
 
-/* ===== ACCIONES DE FORMULARIO ===== */
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -180,7 +126,6 @@
   margin-top: 20px;
 }
 
-/* ===== ACCIONES DE PÁGINA ===== */
 .page-actions {
   position: fixed;
   top: 20px;
@@ -188,7 +133,6 @@
   z-index: 1000;
 }
 
-/* ===== BOTÓN PRINCIPAL DE FORMULARIO ===== */
 .form-primary-button {
   width: 100%;
   padding: 14px 0;
@@ -207,6 +151,104 @@
 .form-primary-button:hover,
 .form-primary-button:focus {
   background-color: var(--primary-dark, #084c4e);
+}
+
+/* ===== ESTILOS ESPECÍFICOS LOGIN (AUTH) ===== */
+.form-container--auth {
+  background-color: var(--primary-dark) !important;
+  color: var(--white);
+  z-index: 10;
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  position: relative;
+}
+
+.form-container--auth .form-input {
+  border: none;
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--text-dark);
+}
+
+.form-container--auth .form-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
+}
+
+.form-container--auth .form-label {
+  color: var(--white);
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.form-container--auth .form-input::placeholder {
+  color: #666;
+}
+
+.form-container--auth .form-checkbox-input {
+  accent-color: var(--light-blue);
+}
+
+.form-container--auth .form-help {
+  color: var(--white);
+}
+
+.form-container--auth .form-help a {
+  color: var(--accent-yellow);
+}
+
+.form-container.form-container--auth .form-label {
+  color: var(--white) !important;
+}
+
+/* ===== ESTILOS ESPECÍFICOS REGISTRO ===== */
+.form-container--register {
+  background-color: var(--primary-dark) !important;
+  color: var(--white) ;
+  max-width: 600px;
+  margin: 20px auto;
+  z-index: 10;
+  position: relative;
+}
+
+.form-container--register .form-input {
+  border: none;
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--text-dark);
+}
+
+.form-container--register .form-textarea {
+  border: none;
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--text-dark);
+}
+
+.form-container--register .form-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
+}
+
+.form-container--register .form-textarea:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
+}
+
+.form-container--register .form-label {
+  color: var(--white) !important;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.form-container--register .form-input::placeholder,
+.form-container--register .form-textarea::placeholder {
+  color: #666;
+}
+
+.form-container--register .form-help {
+  color: var(--white);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -236,7 +278,10 @@
     flex-direction: column;
   }
 
-  .form-container--auth,
+  .form-container--auth {
+    padding: 24px 20px;
+  }
+
   .form-container--register {
     padding: 24px 20px;
   }
@@ -248,27 +293,14 @@
     padding-top: 70px;
   }
 
-  .form-container--auth,
-  .form-container--register {
+  .form-container--auth {
     padding: 20px 16px;
     margin: 0;
   }
-}
 
-@media screen and (max-width: 480px) {
-  .page-container {
-    padding: 25px;
-    margin: 10px;
-  }
-
-  .form-container,
-  .form-container--centered {
-    padding: 15px;
-  }
-
-  .form-input {
-    padding: 12px;
-    font-size: 16px;
+  .form-container--register {
+    padding: 20px 16px;
+    margin: 0;
   }
 }
 
@@ -278,7 +310,10 @@
     padding-top: 60px;
   }
 
-  .form-container--auth,
+  .form-container--auth {
+    padding: 18px 14px;
+  }
+
   .form-container--register {
     padding: 18px 14px;
   }
