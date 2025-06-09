@@ -42,6 +42,14 @@
         </div>
       </div>
       
+      <div class="form-container-docente" id="welcome-message">
+        <section class="welcome-section">
+          <h2>Bienvenido, <span id="nombre-docente-bienvenida">Nombre del Profesor</span></h2>
+          <p>Utiliza el menú para gestionar tus estudiantes o editar tus datos.</p>
+        </section>
+        <div id="panel-content"></div>
+      </div>
+
           <!-- Student List Table (initially hidden) -->
           <div id="student-list" style="display: none;">
             <h3>Mis Estudiantes</h3>
@@ -106,12 +114,14 @@
       const editProfileMessage = document.getElementById('edit-profile-message');
       const guardarDatosBtn = document.getElementById('guardar-datos');
       const studentTableBody = document.getElementById('student-table').querySelector('tbody');
+      const welcomeMessage = document.getElementById('welcome-message');
 
       // Function to hide all content panels
       function hideAllPanels() {
         studentListDiv.style.display = 'none';
         editProfileDiv.style.display = 'none';
         editProfileMessage.style.display = 'none';
+        welcomeMessage.style.display = 'none'; // Hide welcome message
       }
 
       // Event listener for "Mis Estudiantes"
