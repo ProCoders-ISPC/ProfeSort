@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Administrador</title>
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="admin">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <div class="container-fluid p-0">
+      <div class="d-flex">
+        <aside class="sidebar" id="sidebar">
+          <div class="sidebar-header">
+            <div class="sidebar-logo">ProfeSort Admin</div>
+          </div>
+          <nav class="sidebar-menu">
+            <div class="menu-item active">
+              <a href="/maqueta/pages/panel-admin.html" class="d-flex align-items-center text-decoration-none text-reset">
+                <div class="menu-icon">
+                  <img src="../../assets/img/icons/profesort_icon.svg" alt="Icono Panel" height="20">
+                </div>
+                <div>Panel</div>
+              </a>
+            </div>
+            <div class="menu-item">
+              <div class="menu-icon">
+                <img src="../../assets/img/icons/teacher_icon.svg" alt="Icono Docentes" height="20">
+              </div>
+              <div>Docentes</div>
+            </div>
+            <div class="menu-item">
+              <a href="/maqueta/pages/panel-materias.html" class="d-flex align-items-center text-decoration-none text-reset">
+                <div class="menu-icon">
+                  <img src="../../assets/img/icons/subjects_icon.svg" alt="Icono Materias" height="20">
+                </div>
+              <div>Materias</div>
+              </a>
+            </div>
+            
+            <div class="menu-item">
+              <div class="menu-icon">
+                <img src="../../assets/img/icons/credential_icon.svg" alt="Icono Estudiantes" height="20">
+              </div>
+              <div>Estudiantes</div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-icon">
+                <img src="../../assets/img/icons/config_icon.svg" alt="Icono Configuracion" height="20">
+              </div>
+              <div>Configuración</div>
+            </div>
+            <div class="menu-item">
+              <div class="menu-icon"> 
+                <img src="../../assets/img/icons/logout_icon.svg" alt="Icono Cerrar sesion" height="20">
+              </div>
+              <div>Cerrar Sesión</div>
+            </div>
+          </nav>
+        </aside>
+
+        <div class="main-content w-100">
+          <div class="header">
+            <button class="responsive-toggle" id="sidebarToggle">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="page-title">Listado de Estudiantes</div>
+            <div class="user-profile">
+              <div class="user-avatar">A</div>
+              <div class="d-none d-sm-block">Administrador</div>
+            </div>
+          </div>
+
+          <div class="container-fluid px-4 py-4">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-md-8">
+                    <div class="input-group">
+                      <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                      </span>
+                      <input type="text" 
+                             class="form-control" 
+                             id="searchInput" 
+                             placeholder="Buscar por nombre o DNI..."
+                             onkeyup="filtrarEstudiantes()">
+                    </div>
+                  </div>
+                  <div class="col-md-4 text-end">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNuevoEstudiante">
+                      <i class="fas fa-plus me-2"></i>Nuevo Estudiante
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Nombre y Apellido</th>
+                        <th>DNI</th>
+                        <th>Escuela de Procedencia</th>
+                        <th>Año cursado</th>
+                        <th class="text-center">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tablaEstudiantes">
+                      <tr>
+                        <td>Juan Pérez</td>
+                        <td>12345678</td>
+                        <td>Escuela Técnica N°1</td>
+                        <td>3° año</td>
+                        <td class="text-center">
+                          <button class="btn btn-info btn-sm" onclick="verFicha(1)">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-warning btn-sm ms-2" onclick="editarFicha(1)">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-danger btn-sm ms-2" onclick="eliminarEstudiante(1)">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>María García</td>
+                        <td>87654321</td>
+                        <td>Colegio Nacional</td>
+                        <td>2° año</td>
+                        <td class="text-center">
+                          <button class="btn btn-info btn-sm" onclick="verFicha(2)">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button class="btn btn-warning btn-sm ms-2" onclick="editarFicha(2)">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-danger btn-sm ms-2" onclick="eliminarEstudiante(2)">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div> 
+    </div> 
+
+
+    <div class="modal fade" id="modalNuevoEstudiante" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Nuevo Estudiante</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formNuevoEstudiante">
+              <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombreEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellidoEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">DNI</label>
+                <input type="text" class="form-control" id="dniEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Escuela de Procedencia</label>
+                <input type="text" class="form-control" id="escuelaEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Año a Cursar</label>
+                <select class="form-control" id="anioEstudiante" required>
+                  <option value="">Seleccionar año</option>
+                  <option>1° año</option>
+                  <option>2° año</option>
+                  <option>3° año</option>
+                  <option>4° año</option>
+                  <option>5° año</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccionEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefonoEstudiante" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" id="emailEstudiante" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="guardarEstudiante()">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade" role="alert" id="mensajeExito">
+      Estudiante guardado exitosamente
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="modal fade" id="modalVerFicha" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Ficha del Estudiante</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Nombre y Apellido</label>
+                <p class="form-control-plaintext" id="fichaNombreApellido"></p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">DNI</label>
+                <p class="form-control-plaintext" id="fichaDNI"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Dirección de Nivel</label>
+                <p class="form-control-plaintext" id="fichaDireccionNivel"></p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Escuela de Procedencia</label>
+                <p class="form-control-plaintext" id="fichaEscuela"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Dirección</label>
+                <p class="form-control-plaintext" id="fichaDireccion"></p>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Teléfono</label>
+                <p class="form-control-plaintext" id="fichaTelefono"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label fw-bold">Código Postal</label>
+                <p class="form-control-plaintext" id="fichaCP"></p>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label fw-bold">Departamento/Partido</label>
+                <p class="form-control-plaintext" id="fichaDepartamento"></p>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label fw-bold">Provincia</label>
+                <p class="form-control-plaintext" id="fichaProvincia"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label fw-bold">Año</label>
+                <p class="form-control-plaintext" id="fichaAnio"></p>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label fw-bold">Resolución</label>
+                <p class="form-control-plaintext" id="fichaResolucion"></p>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label fw-bold">Fecha</label>
+                <p class="form-control-plaintext" id="fichaFecha"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 mb-3">
+                <label class="form-label fw-bold">Correo Electrónico</label>
+                <p class="form-control-plaintext" id="fichaEmail"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 mb-3">
+                <label class="form-label fw-bold">Materias Adeudadas</label>
+                <div class="table-responsive">
+                  <table class="table table-sm" id="fichaMateriasAdeudadas">
+                    <thead>
+                      <tr>
+                        <th>Materia</th>
+                        <th>Año</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filtrarEstudiantes() {
+            const filtro = document.getElementById('searchInput').value.toLowerCase();
+            const filas = document.getElementById('tablaEstudiantes').getElementsByTagName('tr');
+
+            Array.from(filas).forEach(fila => {
+              const nombre = fila.cells[0].textContent.toLowerCase();
+              const dni = fila.cells[1].textContent.toLowerCase();
+              const coincide = nombre.includes(filtro) || dni.includes(filtro);
+              fila.style.display = coincide ? '' : 'none';
+            });
+          }
+
+          function verFicha(dni) {
+
+  const estudiante = {
+    nombreApellido: "Juan Pérez",
+    dni: dni,
+    direccionNivel: "Nivel Secundario",
+    escuela: "Escuela Técnica N°1",
+    direccion: "Av. Ejemplo 123",
+    telefono: "11-1234-5678",
+    cp: "1234",
+    departamento: "Capital",
+    provincia: "Buenos Aires",
+    anio: "3° año",
+    resolucion: "Res. 123/2023",
+    fecha: "01/03/2023",
+    email: "juan.perez@ejemplo.com",
+    materiasAdeudadas: [
+      { materia: "Matemática", anio: "2°", estado: "Pendiente" },
+      { materia: "Literatura", anio: "2°", estado: "Pendiente" }
+    ]
+  };
+
+
+
+  document.getElementById('fichaNombreApellido').textContent = estudiante.nombreApellido;
+  document.getElementById('fichaDNI').textContent = estudiante.dni;
+  document.getElementById('fichaDireccionNivel').textContent = estudiante.direccionNivel;
+  document.getElementById('fichaEscuela').textContent = estudiante.escuela;
+  document.getElementById('fichaDireccion').textContent = estudiante.direccion;
+  document.getElementById('fichaTelefono').textContent = estudiante.telefono;
+  document.getElementById('fichaCP').textContent = estudiante.cp;
+  document.getElementById('fichaDepartamento').textContent = estudiante.departamento;
+  document.getElementById('fichaProvincia').textContent = estudiante.provincia;
+  document.getElementById('fichaAnio').textContent = estudiante.anio;
+  document.getElementById('fichaResolucion').textContent = estudiante.resolucion;
+  document.getElementById('fichaFecha').textContent = estudiante.fecha;
+  document.getElementById('fichaEmail').textContent = estudiante.email;
+
+
+  const tablaMaterias = document.getElementById('fichaMateriasAdeudadas').getElementsByTagName('tbody')[0];
+  tablaMaterias.innerHTML = '';
+  estudiante.materiasAdeudadas.forEach(materia => {
+    const fila = tablaMaterias.insertRow();
+    fila.innerHTML = `
+      <td>${materia.materia}</td>
+      <td>${materia.anio}</td>
+      <td>${materia.estado}</td>
+    `;
+  });
+
+
+
+  const modal = new bootstrap.Modal(document.getElementById('modalVerFicha'));
+  modal.show();
+}
+
+          function eliminarEstudiante(dni) {
+  Swal.fire({
+    title: '¿Está seguro?',
+    text: "Esta acción eliminará permanentemente al estudiante",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const tabla = document.getElementById('tablaEstudiantes');
+      const filas = tabla.getElementsByTagName('tr');
+      
+      Array.from(filas).forEach(fila => {
+        if(fila.cells[1].textContent === dni.toString()) {
+          fila.remove();
+          
+          const mensaje = document.getElementById('mensajeExito');
+          mensaje.textContent = 'Estudiante eliminado exitosamente';
+          mensaje.classList.add('show');
+          setTimeout(() => {
+            mensaje.classList.remove('show');
+          }, 3000);
+        }
+      });
+    }
+  });
+}
+
+          function guardarEstudiante() {
+            const form = document.getElementById('formNuevoEstudiante');
+            if(form.checkValidity()) {
+
+              const nuevoEstudiante = {
+                nombre: document.getElementById('nombreEstudiante').value,
+                apellido: document.getElementById('apellidoEstudiante').value,
+                dni: document.getElementById('dniEstudiante').value,
+                escuela: document.getElementById('escuelaEstudiante').value,
+                anio: document.getElementById('anioEstudiante').value,
+                direccion: document.getElementById('direccionEstudiante').value,
+                telefono: document.getElementById('telefonoEstudiante').value,
+                email: document.getElementById('emailEstudiante').value
+              };
+
+
+              const tabla = document.getElementById('tablaEstudiantes');
+              const fila = tabla.insertRow();
+              fila.innerHTML = `
+                <td>${nuevoEstudiante.nombre} ${nuevoEstudiante.apellido}</td>
+                <td>${nuevoEstudiante.dni}</td>
+                <td>${nuevoEstudiante.escuela}</td>
+                <td>${nuevoEstudiante.anio}</td>
+                <td class="text-center">
+                  <button class="btn btn-info btn-sm" onclick="verFicha('${nuevoEstudiante.dni}')">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="btn btn-warning btn-sm ms-2" onclick="editarFicha('${nuevoEstudiante.dni}')">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm ms-2" onclick="eliminarEstudiante('${nuevoEstudiante.dni}')">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              `;
+
+
+              const mensaje = document.getElementById('mensajeExito');
+              mensaje.classList.add('show');
+              setTimeout(() => {
+                mensaje.classList.remove('show');
+              }, 3000);
+
+
+              bootstrap.Modal.getInstance(document.getElementById('modalNuevoEstudiante')).hide();
+              form.reset();
+            } else {
+              form.reportValidity();
+            }
+          }
+
+          function editarFicha(dni) {
+
+  const estudiante = obtenerDatosEstudiante(dni);
+  
+
+  document.querySelectorAll('#modalVerFicha .form-control-plaintext').forEach(campo => {
+    const id = campo.id;
+    const valor = campo.textContent;
+    campo.innerHTML = `<input type="text" class="form-control" value="${valor}" id="edit_${id}">`;
+  });
+  
+
+  document.querySelector('#modalVerFicha .modal-footer').innerHTML = `
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-primary" onclick="guardarCambiosFicha('${dni}')">Guardar Cambios</button>
+  `;
+  
+
+  const modal = new bootstrap.Modal(document.getElementById('modalVerFicha'));
+  modal.show();
+}
+
+function guardarCambiosFicha(dni) {
+
+  const estudianteActualizado = {
+    nombreApellido: document.getElementById('edit_fichaNombreApellido').value,
+    dni: document.getElementById('edit_fichaDNI').value,
+    direccionNivel: document.getElementById('edit_fichaDireccionNivel').value,
+    escuela: document.getElementById('edit_fichaEscuela').value,
+    direccion: document.getElementById('edit_fichaDireccion').value,
+    telefono: document.getElementById('edit_fichaTelefono').value,
+    cp: document.getElementById('edit_fichaCP').value,
+    departamento: document.getElementById('edit_fichaDepartamento').value,
+    provincia: document.getElementById('edit_fichaProvincia').value,
+    anio: document.getElementById('edit_fichaAnio').value,
+    resolucion: document.getElementById('edit_fichaResolucion').value,
+    fecha: document.getElementById('edit_fichaFecha').value,
+    email: document.getElementById('edit_fichaEmail').value
+  };
+
+
+  const fila = document.querySelector(`tr[data-dni="${dni}"]`);
+  if (fila) {
+    fila.cells[0].textContent = estudianteActualizado.nombreApellido;
+    fila.cells[1].textContent = estudianteActualizado.dni;
+    fila.cells[2].textContent = estudianteActualizado.escuela;
+    fila.cells[3].textContent = estudianteActualizado.anio;
+  }
+
+
+  const mensaje = document.getElementById('mensajeExito');
+  mensaje.textContent = 'Ficha actualizada exitosamente';
+  mensaje.classList.add('show');
+  setTimeout(() => {
+    mensaje.classList.remove('show');
+  }, 3000);
+
+
+  bootstrap.Modal.getInstance(document.getElementById('modalVerFicha')).hide();
+}
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        sidebarToggle.addEventListener('click', function() {
+          sidebar.classList.toggle('active');
+          sidebarOverlay.classList.toggle('active');
+        });
+        
+        sidebarOverlay.addEventListener('click', function() {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+        });
+        
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+          item.addEventListener('click', function() {
+            menuItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            if (window.innerWidth <= 768) {
+              sidebar.classList.remove('active');
+              sidebarOverlay.classList.remove('active');
+            }
+          });
+        });
+        
+        window.addEventListener('resize', function() {
+          if (window.innerWidth > 768) {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+          }
+        });
+      });
+    </script>
+</body>
+</html>
+

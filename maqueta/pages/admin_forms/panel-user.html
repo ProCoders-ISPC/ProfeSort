@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Docentes</title>
+  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="admin">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="container-fluid p-0">
+    <div class="d-flex">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo">ProfeSort Docente</div>
+        </div>
+        <div class="sidebar-menu">
+          <div class="menu-item active" id="menu-estudiantes">
+            <div class="menu-icon">
+              <img src="../../assets/img/icons/credential_icon.svg" alt="Estudiantes" height="20">
+            </div>
+            <div>Mis Estudiantes</div>
+          </div>
+          <div class="menu-item" id="menu-editar">
+            <div class="menu-icon">
+              <img src="../../assets/img/icons/teacher_icon.svg" alt="Editar datos" height="20">
+            </div>
+            <div>Editar mis datos</div>
+          </div>
+          <div class="menu-item" id="menu-logout">
+            <div class="menu-icon">
+              <img src="../../assets/img/icons/logout_icon.svg" alt="Cerrar sesión" height="20">
+            </div>
+            <div>Cerrar sesión</div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="main-content w-100">
+        <div class="header">
+          <button class="responsive-toggle" id="sidebarToggle" aria-label="Abrir o cerrar menú lateral">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="page-title">Panel Docente</div>
+          <div class="user-profile">
+            <div class="user-avatar">D</div>
+            <div id="nombre-docente">Nombre del Profesor</div>
+          </div>
+        </div>
+
+        <div class="form-container-docente" id="welcome-message">
+          <section class="welcome-section">
+            <h2>Bienvenido, <span id="nombre-docente-bienvenida">Nombre del Profesor</span></h2>
+            <p>Utiliza el menú para gestionar tus estudiantes o editar tus datos.</p>
+          </section>
+          <div id="panel-content"></div>
+        </div>
+
+        <div id="student-list" style="display: none;">
+          <h3>Mis Estudiantes</h3>
+          <table id="student-table" class="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>DNI</th>
+                <th>Correo Electrónico</th>
+                <th>Estado de Inscripción</th>
+              </tr>
+            </thead>
+            <tbody>
+      
+            </tbody>
+          </table>
+        </div>
+
+       
+        <div id="edit-profile" style="display: none;">
+          <h3>Editar mis datos</h3>
+          <form id="edit-profile-form">
+            <div class="form-group">
+              <label for="nombreCompleto" class="form-label">Nombre Completo:</label>
+              <input type="text" id="nombreCompleto" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label for="dni" class="form-label">DNI:</label>
+              <input type="text" id="dni" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label for="legajo" class="form-label">Legajo:</label>
+              <input type="text" id="legajo" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label for="domicilio" class="form-label">Domicilio:</label>
+              <input type="text" id="domicilio" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="correoElectronico" class="form-label">Correo Electrónico:</label>
+              <input type="email" id="correoElectronico" class="form-control">
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" id="guardar-datos">Guardar</button>
+            </div>
+          </form>
+          <div id="edit-profile-message" style="display: none; color: green;">Datos actualizados correctamente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+      sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        sidebarOverlay.classList.toggle('active');
+      });
+
+      sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+      });
+
+      const menuEstudiantes = document.getElementById('menu-estudiantes');
+      const menuEditar = document.getElementById('menu-editar');
+      const panelContent = document.getElementById('panel-content');
+      const studentListDiv = document.getElementById('student-list');
+      const editProfileDiv = document.getElementById('edit-profile');
+      const editProfileForm = document.getElementById('edit-profile-form');
+      const editProfileMessage = document.getElementById('edit-profile-message');
+      const guardarDatosBtn = document.getElementById('guardar-datos');
+      const studentTableBody = document.getElementById('student-table').querySelector('tbody');
+      const welcomeMessage = document.getElementById('welcome-message');
+
+      
+      function hideAllPanels() {
+        studentListDiv.style.display = 'none';
+        editProfileDiv.style.display = 'none';
+        editProfileMessage.style.display = 'none';
+        welcomeMessage.style.display = 'none'; // 
+      }
+
+      
+      menuEstudiantes.addEventListener('click', function() {
+        hideAllPanels();
+        studentListDiv.style.display = 'block';
+        
+        const students = [
+          { nombre: 'Juan', apellidos: 'Pérez', dni: '12345678', correoElectronico: 'juan@example.com', estadoInscripcion: 'Activo' },
+          { nombre: 'María', apellidos: 'Gómez', dni: '87654321', correoElectronico: 'maria@example.com', estadoInscripcion: 'Pendiente' },
+          { nombre: 'Carlos', apellidos: 'Rodríguez', dni: '45678912', correoElectronico: 'carlos@example.com', estadoInscripcion: 'Inactivo' }
+        ];
+
+        
+        studentTableBody.innerHTML = ''; 
+        students.forEach(student => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${student.nombre}</td>
+            <td>${student.apellidos}</td>
+            <td>${student.dni}</td>
+            <td>${student.correoElectronico}</td>
+            <td>${student.estadoInscripcion}</td>
+          `;
+          studentTableBody.appendChild(row);
+        });
+      });
+
+      
+      menuEditar.addEventListener('click', function() {
+        hideAllPanels();
+        editProfileDiv.style.display = 'block';
+
+        
+        const docenteData = {
+          nombreCompleto: 'Nombre del Profesor',
+          dni: '98765432',
+          legajo: '1234',
+          domicilio: 'Calle Falsa 123',
+          correoElectronico: 'profesor@example.com'
+        };
+
+        
+        document.getElementById('nombreCompleto').value = docenteData.nombreCompleto;
+        document.getElementById('dni').value = docenteData.dni;
+        document.getElementById('legajo').value = docenteData.legajo;
+        document.getElementById('domicilio').value = docenteData.domicilio;
+        document.getElementById('correoElectronico').value = docenteData.correoElectronico;
+      });
+
+      
+      guardarDatosBtn.addEventListener('click', function() {
+        const domicilio = document.getElementById('domicilio').value;
+        const correoElectronico = document.getElementById('correoElectronico').value;
+
+        if (domicilio.trim() === '' || correoElectronico.trim() === '') {
+          alert('Por favor, complete todos los campos.');
+          return;
+        }
+
+        console.log('Datos actualizados:', {
+          domicilio: domicilio,
+          correoElectronico: correoElectronico
+        });
+
+        
+        editProfileMessage.style.display = 'block';
+
+        
+        setTimeout(() => {
+          editProfileMessage.style.display = 'none';
+        }, 3000);
+      });
+
+      const menuItems = document.querySelectorAll('.menu-item');
+      menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+          menuItems.forEach(i => i.classList.remove('active'));
+          this.classList.add('active');
+          if (window.innerWidth <= 768) {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+          }
+        });
+      });
+
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
