@@ -436,3 +436,11 @@ tr:hover {
     padding: 15px;
   }
 }
+
+.hero-text, 
+.hero-text h1, 
+.hero-text h2, 
+.hero-text p, 
+.hero-text button {
+  font-family: 'Acephimere', Arial, sans-serif;
+}
