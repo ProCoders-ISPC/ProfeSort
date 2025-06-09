@@ -224,7 +224,7 @@
         sidebar.classList.remove('active');
         sidebarOverlay.classList.remove('active');
       });
-      
+
 
       const menuItems = document.querySelectorAll('.menu-item');
       menuItems.forEach(item => {
@@ -232,7 +232,6 @@
           menuItems.forEach(i => i.classList.remove('active'));
           this.classList.add('active');
           
-
           if (window.innerWidth <= 768) {
             sidebar.classList.remove('active');
             sidebarOverlay.classList.remove('active');
@@ -240,6 +239,7 @@
         });
       });
       
+
       window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
           sidebar.classList.remove('active');
