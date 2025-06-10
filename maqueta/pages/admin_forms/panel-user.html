@@ -3,42 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Docentes</title>
-  <link rel="stylesheet" href="../../assets/css/styles.css">
+  <title>Panel Usuario</title>
+  <link rel="stylesheet" href="../../assets/css/styles.css" >
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="admin">
 
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-  <div class="container-fluid p-0">
-    <div class="d-flex">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-          <div class="sidebar-logo">ProfeSort Docente</div>
-        </div>
-        <div class="sidebar-menu">
-          <div class="menu-item active" id="menu-estudiantes">
-            <div class="menu-icon">
-              <img src="../../assets/img/icons/credential_icon.svg" alt="Estudiantes" height="20">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <div class="container-fluid p-0">
+      <div class="d-flex">
+        <aside class="sidebar" id="sidebar">
+        	<div class="sidebar-header">
+            	<div class="sidebar-logo">ProfeSort Admin</div>
+        	</div>
+        	<nav class="sidebar-menu">
+            	<div class="menu-item active">
+                	<div class="menu-icon">
+                        <img src="../../assets/img/icons/profesort_icon.svg" alt="Icono Panel" height="20">
+                    </div>
+                	<div>Panel</div>
+            	</div>
+            	<div class="menu-item">
+                	<div class="menu-icon">
+                            <img src="../../assets/img/icons/teacher_icon.svg" alt="Icono Docentes" height="20">
+                    </div>
+                	<div>Docentes</div>
+            	</div>
+            	 <div class="menu-item">
+              <a href="panel-materias.html" class="d-flex align-items-center text-decoration-none text-reset">
+                <div class="menu-icon">
+                  <img src="../../assets/img/icons/subjects_icon.svg" alt="Icono Materias" height="20">
+                </div>
+              <div>Materias</div>
+              </a>
             </div>
-            <div>Mis Estudiantes</div>
-          </div>
-          <div class="menu-item" id="menu-editar">
-            <div class="menu-icon">
-              <img src="../../assets/img/icons/teacher_icon.svg" alt="Editar datos" height="20">
-            </div>
-            <div>Editar mis datos</div>
-          </div>
-          <div class="menu-item" id="menu-logout">
-            <div class="menu-icon">
-              <img src="../../assets/img/icons/logout_icon.svg" alt="Cerrar sesión" height="20">
-            </div>
-            <div>Cerrar sesión</div>
-          </div>
-        </div>
-      </aside>
+            	<div class="menu-item">
+                	<div class="menu-icon">
+                            <img src="../../assets/img/icons/credential_icon.svg" alt="Icono Estudiantes" height="20">
+                    </div>
+                	<div>Estudiantes</div>
+            	</div>
+                <div class="menu-item">
+                	<div class="menu-icon">
+						<img src="../../assets/img/icons/config_icon.svg" alt="Icono Configuracion" height="20">
+					</div>
+                	<div>Configuración</div>
+            	</div>
+            	<div class="menu-item">
+                	<div class="menu-icon"> 
+					<img src="../../assets/img/icons/logout_icon.svg" alt="Icono Cerrar sesion" height="20">
+					</div>
+                	<div>Cerrar Sesión</div>
+            	</div>
+        	</nav>
+    	</aside>
 
       <div class="main-content w-100">
         <div class="header">
