@@ -90,6 +90,7 @@ nav a:hover {
     height: 300px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center 90%;
     box-shadow: 0 4px 14px rgba(6,16,19,0.2);
 }
 
