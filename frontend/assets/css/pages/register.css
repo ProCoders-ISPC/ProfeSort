@@ -1,0 +1,48 @@
+.form-container--register {
+  background-color: var(--primary-dark) !important;
+  color: var(--white);
+  max-width: 600px;
+  margin: 20px auto;
+  z-index: 10;
+  position: relative;
+  padding: 25px 32px;
+}
+
+.form-container--register .form-input {
+  border: none;
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--text-dark);
+}
+
+.form-container--register .form-textarea {
+  border: none;
+  border-radius: 6px;
+  background-color: var(--white);
+  color: var(--text-dark);
+}
+
+.form-container--register .form-input:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
+}
+
+.form-container--register .form-textarea:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
+}
+
+.form-container--register .form-label {
+  color: var(--white) !important;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.form-container--register .form-input::placeholder,
+.form-container--register .form-textarea::placeholder {
+  color: #666;
+}
+
+.form-container--register .form-help {
+  color: var(--white);
+}
