@@ -99,7 +99,28 @@ maqueta/
 
 frontend/
 ````
-<p> En esta carpeta se desarrollará la interfaz del sistema usando Angular, incluyendo componentes, vistas y estilos. </p>
+<p> En esta carpeta se desarrollará la interfaz del sistema usando Angular, incluyendo componentes, vistas y estilos. Contiene:</p>
+ 
+ - **src/**:
+Es la base principal del proyecto Angular. En esta carpeta se encuentra toda la lógica, vistas y configuraciones del sistema. Contiene:
+
+- **app/**: Carpeta principal de la aplicación.
+  - **core/**: Lógica global, cargada una sola vez en el sistema.
+    - **guards/**: Mecanismos de seguridad para las rutas (ejemplo: `AuthGuard`, `RoleGuard`).
+    - **interceptors/**: Interceptores HTTP para autenticación y manejo de errores.
+    - **models/**: Interfaces y clases de dominio (ejemplo: `Usuario`, `Docente`, `Estudiante`, `Materia`).
+    - **services/**: Servicios globales utilizados en toda la aplicación (ejemplo: `AuthService`, `ApiService`).
+  - **shared/**: Elementos reutilizables en todo el sistema.
+    - **components/**: Componentes compartidos (Navbar, Footer, botones, inputs).
+    - **directives/**: Directivas personalizadas.
+    - **pipes/**: Pipes personalizados.
+  - **features/**: Funcionalidades organizadas por módulos.
+    - **auth/**: Módulo de autenticación del sistema.
+      - **login/**: Vista de inicio de sesión (`LoginComponent`).
+      - **register/**: Vista de registro (`RegisterComponent`).
+    - **public/**: Páginas públicas accesibles sin autenticación.
+      - **layout/**: `PublicLayoutComponent` (estructura general: header, nav, footer).
+
 
 
 ````bash
@@ -130,3 +151,4 @@ backend/
 <p>Dado que actualmente ProfeSort se encuentra en su fase inicial de desarrollo, aún no cuenta con instrucciones de ejecución. Próximamente añadiremos detalles sobre cómo instalar dependencias y levantar tanto la maqueta estática como el frontend y el backend.</p>
 
 ###
+
