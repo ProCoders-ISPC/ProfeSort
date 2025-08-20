@@ -446,6 +446,14 @@ body.about {
   position: relative;
   height: 100vh;
   overflow: hidden;
+<<<<<<< HEAD
+=======
+  font-family: 'Acephimere', sans-serif; 
+}
+
+#hero h1, #hero h2 {
+  font-family: 'Acephimere', sans-serif; 
+>>>>>>> develop
 }
 
 #hero video {
@@ -1061,4 +1069,17 @@ tr:hover {
 
 #edit-profile-form .form-actions {
     margin-top: 20px;
+<<<<<<< HEAD
 }
+=======
+}
+
+/* Asegurar que la fuente se aplique al hero */
+.hero .hero-text,
+.hero .hero-text h1,
+.hero .hero-text h2,
+.hero .hero-text p,
+.hero .hero-text button {
+  font-family: 'Acephimere', sans-serif !important;
+}
+>>>>>>> develop
