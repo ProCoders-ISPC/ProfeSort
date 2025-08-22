@@ -1,1 +1,112 @@
-<p>about works!</p>
+<header>
+  <div class="logo">
+    <img src="/assets/img/home/logo/ProfeSort_yellow.svg" alt="Clase en curso" height="80">
+  </div>
+  
+  <!-- Navegación normal para desktop -->
+  <nav class="header__nav-desktop">
+    <a routerLink="/home">Inicio</a>
+    <a routerLink="/register">Registro</a>
+    <a routerLink="/login">Iniciar Sesión</a>
+  </nav>
+  
+  <!-- Menú hamburguesa para móvil -->
+  <div class="header__burger">
+    <input type="checkbox" id="header-burger-checkbox" class="header__burger-checkbox">
+    <label for="header-burger-checkbox" class="header__burger-toggle">
+      <span class="header__burger-bar"></span>
+      <span class="header__burger-bar"></span>
+      <span class="header__burger-bar"></span>
+    </label>
+    <nav class="header__nav-mobile">
+      <label for="header-burger-checkbox" class="header__close-btn"></label>
+      <a routerLink="/home">Inicio</a>
+      <a routerLink="/register">Registro</a>
+      <a routerLink="/login">Iniciar Sesión</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="hero">
+    <video muted autoplay loop>
+      <source src="/assets/videos/about-video.mp4" type="video/mp4">
+    </video>
+    <div class="capa"></div>
+
+    <div class="promo">
+      <h1>ProfeSort</h1>
+      <p>Herramienta administrativa para el Plan Fines</p>
+      <button id="about__button" type="button" (click)="scrollToSection('profesort')">Conocer más</button>
+    </div>
+  </section>
+
+  <section class="about__ProfeSort" id="profesort">
+    <div class="about__container">
+      <h2>¿Qué es ProfeSort?</h2>
+      <p>
+        <strong>ProfeSort</strong> es una plataforma educativa diseñada para docentes del Plan Fines. Facilita la gestión de inscripciones, asignaciones y el seguimiento académico de los estudiantes de forma clara y eficiente.
+      Con una interfaz amigable y funcionalidades enfocadas en el aula, nuestro objetivo es que cada profesor pueda dedicar más tiempo a enseñar, y menos a tareas administrativas.
+      </p>
+    </div>
+  </section>
+
+  <section class="about__Quienes__Somos">
+    <div class="about__container">
+      <h2>¿Quiénes Somos?</h2>
+      <p>
+        Somos <strong>ProCoders</strong>, un equipo de estudiantes del segundo año de la Tecnicatura en Desarrollo de Software.
+        Este proyecto nace como parte de nuestro recorrido académico, aplicando conocimientos de diseño, desarrollo web y trabajo en equipo para dar vida a soluciones reales.
+        Creemos en el aprendizaje constante, la innovación y el compromiso con el trabajo bien hecho.
+      </p>
+    </div>
+  </section>
+
+  <section class="about__contacto__portfolios">
+    <div class="about__container">
+      <h2>Conectá con Nosotros</h2>
+      <p>
+        Seguinos y conocé el trabajo de cada integrante del equipo en sus perfiles de GitHub.
+      </p>
+
+      <div class="about__cards">
+        <a routerLink="/portfolio/cristian-vargas" class="about__card">
+          <img src="/assets/img/about/proflile-img/cristian-vargas.webp" alt="Portfolios">
+          <span>Cristian Vargas</span>
+        </a>
+        <a routerLink="/portfolio/daniel-paez" class="about__card">
+          <img src="/assets/img/about/proflile-img/daniel-paez.jpg" alt="Portfolio">
+          <span>Daniel Nicolás Paez</span>
+        </a>
+        <a routerLink="/portfolio/juanignacio-gioda" class="about__card">
+          <img src="/assets/img/about/proflile-img/juangioda.jpg" alt="Portfolio">
+          <span>Juan Ignacio Gioda</span>
+        </a>
+        <a routerLink="/portfolio/laura-zarate" class="about__card">
+          <img src="/assets/img/about/proflile-img/lau-zarate.png" alt="Portfolio">
+          <span>Laura Micaela Zárate</span>
+        </a>
+        <a routerLink="/portfolio/juanpablo-sanchez" class="about__card">
+          <img src="/assets/img/about/proflile-img/juan-sanchez.jpg" alt="Portfolio">
+          <span>Juan Pablo Sánchez</span>
+        </a>
+        <a routerLink="/portfolio/karina-quinteros" class="about__card">
+          <img src="/assets/img/about/proflile-img/karina-quinteros.jpg" alt="Portfolio">
+          <span>Karina Quinteros</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer__logo">
+    <img src="/assets/img/home/logo/ProfeSort_darkgreen.svg" alt="Clase en curso" height="100">
+  </div>
+  <div class="footer__links">
+    <a href="#" aria-label="Facebook"><img src="/assets/img/socialmedia-icons/facebook.png" alt="Facebook"></a>
+    <a href="#" aria-label="Instagram"><img src="/assets/img/socialmedia-icons/instagram.png" alt="Instagram"></a>
+    <a href="#" aria-label="WhatsApp"><img src="/assets/img/socialmedia-icons/whatsapp.png" alt="WhatsApp"></a>
+  </div>
+  <p>&copy; 2025 ProfeSort | Plataforma Educativa. Todos los derechos reservados.</p>
+</footer>
