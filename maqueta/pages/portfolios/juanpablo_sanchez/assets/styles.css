@@ -91,6 +91,21 @@ section {
   color: #584e4e;
 }
 
+.seccion-descripcion-proyectos {
+  font-size: 1.15rem;
+  color: #6100ac;
+  background: #f5f6f7;
+  border-left: 4px solid #6100ac;
+  padding: 16px 24px;
+  margin: 18px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(97,0,172,0.07);
+  font-family: 'Quicksand', sans-serif;
+  text-align: left;
+  max-width: 700px;
+  width: 100%;
+}
+
 .texto-negro {
   color: black;
 }
