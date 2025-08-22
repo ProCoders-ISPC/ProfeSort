@@ -387,6 +387,18 @@ footer {
   text-align: center;
 }
 
+.cv-link {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.cv-link:hover {
+  color: #a862e2;
+  text-decoration: underline;
+}
+
 
 
 @media screen and (max-width: 800px) {
