@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-layout',
-  imports: [],
+  selector: 'app-admin-layout',
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './layout.html',
-  styleUrl: './layout.css'
+  styleUrls: ['./layout.css']
 })
-export class Layout {
-
-}
+export class AdminLayout { }

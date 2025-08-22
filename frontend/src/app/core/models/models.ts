@@ -6,6 +6,10 @@ import { Component } from '@angular/core';
   templateUrl: './models.html',
   styleUrl: './models.css'
 })
-export class Models {
-
+export interface Docente {
+  id: number;
+  name: string;
+  email: string;
+  legajo: string;
+  estado: string;
 }
