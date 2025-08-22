@@ -1,8 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { About } from '../../about/about';
+import { Hero } from './components/hero/hero';
+import { Footer } from './components/footer/footer';
+import { Contact } from '../../contact/contact';
+import { Portfolio } from './components/portfolio/portfolio';
+import { Technologies } from './components/technologies/technologies';
+import { Header } from './components/header/header';
+
 
 @Component({
   selector: 'app-laura-zarate',
   standalone: true,
+  imports: [RouterOutlet, Header, Footer, Hero, About, Contact, Portfolio, Technologies],
   templateUrl: './laura-zarate.html',
   styleUrls: ['./laura-zarate.css']
 })
