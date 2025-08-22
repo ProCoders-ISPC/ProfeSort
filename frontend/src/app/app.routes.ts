@@ -13,7 +13,7 @@ import { Layout } from './features/public/layout/layout';
 //import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda/juanignacio-gioda';
 //import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez';
 import { KarinaQuinterosComponent } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
-//import { LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate';
+import { LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +22,7 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'about', component: About },
   { path: 'contact', component: Contact },
+  
   
   // Paneles de administración
   //{ path: 'panel-admin', component: PanelAdmin },
@@ -36,7 +37,14 @@ export const routes: Routes = [
   //{ path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
   //{ path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
   { path: 'portfolio/karina-quinteros', component: KarinaQuinterosComponent },
-  //{ path: 'portfolio/laura-zarate', component: LauraZarate },
+  { path: 'portfolio/laura-zarate',
+    loadComponent: () => import('./features/public/portfolios/laura-zarate/laura-zarate').then(m => m.LauraZarate)
+  },
+  {
+    path: '',
+    redirectTo: '/portfolio/laura-zarate',
+    pathMatch: 'full'
+  }
   
   { path: '**', redirectTo: '/home' } // Ruta wildcard para páginas no encontradas
 ];
