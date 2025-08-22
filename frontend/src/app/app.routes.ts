@@ -37,14 +37,8 @@ export const routes: Routes = [
   //{ path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
   //{ path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
   { path: 'portfolio/karina-quinteros', component: KarinaQuinterosComponent },
-  { path: 'portfolio/laura-zarate',
-    loadComponent: () => import('./features/public/portfolios/laura-zarate/laura-zarate').then(m => m.LauraZarate)
-  },
-  {
-    path: '',
-    redirectTo: '/portfolio/laura-zarate',
-    pathMatch: 'full'
-  }
+  { path: 'portfolio/laura-zarate', component: LauraZarate },
+  
   
   { path: '**', redirectTo: '/home' } // Ruta wildcard para páginas no encontradas
 ];
