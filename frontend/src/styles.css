@@ -10,6 +10,32 @@
 @import url('./assets/css/pages/login.css');
 @import url('./assets/css/pages/home.css');
 
+/* Override Bootstrap styles */
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Override Bootstrap container classes */
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: none !important;
+}
+
 /*===FUENTES===*/
 @font-face {
     font-family: 'Acephimere';
