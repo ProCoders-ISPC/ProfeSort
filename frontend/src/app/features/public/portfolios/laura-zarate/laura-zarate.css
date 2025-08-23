@@ -8,10 +8,9 @@
 
 @font-face {
   font-family: 'Arial_narrow';
-  src: url('../assets/arial_narrow_7.ttf') format('TrueType');
+  src: url('assets/laura-zarate/fonts/arial_narrow_7.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-size: 16px;
 }
 
 * {
