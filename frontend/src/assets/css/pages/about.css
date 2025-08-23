@@ -1,0 +1,247 @@
+/* ABOUT PAGE STYLES */
+
+/* Ensure about page takes full width */
+app-about {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body.about {
+  background-color: var(--background-blue);
+  margin: 0;
+  padding: 0;
+}
+
+#hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Acephimere', sans-serif;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#hero h1, #hero h2 {
+  font-family: 'Acephimere', sans-serif; 
+}
+
+#hero video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+#hero .capa {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #1c1c1c;
+  opacity: .5;
+  z-index: 1;
+}
+
+.promo {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #f3fef3;
+  padding: 0 20px;
+}
+
+.promo h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.promo p {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+#about__button {
+  background: #e5af24;
+  border: none;
+  border-radius: 30px;
+  height: 50px; width: 200px;
+  font-size: 1.2rem; font-weight: bold; color: #3f3f3f;
+  cursor: pointer; transition: transform .2s;
+}
+
+#about__button:hover {
+  transform: translateY(-5px);
+}
+
+#about__button:focus {
+  outline: none;
+}
+
+/* Sección ¿Qué es ProfeSort? */
+.about__ProfeSort {
+  background: #fff;
+  color: #084c4e;
+  padding: 60px 20px;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+.about__ProfeSort .about__container {
+  max-width: 1000px;
+  margin: auto;
+}
+.about__ProfeSort h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+.about__ProfeSort p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Sección ¿Quiénes Somos? */
+.about__Quienes__Somos {
+  background: #fff;
+  color: #084c4e;
+  padding: 60px 20px;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+.about__Quienes__Somos .about__container {
+  max-width: 1000px;
+  margin: auto;
+}
+.about__Quienes__Somos h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+.about__Quienes__Somos p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Sección Portfolios */
+.about__contacto__portfolios {
+  background: #f0f4f4;
+  color: #084c4e;
+  padding: 80px 20px;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+.about__contacto__portfolios .about__container {
+  max-width: 1100px;
+  margin: auto;
+}
+.about__contacto__portfolios h2 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+.about__contacto__portfolios p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+.about__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+.about__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 160px;
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #084c4e;
+  font-weight: 600;
+  font-size: 1rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.about__card:hover {
+  box-shadow: 0 2px 8px rgba(8,76,78,0.08);
+}
+.about__card img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.about__card span {
+  text-align: center;
+}
+
+/* Responsive para About */
+@media (max-width: 900px) {
+  #hero { 
+    height: 70vh;
+    min-height: 400px;
+  }
+  .promo h1 { 
+    font-size: 2.8rem; 
+  }
+  .promo p { 
+    font-size: 1.6rem; 
+  }
+  #about__button {
+    width: 180px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+  .about__ProfeSort, .about__Quienes__Somos, .about__contacto__portfolios {
+    padding: 40px 5vw;
+  }
+  .about__cards {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  #hero { 
+    height: 60vh;
+    min-height: 350px;
+  }
+  .promo {
+    padding: 0 15px;
+  }
+  .promo h1 { 
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+  }
+  .promo p { 
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+  #about__button {
+    width: 160px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  .about__cards {
+    gap: 10px;
+    max-width: 300px;
+  }
+  .about__card {
+    min-width: 120px;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}

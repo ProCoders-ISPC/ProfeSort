@@ -1,0 +1,28 @@
+/* Layout styles to ensure full width */
+.layout-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  flex: 1;
+}
+
+/* Override any Angular Material or Bootstrap margins */
+.layout-container * {
+  box-sizing: border-box;
+}
+
+/* Ensure router outlet content takes full width */
+router-outlet + * {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
