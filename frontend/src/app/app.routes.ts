@@ -5,6 +5,9 @@ import { Register } from './features/auth/register/register';
 import { About } from './features/public/about/about';
 import { Contact } from './features/public/contact/contact';
 import { Layout } from './features/public/layout/layout';
+import { AdminLayout } from './features/admin/layout/layout';
+import { Docente } from './features/admin/docente/docente';
+
 //import { PanelEstudiante } from './features/docente/panel-estudiante/panel-estudiante';
 //import { PanelMaterias } from './features/docente/panel-materias/panel-materias';
 //import { PanelUser } from './features/docente/panel-user/panel-user';
@@ -13,7 +16,7 @@ import { Layout } from './features/public/layout/layout';
 //import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda/juanignacio-gioda';
 //import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez';
 import { KarinaQuinteros } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
-//import { LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate';
+import { LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate';
 
 export const routes: Routes = [
   { 
@@ -27,25 +30,40 @@ export const routes: Routes = [
     
       
       
+      // Portafolios
+      //{ path: 'portfolio/cristian-vargas', component: CristianVargas },
+      //{ path: 'portfolio/daniel-paez', component: DanielPaez },
+      //{ path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
+      //{ path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
+      { path: 'portfolio/karina-quinteros', component: KarinaQuinteros },
+      { path: 'portfolio/laura-zarate', component: LauraZarate },
     ]
   },
   
   // Rutas de autenticación (sin layout)
   { path: 'login', component: Login },
   { path: 'register', component: Register },
-      //{ path: 'portfolio/cristian-vargas', component: CristianVargas },
-      //{ path: 'portfolio/daniel-paez', component: DanielPaez },
-      //{ path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
-      //{ path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
-      { path: 'portfolio/karina-quinteros', component: KarinaQuinteros },
-      //{ path: 'portfolio/laura-zarate', component: LauraZarate },
   
+
+        {
+    path: 'admin',
+    component: AdminLayout,
+    children: [
+      { path: '', redirectTo: 'docentes', pathMatch: 'full' },
+      { path: 'docentes', component: Docente },
+      // { path: 'materias', component: MateriasComponent },
+      // { path: 'estudiantes', component: EstudiantesComponent },
+      // ...otras secciones...
+    ]
+  },
+
+];
   // Paneles de administración (sin layout por ahora)
   //{ path: 'panel-admin', component: PanelAdmin },
   //{ path: 'panel-admin-gestion', component: PanelAdminGestion },
   //{ path: 'panel-estudiante', component: PanelEstudiante },
   //{ path: 'panel-materias', component: PanelMaterias },
   //{ path: 'panel-user', component: PanelUser },
-  
-  { path: '**', redirectTo: '/home' } // Ruta wildcard para páginas no encontradas
-];
+
+//  { path: '**', redirectTo: '/home' } // Ruta wildcard para páginas no encontradas
+//];
