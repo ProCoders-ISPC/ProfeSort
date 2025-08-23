@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrls: ['./app.css'] // ← corregido aquí
+  styleUrls: ['./app.css']
 })
 export class App {
   protected readonly title = signal('profesort-frontend');
