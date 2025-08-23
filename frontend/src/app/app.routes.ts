@@ -8,12 +8,11 @@ import { Layout } from './features/public/layout/layout';
 //import { PanelEstudiante } from './features/docente/panel-estudiante/panel-estudiante';
 //import { PanelMaterias } from './features/docente/panel-materias/panel-materias';
 //import { PanelUser } from './features/docente/panel-user/panel-user';
-//
-import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
+//import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
 //import { DanielPaez } from './features/public/portfolios/daniel-paez/daniel-paez';
 //import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda/juanignacio-gioda';
 //import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez';
-import { KarinaQuinterosComponent } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
+import { KarinaQuinteros } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
 //import { LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate';
 
 export const routes: Routes = [
@@ -27,19 +26,19 @@ export const routes: Routes = [
       { path: 'contact', component: Contact },
     
       
-      // Portafolios
-      { path: 'portfolio/cristian-vargas', component: CristianVargas },
-      //{ path: 'portfolio/daniel-paez', component: DanielPaez },
-      //{ path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
-      //{ path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
-      { path: 'portfolio/karina-quinteros', component: KarinaQuinterosComponent },
-      //{ path: 'portfolio/laura-zarate', component: LauraZarate },
+      
     ]
   },
   
   // Rutas de autenticación (sin layout)
   { path: 'login', component: Login },
   { path: 'register', component: Register },
+      //{ path: 'portfolio/cristian-vargas', component: CristianVargas },
+      //{ path: 'portfolio/daniel-paez', component: DanielPaez },
+      //{ path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
+      //{ path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
+      { path: 'portfolio/karina-quinteros', component: KarinaQuinteros },
+      //{ path: 'portfolio/laura-zarate', component: LauraZarate },
   
   // Paneles de administración (sin layout por ahora)
   //{ path: 'panel-admin', component: PanelAdmin },

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KarinaQuinterosComponent } from './karina-quinteros.component';
+import { KarinaQuinteros } from './karina-quinteros.component';
 
-describe('KarinaQuinterosComponent', () => {
-  let component: KarinaQuinterosComponent;
-  let fixture: ComponentFixture<KarinaQuinterosComponent>;
+describe('KarinaQuinteros', () => {
+  let component: KarinaQuinteros;
+  let fixture: ComponentFixture<KarinaQuinteros>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KarinaQuinterosComponent ]
+      imports: [KarinaQuinteros]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(KarinaQuinterosComponent);
+    fixture = TestBed.createComponent(KarinaQuinteros);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

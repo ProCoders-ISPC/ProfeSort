@@ -1,45 +1,92 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-karina-quinteros',
+  imports: [RouterLink],
   templateUrl: './karina-quinteros.component.html',
-  styleUrls: ['./karina-quinteros.component.css']
+  styleUrl: './karina-quinteros.component.css',
+  encapsulation: ViewEncapsulation.None
 })
-export class KarinaQuinterosComponent implements OnInit, AfterViewInit {
+export class KarinaQuinteros implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('particles', { static: true }) particlesContainer!: ElementRef;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    // Scroll to top when component loads
+    window.scrollTo(0, 0);
   }
 
-  ngAfterViewInit(): void {
-    this.createParticles();
-    this.initSmoothScrolling();
-    this.initScrollAnimations();
+  ngAfterViewInit() {
+    // Create particles after view is initialized
+    console.log('ngAfterViewInit called');
+    setTimeout(() => {
+      this.createParticles();
+      this.setupSmoothScrolling();
+    }, 200);
   }
 
-  private createParticles(): void {
+  ngOnDestroy() {
+    // Clean up particles when component is destroyed
     const particlesContainer = document.getElementById('particles');
-    const particleCount = 50;
-
     if (particlesContainer) {
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 6 + 's';
-        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-        particlesContainer.appendChild(particle);
-      }
+      particlesContainer.innerHTML = '';
     }
   }
 
-  private initSmoothScrolling(): void {
-    document.querySelectorAll('a[href^="#"]').forEach((anchor: Element) => {
-      anchor.addEventListener('click', (e: Event) => {
+  private createParticles() {
+    console.log('createParticles called');
+    
+    // Limpiar partículas de debug del body primero
+    const debugParticles = document.querySelectorAll('.debug-particle');
+    debugParticles.forEach(p => p.remove());
+    
+    // Usar el contenedor original pero con estilos que funcionen
+    const particlesContainer = this.particlesContainer?.nativeElement;
+    console.log('Particles container found via ViewChild:', particlesContainer);
+    
+    if (!particlesContainer) {
+      console.error('Particles container not found!');
+      return;
+    }
+
+    // Clear existing particles
+    particlesContainer.innerHTML = '';
+
+    const particleCount = 50; // Más cantidad de partículas
+    console.log('Creating', particleCount, 'original-style particles');
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      
+      // Distribución aleatoria
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      
+      // Estilos discretos pero visibles como en la maqueta original
+      particle.style.position = 'absolute';
+      particle.style.width = '4px';  // Tamaño original
+      particle.style.height = '4px';
+      particle.style.background = 'rgba(255, 255, 255, 0.3)'; // Más visible pero sutil
+      particle.style.borderRadius = '50%';
+      particle.style.zIndex = '1';
+      particle.style.pointerEvents = 'none';
+      
+      // Animación CSS original
+      particle.style.animation = `float ${6 + Math.random() * 3}s infinite ease-in-out`;
+      particle.style.animationDelay = Math.random() * 6 + 's';
+      
+      particlesContainer.appendChild(particle);
+    }
+    
+    console.log('Original particles created in proper container. Count:', particlesContainer.children.length);
+  }
+
+  private setupSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e: Event) {
         e.preventDefault();
-        const href = (anchor as HTMLAnchorElement).getAttribute('href');
+        const href = (e.target as HTMLAnchorElement).getAttribute('href');
         const target = document.querySelector(href || '');
         if (target) {
           target.scrollIntoView({
@@ -48,31 +95,6 @@ export class KarinaQuinterosComponent implements OnInit, AfterViewInit {
           });
         }
       });
-    });
-  }
-
-  private initScrollAnimations(): void {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const target = entry.target as HTMLElement;
-          target.style.opacity = '1';
-          target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.skills, .cards-proyectos').forEach(el => {
-      const element = el as HTMLElement;
-      element.style.opacity = '0';
-      element.style.transform = 'translateY(20px)';
-      element.style.transition = 'all 0.6s ease';
-      observer.observe(element);
     });
   }
 }

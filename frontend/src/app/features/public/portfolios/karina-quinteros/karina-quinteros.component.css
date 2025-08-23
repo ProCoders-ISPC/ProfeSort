@@ -1,14 +1,132 @@
+/* ==========================================
+   ESTILOS PARA ANGULAR
+========================================== */
+.portfolio-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Botón de volver al equipo */
+/* Asegurar que el contenido tenga z-index mayor que las partículas */
+main {
+  position: relative;
+  z-index: 2;
+}
+
+nav {
+  position: relative;
+  z-index: 1000;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.botones-cv-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 24px;
+  margin-top: 18px;
+}
+.btn-cv-main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+.btn-cv-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  margin-top: 18px;
+  margin-left: 0;
+  backdrop-filter: blur(10px);
+}
+.btn-cv:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-back:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.btn-back i {
+  font-size: 12px;
+}
+
+/* ==========================================
+   ESTILOS ORIGINALES
+========================================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+.portfolio-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   color: white;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 .contenedor-nav-principal {
@@ -545,28 +663,24 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
+  overflow: visible;
 }
 
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  animation: float 6s infinite ease-in-out;
-}
+/* Particle styles are set inline via JavaScript */
 
 @keyframes float {
   0%,
   100% {
     transform: translateY(0px) rotate(0deg);
+    opacity: 0.3;
   }
   50% {
-    transform: translateY(-20px) rotate(180deg);
+    transform: translateY(-30px) rotate(180deg);
+    opacity: 0.5;
   }
 }
 
@@ -686,4 +800,25 @@ body {
     font-size: 1.5rem;
     margin-left: 0.5rem;
   }
+}
+
+/* Estilos para botones de navegación más pequeños y con hover elegante */
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-weight: 500;
+  font-size: 0.9rem; /* Más pequeños */
+  padding: 0.4rem 1rem !important; /* Padding reducido */
+  margin: 0 0.2rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: white !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
