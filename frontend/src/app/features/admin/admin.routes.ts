@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AdminLayout } from './layout/layout';
+import { adminlayout } from './layout/layout';
 import { Docente } from './docente/docente';
 import { Estudiantes } from './estudiantes/estudiantes';
 import { Materias } from './materias/materias';
@@ -7,7 +7,7 @@ import { Materias } from './materias/materias';
 export const ADMIN_ROUTES: Routes = [
   {
     path: '',
-    component: AdminLayout,
+    component: adminlayout,
     children: [
       { path: 'docentes', component: Docente },
       { path: 'estudiantes', component: Estudiantes },
