@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: 'laura-zarate.html',
   styleUrls: ['./laura-zarate.css']
 })
+
 export class LauraZarate {
   isMenuActive = false;
 

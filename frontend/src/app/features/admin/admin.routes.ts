@@ -13,6 +13,7 @@ export const ADMIN_ROUTES: Routes = [
       { path: 'estudiantes', component: Estudiantes },
       { path: 'materias', component: Materias },
       { path: '', redirectTo: 'docentes', pathMatch: 'full' },
+      
     ],
   },
 ];
