@@ -1,1 +1,971 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('./assets/css/base/reset.css');
+@import url('./assets/css/base/variables.css');
+@import url('./assets/css/components/buttons.css');
+@import url('./assets/css/components/footer.css');
+@import url('./assets/css/components/background.css');
+@import url('./assets/css/components/forms.css');
+@import url('./assets/css/components/header.css');
+
+@import url('./assets/css/pages/register.css');
+@import url('./assets/css/pages/login.css');
+@import url('./assets/css/pages/home.css');
+
+/*===FUENTES===*/
+@font-face {
+    font-family: 'Acephimere';
+    src: url('./assets/fonts/Acephimere.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 250px;
+  background-color: var(--primary-medium);
+  color: var(--white);
+  transition: all 0.3s;
+}
+
+.sidebar-header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--primary-medium);
+}
+
+.sidebar-logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sidebar-menu {
+  padding: 20px 0;
+}
+
+.menu-item {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.menu-item:hover {
+  background-color: var(--accent-blue);
+  color: var(--white);
+}
+
+.menu-item.active {
+  background-color: var(--accent-teal);
+}
+
+.menu-icon {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+/* ===== PERFIL DE USUARIO ===== */
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--accent-yellow);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* ===== CONTENEDORES DE TABLA ===== */
+.table-container {
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--shadow-light);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.table-title {
+  font-size: 18px;
+  color: var(--text-dark);
+}
+
+.admin .table-title {
+  margin-top: 60px;
+}
+
+.table-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== TABLAS ===== */
+table,
+.docente-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.docente-table {
+  margin-top: 40px;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  font-weight: bold;
+  color: var(--text-medium);
+}
+
+.docente-table th {
+  background-color: #f0f0f0;
+  color: var(--text-dark);
+}
+
+.docente-table td {
+  background-color: var(--white);
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* ===== ESTADOS Y STATUS ===== */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status-active {
+  background-color: #e8f7ef;
+  color: #2ecc71;
+}
+
+.status-pending {
+  background-color: #fef8e8;
+  color: #f39c12;
+}
+
+.status-inactive {
+  background-color: #feeae9;
+  color: #e74c3c;
+}
+
+/* ===== ACCIONES ===== */
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #f1f1f1;
+}
+
+.action-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-icons i {
+  cursor: pointer;
+  font-size: 16px;
+  color: #3498db;
+  transition: color 0.2s;
+}
+
+.action-icons i:hover {
+  color: var(--text-dark);
+}
+
+/* ===== FORMULARIOS ===== */
+.form-container {
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--shadow-light);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.admin .form-container {
+  margin-bottom: 15px;
+}
+
+.form-container-docente {
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--shadow-light);
+  padding: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  min-height: 300px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.form-container form {
+  max-width: 100%;
+  margin: 0;
+  padding: 20px;
+}
+
+.form-container .mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.form-container .form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.form-container .form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-container .form-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA EL PANEL ADMINISTRATIVO ===== */
+.admin .header {
+  background-color: var(--white);
+  color: var(--text-dark);
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px var(--shadow-light);
+}
+
+.admin .page-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+/* Botón de toggle para el sidebar en móvil */
+.responsive-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  padding: 5px;
+  display: none !important;
+  z-index: 1002;
+}
+
+.responsive-toggle:focus {
+  outline: none;
+}
+
+/* Sobrescribir el estilo del container para eliminar padding */
+.admin .container {
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  width: 100%;
+}
+
+/* Asegurar que el sidebar quede pegado a la izquierda */
+.admin .sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* Ajustar el contenido principal para que respete el espacio del sidebar */
+.admin .main-content {
+  margin-left: 250px; /* Ancho del sidebar */
+  width: calc(100% - 250px);
+}
+
+/* Mejoras para el menú hamburguesa */
+.responsive-toggle {
+  display: none !important;
+  z-index: 1002;
+}
+
+/* Ajustes para el sidebar y overlay en móvil */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  transition: all 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* Header responsivo */
+.admin .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 997;
+}
+
+/* Media queries mejorados */
+@media screen and (max-width: 768px) {
+  .responsive-toggle {
+    display: block !important;
+  }
+  
+  .admin .sidebar {
+    position: fixed;
+    left: -250px;
+    height: 100%;
+    z-index: 999;
+    transition: left 0.3s ease;
+  }
+  
+  .admin .sidebar.active {
+    left: 0;
+  }
+  
+  .admin .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .admin .header {
+    padding: 10px 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-container form {
+    padding: 15px;
+  }
+}
+
+
+body.about {
+  background-color: var(--background-blue);
+}
+
+.promo {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #f3fef3;
+  padding: 0 20px;
+}
+
+.promo h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.promo p {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+#about__button {
+  background: #e5af24;
+  border: none;
+  border-radius: 30px;
+  height: 50px; width: 200px;
+  font-size: 1.2rem; font-weight: bold; color: #3f3f3f;
+  cursor: pointer; transition: transform .2s;
+}
+
+#about__button:hover {
+  transform: translateY(-5px);
+}
+
+#about__button:focus {
+  outline: none;
+}
+
+/* Sección Portfolios */
+.about__contacto__portfolios {
+  background: #f0f4f4;
+  color: #084c4e;
+  padding: 80px 20px;
+  text-align: center;
+}
+.about__contacto__portfolios .about__container {
+  max-width: 1100px;
+  margin: auto;
+}
+.about__contacto__portfolios h2 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+.about__contacto__portfolios p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+.about__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+.about__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 160px;
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #084c4e;
+  font-weight: 600;
+  font-size: 1rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.about__card:hover {
+  box-shadow: 0 2px 8px rgba(8,76,78,0.08);
+}
+.about__card img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.about__card span {
+  text-align: center;
+}
+
+/* Responsive para About */
+@media (max-width: 900px) {
+  #hero { 
+    height: 70vh;
+    min-height: 400px;
+  }
+  .promo h1 { 
+    font-size: 2.8rem; 
+  }
+  .promo p { 
+    font-size: 1.6rem; 
+  }
+  #about__button {
+    width: 180px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+  .about__ProfeSort, .about__Quienes__Somos, .about__contacto__portfolios {
+    padding: 40px 5vw;
+  }
+  .about__cards {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  #hero { 
+    height: 60vh;
+    min-height: 350px;
+  }
+  .promo {
+    padding: 0 15px;
+  }
+  .promo h1 { 
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+  }
+  .promo p { 
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+  }
+  #about__button {
+    width: 160px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  .about__ProfeSort h2, .about__Quienes__Somos h2, .about__contacto__portfolios h2 {
+    font-size: 2rem;
+  }
+  .about__ProfeSort p, .about__Quienes__Somos p {
+    font-size: 1.1rem;
+  }
+  .about__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .about__card {
+    width: 100%;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 560px) {
+  #hero {
+    height: 50vh;
+    min-height: 300px;
+  }
+  .promo h1 { 
+    font-size: 1.9rem;
+  }
+  .promo p { 
+    font-size: 1.2rem;
+  }
+  #about__button {
+    width: 150px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+  .about__cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 400px) {
+  #hero {
+    height: 45vh;
+    min-height: 280px;
+  }
+  .promo h1 { 
+    font-size: 1.7rem;
+  }
+  .promo p { 
+    font-size: 1.1rem;
+  }
+  #about__button {
+    width: 140px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+  .about__cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 300px;
+  }
+  .about__card {
+    min-width: 120px;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,html {
+    font-family: 'Acephimere', sans-serif;
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #043237;
+    color: white;
+    transition: all 0.3s;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #043237;
+}
+
+.sidebar-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar-menu {
+    padding: 20px 0;
+}
+
+.menu-item {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.menu-item:hover {
+    background-color: #3abdcc;
+}
+
+.menu-item.active {
+    background-color: #0F8795;
+}
+
+.menu-icon {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ffffff;
+}
+
+.page-title {
+    font-size: 24px;
+    color: #2c3e50;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #E5AF24;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.table-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.table-title {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.table-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #0F8795;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #E5AF24;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: bold;
+    color: #7f8c8d;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.status-active {
+    background-color: #e8f7ef;
+    color: #2ecc71;
+}
+
+.status-pending {
+    background-color: #fef8e8;
+    color: #f39c12;
+}
+
+.status-inactive {
+    background-color: #feeae9;
+    color: #e74c3c;
+}
+
+.actions {
+    display: flex;
+    gap: 5px;
+}
+
+.action-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #f1f1f1;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.form-container-docente {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; 
+    min-height: 300px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.responsive-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #2c3e50;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        display: none;
+    }
+    
+    .sidebar.active {
+        display: block;
+    }
+    
+    .responsive-toggle {
+        display: block;
+    }
+}
+
+/* Styles for the student list table */
+#student-list {
+    width: 100%; /* Make it take the full width */
+    display: block; /* Ensure it's a block-level element */
+    margin-top: 20px; /* Add some space above */
+}
+
+#student-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#student-list th,
+#student-list td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#student-list th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Styles for the edit profile form */
+#edit-profile-form {
+    margin-top: 10px;
+}
+
+#edit-profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+#edit-profile-form .form-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#edit-profile-form .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#edit-profile-form .form-control:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+#edit-profile-form .form-actions {
+    margin-top: 20px;
+}

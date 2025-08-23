@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './about.css'
 })
 export class About {
-
+  scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }

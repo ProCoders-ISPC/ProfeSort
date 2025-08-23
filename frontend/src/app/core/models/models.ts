@@ -1,11 +1,5 @@
-import { Component } from '@angular/core';
+// Interfaces para los modelos de datos
 
-@Component({
-  selector: 'app-models',
-  imports: [],
-  templateUrl: './models.html',
-  styleUrl: './models.css'
-})
 export interface Docente {
   id: number;
   name: string;

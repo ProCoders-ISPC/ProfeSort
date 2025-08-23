@@ -1,72 +1,79 @@
 <section class="hero">
-  <div class="swiper hero-swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide slide-1">
-        <div class="hero-text">
-          <h2>SUMATE A LA EXPERIENCIA</h2>
-          <h1>ProfeSort</h1>
-          <p>
-            La plataforma diseñada exclusivamente para facilitar la
-            administración de inscripciones, asignaciones y el seguimiento
-            académico de estudiantes del Plan Fines.
-          </p>
-          <button aria-label="Ver más sobre ProfeSort">Ver más</button>
-        </div>
-        <div class="hero-img">
-          <img
-            src="assets/img/home/presentation/img-presentation01.webp"
-            alt="Imagen de presentación"
-          />
-        </div>
+  <swiper-container 
+    class="hero-swiper"
+    slides-per-view="1"
+    space-between="0"
+    autoplay-delay="5000"
+    pagination="true"
+    pagination-clickable="true"
+    loop="true"
+    autoplay="true"
+    navigation="true">
+    
+    <swiper-slide class="slide-1">
+      <div class="hero-text">
+        <h2>SUMATE A LA EXPERIENCIA</h2>
+        <h1>ProfeSort</h1>
+        <p>
+          La plataforma diseñada exclusivamente para facilitar la
+          administración de inscripciones, asignaciones y el seguimiento
+          académico de estudiantes del Plan Fines.
+        </p>
+        <button aria-label="Ver más sobre ProfeSort">Ver más</button>
       </div>
+      <div class="hero-img">
+        <img
+          src="/assets/img/home/presentation/img-presentation01.webp"
+          alt="Imagen de presentación"
+        />
+      </div>
+    </swiper-slide>
 
-      <div class="swiper-slide slide-2">
-        <div class="hero-text">
-          <h2>GESTIONA FACILMENTE</h2>
-          <h2>Inscripciones</h2>
-          <p>
-            Registrá estudiantes de manera rápida y ordenada, evitando
-            errores y optimizando el tiempo de los docentes.
-          </p>
-          <button aria-label="Ver más sobre inscripción">Ver más</button>
-        </div>
-        <div class="hero-img">
-          <img
-            src="assets/img/home/presentation/slider-2.webp"
-            alt="Gestión de inscripciones"
-          />
-        </div>
+    <swiper-slide class="slide-2">
+      <div class="hero-text">
+        <h2>GESTIONA FACILMENTE</h2>
+        <h2>Inscripciones</h2>
+        <p>
+          Registrá estudiantes de manera rápida y ordenada, evitando
+          errores y optimizando el tiempo de los docentes.
+        </p>
+        <button aria-label="Ver más sobre inscripción">Ver más</button>
       </div>
+      <div class="hero-img">
+        <img
+          src="/assets/img/home/presentation/slider-2.webp"
+          alt="Gestión de inscripciones"
+        />
+      </div>
+    </swiper-slide>
 
-      <div class="swiper-slide slide-3">
-        <div class="hero-text">
-          <h2>CONTROL TOTAL</h2>
-          <h1>Seguimiento</h1>
-          <p>
-            Visualizá el rendimiento de cada estudiante: 
-            calificaciones y asignaciones en un solo panel.
-          </p>
-          <button aria-label="Ver más sobre seguimiento académico">
-            Ver más
-          </button>
-        </div>
-        <div class="hero-img">
-          <img
-            src="assets/img/home/presentation/slider-3.webp"
-            alt="Seguimiento académico"
-          />
-        </div>
+    <swiper-slide class="slide-3">
+      <div class="hero-text">
+        <h2>CONTROL TOTAL</h2>
+        <h1>Seguimiento</h1>
+        <p>
+          Visualizá el rendimiento de cada estudiante: asistencia,
+          calificaciones y asignaciones en un solo panel.
+        </p>
+        <button aria-label="Ver más sobre seguimiento académico">
+          Ver más
+        </button>
       </div>
-    </div>
-    <div class="swiper-pagination"></div>
-  </div>
+      <div class="hero-img">
+        <img
+          src="/assets/img/home/presentation/slider-3.webp"
+          alt="Seguimiento académico"
+        />
+      </div>
+    </swiper-slide>
+  </swiper-container>
 </section>
 
 <section class="novedades">
   <h2>Novedades</h2>
   <div class="cards">
     <div class="card">
-      <img src="assets/img/home/news/img-news01.webp" alt="Noticia 1" />
+      <img src="/assets/img/home/news/img-news01.webp" alt="Noticia 1" />
       <h3>¿Cómo es la modalidad FINES?</h3>
       <p>
         Enterate acá cómo podés terminar tus estudios con una cursada
@@ -74,7 +81,7 @@
       </p>
     </div>
     <div class="card">
-      <img src="assets/img/home/news/img-news06.webp" alt="Noticia 2" />
+      <img src="/assets/img/home/news/img-news06.webp" alt="Noticia 2" />
       <h3>Inscripciones cerradas.</h3>
       <p>
         Finalizó el período de inscripción para el plan FINES; agradecemos a
@@ -82,12 +89,67 @@
       </p>
     </div>
     <div class="card">
-      <img src="assets/img/home/news/img-news03.webp" alt="Noticia 3" />
+      <img src="/assets/img/home/news/img-news03.webp" alt="Noticia 3" />
       <h3>¡Inicio de cursada la próxima semana!</h3>
       <p>
         Comenzamos una nueva etapa de aprendizaje; revisá tu correo para más
         detalles.
       </p>
+    </div>
+  </div>
+</section>
+
+<section class="contacto">
+  <h2>Contacto</h2>
+  <div class="contacto-container">
+    <form class="form">
+      <div class="form-group">
+        <label class="form-label" for="contact-name"
+          >Nombre y Apellido</label
+        >
+        <input
+          class="form-input"
+          type="text"
+          id="contact-name"
+          placeholder="Nombre y Apellido"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="contact-email"
+          >Correo electrónico</label
+        >
+        <input
+          class="form-input"
+          type="email"
+          id="contact-email"
+          placeholder="Ingrese su mail"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Mensaje</label>
+        <textarea
+          class="form-input"
+          id="contact-message"
+          placeholder="Ingrese su mensaje"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button class="form-primary-button" type="submit">Enviar</button>
+      </div>
+    </form>
+
+    <div class="hero-img">
+      <img
+        src="/assets/img/home/contact/img-contact01.webp"
+        alt="Contacto imagen"
+      />
     </div>
   </div>
 </section>

@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
+  border: none;
+  outline: none;
 }
 
 html {
@@ -12,8 +13,29 @@ html {
 /* ===== TIPOGRAFÍAS ===== */
 @font-face {
   font-family: "Acephimere";
-  src: url("../fonts/Acephimere.otf") format("opentype");
+  src: url("../../fonts/Acephimere.otf") format("opentype");
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Acephimere_Bold";
+  src: url("../../fonts/Acephimere Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Acephimere_Italic";
+  src: url("../../fonts/Acephimere Italic.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Acephimere_Thin";
+  src: url("../../fonts/Acephimere Thin.otf") format("opentype");
+  font-weight: 300;
   font-style: normal;
 }
 
