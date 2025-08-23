@@ -7,3 +7,11 @@ export interface Docente {
   legajo: string;
   estado: string;
 }
+
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+  role: 'student' | 'admin' | 'teacher';
+  isLoggedIn: boolean;
+}

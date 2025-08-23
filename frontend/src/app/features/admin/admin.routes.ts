@@ -1,13 +1,15 @@
 import { Routes } from '@angular/router';
-import { adminlayout } from './layout/layout';
+import { AdminLayout } from './layout/layout';
 import { Docente } from './docente/docente';
 import { Estudiantes } from './estudiantes/estudiantes';
 import { Materias } from './materias/materias';
+import { AdminGuard } from '../../core/guards/guards';
 
 export const ADMIN_ROUTES: Routes = [
   {
     path: '',
-    component: adminlayout,
+    component: AdminLayout,
+    canActivate: [AdminGuard], // 🛡️ Solo admins pueden acceder
     children: [
       { path: 'docentes', component: Docente },
       { path: 'estudiantes', component: Estudiantes },

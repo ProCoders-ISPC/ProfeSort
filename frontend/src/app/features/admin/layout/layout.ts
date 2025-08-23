@@ -8,4 +8,4 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './layout.html',
   styleUrls: ['./layout.css']
 })
-export class adminlayout { }
+export class AdminLayout { }
