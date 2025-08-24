@@ -1,4 +1,4 @@
-/* Layout styles to ensure full width */
+
 .layout-container {
   margin: 0;
   padding: 0;
@@ -15,12 +15,12 @@
   flex: 1;
 }
 
-/* Override any Angular Material or Bootstrap margins */
+
 .layout-container * {
   box-sizing: border-box;
 }
 
-/* Ensure router outlet content takes full width */
+
 router-outlet + * {
   margin: 0;
   padding: 0;

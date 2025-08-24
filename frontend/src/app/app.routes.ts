@@ -15,7 +15,7 @@ import { LauraZarateComponent as LauraZarate } from './features/public/portfolio
 
 
 export const routes: Routes = [
-  // 🌐 RUTAS PÚBLICAS (con Layout público)
+  
   {
     path: '',
     component: Layout,
@@ -27,11 +27,11 @@ export const routes: Routes = [
     ]
   },
 
-  //  RUTAS DE AUTENTICACIÓN (sin layout)
+  
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
-  //  PORTFOLIOS (sin layout - páginas independientes)
+  
   { path: 'portfolio/karina-quinteros', component: KarinaQuinteros },
   { path: 'portfolio/laura-zarate', component: LauraZarate },
   // { path: 'portfolio/cristian-vargas', component: CristianVargas },
@@ -54,6 +54,6 @@ export const routes: Routes = [
     loadChildren: () => import('./features/admin/admin.routes').then(m => m.ADMIN_ROUTES)
   },
 
-  // Ruta wildcard - debe ir al final
+ 
   { path: '**', redirectTo: '/home' }
 ];

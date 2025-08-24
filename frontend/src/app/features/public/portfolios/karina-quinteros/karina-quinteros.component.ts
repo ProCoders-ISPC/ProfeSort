@@ -12,12 +12,12 @@ export class KarinaQuinteros implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('particles', { static: true }) particlesContainer!: ElementRef;
 
   ngOnInit() {
-    // Scroll to top when component loads
+    
     window.scrollTo(0, 0);
   }
 
   ngAfterViewInit() {
-    // Create particles after view is initialized
+   
     console.log('ngAfterViewInit called');
     setTimeout(() => {
       this.createParticles();
@@ -26,7 +26,7 @@ export class KarinaQuinteros implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Clean up particles when component is destroyed
+   
     const particlesContainer = document.getElementById('particles');
     if (particlesContainer) {
       particlesContainer.innerHTML = '';
@@ -36,11 +36,11 @@ export class KarinaQuinteros implements OnInit, AfterViewInit, OnDestroy {
   private createParticles() {
     console.log('createParticles called');
     
-    // Limpiar partículas de debug del body primero
+    
     const debugParticles = document.querySelectorAll('.debug-particle');
     debugParticles.forEach(p => p.remove());
     
-    // Usar el contenedor original pero con estilos que funcionen
+    
     const particlesContainer = this.particlesContainer?.nativeElement;
     console.log('Particles container found via ViewChild:', particlesContainer);
     
@@ -49,30 +49,30 @@ export class KarinaQuinteros implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    // Clear existing particles
+    
     particlesContainer.innerHTML = '';
 
-    const particleCount = 50; // Más cantidad de partículas
+    const particleCount = 50; 
     console.log('Creating', particleCount, 'original-style particles');
 
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
       particle.className = 'particle';
       
-      // Distribución aleatoria
+      
       particle.style.left = Math.random() * 100 + '%';
       particle.style.top = Math.random() * 100 + '%';
       
-      // Estilos discretos pero visibles como en la maqueta original
+      
       particle.style.position = 'absolute';
-      particle.style.width = '4px';  // Tamaño original
+      particle.style.width = '4px';  
       particle.style.height = '4px';
-      particle.style.background = 'rgba(255, 255, 255, 0.3)'; // Más visible pero sutil
+      particle.style.background = 'rgba(255, 255, 255, 0.3)'; 
       particle.style.borderRadius = '50%';
       particle.style.zIndex = '1';
       particle.style.pointerEvents = 'none';
       
-      // Animación CSS original
+      
       particle.style.animation = `float ${6 + Math.random() * 3}s infinite ease-in-out`;
       particle.style.animationDelay = Math.random() * 6 + 's';
       

@@ -22,10 +22,10 @@ export class Login {
       
       // Simulación de autenticación básica
       if (this.loginData.email && this.loginData.password) {
-        // Aquí iría la lógica real de autenticación con el backend
+        // Aquí iría la lógica  de autenticación con el backend
         console.log('Login exitoso, redirigiendo a home...');
         
-        // Navegar a home
+        // Navega a home
         this.router.navigate(['/home']);
       } else {
         alert('Por favor complete todos los campos');
