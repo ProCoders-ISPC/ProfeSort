@@ -1,10 +1,9 @@
-/* Fuente personalizada Arial Narrow específica */
+
 @font-face {
-  font-family: 'Arial_narrow';
-  src: url('./assets/fonts/arial_narrow_7.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Acephimere';
+    src: url ('../fonts/Acephimere.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @import url('./assets/css/base/reset.css');
