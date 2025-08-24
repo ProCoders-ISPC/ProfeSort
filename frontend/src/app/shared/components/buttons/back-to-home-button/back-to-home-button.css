@@ -49,7 +49,6 @@
 
 .comeback-button:hover {
   width: 170px;
-  background-color: var(--accent-teal);
   justify-content: center;
   padding-left: 0;
 }
