@@ -1,22 +1,24 @@
 
-/* Botón principal de formularios */
-.form-primary-button {
-  width: 100%;
-  margin-top: 20px;
-  background-color: var(--secondary-dark);
-  color: var(--white);
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 1rem;
+/* ===== BOTONES GENERALES ===== */
+/* Los botones específicos de formularios están en sus respectivos componentes */
+/* Este archivo contiene solo botones generales que se usan en múltiples componentes */
+
+/* Botón genérico base - puede ser extendido por otros componentes */
+.btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
+  transition: all 0.2s;
+  border: none;
   font-family: "Acephimere", sans-serif;
-  box-shadow: 0 4px 15px var(--shadow-medium);
-  display: block;
-  transition: background 0.2s, color 0.2s;
 }
 
-.form-primary-button:hover {
-  background-color: var(--secondary-teal);
+.btn-primary {
+  background-color: var(--primary-teal);
   color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-yellow);
 }
