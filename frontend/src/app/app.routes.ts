@@ -7,6 +7,7 @@ import { Contact } from './features/public/contact/contact';
 import { Layout } from './features/public/layout/layout';
 import { KarinaQuinteros } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
 import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez'
+import { Estudiantes } from './features/docente/estudiantes/estudiantes';
 // import { LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate';
 // import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
 // import { DanielPaez } from './features/public/portfolios/daniel-paez/daniel-paez';
@@ -37,6 +38,15 @@ export const routes: Routes = [
   // { path: 'portfolio/daniel-paez', component: DanielPaez },
   // { path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
   // { path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
+
+  // Rutas del docente
+  { 
+    path: 'docente', 
+    children: [
+      { path: 'estudiantes', component: Estudiantes },
+      { path: '', redirectTo: 'estudiantes', pathMatch: 'full' }
+    ]
+  },
 
   //  RUTAS ADMIN (lazy loading - se cargará desde admin.routes.ts)
   {
