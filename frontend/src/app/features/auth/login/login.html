@@ -1,13 +1,8 @@
-<div class="page-actions">
-  <a routerLink="/" class="comeback-button" aria-label="Volver al inicio">
-    <i class="fa fa-arrow-left comeback-button__icon" aria-hidden="true"></i>
-    <span class="comeback-button__text">Volver al inicio</span>
-  </a>
-</div>
+<app-back-to-home-button>Volver al inicio</app-back-to-home-button>
 
 <section class="page-container page-container--full-height">
   <div class="form-container form-container--auth">
-    <h2 class="form-title">¡Bienvenido!</h2>
+    <h2 class="form-title">¡Bienvenido a Profesort!</h2>
     <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="form">
       <div class="form-group">
         <label class="form-label" for="email">Correo electrónico</label>
