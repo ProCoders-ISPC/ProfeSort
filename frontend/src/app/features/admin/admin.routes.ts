@@ -9,7 +9,7 @@ export const ADMIN_ROUTES: Routes = [
   {
     path: '',
     component: AdminLayout,
-    canActivate: [AdminGuard], // 🛡️ Solo admins pueden acceder
+    canActivate: [AdminGuard], 
     children: [
       { path: 'docentes', component: Docente },
       { path: 'estudiantes', component: Estudiantes },

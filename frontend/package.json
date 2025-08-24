@@ -28,12 +28,15 @@
     "@angular/forms": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
+    "bootstrap": "^5.3.7",
+    "bootstrap-icons": "^1.13.1",
     "rxjs": "~7.8.0",
     "swiper": "^11.2.10",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^20.2.0",
     "@angular/build": "^20.1.6",
     "@angular/cli": "^20.1.6",
     "@angular/compiler-cli": "^20.1.0",

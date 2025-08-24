@@ -6,6 +6,8 @@ import { About } from './features/public/about/about';
 import { Contact } from './features/public/contact/contact';
 import { Layout } from './features/public/layout/layout';
 import { KarinaQuinteros } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
+import { Materias } from './features/admin/materias/materias';
+//import { Docente } from './docente/docente'; 
 // import { LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate';
 // import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
 // import { DanielPaez } from './features/public/portfolios/daniel-paez/daniel-paez';
@@ -46,3 +48,5 @@ export const routes: Routes = [
   // Ruta wildcard - debe ir al final
   { path: '**', redirectTo: '/home' }
 ];
+
+

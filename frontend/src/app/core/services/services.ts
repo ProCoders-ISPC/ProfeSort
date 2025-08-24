@@ -48,6 +48,14 @@ export class AuthService {
     if (savedUser) {
       const user = JSON.parse(savedUser);
       this.currentUserSubject.next(user);
+    } else {
+      // Modo desarrollo: loguear automáticamente como admin si no hay usuario
+      const adminUser = this.users.find(u => u.role === 'admin');
+      if (adminUser) {
+        adminUser.isLoggedIn = true;
+        localStorage.setItem('currentUser', JSON.stringify(adminUser));
+        this.currentUserSubject.next(adminUser);
+      }
     }
   }
 
