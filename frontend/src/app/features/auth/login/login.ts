@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
+import { BackgroundComponent } from '../../../shared/components/background/background';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, BackgroundComponent],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
