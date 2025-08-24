@@ -63,20 +63,20 @@ export class AuthService {
   login(email: string, password: string): boolean {
     // Buscar el usuario por email (en una app real verificarías la contraseña)
     const user = this.users.find(u => u.email === email);
-    
+
     if (user) {
       // Marcar como logueado
       user.isLoggedIn = true;
-      
+
       // Guardar en localStorage para persistir la sesión
       localStorage.setItem('currentUser', JSON.stringify(user));
-      
+
       // Actualizar el estado
       this.currentUserSubject.next(user);
-      
+
       return true; // Login exitoso
     }
-    
+
     return false; // Login fallido
   }
 
@@ -84,7 +84,7 @@ export class AuthService {
   logout(): void {
     // Limpiar localStorage
     localStorage.removeItem('currentUser');
-    
+
     // Actualizar estado a null (no logueado)
     this.currentUserSubject.next(null);
   }
