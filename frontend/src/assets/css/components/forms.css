@@ -3,8 +3,17 @@
   background-color: var(--white);
   border-radius: 8px;
   box-shadow: 0 2px 10px var(--shadow-light);
-  padding: 20px;
+  padding: 30px;
   margin-bottom: 30px;
+  width: 100%;
+  max-width: 600px;
+  min-height: 650px;
+  position: relative;
+}
+
+.form-container--register {
+  max-width: 650px;
+  min-height: 750px;
 }
 
 .form-container--centered {
@@ -34,7 +43,10 @@
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group--full-width {
@@ -45,12 +57,13 @@
 .form-row {
   display: flex;
   gap: 20px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-row .form-group {
   flex: 1;
   margin-bottom: 0;
+  min-height: 70px;
 }
 
 .form-label {
@@ -89,18 +102,145 @@
   opacity: 1;
 }
 
+/* ===== ESTILOS PARA VALIDACIONES ===== */
+.form-input--error,
+.form-textarea--error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+}
+
+.form-checkbox-input--error {
+  outline: 2px solid #e74c3c;
+  outline-offset: 2px;
+}
+
+.form-error-container {
+  height: 22px;
+  margin-top: 5px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.form-error {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+  display: block;
+}
+
+.form-success {
+  color: #27ae60;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #c3e6cb;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.required-fields-note {
+  text-align: center;
+  margin-top: 10px;
+  color: #666;
+  font-style: italic;
+}
+
+/* ===== INDICADOR DE FORTALEZA DE CONTRASEÑA ===== */
+.password-requirements {
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #007bff;
+}
+
+.password-hint {
+  color: #6c757d;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.password-checklist {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.password-checklist li {
+  font-size: 0.8rem;
+  margin: 2px 0;
+  color: #e74c3c;
+  transition: color 0.2s;
+}
+
+.password-checklist li.valid {
+  color: #27ae60;
+}
+
+/* ===== CHECKBOX STYLES ===== */
 .form-checkbox {
   display: flex;
-  align-items: center;
-  margin: 15px 0;
-  font-size: 0.9rem;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 20px 0;
+  padding: 0;
+  min-height: 50px;
 }
 
 .form-checkbox-input {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0 0;
+  cursor: pointer;
+  flex-shrink: 0;
   accent-color: var(--accent-blue);
+}
+
+.form-checkbox-input--error {
+  border: 2px solid var(--error-color);
+  box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+}
+
+.form-checkbox-label {
+  color: var(--white);
+  font-size: 14px;
+  cursor: pointer;
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.form-checkbox-label a {
+  color: var(--accent-teal);
+  text-decoration: underline;
+}
+
+.form-checkbox-label a:hover {
+  color: var(--secondary-teal);
+}
+
+/* Contenedor de error para checkbox */
+.form-checkbox .form-error-container {
+  width: 100%;
+  margin-left: 0;
+  margin-top: 5px;
+  height: 20px;
+}
+
+.form-checkbox .form-error {
+  margin-top: 0;
+  font-size: 0.8rem;
 }
 
 .form-help {
@@ -153,6 +293,12 @@
   background-color: var(--primary-dark, #084c4e);
 }
 
+.form-primary-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 768px) {
   .form-container {
@@ -179,12 +325,29 @@
     justify-content: stretch;
     flex-direction: column;
   }
+
+  .password-requirements {
+    padding: 8px;
+    margin-top: 6px;
+  }
+
+  .password-checklist li {
+    font-size: 0.75rem;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .page-container {
     padding: 12px;
     padding-top: 70px;
+  }
+
+  .form-error {
+    font-size: 0.8rem;
+  }
+
+  .password-hint {
+    font-size: 0.8rem;
   }
 }
 
@@ -197,5 +360,19 @@
   .form-title {
     font-size: 1.2rem;
     margin-bottom: 16px;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .form-error {
+    font-size: 0.75rem;
+  }
+
+  .required-fields-note {
+    font-size: 0.8rem;
   }
 }
