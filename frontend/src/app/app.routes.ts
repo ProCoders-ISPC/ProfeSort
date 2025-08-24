@@ -8,7 +8,7 @@ import { Layout } from './features/public/layout/layout';
 import { KarinaQuinteros } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
 import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez'
 import { Estudiantes } from './features/docente/estudiantes/estudiantes';
-// import { LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate';
+import { LauraZarateComponent as LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate.component';
 // import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
 // import { DanielPaez } from './features/public/portfolios/daniel-paez/daniel-paez';
 // import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda/juanignacio-gioda';
@@ -33,7 +33,7 @@ export const routes: Routes = [
 
   //  PORTFOLIOS (sin layout - páginas independientes)
   { path: 'portfolio/karina-quinteros', component: KarinaQuinteros },
-  // { path: 'portfolio/laura-zarate', component: LauraZarate },
+  { path: 'portfolio/laura-zarate', component: LauraZarate },
   // { path: 'portfolio/cristian-vargas', component: CristianVargas },
   // { path: 'portfolio/daniel-paez', component: DanielPaez },
   // { path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },

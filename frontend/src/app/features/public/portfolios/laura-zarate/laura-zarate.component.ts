@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
   selector: 'app-laura-zarate',
   standalone: true,
   imports: [],
-  templateUrl: 'laura-zarate.html',
-  // styleUrls: ['./laura-zarate.css']
+  templateUrl: './laura-zarate.component.html',
+  styleUrls: ['./laura-zarate.component.css']
 })
 
-export class LauraZarate {
+export class LauraZarateComponent {
   isMenuActive = false;
 
   toggleMenu() {

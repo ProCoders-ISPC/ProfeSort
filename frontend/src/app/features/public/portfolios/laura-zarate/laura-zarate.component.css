@@ -6,12 +6,12 @@
   --azul-oscuro: #073b4c;
 }
 
-/* @font-face {
+@font-face {
   font-family: 'Arial_narrow';
-  src: url('assets/laura-zarate/fonts/arial_narrow_7.ttf') format('truetype');
+  src: url('./fonts/arial_narrow_7.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-} */
+} 
 
 * {
   margin: 0;
@@ -24,6 +24,13 @@ html {
 }
 
 body {
+  font-family: 'Arial_narrow', sans-serif;
+  background-color: #f5f5f5;
+  color: var(--azul-oscuro);
+  font-size: 30px;
+}
+
+.portfolio-laura-zarate {
   font-family: 'Arial_narrow', sans-serif;
   background-color: #f5f5f5;
   color: var(--azul-oscuro);

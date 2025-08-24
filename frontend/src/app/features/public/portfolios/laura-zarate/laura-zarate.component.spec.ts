@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LauraZarate } from './laura-zarate';
+import { LauraZarateComponent } from './laura-zarate.component';
 
-describe('LauraZarate', () => {
-  let component: LauraZarate;
-  let fixture: ComponentFixture<LauraZarate>;
+describe('LauraZarateComponent', () => {
+  let component: LauraZarateComponent;
+  let fixture: ComponentFixture<LauraZarateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LauraZarate]
+      imports: [],
+      declarations: [LauraZarateComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LauraZarate);
+    fixture = TestBed.createComponent(LauraZarateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
