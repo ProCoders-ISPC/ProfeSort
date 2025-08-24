@@ -1,0 +1,297 @@
+:root {
+  --verde: #06d6a0;
+  --amarillo: #ffd166;
+  --rosa: #ef476f;
+  --celeste: #118ab2;
+  --azul-oscuro: #073b4c;
+}
+
+@font-face {
+  font-family: 'Arial_narrow';
+  src: url('../fonts/arial_narrow_7.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Arial_narrow', sans-serif;
+  background-color: #34495e;
+  color: var(--azul-oscuro);
+  font-size: 40px;
+  line-height: 0.5;
+}
+
+/* HEADER */
+header {
+  background-color: var(--azul-oscuro);
+  color: #fff; 
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+header h1 {
+  font-size: 30px;
+  color: #fff; 
+}
+
+nav a {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 2px;
+  margin-left: 40px; 
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--rosa);
+}
+
+.logo {
+  margin-left: 40px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* HERO */
+.hero {
+  background-color: var(--rosa);
+  color: white;
+  text-align: center;
+  padding: 140px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero img {
+  display: block;
+  margin: 0 auto 20px auto;
+  max-width: 180px;
+  height: auto;
+}
+
+.hero h2 {
+  font-size: 80px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 50px
+}
+
+/* SECTIONS */
+.section {
+  padding: 40px 0;
+  max-width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 34px;
+  color: var(--verde);
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.proyectos-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.container {
+  max-width: 1200px; 
+  margin:  auto;
+  padding: auto;
+}
+
+.proyecto {
+  background-color: var(--amarillo);
+  padding: 5px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--azul-oscuro);
+  width: 350px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+}
+
+#portfolio p {
+  margin-bottom: 40px;
+  font-size: 22px;     
+}
+
+
+
+/* Sección Tecnologías */
+.techno {
+  display: flex;               
+  justify-content: center;     
+  align-items: center;         
+  gap: 20px;                   
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.techno img {
+  width: 60px;                 
+  height: 60px;
+  margin: 10px;                
+  transition: transform 0.3s; 
+  flex-shrink: 0;
+}
+
+.techno img:hover {
+  transform: scale(1.2);      
+}
+
+/* FOOTER */
+footer {
+  background-color: var(--azul-oscuro);
+  color: var(--amarillo);
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 2px;
+
+  position: relative; 
+  width: 100%;    
+  max-width: 100%;    
+  left: 0;
+  bottom: 0;
+}
+
+/* CONTENT */
+.content {
+  margin-top: 100px;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.content h1 {
+  font-size: 20px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 20px;
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* DIVIDER */
+.divider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1.5s ease-out;
+}
+
+.divider-line {
+  width: 80px;
+  height: 2px;
+  background-color: white;
+  position: relative;
+}
+
+.divider-line::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  animation: shimmer 2s infinite;
+}
+
+.star-icon {
+  margin: 0 20px;
+  color: white;
+  font-size: 24px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+  animation: pulse 2s infinite;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1200px) {
+  .proyectos-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .proyecto {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  .techno {
+    gap: 15px;
+    padding: 30px 15px;
+  }
+
+  .techno img {
+    width: 50px;
+    height: 50px;
+    margin: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  
+
+
+  .section {
+    padding: 40px 10px;
+  }
+
+  .proyecto {
+    padding: 15px;
+  }
+
+  .techno {
+    gap: 10px;
+    padding: 20px 10px;
+    justify-content: center;
+  }
+
+  .techno img {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+  }
+
+}
+
+.section, p, h1, h2 {
+  font-size: 1.5rem;
+}

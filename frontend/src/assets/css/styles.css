@@ -2,7 +2,6 @@
 @import url('./base/variables.css');
 @import url('./components/buttons.css');
 @import url('./components/footer.css');
-@import url('./components/background.css');
 @import url('./components/forms.css'); 
 @import url('./components/header.css'); /* Añadido el import del header */
 
