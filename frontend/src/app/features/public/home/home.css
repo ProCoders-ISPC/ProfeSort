@@ -44,7 +44,7 @@
   margin: 0 !important;
 }
 
-/* Remove any swiper borders and unwanted elements */
+
 .hero swiper-container,
 .hero .swiper-pagination,
 .hero .swiper-pagination-bullet,
@@ -54,20 +54,20 @@
   border-bottom: none !important;
 }
 
-/* Remove any borders from the entire hero section and surrounding elements */
+
 .hero::after,
 .hero::before {
   display: none !important;
 }
 
-/* Hide all pagination elements that might create gray lines */
+
 .swiper-pagination,
 .swiper-button-next,
 .swiper-button-prev {
   display: none !important;
 }
 
-/* Slide background colors */
+
 .slide-1,
 swiper-slide.slide-1 {
   background-color: #f9e79f !important;
@@ -283,10 +283,29 @@ swiper-slide.slide-3 {
 }
 
 .contacto .form {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: calc(50% - 15px); 
-  min-width: 0; 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  justify-content: flex-start;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px var(--shadow-light);
+  padding: 32px;
+  margin-bottom: 0;
+}
+
+.contacto .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.contacto .form-primary-button {
+  width: auto;
+  min-width: 120px;
+  padding: 12px 24px;
+  margin-top: 0;
 }
 
 .contacto .hero-img {
