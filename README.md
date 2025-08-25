@@ -99,12 +99,11 @@ maqueta/
 
 frontend/
 ````
-<p> En esta carpeta se desarrollará la interfaz del sistema usando Angular, incluyendo componentes, vistas y estilos. Contiene: </p>
 
-- **src/** : 
+<p> En esta carpeta se desarrollará la interfaz del sistema usando Angular, incluyendo componentes, vistas y estilos. Conti
 Es la base principal del proyecto Angular. En esta carpeta se encuentra toda la lógica, vistas y configuraciones del sistema. Contiene:
 
-- **app/**: Carpeta principal de la aplicación.
+- **ap**: Carpeta principal de la aplicación.
   - **core/**: Lógica global, cargada una sola vez en el sistema.
     - **guards/**: Mecanismos de seguridad para las rutas (ejemplo: `AuthGuard`, `RoleGuard`).
     - **interceptors/**: Interceptores HTTP para autenticación y manejo de errores.
@@ -120,32 +119,7 @@ Es la base principal del proyecto Angular. En esta carpeta se encuentra toda la 
       - **register/**: Vista de registro (`RegisterComponent`).
     - **public/**: Páginas públicas accesibles sin autenticación.
       - **layout/**: `PublicLayoutComponent` (estructura general: header, nav, footer).
-      - **home/**: Página de inicio.
-      - **quienes-somos/**: Sección de información institucional.
-      - **portafolios/**: Página de portafolios.
-      - **contacto/**: Formulario de contacto.
-    - **admin/**: Panel administrativo (carga diferida – *lazy load*).
-      - **layout/**: `AdminLayoutComponent` (menú lateral con `router-outlet`).
-      - **docentes/**: Gestión CRUD de docentes.
-      - **materias/**: Gestión CRUD de materias.
-      - **estudiantes/**: Gestión CRUD de estudiantes.
-    - **docente/**: Panel del docente (carga diferida – *lazy load*).
-      - **layout/**: `DocenteLayoutComponent` (menú lateral con `router-outlet`).
-      - **materias/**: `MateriasAsignadasComponent`.
-      - **estudiantes/**: `EstudiantesAsignadosComponent`.
-      - **perfil/**: `PerfilDocenteComponent` (edición de datos personales).
-  - **app.component.ts**: Componente raíz de la aplicación.
-  - **app.config.ts**: Configuración global (providers, router).
-  - **app.routes.ts**: Definición de rutas principales.
-  - **main.ts**: Punto de entrada que inicializa la aplicación.
 
-- **assets/**: Archivos estáticos de la aplicación (imágenes, íconos, estilos personalizados, etc.).
-
-- **environments/**: Configuración según el entorno (desarrollo y producción).
-
-- **styles.scss**: Estilos globales del sistema.
-
-- **index.html**: Documento HTML principal de la aplicación.
 
 
 
