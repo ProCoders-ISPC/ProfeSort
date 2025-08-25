@@ -1,0 +1,226 @@
+header,
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: 5px 40px;
+  margin: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  padding: 20px 40px;
+}
+
+header .logo,
+.header__logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent-yellow);
+}
+
+/* Navegación desktop */
+.header__nav-desktop {
+  display: flex;
+  align-items: center;
+}
+
+.header__nav-desktop a {
+  color: var(--white);
+  margin-left: 20px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header__nav-desktop a:hover {
+  color: var(--accent-yellow);
+}
+
+/* ===== HEADER BURGER MENU (RESPONSIVE) - OPTIMIZADO ===== */
+.header__burger {
+  display: none;
+  position: relative;
+}
+
+.header__burger-checkbox {
+  display: none;
+}
+
+.header__burger-toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  z-index: 1101;
+  background: var(--primary-dark);
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.header__burger-bar {
+  width: 30px;
+  height: 3px;
+  background-color: var(--accent-yellow);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Botón de cerrar dentro del menú móvil */
+.header__close-btn {
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 40px;
+  height: 40px;
+  background: var(--primary-dark);
+  border-radius: 4px;
+  color: var(--accent-yellow);
+  cursor: pointer;
+  z-index: 1200;
+  transition: color 0.2s;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.header__close-btn::before {
+  content: "×";
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.header__close-btn:hover {
+  color: var(--accent-blue);
+}
+
+@media screen and (max-width: 900px) {
+
+  .header__nav-desktop {
+    display: none;
+  }
+
+  .header__burger {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__nav-mobile {
+    position: fixed;
+    top: 0;
+    right: -100vw;
+    width: 100vw;
+    height: 100vh;
+    background: var(--primary-dark);
+    box-shadow: -2px 0 10px var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    gap: 30px;
+    transition: right 0.3s ease;
+    z-index: 1100;
+  }
+
+  .header__nav-mobile a {
+    color: var(--white);
+    font-size: 1.2rem;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .header__nav-mobile a:hover {
+    transform: scale(1.05);
+    color: var(--accent-yellow);
+  }
+
+  .header__nav-mobile a:last-child {
+    border-bottom: none;
+  }
+
+  .header__burger-checkbox:checked + .header__burger-toggle + .header__nav-mobile {
+    right: 0;
+  }
+
+  .header__burger-checkbox:checked + .header__burger-toggle {
+    display: none;
+  }
+
+  .header__burger-checkbox:checked ~ .header__nav-mobile .header__close-btn {
+    display: block;
+  }
+
+  header {
+    padding: 15px 20px;
+    min-height: 60px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header__nav-mobile a {
+    font-size: 1.1rem;
+    padding: 14px 0;
+  }
+}
+
+.header__close-btn {
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 40px;
+  height: 40px;
+  background: var(--primary-dark);
+  border-radius: 4px;
+  color: var(--accent-yellow);
+  cursor: pointer;
+  z-index: 1200;
+  transition: color 0.2s;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.header__close-btn::before {
+  content: "×";
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.header__close-btn:hover {
+  color: var(--accent-blue);
+}
+
+.header__burger-checkbox:checked + .header__burger-toggle {
+  display: none;
+}
+
+.header__burger-checkbox:checked ~ .header__nav-mobile .header__close-btn {
+  display: flex;
+}

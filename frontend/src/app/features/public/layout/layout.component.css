@@ -1,0 +1,36 @@
+/* ===== LAYOUT GENERAL ===== */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-y: auto;
+}
+
+/* ===== CONTENEDORES DE LAYOUT ===== */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.container-fluid {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* ===== RESPONSIVE LAYOUT ===== */
+@media (max-width: 768px) {
+  .main-content {
+    min-height: calc(100vh - 120px);
+    padding: 0;
+  }
+}

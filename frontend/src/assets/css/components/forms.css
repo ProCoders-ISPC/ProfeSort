@@ -1,0 +1,53 @@
+/* ===== ESTILOS GENERALES COMPARTIDOS ===== */
+/* Este archivo solo contiene estilos comunes que pueden ser reutilizados */
+/* Los estilos específicos de cada formulario están en sus respectivos componentes */
+
+/* Estilos para elementos genéricos de utilidad */
+.form-help {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: var(--white);
+}
+
+.form-help a {
+  color: var(--accent-yellow);
+  text-decoration: none;
+}
+
+.form-help a:hover {
+  text-decoration: underline;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.page-actions {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+/* Estilo de mensaje de éxito genérico (puede ser usado por múltiples componentes) */
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #c3e6cb;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* ===== RESPONSIVE GENÉRICO ===== */
+@media screen and (max-width: 768px) {
+  .form-actions {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+}

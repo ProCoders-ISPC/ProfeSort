@@ -1,0 +1,27 @@
+/* ==========================================
+   ESTILOS PARA ANGULAR - PORTFOLIO LAURA ZARATE
+========================================== */
+.portfolio-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Asegurar que el contenido tenga z-index correcto */
+main {
+  position: relative;
+  z-index: 2;
+}
+
+nav {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Forzar la fuente Arial_narrow específicamente para este portfolio */
+.portfolio-laura-zarate,
+.portfolio-laura-zarate *,
+app-laura-zarate,
+app-laura-zarate * {
+  font-family: 'Arial_narrow', Arial, sans-serif !important;
+}

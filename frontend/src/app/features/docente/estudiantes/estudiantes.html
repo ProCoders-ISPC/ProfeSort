@@ -1,0 +1,141 @@
+<div class="container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1 class="sidebar-logo">ProfeSort</h1>
+    </div>
+    <nav class="sidebar-menu">
+      <div class="menu-item active">
+        <i class="menu-icon fas fa-users"></i>
+        Mis Estudiantes
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="header">
+      <h1 class="page-title">Gestión de Datos</h1>
+      <div class="user-profile">
+        <div class="user-avatar" (click)="toggleEdicion()">{{iniciales}}</div>
+      </div>
+    </header>
+
+    <!-- Datos del Docente -->
+    <section class="form-container">
+      <div class="section-header">
+        <h2>Datos Personales</h2>
+        <button *ngIf="!modoEdicion" 
+                (click)="toggleEdicion()" 
+                class="btn btn-primary">
+          Editar Datos
+        </button>
+      </div>
+
+      <!-- Vista de solo lectura -->
+      <div *ngIf="!modoEdicion" class="datos-preview">
+        <div class="dato-item">
+          <label>Nombre Completo:</label>
+          <span>{{docente.nombreCompleto}}</span>
+        </div>
+        <div class="dato-item">
+          <label>DNI:</label>
+          <span>{{docente.dni}}</span>
+        </div>
+        <div class="dato-item">
+          <label>Domicilio:</label>
+          <span>{{docente.domicilio}}</span>
+        </div>
+        <div class="dato-item">
+          <label>Correo Electrónico:</label>
+          <span>{{docente.email}}</span>
+        </div>
+      </div>
+
+      <!-- Formulario de edición -->
+      <form *ngIf="modoEdicion" (ngSubmit)="guardarDatos()">
+        <div class="form-group">
+          <label class="form-label">Nombre Completo</label>
+          <input type="text" 
+                 class="form-control" 
+                 [(ngModel)]="docente.nombreCompleto" 
+                 name="nombreCompleto"
+                 required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">DNI</label>
+          <input type="text" 
+                 class="form-control" 
+                 [(ngModel)]="docente.dni" 
+                 name="dni" 
+                 readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Domicilio</label>
+          <input type="text" 
+                 class="form-control" 
+                 [(ngModel)]="docente.domicilio" 
+                 name="domicilio"
+                 required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correo Electrónico</label>
+          <input type="email" 
+                 class="form-control" 
+                 [(ngModel)]="docente.email" 
+                 name="email"
+                 required>
+        </div>
+        <div class="form-actions">
+          <button type="button" 
+                  class="btn btn-secondary" 
+                  (click)="toggleEdicion()">
+            Cancelar
+          </button>
+          <button type="submit" 
+                  class="btn btn-primary">
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Listado de Estudiantes -->
+    <section class="table-container">
+      <div class="table-header">
+        <h2 class="table-title">Mis Estudiantes</h2>
+        <div class="table-actions">
+          <input type="search" 
+                 placeholder="Buscar estudiante..." 
+                 class="form-control search-input">
+        </div>
+      </div>
+      
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellidos</th>
+              <th>DNI</th>
+              <th>Correo Electrónico</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let estudiante of estudiantes">
+              <td>{{estudiante.nombre}}</td>
+              <td>{{estudiante.apellidos}}</td>
+              <td>{{estudiante.dni}}</td>
+              <td>{{estudiante.email}}</td>
+              <td>
+                <span class="status" 
+                      [ngClass]="'status-' + estudiante.estado.toLowerCase()">
+                  {{estudiante.estado}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>

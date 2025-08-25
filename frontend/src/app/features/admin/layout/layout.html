@@ -1,0 +1,69 @@
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="container-fluid p-0">
+  <div class="d-flex">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">ProfeSort Admin</div>
+      </div>
+      <nav class="sidebar-menu">
+        <div class="menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="/admin" class="d-flex align-items-center text-decoration-none text-reset w-100">
+            <div class="menu-icon">
+              <img src="../../../../assets/img/icons/profesort_icon.svg" alt="Icono Panel" height="20">
+            </div>
+            <div>Panel</div>
+          </a>
+        </div>
+        <div class="menu-item" routerLinkActive="active">
+          <a routerLink="/admin/docentes" class="d-flex align-items-center text-decoration-none text-reset w-100">
+            <div class="menu-icon">
+              <img src="../../../../assets/img/icons/teacher_icon.svg" alt="Icono Docentes" height="20">
+            </div>
+            <div>Docentes</div>
+          </a>
+        </div>
+        <div class="menu-item" routerLinkActive="active">
+          <a routerLink="/admin/materias" class="d-flex align-items-center text-decoration-none text-reset w-100">
+            <div class="menu-icon">
+              <img src="../../../../assets/img/icons/subjects_icon.svg" alt="Icono Materias" height="20">
+            </div>
+            <div>Materias</div>
+          </a>
+        </div>
+        <div class="menu-item" routerLinkActive="active">
+          <a routerLink="/admin/estudiantes" class="d-flex align-items-center text-decoration-none text-reset w-100">
+            <div class="menu-icon">
+              <img src="../../../../assets/img/icons/credential_icon.svg" alt="Icono Estudiantes" height="20">
+            </div>
+            <div>Estudiantes</div>
+          </a>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon">
+            <img src="../../../../assets/img/icons/config_icon.svg" alt="Icono Configuracion" height="20">
+          </div>
+          <div>Configuración</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-icon"> 
+            <img src="../../../../assets/img/icons/logout_icon.svg" alt="Icono Cerrar sesion" height="20">
+          </div>
+          <div>Cerrar Sesión</div>
+        </div>
+      </nav>
+    </aside>
+    <div class="main-content w-100">
+      <div class="header">
+        <button class="responsive-toggle" id="sidebarToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="page-title">Panel Administrador</div>
+        <div class="user-profile">
+          <div class="user-avatar">A</div>
+          <div class="d-none d-sm-block">Administrador</div>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

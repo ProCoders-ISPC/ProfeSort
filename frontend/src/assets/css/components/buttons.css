@@ -1,0 +1,24 @@
+
+/* ===== BOTONES GENERALES ===== */
+/* Los botones específicos de formularios están en sus respectivos componentes */
+/* Este archivo contiene solo botones generales que se usan en múltiples componentes */
+
+/* Botón genérico base - puede ser extendido por otros componentes */
+.btn {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-family: "Acephimere", sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--primary-teal);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-yellow);
+}

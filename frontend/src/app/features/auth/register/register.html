@@ -1,0 +1,257 @@
+<app-back-to-home-button>Volver al inicio</app-back-to-home-button>
+
+<section class="register">
+  <div class="register__container">
+    <h2 class="register__title">¡Registrate para usar Profesort!</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register__form">
+      
+      <!-- Fila 1: Nombre y Apellido -->
+      <div class="register__form-row">
+        <div class="register__form-group">
+          <label class="register__label" for="nombre">Nombre *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('nombre')"
+            type="text"
+            id="nombre"
+            formControlName="nombre"
+            placeholder="Ingrese su nombre">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('nombre')">
+              {{ getFieldError('nombre') }}
+            </div>
+          </div>
+        </div>
+        <div class="register__form-group">
+          <label class="register__label" for="apellido">Apellido *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('apellido')"
+            type="text"
+            id="apellido"
+            formControlName="apellido"
+            placeholder="Ingrese su apellido">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('apellido')">
+              {{ getFieldError('apellido') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 2: DNI y Fecha de Nacimiento -->
+      <div class="register__form-row">
+        <div class="register__form-group">
+          <label class="register__label" for="dni">DNI *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('dni')"
+            type="text"
+            id="dni"
+            formControlName="dni"
+            placeholder="Ingrese su DNI"
+            maxlength="8">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('dni')">
+              {{ getFieldError('dni') }}
+            </div>
+          </div>
+        </div>
+        <div class="register__form-group">
+          <label class="register__label" for="fechaNacimiento">Fecha de Nacimiento *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('fechaNacimiento')"
+            type="date"
+            id="fechaNacimiento"
+            formControlName="fechaNacimiento">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('fechaNacimiento')">
+              {{ getFieldError('fechaNacimiento') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 3: Domicilio y Teléfono -->
+      <div class="register__form-row">
+        <div class="register__form-group">
+          <label class="register__label" for="domicilio">Domicilio *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('domicilio')"
+            type="text"
+            id="domicilio"
+            formControlName="domicilio"
+            placeholder="Ingrese su domicilio">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('domicilio')">
+              {{ getFieldError('domicilio') }}
+            </div>
+          </div>
+        </div>
+        <div class="register__form-group">
+          <label class="register__label" for="telefono">Teléfono *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('telefono')"
+            type="tel"
+            id="telefono"
+            formControlName="telefono"
+            placeholder="Ingrese su teléfono"
+            maxlength="15">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('telefono')">
+              {{ getFieldError('telefono') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 4: Email y Confirmar Email -->
+      <div class="register__form-row">
+        <div class="register__form-group">
+          <label class="register__label" for="email">Correo electrónico *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('email')"
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="usuario@ejemplo.com">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('email')">
+              {{ getFieldError('email') }}
+            </div>
+          </div>
+        </div>
+        <div class="register__form-group">
+          <label class="register__label" for="confirmarEmail">Confirmar correo *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('confirmarEmail')"
+            type="email"
+            id="confirmarEmail"
+            formControlName="confirmarEmail"
+            placeholder="usuario@ejemplo.com">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('confirmarEmail')">
+              {{ getFieldError('confirmarEmail') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 5: Contraseñas -->
+      <div class="register__form-row">
+        <div class="register__form-group">
+          <label class="register__label" for="password">Contraseña *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('password')"
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="Mínimo 6 caracteres">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('password')">
+              {{ getFieldError('password') }}
+            </div>
+          </div>
+          <!-- Indicador de fortaleza de contraseña simplificado -->
+          <div class="register__password-requirements" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.value">
+            <small class="register__password-hint">La contraseña debe contener:</small>
+            <ul class="register__password-checklist">
+              <li [class.valid]="hasUppercase()">
+                ✓ Una mayúscula
+              </li>
+              <li [class.valid]="hasNumber()">
+                ✓ Un número
+              </li>
+              <li [class.valid]="hasMinLength()">
+                ✓ Mínimo 6 caracteres
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="register__form-group">
+          <label class="register__label" for="confirmarPassword">Confirmar contraseña *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('confirmarPassword')"
+            type="password"
+            id="confirmarPassword"
+            formControlName="confirmarPassword"
+            placeholder="Repita la contraseña">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('confirmarPassword')">
+              {{ getFieldError('confirmarPassword') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 6: Legajo -->
+      <div class="register__form-row">
+        <div class="register__form-group register__form-group--full-width">
+          <label class="register__label" for="legajo">Legajo *</label>
+          <input
+            class="register__input"
+            [class.register__input--error]="hasFieldError('legajo')"
+            type="text"
+            id="legajo"
+            formControlName="legajo"
+            placeholder="Ingrese su legajo">
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('legajo')">
+              {{ getFieldError('legajo') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Términos y condiciones -->
+      <div class="register__checkbox">
+        <input
+          class="register__checkbox-input"
+          [class.register__checkbox-input--error]="hasFieldError('terminos')"
+          type="checkbox"
+          id="terminos"
+          formControlName="terminos">
+        <div style="flex: 1;">
+          <label class="register__checkbox-label" for="terminos">
+            Acepto los <a href="#" target="_blank">términos y condiciones</a> *
+          </label>
+          <div class="register__error-container">
+            <div class="register__error" *ngIf="hasFieldError('terminos')">
+              Debe aceptar los términos y condiciones
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón de envío -->
+      <button 
+        class="register__button" 
+        type="submit"
+        [disabled]="registerForm.invalid && isSubmitted">
+        Registrarse
+      </button>
+      
+      <!-- Mensaje de éxito -->
+      <p class="register__success-message" 
+         *ngIf="isSubmitted && registerForm.valid">
+        ¡Registro exitoso! 
+      </p>
+
+      <!-- Campos obligatorios -->
+      <p class="register__required-note">
+        <small>Los campos marcados con * son obligatorios</small>
+      </p>
+    </form>
+  </div>
+</section>
+
+<app-background></app-background>
+
+

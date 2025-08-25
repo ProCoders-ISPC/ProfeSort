@@ -78,7 +78,9 @@
           <div class="table-header">
             <div class="table-title">Añadir Nueva Materia</div>
           </div>
-          <form>
+
+          <form id="materia-form">
+            <input type="hidden" id="materia-id">
             <div class="mb-3">
               <label for="nombre-materia" class="form-label">Nombre de la materia</label>
               <input type="text" class="form-control" id="nombre-materia" placeholder="Ej: Matemática" required>
@@ -97,22 +99,20 @@
               </select>
             </div>
             <div class="form-actions d-flex gap-2">
-              <button type="submit" class="btn btn-primary">Guardar</button>
-              <button type="reset" class="btn btn-secondary">Cancelar</button>
+              <button type="submit" class="btn btn-primary" id="guardar-btn">Guardar</button>
+              <button type="button" class="btn btn-secondary" id="cancelar-btn">Cancelar</button>
             </div>
           </form>
 
-          <div class="alert alert-success mt-3" role="alert" style="display: block;">
+          <div class="alert alert-success mt-3 d-none" id="alert-success" role="alert">
             Materia guardada exitosamente!
           </div>
-
-          <div class="alert alert-warning mt-3" role="alert" style="display: block;">
-            ¿Esta seguro que desea eliminar la materia? 
-            <button class="btn btn-danger btn-sm ms-2">Eliminar</button>
-            <button class="btn btn-secondary btn-sm ms-1">Cancelar</button>
+          <div class="alert alert-warning mt-3 d-none" id="alert-eliminar" role="alert">
+            ¿Está seguro que desea eliminar la materia? 
+            <button class="btn btn-danger btn-sm ms-2" id="confirmar-eliminar">Eliminar</button>
+            <button class="btn btn-secondary btn-sm ms-1" id="cancelar-eliminar">Cancelar</button>
           </div>
-
-          <div class="alert alert-info mt-3" role="alert" style="display: block;">
+          <div class="alert alert-info mt-3 d-none" id="alert-info" role="alert">
             No hay materias cargadas
           </div>
 
@@ -120,7 +120,7 @@
             <div class="table-title">Listado de Materias</div>
           </div>
           <div class="table-responsive">
-            <table class="table docente-table">
+            <table class="table docente-table" id="materias-table">
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -129,16 +129,8 @@
                   <th>Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>Matemática</td>
-                  <td>MAT101</td>
-                  <td>Prof. Juan Pérez</td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                  </td>
-                </tr>
+              <tbody id="materias-tbody">
+                <!-- Las filas se generan dinámicamente -->
               </tbody>
             </table>
           </div>
@@ -149,21 +141,19 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Sidebar responsive
     document.addEventListener('DOMContentLoaded', function() {
       const sidebarToggle = document.getElementById('sidebarToggle');
       const sidebar = document.getElementById('sidebar');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
-      
       sidebarToggle.addEventListener('click', function() {
         sidebar.classList.toggle('active');
         sidebarOverlay.classList.toggle('active');
       });
-      
       sidebarOverlay.addEventListener('click', function() {
         sidebar.classList.remove('active');
         sidebarOverlay.classList.remove('active');
       });
-      
       const menuItems = document.querySelectorAll('.menu-item');
       menuItems.forEach(item => {
         item.addEventListener('click', function() {
@@ -175,13 +165,135 @@
           }
         });
       });
-      
       window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
           sidebar.classList.remove('active');
           sidebarOverlay.classList.remove('active');
         }
       });
+
+      // --- Panel Materias JS ---
+      let materias = [
+        { id: 1, nombre: 'Matemática', codigo: 'MAT101', profesor: 'Prof. Juan Pérez' }
+      ];
+      let editandoId = null;
+      let eliminarId = null;
+
+      const tbody = document.getElementById('materias-tbody');
+      const form = document.getElementById('materia-form');
+      const nombreInput = document.getElementById('nombre-materia');
+      const codigoInput = document.getElementById('codigo-materia');
+      const profesorInput = document.getElementById('profesor-materia');
+      const materiaIdInput = document.getElementById('materia-id');
+      const guardarBtn = document.getElementById('guardar-btn');
+      const cancelarBtn = document.getElementById('cancelar-btn');
+      const alertSuccess = document.getElementById('alert-success');
+      const alertEliminar = document.getElementById('alert-eliminar');
+      const alertInfo = document.getElementById('alert-info');
+      const confirmarEliminarBtn = document.getElementById('confirmar-eliminar');
+      const cancelarEliminarBtn = document.getElementById('cancelar-eliminar');
+
+      function renderMaterias() {
+        tbody.innerHTML = '';
+        if (materias.length === 0) {
+          alertInfo.classList.remove('d-none');
+        } else {
+          alertInfo.classList.add('d-none');
+        }
+        materias.forEach(m => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${m.nombre}</td>
+            <td>${m.codigo}</td>
+            <td>${m.profesor}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary me-1 btn-editar" data-id="${m.id}"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm btn-outline-danger btn-eliminar" data-id="${m.id}"><i class="fas fa-trash"></i></button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function resetForm() {
+        form.reset();
+        materiaIdInput.value = '';
+        editandoId = null;
+        guardarBtn.textContent = 'Guardar';
+      }
+
+      function showSuccess(msg) {
+        alertSuccess.textContent = msg;
+        alertSuccess.classList.remove('d-none');
+        setTimeout(() => alertSuccess.classList.add('d-none'), 2000);
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const nombre = nombreInput.value.trim();
+        const codigo = codigoInput.value.trim();
+        const profesor = profesorInput.value;
+        if (!nombre || !codigo || !profesor) return;
+        if (editandoId) {
+          // Editar
+          const idx = materias.findIndex(m => m.id === editandoId);
+          if (idx !== -1) {
+            materias[idx] = { id: editandoId, nombre, codigo, profesor };
+            showSuccess('Materia actualizada exitosamente!');
+          }
+        } else {
+          // Crear
+          const nueva = {
+            id: Date.now(),
+            nombre,
+            codigo,
+            profesor
+          };
+          materias.push(nueva);
+          showSuccess('Materia guardada exitosamente!');
+        }
+        renderMaterias();
+        resetForm();
+      });
+
+      cancelarBtn.addEventListener('click', function() {
+        resetForm();
+      });
+
+      tbody.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-editar')) {
+          const id = Number(e.target.closest('.btn-editar').dataset.id);
+          const materia = materias.find(m => m.id === id);
+          if (materia) {
+            nombreInput.value = materia.nombre;
+            codigoInput.value = materia.codigo;
+            profesorInput.value = materia.profesor;
+            materiaIdInput.value = materia.id;
+            editandoId = materia.id;
+            guardarBtn.textContent = 'Actualizar';
+          }
+        }
+        if (e.target.closest('.btn-eliminar')) {
+          eliminarId = Number(e.target.closest('.btn-eliminar').dataset.id);
+          alertEliminar.classList.remove('d-none');
+        }
+      });
+
+      confirmarEliminarBtn.addEventListener('click', function() {
+        if (eliminarId) {
+          materias = materias.filter(m => m.id !== eliminarId);
+          renderMaterias();
+          showSuccess('Materia eliminada exitosamente!');
+          eliminarId = null;
+        }
+        alertEliminar.classList.add('d-none');
+      });
+      cancelarEliminarBtn.addEventListener('click', function() {
+        eliminarId = null;
+        alertEliminar.classList.add('d-none');
+      });
+
+      renderMaterias();
     });
   </script>
 </body>

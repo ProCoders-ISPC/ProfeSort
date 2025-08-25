@@ -1,0 +1,229 @@
+<div class="portfolio-container">
+ 
+  <div class="back-button">
+    <a routerLink="/about" class="btn-back">
+      <i class="fa fa-arrow-left"></i> Volver al equipo
+    </a>
+  </div>
+
+ 
+  <div class="particles" id="particles" #particles></div>
+  
+  
+  <nav class="navbar navbar-expand-lg navbar-dark contenedor-nav-principal">
+    <div class="container-fluid">
+      <a class="navbar-brand titulo-principal m-0" href="#hola" style="font-size:2rem;"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link btn-nav" href="#conocimientos">CONOCIMIENTOS</a></li>
+          <li class="nav-item"><a class="nav-link btn-nav" href="#proyectos">PROYECTOS</a></li>
+          <li class="nav-item"><a class="nav-link btn-nav" href="#contacto">CONTACTO</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+   
+    <section class="seccion margin-section-presentacion" id="hola">
+      <div class="contenido-presentacion">
+        <div>
+          <p class="seccion-presentacion-saludo">¡Hola! Soy</p>
+          <h1 class="titulo-principal">Karina Quinteros</h1>
+          <p class="seccion-presentacion-descripcion">
+            Estudiante de la Tecnicatura Superior en Desarrollo de Software. Apasionada por la tecnología, me considero una persona curiosa, siempre en busca de nuevos desafíos que me impulsen a mejorar continuamente y a expandir mis conocimientos.
+          </p>
+          <div class="botones-cv-container">
+            <a class="btn-cv-main" href="#proyectos">LO QUE HAGO</a>
+            <a class="btn-cv" href="https://drive.google.com/file/d/1Re2NxeYL9JZ7gvibJfqeghF75wMgLHxo/view?usp=sharing" target="_blank" rel="noopener">
+              <i class="fa fa-file-pdf-o"></i> Ver mi CV
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="contenedor-imagen-principal">
+            <img src="/assets/img/about/proflile-img/karina-quinteros.jpg" alt="Portfolio" class="imagen-principal">
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+    <section class="seccion color-fondo-seccion-skills" id="conocimientos">
+      <div class="contenedor-seccion-skills">
+        <h2>Mis Conocimientos</h2>
+        <p>
+          Estos son los conocimientos que voy adquiriendo a lo largo<br>
+          de este hermoso camino de desafíos y aprendizajes.
+        </p>
+        <div class="contenedor-skills">
+          <div class="skills">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" width="38" height="38">
+            </div>
+            <p>HTML</p>
+          </div>
+          <div class="skills">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="Css" width="38" height="38">
+            </div>
+            <p>CSS</p>
+          </div>
+          <div class="skills">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" width="38" height="38">
+            </div>
+            <p>JavaScript</p>
+          </div>
+          <div class="skills">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="38" height="38">
+            </div>
+            <p>Python</p>
+          </div>
+          <div class="skills">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" width="38" height="38">
+            </div>
+            <p>Git</p>
+          </div>
+          <div class="skills">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" width="38" height="38">
+            </div>
+            <p>GitHub</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+   
+    <section class="seccion" id="proyectos">
+      <div>
+        <h2>Mis proyectos</h2>
+        <p class="texto-seccion-proyectos">
+          En esta sección podés visualizar mis desarrollos<br>
+          más recientes.
+        </p>
+
+        <div class="contenedor-cards-proyectos">
+          <a href="https://github.com/KaryQuinteros/Portfolio" class="cards-proyectos" target="_blank">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">💼</div>
+            <p>Portfolio</p>
+            <div class="card-desc">Sitio web personal diseñado para mostrar proyectos, habilidades y experiencia. Cuenta con un diseño adaptable a diferentes dispositivos.</div>
+          </a>
+          
+          <a href="https://github.com/ProCoders-ISPC/sistemas-operativos" class="cards-proyectos" target="_blank">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🛠️</div>
+            <p>Toolkit-linux</p>
+            <div class="card-desc">Conjunto de scripts Bash para monitorear y gestionar procesos en servidores Linux, facilitando la detección y control de consumo excesivo de recursos de forma rápida y segura.</div>
+          </a>
+          
+          <a href="https://github.com/Innovacoders-devs/ArgBroker" class="cards-proyectos" target="_blank">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">💰</div>
+            <p>ArgBroker</p>
+            <div class="card-desc">Aplicación de consola en Python que permite a los usuarios crear cuentas, iniciar sesión, consultar cotizaciones de acciones en tiempo real, gestionar su portafolio y realizar operaciones de compra y venta en el mercado bursátil argentino.</div>
+          </a>
+
+          <a href="https://github.com/ProCoders-ISPC/ProfeSort" class="cards-proyectos" target="_blank">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">📚</div>
+            <p>ProfeSort</p>
+            <div class="card-desc">Sistema digital integral desarrollado por ProCoders para el Plan FinEs, que optimiza la gestión administrativa y académica de estudiantes, docentes y materias, facilitando procesos y apoyando la toma de decisiones con datos confiables.</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    
+    <blockquote class="seccion color-fondo-cita">
+      <div class="contenedor-cita">
+        <i aria-hidden="true" class="fa fa-quote-right"></i>
+        <div class="texto-cita">
+          <p>
+            El éxito no se mide por lo alto que hayas llegado, sino por cuántas veces te levantaste después de caer.<br>
+            Never give up!
+          </p>
+        </div>
+        <p class="nombre-autor-cita">Autor desconocido</p>
+      </div>
+    </blockquote>
+
+   
+    <section class="seccion-contacto-formulario" id="contacto">
+      <div class="contact-content">
+        <h2 class="contact-title">¡Conectemos!</h2>
+        <p class="contact-subtitle">
+          Siempre estoy buscando nuevos desafíos y oportunidades para crecer como desarrolladora
+        </p>
+      </div>
+      <div class="cta-text">
+        💡 <strong>¿Tenés una idea innovadora?</strong><br>
+        Me encanta trabajar en proyectos que combinen creatividad y tecnología. 
+        ¡Hablemos sobre cómo podemos hacerla realidad juntos!
+      </div>
+
+      <div class="social-grid">
+        <a href="https://www.linkedin.com/in/karina-quinteros-690953121/" class="social-card linkedin" target="_blank">
+          <div class="social-icon">
+            <i class="fab fa-linkedin"></i>
+          </div>
+          <div class="social-name">LinkedIn</div>
+          <div class="social-handle">Perfil profesional</div>
+        </a>
+
+        <a href="https://github.com/KaryQuinteros" class="social-card github" target="_blank">
+          <div class="social-icon">
+            <i class="fab fa-github"></i>
+          </div>
+          <div class="social-name">GitHub</div>
+          <div class="social-handle">Mis proyectos</div>
+        </a>
+
+        <a href="https://wa.me/5493547459003?text=%C2%A1Hola%20Karina!%20Estuve%20viendo%20tu%20portfolio%20y%20me%20gustar%C3%ADa%20conversar%20con%20vos%20sobre%20una%20posible%20colaboraci%C3%B3n." 
+            class="social-card whatsapp pulse" target="_blank">
+          <div class="social-icon">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <div class="social-name">WhatsApp</div>
+          <div class="social-handle">Charlemos!</div>
+        </a>
+
+        <a href="mailto:karinaq38@gmail.com" class="social-card email" target="_blank">
+          <div class="social-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="social-name">Email</div>
+          <div class="social-handle">Contacto directo</div>
+        </a>
+      </div>
+      <p class="footer-message">
+        "El mejor momento para comenzar fue ayer, el segundo mejor momento es ahora"
+      </p>
+    </section>
+  </main>
+
+
+  <footer class="seccion color-fondo-footer">
+    <div class="contenedor-footer">
+      <div class="lista-redes-sociales-footer">
+        <ul>
+          <li>
+            <a aria-label="github" href="https://github.com/KaryQuinteros" target="_blank">
+              <i class="fa fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a aria-label="linkedin" href="https://www.linkedin.com/in/karina-quinteros-690953121/" target="_blank">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <p>Hecho con 💜 por Karina Quinteros</p>
+    </div>
+  </footer>
+</div>

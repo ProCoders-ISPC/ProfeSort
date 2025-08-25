@@ -1,0 +1,158 @@
+/* ===== LAYOUT CONTAINERS ===== */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.container-fluid {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 250px;
+  background-color: #043237;
+  color: white;
+  transition: all 0.3s;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.sidebar-header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #043237;
+}
+
+.sidebar-logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sidebar-menu {
+  padding: 20px 0;
+}
+
+.menu-item {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.menu-item a {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.menu-item:hover {
+  background-color: #3abdcc;
+  color: white;
+}
+
+.menu-item.active {
+  background-color: #0F8795;
+}
+
+.menu-icon {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.main-content {
+  flex: 1;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  padding: 0;
+  overflow-y: auto;
+  margin-left: 250px;
+  background-color: #f5f5f5;
+}
+
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #043237;
+  color: white;
+  padding: 15px 20px;
+  margin-bottom: 0;
+}
+
+.page-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: white;
+}
+
+/* ===== PERFIL DE USUARIO ===== */
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #E5AF24;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Botón de toggle para el sidebar en móvil */
+.responsive-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  display: none !important;
+  z-index: 1002;
+}
+
+.responsive-toggle:focus {
+  outline: none;
+}
+
+/* Media queries mejorados */
+@media screen and (max-width: 768px) {
+  .responsive-toggle {
+    display: block !important;
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: -250px;
+    height: 100%;
+    z-index: 999;
+    transition: left 0.3s ease;
+  }
+  
+  .sidebar.active {
+    left: 0;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .header {
+    padding: 10px 15px;
+  }
+}

@@ -99,12 +99,11 @@ maqueta/
 
 frontend/
 ````
-<p> En esta carpeta se desarrollará la interfaz del sistema usando Angular, incluyendo componentes, vistas y estilos. Contiene:</p>
- 
- - **src/**:
+
+<p> En esta carpeta se desarrollará la interfaz del sistema usando Angular, incluyendo componentes, vistas y estilos. Conti
 Es la base principal del proyecto Angular. En esta carpeta se encuentra toda la lógica, vistas y configuraciones del sistema. Contiene:
 
-- **app/**: Carpeta principal de la aplicación.
+- **ap**: Carpeta principal de la aplicación.
   - **core/**: Lógica global, cargada una sola vez en el sistema.
     - **guards/**: Mecanismos de seguridad para las rutas (ejemplo: `AuthGuard`, `RoleGuard`).
     - **interceptors/**: Interceptores HTTP para autenticación y manejo de errores.
@@ -120,6 +119,7 @@ Es la base principal del proyecto Angular. En esta carpeta se encuentra toda la 
       - **register/**: Vista de registro (`RegisterComponent`).
     - **public/**: Páginas públicas accesibles sin autenticación.
       - **layout/**: `PublicLayoutComponent` (estructura general: header, nav, footer).
+
 
 
 

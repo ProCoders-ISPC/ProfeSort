@@ -1,0 +1,28 @@
+
+.layout-container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  flex: 1;
+}
+
+
+.layout-container * {
+  box-sizing: border-box;
+}
+
+
+router-outlet + * {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
