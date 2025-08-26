@@ -1,0 +1,103 @@
+
+
+/* Contenedor del formulario */
+.contact-form-container {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+
+/* Formulario */
+.contact-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Grupo de campos */
+.contact-form-group {
+  margin-bottom: 20px;
+}
+
+.contact-form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Input y textarea */
+.contact-form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.contact-form-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+/* Botón de enviar */
+.contact-form-primary-button {
+  width: 100%;
+  padding: 14px 0;
+  background-color: #063c3e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+
+.contact-form-primary-button:hover,
+.contact-form-primary-button:focus {
+  background-color: #084c4e;
+}
+
+/* Acciones del formulario */
+.contact-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Imagen al lado del formulario */
+.contact-hero-img img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .contacto-container {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+  }
+  .hero-img img {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .form {
+    max-width: 100%;
+  }
+  .contact-form-container {
+    padding: 0;
+    margin-top: 20px;
+  }
+}

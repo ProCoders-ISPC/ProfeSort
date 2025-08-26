@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
+import { ContactComponent } from '../contact/contact';
 
 register();
 
