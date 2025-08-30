@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 interface DocenteModel {
   id: number;
@@ -10,6 +12,7 @@ interface DocenteModel {
 
 @Component({
   selector: 'app-docente',
+  imports: [ReactiveFormsModule],
   templateUrl: './docente.html',
   styleUrls: ['./docente.css']
 })
@@ -47,26 +50,30 @@ export class Docente {
 
   formTitle = 'Formulario Docente';
   editingId: number | null = null;
-  docenteForm = {
-    name: '',
-    email: '',
-    legajo: '',
-    password: '',
-    confirmPassword: ''
-  };
+  docenteForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.docenteForm = this.fb.group({
+      nombre: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      legajo: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    });
+  }
 
   editarDocente(id: number) {
     const docente = this.docentes.find(d => d.id === id);
     if (docente) {
       this.editingId = id;
       this.formTitle = 'Editar Docente';
-      this.docenteForm = {
+      this.docenteForm.setValue({
         name: docente.name,
         email: docente.email,
         legajo: docente.legajo,
         password: '••••••••',
         confirmPassword: '••••••••'
-      };
+      });
     }
   }
 
@@ -82,17 +89,11 @@ export class Docente {
   resetForm() {
     this.editingId = null;
     this.formTitle = 'Formulario Docente';
-    this.docenteForm = {
-      name: '',
-      email: '',
-      legajo: '',
-      password: '',
-      confirmPassword: ''
-    };
+    this.docenteForm.reset();
   }
 
   guardarDocente() {
-    const { name, email, legajo, password, confirmPassword } = this.docenteForm;
+    const { name, email, legajo, password, confirmPassword } = this.docenteForm.value;
     if (password !== confirmPassword && password !== '••••••••') {
       alert('Las contraseñas no coinciden');
       return;
