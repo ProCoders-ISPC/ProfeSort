@@ -4,7 +4,7 @@ import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { About } from './features/public/about/about';
 import { ContactComponent } from './features/public/contact/contact';
-import { Layout } from './features/public/layout/layout';
+import { LayoutComponent } from './features/public/layout/layout';
 import { KarinaQuinteros } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
 import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez'
 import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda/juanignacio-gioda';
@@ -18,7 +18,7 @@ export const routes: Routes = [
   
   {
     path: '',
-    component: Layout,
+    component: LayoutComponent,
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: Home },
