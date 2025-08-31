@@ -1,31 +1,33 @@
 <section class="contacto">
   <h2>Contacto</h2>
   <div class="contact-form-container">
-    <form class="contact-form">
-      <div class="contac-form-group">
-        <label class="contact-form-label" for="contact-name"
-          >Nombre y Apellido</label
-        >
+    <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="contact-form-group">
+        <label class="contact-form-label" for="contact-name">Nombre y Apellido</label>
         <input
           class="contact-form-input"
           type="text"
           id="contact-name"
           placeholder="Nombre y Apellido"
-          required
+          formControlName="nombre"
         />
+        <div *ngIf="contactForm.get('nombre')?.invalid && contactForm.get('nombre')?.touched" class="error">
+          El nombre es requerido.
+        </div>
       </div>
 
       <div class="contact-form-group">
-        <label class="contact-form-label" for="contact-email"
-          >Correo electrónico</label
-        >
+        <label class="contact-form-label" for="contact-email">Correo electrónico</label>
         <input
           class="contact-form-input"
           type="email"
           id="contact-email"
           placeholder="Ingrese su mail"
-          required
+          formControlName="email"
         />
+        <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="error">
+          Email inválido.
+        </div>
       </div>
 
       <div class="contact-form-group">
@@ -35,20 +37,20 @@
           id="contact-message"
           placeholder="Ingrese su mensaje"
           rows="5"
-          required
+          formControlName="mensaje"
         ></textarea>
+        <div *ngIf="contactForm.get('mensaje')?.invalid && contactForm.get('mensaje')?.touched" class="error">
+          El mensaje es requerido.
+        </div>
       </div>
 
       <div class="contact-form-actions">
-        <button class="contact-form-primary-button" type="submit">Enviar</button>
+        <button class="contact-form-primary-button" type="submit" [disabled]="contactForm.invalid">Enviar</button>
       </div>
     </form>
 
     <div class="contact-form-hero-img">
-      <img
-        src="assets/img/home/contact/img-contact01.webp"
-        alt="Contacto imagen"
-      />
+      <img src="assets/img/home/contact/img-contact01.webp" alt="Contacto imagen" />
     </div>
   </div>
 </section>
