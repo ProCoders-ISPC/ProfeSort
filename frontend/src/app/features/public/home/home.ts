@@ -6,7 +6,7 @@ register();
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [ContactComponent],
   templateUrl: './home.html',
   styleUrl: './home.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
