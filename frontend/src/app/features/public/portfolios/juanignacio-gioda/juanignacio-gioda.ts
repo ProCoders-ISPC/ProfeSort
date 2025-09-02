@@ -9,4 +9,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class JuanignacioGioda {
 
+  scrollToProjects() {
+    const el = document.getElementById('projects');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
 }
