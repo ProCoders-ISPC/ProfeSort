@@ -1,7 +1,9 @@
 /* Formulario */
 .form {
   width: 100%;
-  max-width: 400px;
+  flex: 1;
+  max-width: none;
+  min-width: 300px;
 }
 
 /* Grupo de campos */
@@ -63,32 +65,34 @@
   margin-top: 20px;
 }
 .contacto {
-  padding: 80px;
+  padding: 40px 20px;
   background-color: var(--background-ligth);
 }
 
 .contacto-container {
   display: flex;
-  gap: 30px; 
+  gap: 40px; 
   align-items: flex-start;
   justify-content: space-between;
+  width: 100%;
+  
 }
 
 .hero-img {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: calc(50% - 15px); 
+  flex: 1;
   display: flex;
   justify-content: flex-end; 
+  min-width: 300px;
 }
 
 .hero-img img {
   width: 100%; 
   max-width: 100%;
-  border-radius: 10px;
+  border-radius: 15px;
   height: auto;
   object-fit: contain;
   max-height: 400px;
+  max-width: 100%;
 }
 
 .error {
