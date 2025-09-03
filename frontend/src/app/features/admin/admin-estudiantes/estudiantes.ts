@@ -69,6 +69,11 @@ export class EstudiantesComponent implements OnInit {
     );
   }
 
+  onSearchInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.buscarEstudiantes(target.value);
+  }
+
   onSubmit(): void {
     if (this.estudianteForm.valid) {
       if (this.editandoEstudiante) {
