@@ -11,7 +11,8 @@ import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda
 import { Estudiantes } from './features/docente/estudiantes/estudiantes';
 import { LauraZarateComponent as LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate.component';
 // import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
-// import { DanielPaez } from './features/public/portfolios/daniel-paez/daniel-paez';
+// Update the import to match the actual exported member name
+import { DanielPaezComponent } from './features/public/portfolios/daniel-paez/daniel-paez';
 
 
 export const routes: Routes = [
@@ -31,10 +32,11 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
-  
   { path: 'portfolio/karina-quinteros', component: KarinaQuinteros },
   { path: 'portfolio/laura-zarate', component: LauraZarate },
   { path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
+  { path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
+  { path: 'portfolio/daniel-paez', component: DanielPaezComponent },
   { path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
 
   // Rutas del docente
