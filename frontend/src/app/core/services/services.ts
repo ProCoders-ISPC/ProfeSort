@@ -31,11 +31,11 @@ export class DocentesService {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // Estado del usuario actual (null = no logueado)
+  
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  // Usuarios de prueba (en una app real vendrían de una base de datos)
+  
   private users: User[] = [
     { id: 1, email: 'admin@profesort.com', name: 'Administrador', role: 'admin', isLoggedIn: false },
     { id: 2, email: 'karina@profesort.com', name: 'Karina Quinteros', role: 'teacher', isLoggedIn: false },
@@ -43,13 +43,13 @@ export class AuthService {
   ];
 
   constructor() {
-    // Al iniciar, verificar si hay un usuario guardado en localStorage
+    
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
       const user = JSON.parse(savedUser);
       this.currentUserSubject.next(user);
     } else {
-      // Modo desarrollo: loguear automáticamente como admin si no hay usuario
+   
       const adminUser = this.users.find(u => u.role === 'admin');
       if (adminUser) {
         adminUser.isLoggedIn = true;
@@ -59,49 +59,49 @@ export class AuthService {
     }
   }
 
-  // Método para hacer login
+  
   login(email: string, password: string): boolean {
-    // Buscar el usuario por email (en una app real verificarías la contraseña)
+    
     const user = this.users.find(u => u.email === email);
 
     if (user) {
-      // Marcar como logueado
+     
       user.isLoggedIn = true;
 
-      // Guardar en localStorage para persistir la sesión
+     
       localStorage.setItem('currentUser', JSON.stringify(user));
 
-      // Actualizar el estado
+      
       this.currentUserSubject.next(user);
 
-      return true; // Login exitoso
+      return true; 
     }
 
-    return false; // Login fallido
+    return false; 
   }
 
-  // Método para hacer logout
+  
   logout(): void {
-    // Limpiar localStorage
+   
     localStorage.removeItem('currentUser');
 
-    // Actualizar estado a null (no logueado)
+    
     this.currentUserSubject.next(null);
   }
 
-  // Verificar si el usuario está logueado
+  
   isAuthenticated(): boolean {
     const currentUser = this.currentUserSubject.value;
     return currentUser !== null && currentUser.isLoggedIn;
   }
 
-  // Verificar si el usuario es administrador
+  
   isAdmin(): boolean {
     const currentUser = this.currentUserSubject.value;
     return currentUser !== null && currentUser.role === 'admin' && currentUser.isLoggedIn;
   }
 
-  // Obtener el usuario actual
+  
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }

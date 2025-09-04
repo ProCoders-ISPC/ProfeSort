@@ -1,77 +1,24 @@
 
-/* Botón principal de formularios */
-.form-primary-button {
-  width: 100%;
-  margin-top: 20px;
-  background-color: var(--secondary-dark);
-  color: var(--white);
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-family: "Acephimere", sans-serif;
-  box-shadow: 0 4px 15px var(--shadow-medium);
-  display: block;
-  transition: background 0.2s, color 0.2s;
-}
+/* ===== BOTONES GENERALES ===== */
+/* Los botones específicos de formularios están en sus respectivos componentes */
+/* Este archivo contiene solo botones generales que se usan en múltiples componentes */
 
-.form-primary-button:hover {
-  background-color: var(--secondary-teal);
-  color: var(--white);
-}
-
-/* Botón de volver (comeback) usado en login y registro */
-.comeback-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  background-color: var(--primary-dark);
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px var(--shadow-medium);
-  cursor: pointer;
-  transition: width 0.4s ease, background-color 0.3s ease, justify-content 0.4s ease;
-  overflow: hidden;
-  position: relative;
-  text-decoration: none;
-  padding: 0;
-}
-
-.comeback-button__icon {
-  color: var(--white);
-  font-size: 18px;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  position: absolute;
-  line-height: 1;
-  z-index: 2;
-}
-
-.comeback-button__text {
-  color: var(--white);
-  font-weight: 600;
+/* Botón genérico base - puede ser extendido por otros componentes */
+.btn {
+  padding: 8px 15px;
+  border-radius: 4px;
   font-size: 14px;
-  opacity: 0;
-  white-space: nowrap;
-  transition: opacity 0.3s ease-in-out 0.1s;
-  z-index: 1;
-  margin-left: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-family: "Acephimere", sans-serif;
 }
 
-.comeback-button:hover {
-  width: 170px;
-  background-color: var(--accent-teal);
-  justify-content: flex-start;
-  padding-left: 15px;
+.btn-primary {
+  background-color: var(--primary-teal);
+  color: var(--white);
 }
 
-.comeback-button:hover .comeback-button__icon {
-  transform: translateX(-80px);
-  opacity: 0;
-}
-
-.comeback-button:hover .comeback-button__text {
-  opacity: 1;
+.btn-primary:hover {
+  background-color: var(--accent-yellow);
 }

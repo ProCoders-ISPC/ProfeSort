@@ -1,0 +1,101 @@
+<div class="container-fluid px-4 py-3">
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="Buscar por nombre o DNI..." 
+                   (input)="onSearchInput($event)">
+          </div>
+        </div>
+        <div class="col-md-6 text-end">
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#estudianteModal" (click)="editandoEstudiante = null; estudianteForm.reset(); modalTitle = 'Nuevo Estudiante'; modalEditMode = true;">+ Nuevo Estudiante</button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Nombre y Apellido</th>
+              <th>DNI</th>
+              <th>Escuela de Procedencia</th>
+              <th>Año cursado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let estudiante of estudiantesFiltrados">
+              <td>{{ estudiante.nombre }} {{ estudiante.apellido }}</td>
+              <td>{{ estudiante.dni }}</td>
+              <td>{{ estudiante.escuelaDeProcedencia }}</td>
+              <td>{{ estudiante.anioCursado }}</td>
+              <td>
+                <button (click)="verFicha(estudiante)" class="btn btn-info btn-sm me-1" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-eye"></i></button>
+                <button (click)="editarEstudiante(estudiante)" class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-pencil-square"></i></button>
+                <button (click)="eliminarEstudiante(estudiante.id)" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="estudiantesFiltrados.length === 0" class="text-center text-muted py-3">No hay estudiantes registrados.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para ver/agregar/editar estudiante -->
+<div class="modal fade" id="estudianteModal" tabindex="-1" aria-labelledby="estudianteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="estudianteModalLabel">{{ modalTitle }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!modalEditMode">
+          <p><strong>Nombre:</strong> {{ estudianteSeleccionado?.nombre }}</p>
+          <p><strong>Apellido:</strong> {{ estudianteSeleccionado?.apellido }}</p>
+          <p><strong>DNI:</strong> {{ estudianteSeleccionado?.dni }}</p>
+          <p><strong>Email:</strong> {{ estudianteSeleccionado?.email }}</p>
+          <p><strong>Escuela de Procedencia:</strong> {{ estudianteSeleccionado?.escuelaDeProcedencia }}</p>
+          <p><strong>Año cursado:</strong> {{ estudianteSeleccionado?.anioCursado }}</p>
+        </div>
+        <div *ngIf="modalEditMode">
+          <form [formGroup]="estudianteForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="nombreModal" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombreModal" formControlName="nombre">
+            </div>
+            <div class="mb-3">
+              <label for="apellidoModal" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellidoModal" formControlName="apellido">
+            </div>
+            <div class="mb-3">
+              <label for="dniModal" class="form-label">DNI</label>
+              <input type="text" class="form-control" id="dniModal" formControlName="dni">
+            </div>
+            <div class="mb-3">
+              <label for="emailModal" class="form-label">Email</label>
+              <input type="email" class="form-control" id="emailModal" formControlName="email">
+            </div>
+            <div class="mb-3">
+              <label for="escuelaModal" class="form-label">Escuela de Procedencia</label>
+              <input type="text" class="form-control" id="escuelaModal" formControlName="escuelaDeProcedencia">
+            </div>
+            <div class="mb-3">
+              <label for="anioModal" class="form-label">Año cursado</label>
+              <input type="text" class="form-control" id="anioModal" formControlName="anioCursado">
+            </div>
+            <div class="text-end">
+              <button type="submit" class="btn btn-success" [disabled]="estudianteForm.invalid">{{ editandoEstudiante ? 'Guardar Cambios' : 'Agregar Estudiante' }}</button>
+              <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

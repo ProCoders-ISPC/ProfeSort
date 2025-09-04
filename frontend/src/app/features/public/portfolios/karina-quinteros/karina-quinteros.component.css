@@ -670,7 +670,7 @@ nav {
   overflow: visible;
 }
 
-/* Particle styles are set inline via JavaScript */
+
 
 @keyframes float {
   0%,
@@ -802,12 +802,12 @@ nav {
   }
 }
 
-/* Estilos para botones de navegación más pequeños y con hover elegante */
+
 .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.8) !important;
   font-weight: 500;
-  font-size: 0.9rem; /* Más pequeños */
-  padding: 0.4rem 1rem !important; /* Padding reducido */
+  font-size: 0.9rem; 
+  padding: 0.4rem 1rem !important; 
   margin: 0 0.2rem;
   border-radius: 25px;
   transition: all 0.3s ease;

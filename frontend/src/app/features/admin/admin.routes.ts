@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { AdminLayout } from './layout/layout';
-import { Docente } from './docente/docente';
-import { EstudiantesComponent } from './estudiantes/estudiantes';
-import { Materias } from './materias/materias';
+import { AdminLayout } from './admin-layout/layout';
+import { Docente } from './admin-docente/docente';
+import { EstudiantesComponent } from './admin-estudiantes/estudiantes';
+import { Materias } from './admin-materias/materias';
 import { AdminGuard } from '../../core/guards/guards';
 
 export const ADMIN_ROUTES: Routes = [

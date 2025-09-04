@@ -1,8 +1,15 @@
+@import url('bootstrap/dist/css/bootstrap.min.css');
+@font-face {
+    font-family: 'Acephimere';
+    src: url ('../fonts/Acephimere.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @import url('./assets/css/base/reset.css');
 @import url('./assets/css/base/variables.css');
 @import url('./assets/css/components/buttons.css');
 @import url('./assets/css/components/footer.css');
-@import url('./assets/css/components/background.css');
 @import url('./assets/css/components/forms.css');
 @import url('./assets/css/components/header.css');
 
@@ -16,6 +23,19 @@ body {
   padding: 0 !important;
   width: 100% !important;
 }
+.container-fluid {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.main-content {
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  overflow-y: auto;
+  margin-left: 0;
+}
 
 html {
   margin: 0 !important;
@@ -23,7 +43,18 @@ html {
   width: 100% !important;
 }
 
-/* Force full width for Angular components */
+
+body, html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
 app-root,
 app-layout,
 app-about,
@@ -35,7 +66,7 @@ router-outlet {
   padding: 0 !important;
 }
 
-/* Override Bootstrap container classes */
+
 .container,
 .container-fluid,
 .container-sm,
@@ -362,7 +393,7 @@ tr:hover {
   outline: none;
 }
 
-/* Sobrescribir el estilo del container para eliminar padding */
+
 .admin .container {
   padding: 0;
   margin: 0;
@@ -370,7 +401,7 @@ tr:hover {
   width: 100%;
 }
 
-/* Asegurar que el sidebar quede pegado a la izquierda */
+
 .admin .sidebar {
   position: fixed;
   left: 0;
@@ -379,19 +410,19 @@ tr:hover {
   z-index: 999;
 }
 
-/* Ajustar el contenido principal para que respete el espacio del sidebar */
+
 .admin .main-content {
-  margin-left: 250px; /* Ancho del sidebar */
+  margin-left: 250px; 
   width: calc(100% - 250px);
 }
 
-/* Mejoras para el menú hamburguesa */
+
 .responsive-toggle {
   display: none !important;
   z-index: 1002;
 }
 
-/* Ajustes para el sidebar y overlay en móvil */
+
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -408,7 +439,7 @@ tr:hover {
   display: block;
 }
 
-/* Header responsivo */
+
 .admin .header {
   display: flex;
   justify-content: space-between;
@@ -417,7 +448,7 @@ tr:hover {
   z-index: 997;
 }
 
-/* Media queries mejorados */
+
 @media screen and (max-width: 768px) {
   .responsive-toggle {
     display: block !important;
@@ -456,8 +487,6 @@ tr:hover {
 }
 
 
-
-/* About styles moved to assets/css/pages/about.css */
 
 
 * {
@@ -740,59 +769,3 @@ tr:hover {
     }
 }
 
-/* Styles for the student list table */
-#student-list {
-    width: 100%; /* Make it take the full width */
-    display: block; /* Ensure it's a block-level element */
-    margin-top: 20px; /* Add some space above */
-}
-
-#student-list table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-#student-list th,
-#student-list td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-#student-list th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-/* Styles for the edit profile form */
-#edit-profile-form {
-    margin-top: 10px;
-}
-
-#edit-profile-form .form-group {
-    margin-bottom: 15px;
-}
-
-#edit-profile-form .form-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-#edit-profile-form .form-control {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-#edit-profile-form .form-control:focus {
-    outline: none;
-    border-color: #3498db;
-}
-
-#edit-profile-form .form-actions {
-    margin-top: 20px;
-}

@@ -4,6 +4,9 @@
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* ===== HERO HOME ===== */
@@ -20,6 +23,9 @@
   margin-bottom: -20px !important;
   border: none !important;
   border-bottom: none !important;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .hero swiper-container,
@@ -37,14 +43,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 60px 40px;
+  padding: 40px 20px;
   background-color: var(--primary-light);
   border: none !important;
   border-bottom: none !important;
   margin: 0 !important;
+  box-sizing: border-box;
+  max-width: 100vw;
 }
 
-/* Remove any swiper borders and unwanted elements */
+
 .hero swiper-container,
 .hero .swiper-pagination,
 .hero .swiper-pagination-bullet,
@@ -54,20 +62,20 @@
   border-bottom: none !important;
 }
 
-/* Remove any borders from the entire hero section and surrounding elements */
+
 .hero::after,
 .hero::before {
   display: none !important;
 }
 
-/* Hide all pagination elements that might create gray lines */
+
 .swiper-pagination,
 .swiper-button-next,
 .swiper-button-prev {
   display: none !important;
 }
 
-/* Slide background colors */
+
 .slide-1,
 swiper-slide.slide-1 {
   background-color: #f9e79f !important;
@@ -241,8 +249,11 @@ swiper-slide.slide-3 {
 
 /* ===== NOVEDADES HOME ===== */
 .novedades {
-  padding: 40px;
+  padding: 40px 20px;
   background-color: var(--background-lighter);
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .novedades h2 {
@@ -270,80 +281,33 @@ swiper-slide.slide-3 {
   border-radius: 6px;
 }
 
-/* ===== CONTACTO HOME ===== */
+
 .contacto {
-  padding: 40px;
+  max-width: 100vw;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .contacto-container {
-  display: flex;
-  gap: 30px; 
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.contacto .form {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: calc(50% - 15px); 
-  min-width: 0; 
-}
-
-.contacto .hero-img {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: calc(50% - 15px); 
-  display: flex;
-  justify-content: flex-end; 
-}
-
-.contacto .hero-img img {
-  width: 100%; 
   max-width: 100%;
-  border-radius: 10px;
-  height: auto;
-  object-fit: cover;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  gap: 20px; 
 }
 
-/* === RESPONSIVE CONTACT FORM === */
-@media (max-width: 900px) {
+
+@media (max-width: 768px) {
+  .hero swiper-slide,
+  .hero .swiper-slide,
+  .novedades,
+  .contacto {
+    padding: 20px 10px;
+  }
+  
   .contacto-container {
     flex-direction: column;
-    gap: 20px;
-    align-items: stretch;
-  }
-  .contacto .form,
-  .contacto .hero-img {
-    flex-basis: 100%;
-    max-width: 100%;
-  }
-  .contacto .hero-img {
-    justify-content: center;
-    margin-top: 20px;
-  }
-  .contacto .hero-img img {
-    max-width: 300px;
-    margin: 0 auto;
+    gap: 15px;
   }
 }
 
-@media (max-width: 600px) {
-  .contacto {
-    padding: 20px 5vw;
-  }
-  .contacto .form {
-    padding: 0;
-  }
-  .contacto .hero-img img {
-    max-width: 180px;
-  }
-}
-
-@media (max-width: 400px) {
-  .contacto {
-    padding: 10px 2vw;
-  }
-  .contacto .hero-img img {
-    max-width: 120px;
-  }
-}

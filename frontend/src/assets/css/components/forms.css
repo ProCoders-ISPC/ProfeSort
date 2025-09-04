@@ -1,108 +1,8 @@
-/* ===== ESTILOS GENERALES DE FORMULARIOS ===== */
-.form-container {
-  background-color: var(--white);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px var(--shadow-light);
-  padding: 20px;
-  margin-bottom: 30px;
-}
+/* ===== ESTILOS GENERALES COMPARTIDOS ===== */
+/* Este archivo solo contiene estilos comunes que pueden ser reutilizados */
+/* Los estilos específicos de cada formulario están en sus respectivos componentes */
 
-.form-container--centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-  min-height: 300px;
-}
-
-.page-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  min-height: 100vh;
-}
-
-.page-container--full-height {
-  height: 100vh;
-}
-
-.form-title {
-  text-align: center;
-  font-size: 1.8rem;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group--full-width {
-  width: 100%;
-  flex-basis: 100%;
-}
-
-.form-row {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-.form-row .form-group {
-  flex: 1;
-  margin-bottom: 0;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: var(--text-dark);
-}
-
-.form-input,
-.form-textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  font-size: 16px;
-  box-sizing: border-box;
-  font-family: inherit;
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.form-input:focus,
-.form-textarea:focus {
-  outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 2px rgba(58, 189, 204, 0.2);
-}
-
-.form-input::placeholder,
-.form-textarea::placeholder {
-  color: #999;
-  opacity: 1;
-}
-
-.form-checkbox {
-  display: flex;
-  align-items: center;
-  margin: 15px 0;
-  font-size: 0.9rem;
-}
-
-.form-checkbox-input {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  accent-color: var(--accent-blue);
-}
-
+/* Estilos para elementos genéricos de utilidad */
 .form-help {
   text-align: center;
   margin-top: 15px;
@@ -133,69 +33,21 @@
   z-index: 1000;
 }
 
-.form-primary-button {
-  width: 100%;
-  padding: 14px 0;
-  background-color: var(--primary-darker, #063c3e); 
-  color: var(--white);
-  border: none;
+/* Estilo de mensaje de éxito genérico (puede ser usado por múltiples componentes) */
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
   border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-  margin-top: 10px;
-  box-sizing: border-box;
+  border: 1px solid #c3e6cb;
+  margin-top: 15px;
+  text-align: center;
 }
 
-.form-primary-button:hover,
-.form-primary-button:focus {
-  background-color: var(--primary-dark, #084c4e);
-}
-
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE GENÉRICO ===== */
 @media screen and (max-width: 768px) {
-  .form-container {
-    padding: 15px;
-    margin-bottom: 20px;
-  }
-
-  .form-container--centered {
-    height: auto;
-    min-height: auto;
-    padding: 20px;
-  }
-
-  .form-row {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .form-row .form-group {
-    margin-bottom: 15px;
-  }
-
   .form-actions {
     justify-content: stretch;
     flex-direction: column;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .page-container {
-    padding: 12px;
-    padding-top: 70px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .page-container {
-    padding: 10px;
-    padding-top: 60px;
-  }
-
-  .form-title {
-    font-size: 1.2rem;
-    margin-bottom: 16px;
   }
 }
