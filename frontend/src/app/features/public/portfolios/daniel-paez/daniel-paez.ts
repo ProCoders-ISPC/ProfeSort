@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-daniel-paez',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './daniel-paez.html',
   styleUrls: ['./daniel-paez.css'],
   standalone: true,
