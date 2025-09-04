@@ -100,7 +100,10 @@ export class AuthService {
     const currentUser = this.currentUserSubject.value;
     return currentUser !== null && currentUser.role === 'admin' && currentUser.isLoggedIn;
   }
-
+  isTeacher(): boolean {
+    const currentUser = this.currentUserSubject.value;
+    return currentUser !==null && currentUser.role === 'teacher' && currentUser.isLoggedIn;
+  }
   
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
