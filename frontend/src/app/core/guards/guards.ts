@@ -51,3 +51,31 @@ export class AdminGuard implements CanActivate {
     }
   }
 }
+
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TeacherGuard implements CanActivate{
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ){}
+
+  canActivate(): boolean{
+    
+    if (this.authService.isAuthenticated() && this.authService.isTeacher()) {
+      return true;
+    } else if (this.authService.isAuthenticated()){
+
+      this.router.navigate(['/home']);
+      return false;
+    } else {
+
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+}

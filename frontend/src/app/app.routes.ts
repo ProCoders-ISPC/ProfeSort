@@ -11,8 +11,8 @@ import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda
 import { Estudiantes } from './features/docente/estudiantes/estudiantes';
 import { LauraZarateComponent as LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate.component';
 // import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
-// Update the import to match the actual exported member name
 import { DanielPaezComponent } from './features/public/portfolios/daniel-paez/daniel-paez';
+import { TeacherGuard } from './core/guards/guards';
 
 
 export const routes: Routes = [
@@ -42,6 +42,7 @@ export const routes: Routes = [
   // Rutas del docente
   { 
     path: 'docente', 
+    canActivate: [TeacherGuard],
     children: [
       { path: 'estudiantes', component: Estudiantes },
       { path: '', redirectTo: 'estudiantes', pathMatch: 'full' }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { BackToHomeButtonComponent } from '../../../shared/components/buttons/back-to-home-button/back-to-home-button';
 import { BackgroundComponent } from '../../../shared/components/background/background';
+import { AuthService } from '../../../core/services/services';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class Login {
   loginForm: FormGroup;
   isSubmitted = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     this.loginForm = this.formBuilder.group({
       email: ['', [
         Validators.required,
@@ -58,13 +59,31 @@ export class Login {
     this.isSubmitted = true;
     
     if (this.loginForm.valid) {
-      console.log('Login data:', this.loginForm.value);
+      const { email,password } = this.loginForm.value;
       
-      // Simulación de autenticación básica
-      const { email, password } = this.loginForm.value;
+      // Usar AuthService para autenticar
+      const loginSuccess = this.authService.login(email, password);
+
+      if(loginSuccess) {
+        // Obtener el usuario actual para redirección basada en rol
+        const currentUser = this.authService.getCurrentUser();
+
+        if (currentUser?.role === 'admin') {
+          this.router.navigate(['/admin']);
+        } else if (currentUser?.role === 'teacher'){
+          this.router.navigate(['/docente']);
+        } else {
+          this.router.navigate(['/home']);
+        }
+        return;
+      } else {
+        //mostrar error de login
+        console.log('Error: Credenciales inavlidas');
+        return;
+      }
       
-      // Aquí iría la lógica de autenticación con el backend
-      console.log('Login exitoso, redirigiendo a home...');
+      // ESTE CÓDIGO NO DEBERÍA EJECUTARSE DESPUÉS DE LOGIN EXITOSO
+      //console.log('Login exitoso, redirigiendo a home...');
       
       // Navega a home
       this.router.navigate(['/home']);
