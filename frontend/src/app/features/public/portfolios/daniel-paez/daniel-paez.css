@@ -429,7 +429,7 @@ button:hover span {
 }
 
 
-* Ajustes para Bootstrap */
+ /*Ajustes para Bootstrap */
 .navbar-toggler {
   border-color: var(--secondary);
 }
@@ -472,4 +472,27 @@ button:hover span {
 
 .form-label {
   color: var(--text);
+}
+
+.seccion {
+  padding: 4rem 0;
+}
+
+.color-fondo-seccion-skills {
+  background: var(--secondary);
+}
+
+.contenedor-seccion-skills {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.contenedor-skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
 }
