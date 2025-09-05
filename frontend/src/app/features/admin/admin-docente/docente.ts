@@ -1,64 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
-interface DocenteModel {
-  id: number;
-  name: string;
-  email: string;
-  legajo: string;
-  estado: 'Activo' | 'Inactivo';
-}
+import { CommonModule } from '@angular/common'; 
+import { DocenteService } from '../../../core/services/admin-docente.service';
+import { DocenteModel } from '../../../core/models/models';
 
 @Component({
   selector: 'app-docente',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './docente.html',
   styleUrls: ['./docente.css']
 })
-export class Docente {
-  docentes: DocenteModel[] = [
-    {
-      id: 1,
-      name: 'Karina del Valle Quinteros',
-      email: 'karinaq38@gmail.com',
-      legajo: 'DOC001',
-      estado: 'Activo'
-    },
-    {
-      id: 2,
-      name: 'Juan Pablo Sanchez Brandán',
-      email: 'sanchezbrandan@gmail.com',
-      legajo: 'DOC002',
-      estado: 'Activo'
-    },
-    {
-      id: 3,
-      name: 'Juan Ignacio Gioda',
-      email: 'juangioda@gmail.com',
-      legajo: 'DOC003',
-      estado: 'Inactivo'
-    },
-    {
-      id: 4,
-      name: 'Daniel Nicolas Paez',
-      email: 'dani.mercadolibre03@gmail.com',
-      legajo: 'DOC004',
-      estado: 'Activo'
-    }
-  ];
-
+export class Docente implements OnInit {
+  docentes: DocenteModel[] = [];
+  error: string | null = null;
   formTitle = 'Formulario Docente';
   editingId: number | null = null;
   docenteForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private docenteService: DocenteService, private fb: FormBuilder) {
     this.docenteForm = this.fb.group({
-      nombre: ['', Validators.required],
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       legajo: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
+    });
+  }
+
+  ngOnInit() {
+    this.docenteService.getDocentesCarga().subscribe({
+      next: (data) => this.docentes = data,
+      error: () => this.error = 'Error al cargar los datos'
     });
   }
 
@@ -115,7 +88,9 @@ export class Docente {
         name,
         email,
         legajo,
-        estado: 'Activo'
+        materias: 0,
+        estado: 'Activo' ,
+        estudiantes: 0
       };
       this.docentes.push(newDocente);
       alert('Docente agregado exitosamente');
