@@ -13,8 +13,8 @@ interface DocenteModel {
 @Component({
   selector: 'app-docente',
   imports: [ReactiveFormsModule],
-  templateUrl: './docente.html',
-  styleUrls: ['./docente.css']
+  templateUrl: './admindocente.html',
+  styleUrls: ['./admindocente.css']
 })
 export class Docente {
   docentes: DocenteModel[] = [
