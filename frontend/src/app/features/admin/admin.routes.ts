@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AdminLayout } from './admin-layout/layout';
-import { Docente } from './admin-docente/docente';
+import { Docente } from './admin-docente/admindocente';
 import { EstudiantesComponent } from './admin-estudiantes/estudiantes';
 import { Materias } from './admin-materias/materias';
 import { AdminGuard } from '../../core/guards/guards';
