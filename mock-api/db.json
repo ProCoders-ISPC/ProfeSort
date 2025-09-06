@@ -1,0 +1,78 @@
+{
+  "docentes": [
+    {
+      "id": 1,
+      "name": "Karina del Valle Quinteros",
+      "email": "karinaq38@gmail.com",
+      "legajo": "DOC001",
+      "estado": "Activo",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "name": "Juan Pablo Sanchez Brandán",
+      "email": "sanchezbrandan@gmail.com",
+      "legajo": "DOC002",
+      "estado": "Activo",
+      "password": "123456"
+    },
+    {
+      "id": 3,
+      "name": "Juan Ignacio Gioda",
+      "email": "juangioda@gmail.com",
+      "legajo": "DOC003",
+      "estado": "Inactivo",
+      "password": "123456"
+    }
+  ],
+  "carga": [
+    {
+      "id": 1,
+      "nombre": "Karina del Valle Quinteros",
+      "email": "karinaq38@gmail.com",
+      "legajo": "DOC001",
+      "estado": "Activo",
+      "cantidadMaterias": 3,
+      "cantidadEstudiantes": 45,
+      "materias": ["Matemática", "Física", "Química"],
+      "fechaIngreso": "2020-03-15",
+      "departamento": "Ciencias Exactas"
+    },
+    {
+      "id": 2,
+      "nombre": "Juan Pablo Sanchez Brandán",
+      "email": "sanchezbrandan@gmail.com",
+      "legajo": "DOC002",
+      "estado": "Activo",
+      "cantidadMaterias": 2,
+      "cantidadEstudiantes": 38,
+      "materias": ["Historia", "Geografía"],
+      "fechaIngreso": "2019-08-10",
+      "departamento": "Ciencias Sociales"
+    },
+    {
+      "id": 3,
+      "nombre": "Juan Ignacio Gioda",
+      "email": "juangioda@gmail.com",
+      "legajo": "DOC003",
+      "estado": "Inactivo",
+      "cantidadMaterias": 1,
+      "cantidadEstudiantes": 0,
+      "materias": ["Lengua"],
+      "fechaIngreso": "2018-02-20",
+      "departamento": "Lengua y Literatura"
+    },
+    {
+      "id": 4,
+      "nombre": "Daniel Nicolas Paez",
+      "email": "dani.mercadolibre03@gmail.com",
+      "legajo": "DOC004",
+      "estado": "Activo",
+      "cantidadMaterias": 4,
+      "cantidadEstudiantes": 52,
+      "materias": ["Biología", "Química", "Ciencias Naturales", "Laboratorio"],
+      "fechaIngreso": "2021-01-12",
+      "departamento": "Ciencias Naturales"
+    }
+  ]
+}
