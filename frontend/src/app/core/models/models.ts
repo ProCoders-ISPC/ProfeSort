@@ -15,13 +15,3 @@ export interface User {
   role: 'student' | 'admin' | 'teacher';
   isLoggedIn: boolean;
 }
-
-export interface DocenteModel {
-  id: number;
-  name: string;
-  email: string;
-  legajo: string;
-  materias: number;
-  estado?: 'Activo' | 'Inactivo';
-  estudiantes: number; //deberia conectar con los nombres de estudiantes a cargo?
-}
