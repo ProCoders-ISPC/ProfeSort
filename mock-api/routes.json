@@ -1,0 +1,7 @@
+{
+  "/api/docentes": "/docentes",
+  "/api/docentes/carga": "/carga",
+  "/api/docentes/:id": "/docentes/:id",
+  "/api/carga/:id": "/carga/:id",
+  "/api/*": "/$1"
+}
