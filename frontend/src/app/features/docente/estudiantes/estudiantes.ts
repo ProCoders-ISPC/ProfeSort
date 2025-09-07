@@ -2,13 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Docente {
-  nombreCompleto: string;
-  dni: string;
-  domicilio: string;
-  email: string;
-}
+import { DocenteService, Docente } from '../../../core/services/docente.service';
 
 interface Estudiante {
   nombre: string;
@@ -22,22 +16,30 @@ interface Estudiante {
   selector: 'app-estudiantes',
   templateUrl: './estudiantes.html',
   styleUrls: ['./estudiantes.css'],
+  standalone: true,
   imports: [CommonModule, FormsModule]
 })
 export class Estudiantes implements OnInit {
   modoEdicion: boolean = false;
   iniciales: string = '';
+  loading: boolean = false;
+  error: string | null = null;
   
   docente: Docente = {
+    id: 0,
     nombreCompleto: '',
     dni: '',
     domicilio: '',
-    email: ''
+    email: '',
+    legajo: ''
   };
 
   estudiantes: Estudiante[] = [];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private docenteService: DocenteService
+  ) {}
 
   ngOnInit() {
     // Verificar autenticación
@@ -53,52 +55,58 @@ export class Estudiantes implements OnInit {
   }
 
   cargarDatos() {
-    // Simular carga de datos del docente
-    this.docente = {
-      nombreCompleto: 'Juan Pérez',
-      dni: '12345678',
-      domicilio: 'Calle Principal 123',
-      email: 'juan.perez@mail.com'
-    };
+    const docenteId = 1; // TODO: Obtener del servicio de auth
+    this.loading = true;
+    this.error = null;
 
-    this.iniciales = this.obtenerIniciales(this.docente.nombreCompleto);
-
-    // Datos de ejemplo de estudiantes
-    this.estudiantes = [
-      {
-        nombre: 'Ana',
-        apellidos: 'García',
-        dni: '87654321',
-        email: 'ana.garcia@mail.com',
-        estado: 'Activo'
+    this.docenteService.getDocenteById(docenteId).subscribe({
+      next: (data: Docente) => {
+        this.docente = data;
+        this.iniciales = this.obtenerIniciales(data.nombreCompleto);
+        this.loading = false;
       },
-      {
-        nombre: 'Carlos',
-        apellidos: 'López',
-        dni: '98765432',
-        email: 'carlos.lopez@mail.com',
-        estado: 'Pendiente'
-      },
-      {
-        nombre: 'María',
-        apellidos: 'Rodríguez',
-        dni: '45678912',
-        email: 'maria.rodriguez@mail.com',
-        estado: 'Activo'
+      error: (err: Error) => {
+        console.error('Error al cargar datos:', err);
+        this.error = 'Error al cargar los datos. Por favor, intente nuevamente.';
+        this.loading = false;
       }
-    ];
+    });
   }
 
   guardarDatos() {
-    try {
-      // Aquí iría la lógica para guardar en el backend
-      console.log('Guardando datos...', this.docente);
-      this.modoEdicion = false;
-      alert('Datos actualizados correctamente');
-    } catch (error) {
-      console.error('Error al guardar:', error);
-      alert('Error al guardar los datos');
+    if (!this.verificarFormulario()) {
+      return;
     }
+
+    this.loading = true;
+    this.error = null;
+
+    this.docenteService.updateDocente(this.docente.id, {
+      nombreCompleto: this.docente.nombreCompleto,
+      domicilio: this.docente.domicilio,
+      email: this.docente.email
+    }).subscribe({
+      next: (data: Docente) => {
+        this.docente = data;
+        this.iniciales = this.obtenerIniciales(data.nombreCompleto);
+        this.loading = false;
+        this.modoEdicion = false;
+        alert('Datos actualizados correctamente');
+      },
+      error: (err: Error) => {
+        console.error('Error al guardar:', err);
+        this.error = 'Error al guardar los datos. Por favor, intente nuevamente.';
+        this.loading = false;
+      }
+    });
+  }
+
+  private verificarFormulario(): boolean {
+    if (!this.docente.nombreCompleto || !this.docente.domicilio || !this.docente.email) {
+      alert('Por favor, complete todos los campos obligatorios');
+      return false;
+    }
+    return true;
   }
 
   private verificarAutenticacion(): boolean {

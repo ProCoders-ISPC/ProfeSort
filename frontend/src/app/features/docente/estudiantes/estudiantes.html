@@ -23,15 +23,27 @@
     <section class="form-container">
       <div class="section-header">
         <h2>Datos Personales</h2>
-        <button *ngIf="!modoEdicion" 
+        <button *ngIf="!modoEdicion && !loading" 
                 (click)="toggleEdicion()" 
                 class="btn btn-primary">
           Editar Datos
         </button>
       </div>
 
+      <!-- Mensaje de error -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- Loader -->
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+
       <!-- Vista de solo lectura -->
-      <div *ngIf="!modoEdicion" class="datos-preview">
+      <div *ngIf="!modoEdicion && !loading" class="datos-preview">
         <div class="dato-item">
           <label>Nombre Completo:</label>
           <span>{{docente.nombreCompleto}}</span>
@@ -39,6 +51,10 @@
         <div class="dato-item">
           <label>DNI:</label>
           <span>{{docente.dni}}</span>
+        </div>
+        <div class="dato-item">
+          <label>Legajo:</label>
+          <span>{{docente.legajo}}</span>
         </div>
         <div class="dato-item">
           <label>Domicilio:</label>
@@ -51,7 +67,7 @@
       </div>
 
       <!-- Formulario de edición -->
-      <form *ngIf="modoEdicion" (ngSubmit)="guardarDatos()">
+      <form *ngIf="modoEdicion && !loading" (ngSubmit)="guardarDatos()">
         <div class="form-group">
           <label class="form-label">Nombre Completo</label>
           <input type="text" 
