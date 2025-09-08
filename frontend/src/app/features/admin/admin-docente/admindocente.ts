@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AdminDocenteService, DocenteCarga } from '../../../core/services/admindocente.service';
+import { AdminDocenteService, DocenteCarga, EstadisticasCarga } from '../../../core/services/admindocente.service';
+import { Subject, takeUntil } from 'rxjs';
 
 interface DocenteModel {
   id: number;
@@ -18,7 +19,7 @@ interface DocenteModel {
   templateUrl: './admindocente.html',
   styleUrls: ['./admindocente.css']
 })
-export class Docente {
+export class Docente implements OnInit, OnDestroy {
   // Propiedades del formulario
   docenteForm: FormGroup;
   docentes: DocenteModel[] = [];
@@ -26,17 +27,25 @@ export class Docente {
   // Propiedades de edición
   isEditing = false;
   editingIndex = -1;
-  editandoDocente = false; // Propiedad que faltaba
+  editandoDocente = false;
   docenteEditandoId: number | null = null;
 
   // Propiedades para informe de carga
   docentesCarga: DocenteCarga[] = [];
+  estadisticasCarga: EstadisticasCarga | null = null;
   cargandoDatos = false;
   errorCarga = '';
   mostrarInformeCarga = false;
+  
+  // Control de suscripciones
+  private destroy$ = new Subject<void>();
 
   private fb = inject(FormBuilder);
   private adminDocenteService = inject(AdminDocenteService);
+new: any;
+
+  // Nueva propiedad para la fecha de actualización
+  fechaUltimaActualizacion: string = new Date().toLocaleString();
 
   constructor() {
     this.docenteForm = this.fb.group({
@@ -45,10 +54,134 @@ export class Docente {
       legajo: ['', [Validators.required]],
       estado: ['Activo', [Validators.required]]
     });
+  }
 
-    // Inicializar con algunos datos de ejemplo
+  ngOnInit(): void {
     this.cargarDocentesIniciales();
   }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // MÉTODOS PARA INFORME DE CARGA
+
+  /**
+   * Alternar la visibilidad del informe de carga
+   */
+  toggleInformeCarga(): void {
+    this.mostrarInformeCarga = !this.mostrarInformeCarga;
+    
+    if (this.mostrarInformeCarga && this.docentesCarga.length === 0) {
+      this.cargarInformeCarga();
+    }
+  }
+
+  /**
+   * Cargar datos del informe de carga desde el API
+   */
+  cargarInformeCarga(): void {
+    this.cargandoDatos = true;
+    this.errorCarga = '';
+    
+    console.log('Iniciando carga de datos de informe...');
+    
+    this.adminDocenteService.getDocentesCarga()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (data: DocenteCarga[]) => {
+          console.log('Datos de carga recibidos:', data);
+          this.docentesCarga = data;
+          this.calcularEstadisticas();
+          this.cargandoDatos = false;
+          // Actualizar la fecha cuando se cargan los datos
+          this.fechaUltimaActualizacion = new Date().toLocaleString();
+        },
+        error: (error) => {
+          console.error('Error al cargar datos de carga:', error);
+          this.errorCarga = error.message || 'Error al cargar los datos. Por favor, intente nuevamente.';
+          this.cargandoDatos = false;
+          this.docentesCarga = [];
+          this.estadisticasCarga = null;
+        }
+      });
+  }
+
+  /**
+   * Refrescar los datos del informe
+   */
+  refrescarInformeCarga(): void {
+    this.docentesCarga = [];
+    this.estadisticasCarga = null;
+    // Actualizar fecha al refrescar
+    this.fechaUltimaActualizacion = new Date().toLocaleString();
+    this.cargarInformeCarga();
+  }
+
+  /**
+   * Calcular estadísticas localmente
+   */
+  private calcularEstadisticas(): void {
+    if (this.docentesCarga.length === 0) {
+      this.estadisticasCarga = null;
+      return;
+    }
+
+    const totalDocentes = this.docentesCarga.length;
+    const docentesActivos = this.docentesCarga.filter(d => d.estado === 'Activo');
+    const docentesInactivos = this.docentesCarga.filter(d => d.estado === 'Inactivo');
+    
+    const totalMaterias = this.docentesCarga.reduce((sum, d) => sum + d.cantidadMaterias, 0);
+    const totalEstudiantes = this.docentesCarga.reduce((sum, d) => sum + d.cantidadEstudiantes, 0);
+    
+    const totalMateriasActivos = docentesActivos.reduce((sum, d) => sum + d.cantidadMaterias, 0);
+    const totalEstudiantesActivos = docentesActivos.reduce((sum, d) => sum + d.cantidadEstudiantes, 0);
+
+    this.estadisticasCarga = {
+      totalDocentes,
+      docentesActivos: docentesActivos.length,
+      docentesInactivos: docentesInactivos.length,
+      totalMaterias,
+      totalEstudiantes,
+      promedioMateriasActivos: docentesActivos.length > 0 ? 
+        Math.round((totalMateriasActivos / docentesActivos.length) * 100) / 100 : 0,
+      promedioEstudiantesActivos: docentesActivos.length > 0 ? 
+        Math.round((totalEstudiantesActivos / docentesActivos.length) * 100) / 100 : 0
+    };
+
+    console.log('Estadísticas calculadas:', this.estadisticasCarga);
+  }
+
+  /**
+   * Obtener color para el badge de estado
+   */
+  getEstadoBadgeClass(estado: string): string {
+    return estado === 'Activo' ? 'bg-success' : 'bg-secondary';
+  }
+
+  /**
+   * Obtener el departamento más frecuente
+   */
+  getDepartamentoMasFrecuente(): string {
+    if (this.docentesCarga.length === 0) return 'N/A';
+    
+    const departamentos = this.docentesCarga
+      .filter(d => d.departamento)
+      .map(d => d.departamento!);
+    
+    if (departamentos.length === 0) return 'N/A';
+    
+    const conteo = departamentos.reduce((acc, dept) => {
+      acc[dept] = (acc[dept] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    
+    return Object.entries(conteo)
+      .sort(([,a], [,b]) => b - a)[0][0];
+  }
+
+  // MÉTODOS DEL FORMULARIO CRUD (mantener los existentes)
 
   // Método principal para guardar (crear o actualizar)
   guardarDocente(): void {
@@ -224,44 +357,24 @@ export class Docente {
     ];
   }
 
-  // Métodos para informe de carga
-  toggleInformeCarga(): void {
-    this.mostrarInformeCarga = !this.mostrarInformeCarga;
-    if (this.mostrarInformeCarga && this.docentesCarga.length === 0) {
-      this.cargarInformeCarga();
-    }
+  /**
+   * Track by function para optimizar el renderizado de la tabla
+   */
+  trackByDocenteId(index: number, docente: DocenteCarga): number {
+    return docente.id;
   }
 
-  cargarInformeCarga(): void {
-    this.cargandoDatos = true;
-    this.errorCarga = '';
-    
-    this.adminDocenteService.getDocentesCarga().subscribe({
-      next: (data: DocenteCarga[]) => {
-        this.docentesCarga = data;
-        this.cargandoDatos = false;
-        console.log('Datos cargados exitosamente:', data);
-      },
-      error: (error) => {
-        console.error('Error al cargar datos de docentes:', error);
-        this.errorCarga = error.message || 'Error al cargar los datos. Por favor, intente nuevamente.';
-        this.cargandoDatos = false;
-        this.docentesCarga = [];
-      }
+  /**
+   * Obtener la fecha actual formateada
+   */
+  get fechaActual(): string {
+    return new Date().toLocaleString('es-ES', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
     });
-  }
-
-  obtenerEstadisticas() {
-    const totalDocentes = this.docentesCarga.length;
-    const docentesActivos = this.docentesCarga.filter(d => d.estado === 'Activo').length;
-    const totalMaterias = this.docentesCarga.reduce((sum, d) => sum + d.cantidadMaterias, 0);
-    const totalEstudiantes = this.docentesCarga.reduce((sum, d) => sum + d.cantidadEstudiantes, 0);
-
-    return {
-      totalDocentes,
-      docentesActivos,
-      totalMaterias,
-      totalEstudiantes
-    };
   }
 }

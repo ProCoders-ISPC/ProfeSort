@@ -73,6 +73,30 @@
       "materias": ["Biología", "Química", "Ciencias Naturales", "Laboratorio"],
       "fechaIngreso": "2021-01-12",
       "departamento": "Ciencias Naturales"
+    },
+    {
+      "id": 5,
+      "nombre": "Ana María Rodríguez",
+      "email": "ana.rodriguez@educacion.gov.ar",
+      "legajo": "DOC005",
+      "estado": "Activo",
+      "cantidadMaterias": 2,
+      "cantidadEstudiantes": 35,
+      "materias": ["Inglés", "Literatura"],
+      "fechaIngreso": "2019-07-22",
+      "departamento": "Lenguas Extranjeras"
+    },
+    {
+      "id": 6,
+      "nombre": "Roberto Carlos Mendez",
+      "email": "roberto.mendez@universidad.edu",
+      "legajo": "DOC006",
+      "estado": "Activo",
+      "cantidadMaterias": 3,
+      "cantidadEstudiantes": 42,
+      "materias": ["Educación Física", "Deportes", "Recreación"],
+      "fechaIngreso": "2020-11-08",
+      "departamento": "Educación Física"
     }
   ]
 }
