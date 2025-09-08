@@ -9,11 +9,31 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class JuanignacioGioda {
 
-  scrollToProjects() {
-    const el = document.getElementById('projects');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  scrollToProjects() {
+    this.scrollToSection('projects');
+  }
+
+  scrollToAbout() {
+    this.scrollToSection('about');
+  }
+
+  scrollToSkills() {
+    this.scrollToSection('skills');
+  }
+
+  scrollToContact() {
+    this.scrollToSection('contact');
   }
 
 }
