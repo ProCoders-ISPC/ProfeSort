@@ -12,16 +12,14 @@ import { MateriasService, Materia } from '../../../core/services/materias.servic
   styleUrls: ['./materias.css'],
   imports: [CommonModule, FormsModule]
 })
+
 export class Materias {
-
   materias: Materia[] = [];
-
-
   editandoId: number | null = null;
   eliminarId: number | null = null;
   alertSuccess = '';
+  alertError = '';
   showEliminar = false;
-
 
   // Modelo del formulario
   formData: Partial<Materia> = {
@@ -49,6 +47,7 @@ export class Materias {
 
   guardar(): void {
     if (!this.formData.nombre || !this.formData.codigo || !this.formData.profesor) return;
+    this.alertError = '';
 
     if (this.editandoId) {
       this.materiasService.updateMateria(this.editandoId, this.formData).subscribe({
@@ -56,6 +55,9 @@ export class Materias {
           this.showMessage('Materia actualizada exitosamente!');
           this.cargarMaterias();
           this.resetForm();
+        },
+        error: (err) => {
+          this.showError(err.message || 'Error al actualizar la materia.');
         }
       });
     } else {
@@ -65,6 +67,9 @@ export class Materias {
           this.showMessage('Materia guardada exitosamente!');
           this.cargarMaterias();
           this.resetForm();
+        },
+        error: (err) => {
+          this.showError(err.message || 'Error al guardar la materia.');
         }
       });
     }
@@ -87,6 +92,9 @@ export class Materias {
           this.showMessage('Materia eliminada exitosamente!');
           this.cargarMaterias();
           this.eliminarId = null;
+        },
+        error: (err) => {
+          this.showError(err.message || 'Error al eliminar la materia.');
         }
       });
     }
@@ -101,10 +109,16 @@ export class Materias {
   resetForm(): void {
     this.formData = { nombre: '', codigo: '', profesor: '' };
     this.editandoId = null;
+    this.alertError = '';
   }
 
   private showMessage(msg: string): void {
     this.alertSuccess = msg;
     setTimeout(() => this.alertSuccess = '', 2000);
+  }
+
+  private showError(msg: string): void {
+    this.alertError = msg;
+    setTimeout(() => this.alertError = '', 3000);
   }
 }
