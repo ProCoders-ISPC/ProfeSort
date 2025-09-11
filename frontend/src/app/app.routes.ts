@@ -9,10 +9,12 @@ import { KarinaQuinteros } from './features/public/portfolios/karina-quinteros/k
 import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez'
 import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda/juanignacio-gioda';
 import { Estudiantes } from './features/docente/estudiantes/estudiantes';
+import { Materias } from './features/docente/materias/materias';
 import { LauraZarateComponent as LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate.component';
 // import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
 import { DanielPaezComponent } from './features/public/portfolios/daniel-paez/daniel-paez';
 import { TeacherGuard } from './core/guards/guards';
+import { Layout as DocenteLayout } from './features/docente/layout/layout';
 
 
 export const routes: Routes = [
@@ -39,12 +41,21 @@ export const routes: Routes = [
   { path: 'portfolio/daniel-paez', component: DanielPaezComponent },
   { path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
 
-  // Rutas del docente
-  { 
-    path: 'docente', 
+  // Ruta padre protegida por guard
+  {
+    path: 'docente',
+    component: DocenteLayout,
     canActivate: [TeacherGuard],
+    redirectTo: 'docente/estudiantes'
+  },
+  
+  // Rutas hijas de docente sin guard (ya están protegidas por la ruta padre)
+  {
+    path: 'docente',
+    component: DocenteLayout,
     children: [
       { path: 'estudiantes', component: Estudiantes },
+      { path: 'materias', component: Materias },
       { path: '', redirectTo: 'estudiantes', pathMatch: 'full' }
     ]
   },
