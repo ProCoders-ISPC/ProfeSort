@@ -1,17 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-
-export interface Estudiante {
-  id: number;
-  nombre: string;
-  apellido: string;
-  dni: string;
-  email: string;
-  escuelaDeProcedencia: string;
-  anioCursado: string;
-}
+import { EstudiantesService, Estudiante } from 'src/app/core/services/estudiantes.service';
 
 @Component({
   selector: 'app-estudiantes',
@@ -30,32 +21,27 @@ export class EstudiantesComponent implements OnInit {
   modalTitle: string = '';
   modalEditMode: boolean = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private estudiantesService: EstudiantesService) { }
 
   ngOnInit(): void {
     this.estudianteForm = this.fb.group({
       nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      dni: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      legajo: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      escuelaDeProcedencia: ['', Validators.required],
-      anioCursado: ['', Validators.required]
+      estado: ['', Validators.required]
     });
 
     this.modalForm = this.fb.group({
       nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      dni: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      legajo: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      escuelaDeProcedencia: ['', Validators.required],
-      anioCursado: ['', Validators.required]
+      estado: ['', Validators.required]
     });
 
-    this.estudiantes = [
-      { id: 1, nombre: 'Juan', apellido: 'Pérez', dni: '12345678', email: 'juan.perez@example.com', escuelaDeProcedencia: 'Escuela Técnica N°1', anioCursado: '3° año' },
-      { id: 2, nombre: 'María', apellido: 'García', dni: '87654321', email: 'maria.garcia@example.com', escuelaDeProcedencia: 'Colegio Nacional', anioCursado: '2° año' }
-    ];
-    this.estudiantesFiltrados = [...this.estudiantes];
+    this.estudiantesService.getEstudiantes().subscribe((data: Estudiante[]) => {
+      this.estudiantes = data;
+      this.estudiantesFiltrados = [...this.estudiantes];
+    });
   }
   buscarEstudiantes(termino: string): void {
     const t = termino.trim().toLowerCase();
@@ -64,8 +50,9 @@ export class EstudiantesComponent implements OnInit {
       return;
     }
     this.estudiantesFiltrados = this.estudiantes.filter(e =>
-      (`${e.nombre} ${e.apellido}`.toLowerCase().includes(t) ||
-        e.dni.includes(t))
+      (e.nombre.toLowerCase().includes(t) ||
+        e.legajo.toLowerCase().includes(t) ||
+        e.email.toLowerCase().includes(t))
     );
   }
 
@@ -125,11 +112,9 @@ export class EstudiantesComponent implements OnInit {
     this.modalEditMode = true;
     this.estudianteForm.setValue({
       nombre: estudiante.nombre,
-      apellido: estudiante.apellido,
-      dni: estudiante.dni,
+      legajo: estudiante.legajo,
       email: estudiante.email,
-      escuelaDeProcedencia: estudiante.escuelaDeProcedencia,
-      anioCursado: estudiante.anioCursado
+      estado: estudiante.estado
     });
   }
 

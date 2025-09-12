@@ -19,19 +19,19 @@
         <table class="table table-hover align-middle">
           <thead>
             <tr>
-              <th>Nombre y Apellido</th>
-              <th>DNI</th>
-              <th>Escuela de Procedencia</th>
-              <th>Año cursado</th>
+              <th>Nombre</th>
+              <th>Legajo</th>
+              <th>Email</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let estudiante of estudiantesFiltrados">
-              <td>{{ estudiante.nombre }} {{ estudiante.apellido }}</td>
-              <td>{{ estudiante.dni }}</td>
-              <td>{{ estudiante.escuelaDeProcedencia }}</td>
-              <td>{{ estudiante.anioCursado }}</td>
+              <td>{{ estudiante.nombre }}</td>
+              <td>{{ estudiante.legajo }}</td>
+              <td>{{ estudiante.email }}</td>
+              <td>{{ estudiante.estado }}</td>
               <td>
                 <button (click)="verFicha(estudiante)" class="btn btn-info btn-sm me-1" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-eye"></i></button>
                 <button (click)="editarEstudiante(estudiante)" class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-pencil-square"></i></button>
@@ -57,11 +57,9 @@
       <div class="modal-body">
         <div *ngIf="!modalEditMode">
           <p><strong>Nombre:</strong> {{ estudianteSeleccionado?.nombre }}</p>
-          <p><strong>Apellido:</strong> {{ estudianteSeleccionado?.apellido }}</p>
-          <p><strong>DNI:</strong> {{ estudianteSeleccionado?.dni }}</p>
+          <p><strong>Legajo:</strong> {{ estudianteSeleccionado?.legajo }}</p>
           <p><strong>Email:</strong> {{ estudianteSeleccionado?.email }}</p>
-          <p><strong>Escuela de Procedencia:</strong> {{ estudianteSeleccionado?.escuelaDeProcedencia }}</p>
-          <p><strong>Año cursado:</strong> {{ estudianteSeleccionado?.anioCursado }}</p>
+          <p><strong>Estado:</strong> {{ estudianteSeleccionado?.estado }}</p>
         </div>
         <div *ngIf="modalEditMode">
           <form [formGroup]="estudianteForm" (ngSubmit)="onSubmit()">
@@ -70,24 +68,16 @@
               <input type="text" class="form-control" id="nombreModal" formControlName="nombre">
             </div>
             <div class="mb-3">
-              <label for="apellidoModal" class="form-label">Apellido</label>
-              <input type="text" class="form-control" id="apellidoModal" formControlName="apellido">
-            </div>
-            <div class="mb-3">
-              <label for="dniModal" class="form-label">DNI</label>
-              <input type="text" class="form-control" id="dniModal" formControlName="dni">
+              <label for="legajoModal" class="form-label">Legajo</label>
+              <input type="text" class="form-control" id="legajoModal" formControlName="legajo">
             </div>
             <div class="mb-3">
               <label for="emailModal" class="form-label">Email</label>
               <input type="email" class="form-control" id="emailModal" formControlName="email">
             </div>
             <div class="mb-3">
-              <label for="escuelaModal" class="form-label">Escuela de Procedencia</label>
-              <input type="text" class="form-control" id="escuelaModal" formControlName="escuelaDeProcedencia">
-            </div>
-            <div class="mb-3">
-              <label for="anioModal" class="form-label">Año cursado</label>
-              <input type="text" class="form-control" id="anioModal" formControlName="anioCursado">
+              <label for="estadoModal" class="form-label">Estado</label>
+              <input type="text" class="form-control" id="estadoModal" formControlName="estado">
             </div>
             <div class="text-end">
               <button type="submit" class="btn btn-success" [disabled]="estudianteForm.invalid">{{ editandoEstudiante ? 'Guardar Cambios' : 'Agregar Estudiante' }}</button>
