@@ -1,16 +1,4 @@
-<div class="container">
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <h1 class="sidebar-logo">ProfeSort</h1>
-    </div>
-    <nav class="sidebar-menu">
-      <div class="menu-item active">
-        <i class="menu-icon fas fa-users"></i>
-        Mis Estudiantes
-      </div>
-    </nav>
-  </aside>
-
+<div class="main-wrapper">
   <main class="main-content">
     <header class="header">
       <h1 class="page-title">Gestión de Datos</h1>
@@ -23,27 +11,15 @@
     <section class="form-container">
       <div class="section-header">
         <h2>Datos Personales</h2>
-        <button *ngIf="!modoEdicion && !loading" 
+        <button *ngIf="!modoEdicion" 
                 (click)="toggleEdicion()" 
                 class="btn btn-primary">
           Editar Datos
         </button>
       </div>
 
-      <!-- Mensaje de error -->
-      <div *ngIf="error" class="alert alert-danger">
-        {{ error }}
-      </div>
-
-      <!-- Loader -->
-      <div *ngIf="loading" class="text-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Cargando...</span>
-        </div>
-      </div>
-
       <!-- Vista de solo lectura -->
-      <div *ngIf="!modoEdicion && !loading" class="datos-preview">
+      <div *ngIf="!modoEdicion" class="datos-preview">
         <div class="dato-item">
           <label>Nombre Completo:</label>
           <span>{{docente.nombreCompleto}}</span>
@@ -51,10 +27,6 @@
         <div class="dato-item">
           <label>DNI:</label>
           <span>{{docente.dni}}</span>
-        </div>
-        <div class="dato-item">
-          <label>Legajo:</label>
-          <span>{{docente.legajo}}</span>
         </div>
         <div class="dato-item">
           <label>Domicilio:</label>
@@ -67,7 +39,7 @@
       </div>
 
       <!-- Formulario de edición -->
-      <form *ngIf="modoEdicion && !loading" (ngSubmit)="guardarDatos()">
+      <form *ngIf="modoEdicion" (ngSubmit)="guardarDatos()">
         <div class="form-group">
           <label class="form-label">Nombre Completo</label>
           <input type="text" 

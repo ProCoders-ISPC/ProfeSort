@@ -1,16 +1,33 @@
 <div class="docente-layout">
+  <!-- Sidebar -->
   <nav class="docente-nav">
-    <ul>
-      <li *ngFor="let item of menuItems">
-        <a [routerLink]="['/docente', item.path]" 
-           routerLinkActive="active">
-          <i class="fa fa-{{item.icon}}"></i>
-          {{item.label}}
+    <div class="nav-header">
+      <div class="nav-logo">ProfeSort</div>
+    </div>
+    
+    <div class="nav-menu">
+      <div class="nav-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/estudiantes']">
+          <i class="fa fa-users nav-icon"></i>
+          Estudiantes
         </a>
-      </li>
-    </ul>
+      </div>
+      <div class="nav-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/materias']">
+          <i class="fa fa-book nav-icon"></i>
+          Materias
+        </a>
+      </div>
+      <div class="nav-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/perfil']">
+          <i class="fa fa-user nav-icon"></i>
+          Perfil
+        </a>
+      </div>
+    </div>
   </nav>
 
+  <!-- Contenido Principal -->
   <main class="docente-content">
     <router-outlet></router-outlet>
   </main>
