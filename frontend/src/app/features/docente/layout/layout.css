@@ -1,0 +1,150 @@
+/* ===== LAYOUT CONTAINERS ===== */
+.docente-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.docente-nav {
+  width: 250px;
+  background-color: #043237;
+  color: white;
+  transition: all 0.3s;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.nav-header {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background-color: #032328;
+}
+
+.nav-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.nav-menu {
+  padding: 20px 0;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.nav-item {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 5px;
+}
+
+.nav-item a {
+  color: white !important;
+  text-decoration: none !important;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.nav-item:hover {
+  background-color: #3abdcc;
+}
+
+.nav-item.active {
+  background-color: #0F8795;
+}
+
+.nav-icon {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+/* ===== CONTENIDO PRINCIPAL ===== */
+.docente-content {
+  flex: 1;
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  margin-left: 250px;
+  background-color: #f5f5f5;
+  position: relative;
+}
+
+.main-container {
+  padding: 20px;
+  margin-top: 60px; /* Espacio para el header fijo */
+}
+
+/* ===== HEADER ===== */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  color: #043237;
+  padding: 15px 20px;
+  margin-bottom: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 250px;
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 998;
+}
+
+.page-title {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #043237;
+}
+
+/* ===== PERFIL DE USUARIO ===== */
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #E5AF24;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+  .docente-nav {
+    left: -250px;
+  }
+  
+  .docente-nav.active {
+    left: 0;
+  }
+  
+  .docente-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .content-header {
+    left: 0;
+    padding: 10px 15px;
+  }
+}
