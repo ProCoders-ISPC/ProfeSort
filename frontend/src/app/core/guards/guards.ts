@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/services';
+import { User } from '../models/models';
 
 
 @Injectable({
@@ -66,7 +67,8 @@ export class TeacherGuard implements CanActivate{
 
   canActivate(): boolean{
     
-    if (this.authService.isAuthenticated() && this.authService.isTeacher()) {
+    if (this.authService.isAuthenticated() && 
+        (this.authService.isTeacher() || this.authService.isAdmin())) {
       return true;
     } else if (this.authService.isAuthenticated()){
 
@@ -74,6 +76,30 @@ export class TeacherGuard implements CanActivate{
       return false;
     } else {
 
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+}
+
+// Nuevo guard: InformesGuard
+@Injectable({
+  providedIn: 'root'
+})
+export class InformesGuard implements CanActivate {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  canActivate(): boolean {
+    // Solo admins pueden ver informes
+    if (this.authService.isAuthenticated() && this.authService.isAdmin()) {
+      return true;
+    } else if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/home']);
+      return false;
+    } else {
       this.router.navigate(['/login']);
       return false;
     }
