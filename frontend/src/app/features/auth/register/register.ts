@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { BackToHomeButtonComponent } from '../../../shared/components/buttons/back-to-home-button/back-to-home-button';
 import { BackgroundComponent } from '../../../shared/components/background/background';
+import { AuthService, RegisterRequest } from '../../../core/services/services';
 
 @Component({
   selector: 'app-register',
@@ -13,8 +15,15 @@ import { BackgroundComponent } from '../../../shared/components/background/backg
 export class Register {
   registerForm: FormGroup;
   isSubmitted = false;
+  isLoading = false;
+  registrationMessage = '';
+  registrationError = '';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.registerForm = this.formBuilder.group({
       nombre: ['', [
         Validators.required, 
@@ -204,11 +213,37 @@ export class Register {
   // Método para enviar el formulario
   onSubmit(): void {
     this.isSubmitted = true;
+    this.registrationMessage = '';
+    this.registrationError = '';
     
     if (this.registerForm.valid) {
-      console.log('Formulario válido:', this.registerForm.value);
-      // Aquí puedes agregar la lógica para enviar los datos al servidor
-      alert('Registro exitoso!');
+      this.isLoading = true;
+      
+      const registerData: RegisterRequest = this.registerForm.value;
+      
+      this.authService.register(registerData).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          
+          if (response.success) {
+            this.registrationMessage = response.message || 'Usuario registrado exitosamente';
+            console.log('Registro exitoso:', response);
+            
+            // Mostrar mensaje por unos segundos y luego redirigir al login
+            setTimeout(() => {
+              this.router.navigate(['/login']);
+            }, 2000);
+          } else {
+            this.registrationError = response.error || response.message || 'Error en el registro';
+            console.error('Error en registro:', response);
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.registrationError = 'Error de conexión. Por favor, intente nuevamente.';
+          console.error('Error de conexión:', error);
+        }
+      });
     } else {
       console.log('Formulario inválido');
       // Marcar todos los campos como touched para mostrar los errores

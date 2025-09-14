@@ -230,20 +230,25 @@
         </div>
       </div>
 
+      <!-- Mensajes de estado -->
+      <div class="register__messages" *ngIf="registrationMessage || registrationError">
+        <div class="register__success-message" *ngIf="registrationMessage">
+          {{ registrationMessage }}
+        </div>
+        <div class="register__error-message" *ngIf="registrationError">
+          {{ registrationError }}
+        </div>
+      </div>
+
       <!-- Botón de envío -->
       <button 
         class="register__button" 
         type="submit"
-        [disabled]="registerForm.invalid && isSubmitted">
-        Registrarse
+        [disabled]="isLoading">
+        <span *ngIf="!isLoading">Registrarse</span>
+        <span *ngIf="isLoading">Registrando...</span>
       </button>
       
-      <!-- Mensaje de éxito -->
-      <p class="register__success-message" 
-         *ngIf="isSubmitted && registerForm.valid">
-        ¡Registro exitoso! 
-      </p>
-
       <!-- Campos obligatorios -->
       <p class="register__required-note">
         <small>Los campos marcados con * son obligatorios</small>
