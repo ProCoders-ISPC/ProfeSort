@@ -68,7 +68,7 @@ export class TeacherGuard implements CanActivate{
   canActivate(): boolean{
     
     if (this.authService.isAuthenticated() && 
-        (this.authService.isTeacher() || this.authService.isAdmin())) {
+        (this.authService.isUser() || this.authService.isAdmin())) {
       return true;
     } else if (this.authService.isAuthenticated()){
 

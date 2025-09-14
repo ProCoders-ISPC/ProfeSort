@@ -49,22 +49,27 @@
         </div>
       </div>
 
+      <!-- Mensajes de estado -->
+      <div class="login__messages" *ngIf="loginMessage || loginError">
+        <div class="login__success-message" *ngIf="loginMessage">
+          {{ loginMessage }}
+        </div>
+        <div class="login__error-message" *ngIf="loginError">
+          {{ loginError }}
+        </div>
+      </div>
+
       <button 
         class="login__button" 
         type="submit"
-        [disabled]="loginForm.invalid && isSubmitted">
-        Iniciar sesión
+        [disabled]="isLoading">
+        <span *ngIf="!isLoading">Iniciar sesión</span>
+        <span *ngIf="isLoading">Iniciando sesión...</span>
       </button>
       
       <div class="login__help">
         <a href="#" target="_blank" class="login__help-link">¿Olvidaste tu contraseña?</a>
       </div>
-
-      <!-- Mensaje de éxito -->
-      <p class="login__success-message" 
-         *ngIf="isSubmitted && loginForm.valid">
-        ¡Login exitoso! 
-      </p>
 
       <!-- Campos obligatorios -->
       <p class="login__required-note">

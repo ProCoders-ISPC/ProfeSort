@@ -123,5 +123,46 @@
     { "id": 1, "nombre": "Matemática", "codigo": "MAT101", "profesor": "Prof. Juan Ramirez" },
     { "id": 2, "nombre": "Lengua", "codigo": "LEN201", "profesor": "Prof. Sofia Martinez" },
     { "id": 3, "nombre": "Historia", "codigo": "HIS301", "profesor": "Prof. Carlos Ruiz" }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@profesort.com",
+      "password": "admin123",
+      "name": "Administrador Principal",
+      "role": "Admin",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "email": "karinaq38@gmail.com",
+      "password": "123456",
+      "name": "Karina del Valle Quinteros",
+      "role": "User",
+      "legajo": "DOC001",
+      "isActive": true,
+      "createdAt": "2024-01-15T10:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "email": "sanchezbrandan@gmail.com",
+      "password": "123456",
+      "name": "Juan Pablo Sanchez Brandán",
+      "role": "User",
+      "legajo": "DOC002",
+      "isActive": true,
+      "createdAt": "2024-01-20T14:20:00.000Z"
+    },
+    {
+      "id": 4,
+      "email": "juangioda@gmail.com",
+      "password": "123456",
+      "name": "Juan Ignacio Gioda",
+      "role": "User",
+      "legajo": "DOC003",
+      "isActive": false,
+      "createdAt": "2024-01-25T09:15:00.000Z"
+    }
   ]
 }

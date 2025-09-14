@@ -1,4 +1,8 @@
 {
+  "/api/auth/login": "/api/auth/login",
+  "/api/auth/register": "/api/auth/register",
+  "/auth/login": "/auth/login",
+  "/auth/register": "/auth/register",
   "/api/docentes": "/docentes",
   "/api/docentes/carga": "/carga",
   "/api/docentes/:id": "/docentes/:id",

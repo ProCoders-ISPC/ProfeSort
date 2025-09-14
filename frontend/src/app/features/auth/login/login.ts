@@ -15,8 +15,15 @@ import { AuthService } from '../../../core/services/services';
 export class Login {
   loginForm: FormGroup;
   isSubmitted = false;
+  isLoading = false;
+  loginError = '';
+  loginMessage = '';
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(
+    private router: Router, 
+    private formBuilder: FormBuilder, 
+    private authService: AuthService
+  ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [
         Validators.required,
@@ -57,36 +64,42 @@ export class Login {
 
   onLogin(): void {
     this.isSubmitted = true;
+    this.loginError = '';
+    this.loginMessage = '';
     
     if (this.loginForm.valid) {
-      const { email,password } = this.loginForm.value;
+      this.isLoading = true;
+      const { email, password } = this.loginForm.value;
       
-      // Usar AuthService para autenticar
-      const loginSuccess = this.authService.login(email, password);
-
-      if(loginSuccess) {
-        // Obtener el usuario actual para redirección basada en rol
-        const currentUser = this.authService.getCurrentUser();
-
-        if (currentUser?.role === 'admin') {
-          this.router.navigate(['/admin']);
-        } else if (currentUser?.role === 'teacher'){
-          this.router.navigate(['/docente']);
-        } else {
-          this.router.navigate(['/home']);
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          
+          if (response.success && response.data) {
+            this.loginMessage = 'Inicio de sesión exitoso. Redirigiendo...';
+            
+            // Redirección dinámica según el rol
+            setTimeout(() => {
+              if (response.data?.role === 'Admin') {
+                this.router.navigate(['/admin']);
+              } else if (response.data?.role === 'User') {
+                this.router.navigate(['/docente']);
+              } else {
+                // Fallback por si no tiene rol específico
+                this.router.navigate(['/home']);
+              }
+            }, 1000);
+          } else {
+            this.loginError = response.error || response.message || 'Error en el inicio de sesión';
+            console.error('Error en login:', response);
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.loginError = 'Error de conexión. Por favor, intente nuevamente.';
+          console.error('Error de conexión:', error);
         }
-        return;
-      } else {
-        //mostrar error de login
-        console.log('Error: Credenciales inavlidas');
-        return;
-      }
-      
-      // ESTE CÓDIGO NO DEBERÍA EJECUTARSE DESPUÉS DE LOGIN EXITOSO
-      //console.log('Login exitoso, redirigiendo a home...');
-      
-      // Navega a home
-      this.router.navigate(['/home']);
+      });
     } else {
       console.log('Formulario inválido');
       // Marcar todos los campos como touched para mostrar los errores
