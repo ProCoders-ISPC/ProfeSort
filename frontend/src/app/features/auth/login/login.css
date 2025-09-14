@@ -156,66 +156,6 @@
   margin-bottom: 0;
 }
 
-/* ===== BOTONES DE ACCESO RÁPIDO ===== */
-.login__quick-access {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  display: flex;
-  gap: 10px;
-  z-index: 1000;
-}
-
-.login__quick-button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  justify-content: center;
-  white-space: nowrap;
-}
-
-.login__quick-button-icon {
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.login__quick-button-text {
-  opacity: 1;
-  width: auto;
-  overflow: visible;
-  transition: all 0.3s ease;
-  margin: 0;
-}
-
-.login__quick-button--admin {
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
-  color: white;
-}
-
-.login__quick-button--admin:hover {
-  background: linear-gradient(135deg, #c0392b, #a93226);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
-}
-
-.login__quick-button--teacher {
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
-}
-
-.login__quick-button--teacher:hover {
-  background: linear-gradient(135deg, #2980b9, #21618c);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
-}
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .login {
@@ -224,21 +164,6 @@
 
   .login__container {
     padding: 25px;
-  }
-
-  .login__quick-access {
-    top: 10px;
-    right: 10px;
-    gap: 8px;
-  }
-
-  .login__quick-button {
-    padding: 10px 16px;
-    font-size: 0.8rem;
-  }
-
-  .login__quick-button-icon {
-    font-size: 16px;
   }
 }
 
@@ -258,16 +183,6 @@
   .login__input {
     font-size: 14px;
     padding: 10px;
-  }
-
-  .login__quick-button-text {
-    display: none;
-  }
-
-  .login__quick-button {
-    padding: 10px;
-    min-width: 45px;
-    height: 45px;
   }
 }
 
@@ -296,4 +211,29 @@
   margin-bottom: 10px;
   font-size: 0.9rem;
   text-align: center;
+}
+
+/* ===== ENLACE DE REGISTRO ===== */
+.login__register-link {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.login__register-link p {
+  margin: 0;
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+.login__register-link-text {
+  color: var(--primary-light);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.login__register-link-text:hover {
+  color: var(--white);
+  text-decoration: underline;
 }
