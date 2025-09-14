@@ -9,12 +9,13 @@ export const ADMIN_ROUTES: Routes = [
   {
     path: '',
     component: AdminLayout,
-    canActivate: [AdminGuard], // 🛡️ Solo admins pueden acceder
+    canActivate: [AdminGuard], 
     children: [
-  { path: 'docentes', component: Docente },
-  { path: 'estudiantes', component: EstudiantesComponent },
-  { path: 'materias', component: Materias },
-  { path: '', redirectTo: 'docentes', pathMatch: 'full' },
+    { path: 'docentes', component: Docente },
+    { path: 'estudiantes', component: EstudiantesComponent },
+    { path: 'materias', component: Materias },
+    { path: 'informes', loadComponent: () => import('./informes/informes').then(m => m.InformesComponent) },
+    { path: '', redirectTo: 'docentes', pathMatch: 'full' },
 
     ],
   },
