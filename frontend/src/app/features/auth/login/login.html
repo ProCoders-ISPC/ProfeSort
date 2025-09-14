@@ -1,17 +1,5 @@
 <app-back-to-home-button>Volver al inicio</app-back-to-home-button>
 
-<!-- Botones de acceso rápido -->
-<div class="login__quick-access">
-  <a routerLink="/admin" class="login__quick-button login__quick-button--admin" title="Panel de Administrador">
-    <i class="fa fa-cog login__quick-button-icon" aria-hidden="true"></i>
-    <span class="login__quick-button-text">Ver Panel de Admin</span>
-  </a>
-  <a routerLink="/docente" class="login__quick-button login__quick-button--teacher" title="Panel de Docente">
-    <i class="fa fa-graduation-cap login__quick-button-icon" aria-hidden="true"></i>
-    <span class="login__quick-button-text">Ver Panel de Docentes</span>
-  </a>
-</div>
-
 <section class="login">
   <div class="login__container">
     <h2 class="login__title">¡Bienvenido a Profesort!</h2>
@@ -69,6 +57,10 @@
       
       <div class="login__help">
         <a href="#" target="_blank" class="login__help-link">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <div class="login__register-link">
+        <p>¿No estás registrado? <a routerLink="/register" class="login__register-link-text">Regístrate</a></p>
       </div>
 
       <!-- Campos obligatorios -->

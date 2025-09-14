@@ -476,3 +476,27 @@
   font-size: 0.9rem;
   text-align: center;
 }
+
+/* ===== ENLACE DE LOGIN ===== */
+.register__login-link {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.register__login-link p {
+  margin: 0;
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+.register__login-link-text {
+  color: var(--primary-light);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.register__login-link-text:hover {
+  color: var(--white);
+  text-decoration: underline;
+}

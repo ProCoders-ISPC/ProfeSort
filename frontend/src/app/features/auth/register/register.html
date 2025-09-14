@@ -248,6 +248,10 @@
         <span *ngIf="!isLoading">Registrarse</span>
         <span *ngIf="isLoading">Registrando...</span>
       </button>
+
+      <div class="register__login-link">
+        <p>¿Ya tienes una cuenta? <a routerLink="/login" class="register__login-link-text">Inicia sesión</a></p>
+      </div>
       
       <!-- Campos obligatorios -->
       <p class="register__required-note">

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { BackToHomeButtonComponent } from '../../../shared/components/buttons/back-to-home-button/back-to-home-button';
 import { BackgroundComponent } from '../../../shared/components/background/background';
 import { AuthService, RegisterRequest } from '../../../core/services/services';
 
 @Component({
   selector: 'app-register',
-  imports: [BackToHomeButtonComponent, BackgroundComponent, ReactiveFormsModule, CommonModule],
+  imports: [BackToHomeButtonComponent, BackgroundComponent, ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
