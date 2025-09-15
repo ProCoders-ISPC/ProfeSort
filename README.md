@@ -168,17 +168,16 @@ ng serve -o
 
 
 -------------------
-🔑 Credenciales de acceso
+### 🔑 Credenciales de acceso
 
 Para acceder a los paneles de administrador autenticado, existen credenciales preconfiguradas en el código:
-
-{
-  "email": "admin@profesort.com",
-  "password": "admin123"
-}
-
+```
+"email": "admin@profesort.com"
+"password": "admin123"
+```
 
 👉 Con estas credenciales podrás ingresar al panel de administración y probar las funcionalidades de gestión.
+
 
 
 
