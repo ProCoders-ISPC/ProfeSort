@@ -1,16 +1,4 @@
-<div class="container">
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <h1 class="sidebar-logo">ProfeSort</h1>
-    </div>
-    <nav class="sidebar-menu">
-      <div class="menu-item active">
-        <i class="menu-icon fas fa-users"></i>
-        Mis Estudiantes
-      </div>
-    </nav>
-  </aside>
-
+<div class="main-wrapper">
   <main class="main-content">
     <header class="header">
       <h1 class="page-title">Gestión de Datos</h1>
@@ -41,12 +29,12 @@
           <span>{{docente.dni}}</span>
         </div>
         <div class="dato-item">
-          <label>Domicilio:</label>
-          <span>{{docente.domicilio}}</span>
-        </div>
-        <div class="dato-item">
           <label>Correo Electrónico:</label>
           <span>{{docente.email}}</span>
+        </div>
+        <div class="dato-item">
+          <label>Estado:</label>
+          <span>{{docente.estado}}</span>
         </div>
       </div>
 
@@ -66,7 +54,7 @@
                  class="form-control" 
                  [(ngModel)]="docente.dni" 
                  name="dni" 
-                 readonly>
+                 required>
         </div>
         <div class="form-group">
           <label class="form-label">Domicilio</label>

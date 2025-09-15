@@ -1,1 +1,34 @@
-<p>layout works!</p>
+<div class="docente-layout">
+  <!-- Sidebar -->
+  <nav class="docente-nav">
+    <div class="nav-header">
+      <div class="nav-logo">ProfeSort</div>
+    </div>
+    
+    <div class="nav-menu">
+      <div class="nav-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/estudiantes']">
+          <i class="fa fa-users nav-icon"></i>
+          Estudiantes
+        </a>
+      </div>
+      <div class="nav-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/materias']">
+          <i class="fa fa-book nav-icon"></i>
+          Materias
+        </a>
+      </div>
+      <div class="nav-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/perfil']">
+          <i class="fa fa-user nav-icon"></i>
+          Perfil
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido Principal -->
+  <main class="docente-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

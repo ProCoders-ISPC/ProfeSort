@@ -1,20 +1,21 @@
 import { Routes } from '@angular/router';
-import { AdminLayout } from './layout/layout';
-import { Docente } from './docente/docente';
-import { EstudiantesComponent } from './estudiantes/estudiantes';
-import { Materias } from './materias/materias';
+import { AdminLayout } from './admin-layout/layout';
+import { Docente } from './admin-docente/admindocente';
+import { EstudiantesComponent } from './admin-estudiantes/estudiantes';
+import { Materias } from './admin-materias/materias';
 import { AdminGuard } from '../../core/guards/guards';
 
 export const ADMIN_ROUTES: Routes = [
   {
     path: '',
     component: AdminLayout,
-    canActivate: [AdminGuard], // 🛡️ Solo admins pueden acceder
+    canActivate: [AdminGuard], 
     children: [
-  { path: 'docentes', component: Docente },
-  { path: 'estudiantes', component: EstudiantesComponent },
-  { path: 'materias', component: Materias },
-  { path: '', redirectTo: 'docentes', pathMatch: 'full' },
+    { path: 'docentes', component: Docente },
+    { path: 'estudiantes', component: EstudiantesComponent },
+    { path: 'materias', component: Materias },
+    { path: 'informes', loadComponent: () => import('./informes/informes').then(m => m.InformesComponent) },
+    { path: '', redirectTo: 'docentes', pathMatch: 'full' },
 
     ],
   },

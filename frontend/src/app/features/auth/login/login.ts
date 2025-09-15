@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { BackToHomeButtonComponent } from '../../../shared/components/buttons/back-to-home-button/back-to-home-button';
 import { BackgroundComponent } from '../../../shared/components/background/background';
+import { AuthService } from '../../../core/services/services';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,15 @@ import { BackgroundComponent } from '../../../shared/components/background/backg
 export class Login {
   loginForm: FormGroup;
   isSubmitted = false;
+  isLoading = false;
+  loginError = '';
+  loginMessage = '';
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(
+    private router: Router, 
+    private formBuilder: FormBuilder, 
+    private authService: AuthService
+  ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [
         Validators.required,
@@ -56,18 +64,42 @@ export class Login {
 
   onLogin(): void {
     this.isSubmitted = true;
+    this.loginError = '';
+    this.loginMessage = '';
     
     if (this.loginForm.valid) {
-      console.log('Login data:', this.loginForm.value);
-      
-      // Simulación de autenticación básica
+      this.isLoading = true;
       const { email, password } = this.loginForm.value;
       
-      // Aquí iría la lógica de autenticación con el backend
-      console.log('Login exitoso, redirigiendo a home...');
-      
-      // Navega a home
-      this.router.navigate(['/home']);
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          
+          if (response.success && response.data) {
+            this.loginMessage = 'Inicio de sesión exitoso. Redirigiendo...';
+            
+            // Redirección dinámica según el rol
+            setTimeout(() => {
+              if (response.data?.role === 'Admin') {
+                this.router.navigate(['/admin']);
+              } else if (response.data?.role === 'User') {
+                this.router.navigate(['/docente']);
+              } else {
+                // Fallback por si no tiene rol específico
+                this.router.navigate(['/home']);
+              }
+            }, 1000);
+          } else {
+            this.loginError = response.error || response.message || 'Error en el inicio de sesión';
+            console.error('Error en login:', response);
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.loginError = 'Error de conexión. Por favor, intente nuevamente.';
+          console.error('Error de conexión:', error);
+        }
+      });
     } else {
       console.log('Formulario inválido');
       // Marcar todos los campos como touched para mostrar los errores

@@ -449,3 +449,54 @@
     font-size: 32px;
   }
 }
+
+/* ===== MENSAJES DE ESTADO ===== */
+.register__messages {
+  margin-bottom: 20px;
+}
+
+.register__success-message {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.register__error-message {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ===== ENLACE DE LOGIN ===== */
+.register__login-link {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.register__login-link p {
+  margin: 0;
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+.register__login-link-text {
+  color: var(--primary-light);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.register__login-link-text:hover {
+  color: var(--white);
+  text-decoration: underline;
+}

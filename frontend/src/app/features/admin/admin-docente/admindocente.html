@@ -1,0 +1,377 @@
+<div class="main-content">
+  <!-- Formulario CRUD existente -->
+  <div class="form-container">
+    <div class="table-header">
+      <div class="table-title" id="form-title">
+        {{ editandoDocente ? 'Editar Docente' : 'Formulario Docente' }}
+      </div>
+    </div>
+    
+    <form [formGroup]="docenteForm" (ngSubmit)="guardarDocente()">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="nombre">Nombre Completo</label>
+            <input 
+              id="nombre" 
+              formControlName="name" 
+              class="form-control" 
+              [class.is-invalid]="campoEsInvalido('name')"
+              placeholder="Nombre completo" 
+              required>
+            <div *ngIf="campoEsInvalido('name')" class="invalid-feedback">
+              {{ obtenerMensajeError('name') }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="email">Correo Electrónico</label>
+            <input 
+              id="email" 
+              formControlName="email" 
+              type="email"
+              class="form-control" 
+              [class.is-invalid]="campoEsInvalido('email')"
+              placeholder="correo@ejemplo.com" 
+              required>
+            <div *ngIf="campoEsInvalido('email')" class="invalid-feedback">
+              {{ obtenerMensajeError('email') }}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="legajo">Legajo</label>
+            <input 
+              id="legajo" 
+              formControlName="legajo" 
+              class="form-control" 
+              [class.is-invalid]="campoEsInvalido('legajo')"
+              placeholder="Legajo del docente" 
+              required>
+            <div *ngIf="campoEsInvalido('legajo')" class="invalid-feedback">
+              {{ obtenerMensajeError('legajo') }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <select 
+              id="estado" 
+              formControlName="estado" 
+              class="form-control" 
+              required>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="docenteForm.invalid">
+          {{ editandoDocente ? 'Actualizar' : 'Guardar' }} Docente
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-secondary ms-2" 
+          *ngIf="editandoDocente"
+          (click)="cancelarEdicion()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- SECCIÓN DEL INFORME DE CARGA DOCENTE -->
+  <div class="informe-carga-section mt-4">
+    <!-- Botón para mostrar/ocultar informe -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">
+        <i class="fas fa-chart-bar"></i>
+        Informe de Carga Docente
+      </h4>
+      <div class="btn-group">
+        <button 
+          type="button" 
+          class="btn btn-info"
+          (click)="toggleInformeCarga()">
+          <i class="fas fa-eye" *ngIf="!mostrarInformeCarga"></i>
+          <i class="fas fa-eye-slash" *ngIf="mostrarInformeCarga"></i>
+          {{ mostrarInformeCarga ? 'Ocultar' : 'Ver' }} Informe
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-outline-info"
+          *ngIf="mostrarInformeCarga && !cargandoDatos"
+          (click)="refrescarInformeCarga()"
+          title="Refrescar datos">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenido del informe -->
+    <div *ngIf="mostrarInformeCarga" class="card">
+      <div class="card-header">
+        <h5 class="mb-0">
+          <i class="fas fa-chart-line"></i>
+          Resumen de Carga Académica
+        </h5>
+      </div>
+      <div class="card-body">
+        
+        <!-- Indicador de carga -->
+        <div *ngIf="cargandoDatos" class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+          <p class="mt-2 text-muted">Cargando datos del informe...</p>
+        </div>
+
+        <!-- Mensaje de error -->
+        <div *ngIf="errorCarga" class="alert alert-danger d-flex align-items-center" role="alert">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          <div class="flex-grow-1">
+            {{ errorCarga }}
+          </div>
+          <button 
+            type="button" 
+            class="btn btn-sm btn-outline-danger ms-2" 
+            (click)="refrescarInformeCarga()">
+            <i class="fas fa-redo"></i> Reintentar
+          </button>
+        </div>
+
+        <!-- Estadísticas generales -->
+        <div *ngIf="!cargandoDatos && !errorCarga && estadisticasCarga" class="row mb-4">
+          <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white h-100">
+              <div class="card-body text-center">
+                <i class="fas fa-users fa-2x mb-2"></i>
+                <h4 class="mb-1">{{ estadisticasCarga.totalDocentes }}</h4>
+                <p class="mb-0 small">Total Docentes</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white h-100">
+              <div class="card-body text-center">
+                <i class="fas fa-user-check fa-2x mb-2"></i>
+                <h4 class="mb-1">{{ estadisticasCarga.docentesActivos }}</h4>
+                <p class="mb-0 small">Docentes Activos</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-white h-100">
+              <div class="card-body text-center">
+                <i class="fas fa-book fa-2x mb-2"></i>
+                <h4 class="mb-1">{{ estadisticasCarga.totalMaterias }}</h4>
+                <p class="mb-0 small">Total Materias</p>
+                <small class="d-block mt-1">
+                  Promedio: {{ estadisticasCarga.promedioMateriasActivos }}
+                </small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white h-100">
+              <div class="card-body text-center">
+                <i class="fas fa-graduation-cap fa-2x mb-2"></i>
+                <h4 class="mb-1">{{ estadisticasCarga.totalEstudiantes }}</h4>
+                <p class="mb-0 small">Total Estudiantes</p>
+                <small class="d-block mt-1">
+                  Promedio: {{ estadisticasCarga.promedioEstudiantesActivos }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div *ngIf="!cargandoDatos && !errorCarga && estadisticasCarga" class="row mb-4">
+          <div class="col-md-6">
+            <div class="card border-secondary">
+              <div class="card-body">
+                <h6 class="card-title">
+                  <i class="fas fa-info-circle text-info"></i>
+                  Información Adicional
+                </h6>
+                <ul class="list-unstyled mb-0">
+                  <li><strong>Docentes Inactivos:</strong> {{ estadisticasCarga.docentesInactivos }}</li>
+                  <li><strong>Departamento Principal:</strong> {{ getDepartamentoMasFrecuente() }}</li>
+                  <li><strong>Última Actualización:</strong> {{ fechaActual }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card border-secondary">
+              <div class="card-body">
+                <h6 class="card-title">
+                  <i class="fas fa-calculator text-warning"></i>
+                  Promedios de Carga
+                </h6>
+                <ul class="list-unstyled mb-0">
+                  <li><strong>Materias por Docente Activo:</strong> {{ estadisticasCarga.promedioMateriasActivos }}</li>
+                  <li><strong>Estudiantes por Docente Activo:</strong> {{ estadisticasCarga.promedioEstudiantesActivos }}</li>
+                  <li><strong>Estado del Sistema:</strong> 
+                    <span class="badge bg-success">Operativo</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla detallada de docentes -->
+        <div *ngIf="!cargandoDatos && !errorCarga && docentesCarga.length > 0">
+          <h6 class="mb-3">
+            <i class="fas fa-table"></i>
+            Detalle por Docente
+          </h6>
+          
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Docente</th>
+                  <th>Legajo</th>
+                  <th class="text-center">Estado</th>
+                  <th class="text-center">Materias</th>
+                  <th class="text-center">Estudiantes</th>
+                  <th>Departamento</th>
+                  <th>Materias Asignadas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let docente of docentesCarga; trackBy: trackByDocenteId">
+                  <td>
+                    <div class="d-flex flex-column">
+                      <strong>{{ docente.nombre }}</strong>
+                      <small class="text-muted">{{ docente.email }}</small>
+                    </div>
+                  </td>
+                  <td>
+                    <code>{{ docente.legajo }}</code>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge" [class]="getEstadoBadgeClass(docente.estado)">
+                      {{ docente.estado }}
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-primary fs-6">{{ docente.cantidadMaterias }}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-info fs-6">{{ docente.cantidadEstudiantes }}</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-light text-dark">
+                      {{ docente.departamento || 'No asignado' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="d-flex flex-wrap gap-1">
+                      <span *ngFor="let materia of docente.materias" 
+                            class="badge bg-secondary small">
+                        {{ materia }}
+                      </span>
+                      <span *ngIf="docente.materias.length === 0" 
+                            class="text-muted small">Sin materias</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Mensaje cuando no hay datos -->
+        <div *ngIf="!cargandoDatos && !errorCarga && docentesCarga.length === 0" 
+             class="text-center py-4">
+          <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+          <h5 class="text-muted">No hay datos de carga disponibles</h5>
+          <p class="text-muted">
+            No se encontraron datos de carga docente. 
+            Verifique que el servidor esté funcionando correctamente.
+          </p>
+          <button type="button" class="btn btn-primary" (click)="refrescarInformeCarga()">
+            <i class="fas fa-sync-alt"></i> Intentar cargar datos
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de docentes registrados (CRUD) -->
+  <div class="card mt-4">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <i class="fas fa-users"></i>
+        Gestión de Docentes
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Legajo</th>
+              <th>Estado</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let docente of docentes">
+              <td>{{ docente.id }}</td>
+              <td>{{ docente.name }}</td>
+              <td>{{ docente.email }}</td>
+              <td><code>{{ docente.legajo }}</code></td>
+              <td>
+                <span class="badge" [class]="getEstadoBadgeClass(docente.estado)">
+                  {{ docente.estado }}
+                </span>
+              </td>
+              <td class="text-center">
+                <button 
+                  type="button" 
+                  class="btn btn-sm btn-outline-primary me-1"
+                  (click)="editarDocente(docente)"
+                  title="Editar">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button 
+                  type="button" 
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="eliminarDocente(docente.id)"
+                  title="Eliminar">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div *ngIf="docentes.length === 0" class="text-center text-muted py-4">
+          <i class="fas fa-users fa-3x mb-3"></i>
+          <p>No hay docentes registrados</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

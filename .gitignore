@@ -1,0 +1,66 @@
+# Dependencies
+node_modules/
+*/node_modules/
+frontend/node_modules/
+mock-api/node_modules/
+
+# Package lock files (npm generates these automatically)
+package-lock.json
+*/package-lock.json
+mock-api/package-lock.json
+
+# Production builds
+frontend/dist/
+frontend/build/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Angular specific
+frontend/.angular/
+frontend/dist/
+frontend/tmp/
+frontend/out-tsc/
+
+# JSON Server databases (opcional - si quieres mantener los cambios en db.json)
+# mock-api/db.json
+
+# Temporary files
+*.tmp
+*.temp

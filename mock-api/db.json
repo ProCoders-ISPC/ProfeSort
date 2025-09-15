@@ -1,0 +1,304 @@
+{
+  "docentes": [
+    {
+      "id": 1,
+      "name": "Karina del Valle Quinteros",
+      "email": "karinaq38@gmail.com",
+      "legajo": "DOC001",
+      "estado": "Activo",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "name": "Juan Pablo Sanchez Brandán",
+      "email": "sanchezbrandan@gmail.com",
+      "legajo": "DOC002",
+      "estado": "Activo",
+      "password": "123456"
+    },
+    {
+      "id": 3,
+      "name": "Juan Ignacio Gioda",
+      "email": "juangioda@gmail.com",
+      "legajo": "DOC003",
+      "estado": "Inactivo",
+      "password": "123456"
+    }
+  ],
+  "carga": [
+    {
+      "id": 1,
+      "nombre": "Karina del Valle Quinteros",
+      "email": "karinaq38@gmail.com",
+      "legajo": "DOC001",
+      "estado": "Activo",
+      "cantidadMaterias": 3,
+      "cantidadEstudiantes": 45,
+      "materias": [
+        "Matemática",
+        "Física",
+        "Química"
+      ],
+      "fechaIngreso": "2020-03-15",
+      "departamento": "Ciencias Exactas"
+    },
+    {
+      "id": 2,
+      "nombre": "Juan Pablo Sanchez Brandán",
+      "email": "sanchezbrandan@gmail.com",
+      "legajo": "DOC002",
+      "estado": "Activo",
+      "cantidadMaterias": 2,
+      "cantidadEstudiantes": 38,
+      "materias": [
+        "Historia",
+        "Geografía"
+      ],
+      "fechaIngreso": "2019-08-10",
+      "departamento": "Ciencias Sociales"
+    },
+    {
+      "id": 3,
+      "nombre": "Juan Ignacio Gioda",
+      "email": "juangioda@gmail.com",
+      "legajo": "DOC003",
+      "estado": "Inactivo",
+      "cantidadMaterias": 1,
+      "cantidadEstudiantes": 0,
+      "materias": [
+        "Lengua"
+      ],
+      "fechaIngreso": "2018-02-20",
+      "departamento": "Lengua y Literatura"
+    },
+    {
+      "id": 4,
+      "nombre": "Daniel Nicolas Paez",
+      "email": "dani.mercadolibre03@gmail.com",
+      "legajo": "DOC004",
+      "estado": "Activo",
+      "cantidadMaterias": 4,
+      "cantidadEstudiantes": 52,
+      "materias": [
+        "Biología",
+        "Química",
+        "Ciencias Naturales",
+        "Laboratorio"
+      ],
+      "fechaIngreso": "2021-01-12",
+      "departamento": "Ciencias Naturales"
+    },
+    {
+      "id": 5,
+      "nombre": "Ana María Rodríguez",
+      "email": "ana.rodriguez@educacion.gov.ar",
+      "legajo": "DOC005",
+      "estado": "Activo",
+      "cantidadMaterias": 2,
+      "cantidadEstudiantes": 35,
+      "materias": [
+        "Inglés",
+        "Literatura"
+      ],
+      "fechaIngreso": "2019-07-22",
+      "departamento": "Lenguas Extranjeras"
+    },
+    {
+      "id": 6,
+      "nombre": "Roberto Carlos Mendez",
+      "email": "roberto.mendez@universidad.edu",
+      "legajo": "DOC006",
+      "estado": "Activo",
+      "cantidadMaterias": 3,
+      "cantidadEstudiantes": 42,
+      "materias": [
+        "Educación Física",
+        "Deportes",
+        "Recreación"
+      ],
+      "fechaIngreso": "2020-11-08",
+      "departamento": "Educación Física"
+    }
+  ],
+  "estudiantes": [
+    {
+      "id": 1,
+      "nombre": "Karina del Valle Quinteros",
+      "legajo": "EST001",
+      "email": "karinaq38@gmail.com",
+      "estado": "Activo"
+    },
+    {
+      "id": 2,
+      "nombre": "Juan Pablo Sanchez Brandán",
+      "legajo": "EST002",
+      "email": "sanchezbrandan@gmail.com",
+      "estado": "Activo"
+    },
+    {
+      "id": 3,
+      "nombre": "Roberto Carlos Mendez",
+      "legajo": "EST003",
+      "email": "roberto.mendez@universidad.edu",
+      "estado": "Inactivo"
+    }
+  ],
+  "inscripciones": [
+    {
+      "id": 1,
+      "estudianteId": 1,
+      "materia": "Matemática",
+      "anio": 2025,
+      "estado": "Regular"
+    },
+    {
+      "id": 2,
+      "estudianteId": 1,
+      "materia": "Física",
+      "anio": 2025,
+      "estado": "Libre"
+    },
+    {
+      "id": 3,
+      "estudianteId": 2,
+      "materia": "Química",
+      "anio": 2025,
+      "estado": "Regular"
+    }
+  ],
+  "asistencias": [
+    {
+      "id": 1,
+      "estudianteId": 1,
+      "materia": "Matemática",
+      "fecha": "2025-09-01",
+      "presente": true
+    },
+    {
+      "id": 2,
+      "estudianteId": 1,
+      "materia": "Matemática",
+      "fecha": "2025-09-02",
+      "presente": false
+    },
+    {
+      "id": 3,
+      "estudianteId": 2,
+      "materia": "Química",
+      "fecha": "2025-09-01",
+      "presente": true
+    }
+  ],
+  "calificaciones": [
+    {
+      "id": 1,
+      "estudianteId": 1,
+      "materia": "Matemática",
+      "nota": 8,
+      "fecha": "2025-09-10"
+    },
+    {
+      "id": 2,
+      "estudianteId": 1,
+      "materia": "Física",
+      "nota": 6,
+      "fecha": "2025-09-11"
+    },
+    {
+      "id": 3,
+      "estudianteId": 2,
+      "materia": "Química",
+      "nota": 9,
+      "fecha": "2025-09-10"
+    }
+  ],
+  "materias": [
+    {
+      "id": 1,
+      "nombre": "Matemática",
+      "codigo": "MAT101",
+      "profesor": "Prof. Juan Ramirez"
+    },
+    {
+      "id": 2,
+      "nombre": "Lengua",
+      "codigo": "LEN201",
+      "profesor": "Prof. Sofia Martinez"
+    },
+    {
+      "id": 3,
+      "nombre": "Historia",
+      "codigo": "HIS301",
+      "profesor": "Prof. Carlos Ruiz"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@profesort.com",
+      "password": "admin123",
+      "name": "Administrador Principal",
+      "role": "Admin",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "email": "karinaq38@gmail.com",
+      "password": "123456",
+      "name": "Karina del Valle Quinteros",
+      "role": "User",
+      "legajo": "DOC001",
+      "isActive": true,
+      "createdAt": "2024-01-15T10:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "email": "sanchezbrandan@gmail.com",
+      "password": "123456",
+      "name": "Juan Pablo Sanchez Brandán",
+      "role": "User",
+      "legajo": "DOC002",
+      "isActive": true,
+      "createdAt": "2024-01-20T14:20:00.000Z"
+    },
+    {
+      "id": 4,
+      "email": "juangioda@gmail.com",
+      "password": "123456",
+      "name": "Juan Ignacio Gioda",
+      "role": "User",
+      "legajo": "DOC003",
+      "isActive": false,
+      "createdAt": "2024-01-25T09:15:00.000Z"
+    },
+    {
+      "id": 5,
+      "email": "normalauraferracane@gmail.com",
+      "password": "Redcros62",
+      "name": "cristian vargas",
+      "role": "User",
+      "legajo": "65416116851651",
+      "dni": "36232100",
+      "fechaNacimiento": "2002-12-31",
+      "domicilio": "dasdasdasdasd",
+      "telefono": "03517864742",
+      "isActive": true,
+      "createdAt": "2025-09-14T21:03:46.014Z"
+    },
+    {
+      "id": 6,
+      "email": "cristian.v62@gmail.com",
+      "password": "Friopolar62",
+      "name": "cristian vargas",
+      "role": "User",
+      "legajo": "516516518651651",
+      "dni": "35165185",
+      "fechaNacimiento": "1996-01-10",
+      "domicilio": "dasdasfasdfasdf",
+      "telefono": "03517883811",
+      "isActive": true,
+      "createdAt": "2025-09-14T21:06:52.121Z"
+    }
+  ]
+}

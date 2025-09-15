@@ -1,0 +1,32 @@
+<div class="informes-wrapper">
+  <h2 class="text-center informes-title">Informes Académicos y Administrativos</h2>
+  <div class="informes-content">
+    <div class="informes-card">
+      <form class="row g-3 mb-4">
+        <div class="col-12 col-md-6">
+          <label for="tipoInforme" class="form-label">Tipo de informe</label>
+          <select id="tipoInforme" class="form-select" [(ngModel)]="tipoInforme" name="tipoInforme">
+            <option value="inscripciones">Inscripciones</option>
+            <option value="avance">Avance académico</option>
+            <option value="docente">Carga docente</option>
+            <option value="asistencias">Asistencias</option>
+            <option value="calificaciones">Calificaciones</option>
+            <option value="materias">Materias</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="periodo" class="form-label">Periodo</label>
+          <input id="periodo" class="form-control" [(ngModel)]="periodo" name="periodo" placeholder="Ej: 2025-1">
+        </div>
+        <div class="col-12 d-flex justify-content-end">
+          <button type="button" class="btn btn-primary w-100 w-md-auto" (click)="generarInforme()">Generar informe</button>
+        </div>
+      </form>
+    </div>
+    <div class="informes-card informes-result" *ngIf="informeGenerado">
+      <h4 class="result-title">Resultado del informe</h4>
+      <div *ngIf="datosInforme?.error" class="alert alert-danger">{{ datosInforme.error }}</div>
+      <pre *ngIf="datosInforme && !datosInforme.error">{{ datosInforme | json }}</pre>
+    </div>
+  </div>
+</div>
