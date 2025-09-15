@@ -132,23 +132,53 @@ backend/
 
 ###
 
-<h2 align="left">Instrucciones para probar el proyecto</h2>
+## 🛠️ Instrucciones para probar el proyecto
 
+Para ejecutar **ProfeSort** se utiliza una **mock API** que simula el backend.  
+A continuación, se detallan los pasos de instalación y ejecución:
+
+---
+
+### Terminal 1 – API General
+
+```bash
+cd mock-api
+npm install -g json-server
+```
 ###
-<p>Para comenzar con ProfeSort, sigue estos pasos:</p> 
+```bash
+npx json-server@0.17.4 --watch db.json --routes routes.json --middlewares middleware.js --port 3000
+```
+👉 Función: Maneja los datos principales: estudiantes, materias, docentes y métricas.
+🔗 Acceso: http://localhost:3000
 
-<ol>
-  <li>Asegúrate de tener Git instalado en tu equipo.</li>
-  <li>Abre una terminal y sitúate en la carpeta donde deseas clonar el repositorio.</li>
-  <li>Ejecuta el comando<br>
-    <code>git clone https://github.com/ProCoders-ISPC/ProfeSort.git</code>
-  </li>
-  <li>Entra en el directorio del proyecto:<br>
-    <code>cd ProfeSort</code>
-  </li>
-</ol>
+### Terminal 2 – Frontend
 
-<p>Dado que actualmente ProfeSort se encuentra en su fase inicial de desarrollo, aún no cuenta con instrucciones de ejecución. Próximamente añadiremos detalles sobre cómo instalar dependencias y levantar tanto la maqueta estática como el frontend y el backend.</p>
-
+```bash
+cd frontend
+npm install
+```
 ###
+```bash
+ng serve -o
+```
+👉 Función: Levanta el frontend en Angular para visualizar la aplicación en el navegador.
+🔗 Acceso: http://localhost:4200
+
+
+
+-------------------
+🔑 Credenciales de acceso
+
+Para acceder a los paneles de administrador autenticado, existen credenciales preconfiguradas en el código:
+
+{
+  "email": "admin@profesort.com",
+  "password": "admin123"
+}
+
+
+👉 Con estas credenciales podrás ingresar al panel de administración y probar las funcionalidades de gestión.
+
+
 
