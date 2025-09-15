@@ -178,6 +178,9 @@ Para acceder a los paneles de administrador autenticado, existen credenciales pr
 
 👉 Con estas credenciales podrás ingresar al panel de administración y probar las funcionalidades de gestión.
 
+👉 Para acceder a los paneles de docente se debe registrar el usuario y luego iniciar sesión 
+
+
 
 
 
