@@ -1,30 +1,32 @@
-<div class="container mt-4">
-  <h2>Informes Académicos y Administrativos</h2>
-  <form class="row g-3 mb-4">
-    <div class="col-md-4">
-      <label for="tipoInforme" class="form-label">Tipo de informe</label>
-      <select id="tipoInforme" class="form-select" [(ngModel)]="tipoInforme" name="tipoInforme">
-        <option value="inscripciones">Inscripciones</option>
-        <option value="avance">Avance académico</option>
-        <option value="demanda">Materias más demandadas</option>
-        <option value="docente">Carga docente</option>
-      </select>
+<div class="informes-wrapper">
+  <h2 class="text-center informes-title">Informes Académicos y Administrativos</h2>
+  <div class="informes-content">
+    <div class="informes-card">
+      <form class="row g-3 mb-4">
+        <div class="col-12 col-md-6">
+          <label for="tipoInforme" class="form-label">Tipo de informe</label>
+          <select id="tipoInforme" class="form-select" [(ngModel)]="tipoInforme" name="tipoInforme">
+            <option value="inscripciones">Inscripciones</option>
+            <option value="avance">Avance académico</option>
+            <option value="docente">Carga docente</option>
+            <option value="asistencias">Asistencias</option>
+            <option value="calificaciones">Calificaciones</option>
+            <option value="materias">Materias</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="periodo" class="form-label">Periodo</label>
+          <input id="periodo" class="form-control" [(ngModel)]="periodo" name="periodo" placeholder="Ej: 2025-1">
+        </div>
+        <div class="col-12 d-flex justify-content-end">
+          <button type="button" class="btn btn-primary w-100 w-md-auto" (click)="generarInforme()">Generar informe</button>
+        </div>
+      </form>
     </div>
-    <div class="col-md-4">
-      <label for="periodo" class="form-label">Periodo</label>
-      <input id="periodo" class="form-control" [(ngModel)]="periodo" name="periodo" placeholder="Ej: 2025-1">
+    <div class="informes-card informes-result" *ngIf="informeGenerado">
+      <h4 class="result-title">Resultado del informe</h4>
+      <div *ngIf="datosInforme?.error" class="alert alert-danger">{{ datosInforme.error }}</div>
+      <pre *ngIf="datosInforme && !datosInforme.error">{{ datosInforme | json }}</pre>
     </div>
-    <div class="col-md-4 d-flex align-items-end">
-      <button type="button" class="btn btn-primary w-100" (click)="generarInforme()">Generar informe</button>
-    </div>
-  </form>
-  <div *ngIf="informeGenerado" class="mt-4">
-    <h4>Resultado del informe</h4>
-  <div *ngIf="datosInforme?.error" class="alert alert-danger">{{ datosInforme.error }}</div>
-  <!-- Gráfico de barras para inscripciones y demanda -->
-  <grafico-barras *ngIf="tipoInforme === 'inscripciones' && datosInforme?.items" [data]="datosInforme.items" title="Inscripciones por materia"></grafico-barras>
-  <grafico-barras *ngIf="tipoInforme === 'demanda' && datosInforme?.ranking" [data]="datosInforme.ranking" title="Ranking de materias más demandadas"></grafico-barras>
-  <!-- Visualización básica para otros informes -->
-  <pre *ngIf="datosInforme && !datosInforme.error && tipoInforme !== 'inscripciones' && tipoInforme !== 'demanda'">{{ datosInforme | json }}</pre>
   </div>
 </div>

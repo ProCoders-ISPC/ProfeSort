@@ -4,23 +4,35 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class InformesService {
-  private apiUrl = 'http://localhost:3001'; // mock-api
+  private apiUrl = 'http://localhost:3000'; // mock-api
 
   constructor(private http: HttpClient) {}
 
-  getInscripciones(periodo: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/inscripciones?periodo=${periodo}`);
+  getInscripciones(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/inscripciones`);
   }
 
-  getAvanceAcademico(periodo: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/avanceAcademico?periodo=${periodo}`);
+  getCargaDocente(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/carga`);
   }
 
-  getMateriasDemandadas(periodo: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/materiasDemandadas?periodo=${periodo}`);
+  getDocentes(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/docentes`);
   }
 
-  getCargaDocente(periodo: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/cargaDocente?periodo=${periodo}`);
+  getEstudiantes(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/estudiantes`);
+  }
+
+  getAsistencias(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/asistencias`);
+  }
+
+  getCalificaciones(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/calificaciones`);
+  }
+
+  getMaterias(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/materias`);
   }
 }

@@ -23,18 +23,52 @@ export class InformesComponent {
     this.informeGenerado = false;
     this.datosInforme = null;
     let obs$;
+    if (this.tipoInforme === 'avance') {
+      // Avance académico: combinar inscripciones, asistencias y calificaciones
+      Promise.all([
+        this.informesService.getInscripciones().toPromise(),
+        this.informesService.getAsistencias().toPromise(),
+        this.informesService.getCalificaciones().toPromise()
+      ]).then(([inscripciones, asistencias, calificaciones]) => {
+        // Agrupar por estudiante y materia
+        const avance = (inscripciones as any[]).map(insc => {
+          const estudianteId = insc.estudianteId;
+          const materia = insc.materia;
+          const asis = (asistencias as any[]).filter(a => a.estudianteId === estudianteId && a.materia === materia);
+          const calif = (calificaciones as any[]).filter(c => c.estudianteId === estudianteId && c.materia === materia);
+          return {
+            estudianteId,
+            materia,
+            estado: insc.estado,
+            asistencias: asis.length,
+            presentes: asis.filter(a => a.presente).length,
+            ausentes: asis.filter(a => !a.presente).length,
+            calificaciones: calif.map(c => ({ nota: c.nota, fecha: c.fecha }))
+          };
+        });
+        this.datosInforme = avance;
+        this.informeGenerado = true;
+      }).catch(() => {
+        this.datosInforme = { error: 'No se pudo obtener el informe de avance académico.' };
+        this.informeGenerado = true;
+      });
+      return;
+    }
     switch (this.tipoInforme) {
       case 'inscripciones':
-        obs$ = this.informesService.getInscripciones(this.periodo);
-        break;
-      case 'avance':
-        obs$ = this.informesService.getAvanceAcademico(this.periodo);
-        break;
-      case 'demanda':
-        obs$ = this.informesService.getMateriasDemandadas(this.periodo);
+        obs$ = this.informesService.getInscripciones();
         break;
       case 'docente':
-        obs$ = this.informesService.getCargaDocente(this.periodo);
+        obs$ = this.informesService.getCargaDocente();
+        break;
+      case 'asistencias':
+        obs$ = this.informesService.getAsistencias();
+        break;
+      case 'calificaciones':
+        obs$ = this.informesService.getCalificaciones();
+        break;
+      case 'materias':
+        obs$ = this.informesService.getMaterias();
         break;
       default:
         obs$ = null;
