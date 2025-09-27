@@ -60,6 +60,7 @@ CORS_ALLOW_ALL_ORIGINS = True  # ← Solo para desarrollo
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -100,7 +101,8 @@ DATABASES = {
         'PASSWORD': 'admin123', 
         'HOST': 'localhost', 
         'PORT': '5432',
-     } 
+        
+    } 
 }
 
 
