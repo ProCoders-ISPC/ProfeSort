@@ -180,6 +180,99 @@ Para acceder a los paneles de administrador autenticado, existen credenciales pr
 
 👉 Para acceder a los paneles de docente se debe registrar el usuario y luego iniciar sesión 
 
+----------------------------------------
+# Base de Datos ProfeSort
+
+### 📋 Descripción
+Sistema de gestión académica con PostgreSQL para manejo de docentes, materias y asignaciones.
+
+## 🗃 Estructura de Tablas
+
+### roles
+- *id_rol* (PK): Identificador único
+- *nombre*: ADMIN, DOCENTE, USUARIO  
+- *descripcion*: Descripción del rol
+- *permisos*: JSON con permisos específicos
+
+### usuarios
+- *id_usuario* (PK): Identificador único
+- *email*: Correo único del usuario
+- *name*: Nombre completo
+- *role_id* (FK): Referencia a roles
+- *legajo*: Número de legajo único
+- Campos adicionales: dni, fecha_nacimiento, domicilio, etc.
+
+### materias
+- *id_materia* (PK): Identificador único
+- *nombre*: Nombre de la materia
+- *codigo* (UK): Código único de materia
+- *horas_semanales*: Carga horaria semanal
+- *area*: Área académica
+- *nivel*: Nivel educativo
+
+### asignaciones_docentes_materias
+- *id_asignacion* (PK): Identificador único
+- *id_rol* (FK): Rol asignado
+- *id_materia* (FK): Materia asignada
+- *estado*: Estado de la asignación
+
+## 🛠 Instalación
+
+### Prerequisitos
+- PostgreSQL 12+ instalado
+- pgAdmin4 (opcional, para interfaz gráfica)
+
+# Pasos de instalación
+
+1. *Crear base de datos:*
+   sql
+   CREATE DATABASE profesort_db;
+   
+
+2. *Ejecutar script de creación:*
+   bash
+   ## Opción 1: Con psql
+   psql -U postgres -d profesort_db -f create_database.sql
+   
+   ## Opción 2: Con pgAdmin4
+    Abrir Query Tool y ejecutar el contenido de create_database.sql
+   
+
+3. *Verificar instalación:*
+   sql
+   -- Verificar tablas creadas
+   SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
+   
+   -- Verificar datos iniciales
+   SELECT * FROM roles;
+   SELECT * FROM materias;
+   
+
+## ⚙ Configuración Django
+
+### Instalar dependencias:
+bash
+pip install psycopg2-binary python-decouple
+
+
+### Actualizar settings.py:
+python
+from decouple import config
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'profesort_db',
+        'USER': 'profesort_db_admin',
+        'PASSWORD': 'admin123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+
+
+
 
 
 
