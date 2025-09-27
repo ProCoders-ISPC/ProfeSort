@@ -37,7 +37,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'usuarios',
+    'materias',
+    'asignaciones_docentes_materias',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # ← Permite acceso sin login
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],  # ← Sin autenticación
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+    "http://127.0.0.1:4200",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True  # ← Solo para desarrollo
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,9 +95,9 @@ WSGI_APPLICATION = 'profesortbackend.wsgi.application'
 DATABASES = { 
     'default': { 
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'app_db',
-        'USER': 'postgres',
-        'PASSWORD': 'tu_contraseña', 
+        'NAME': 'profesort_db',
+        'USER': 'profesort_db_admin',
+        'PASSWORD': 'admin123', 
         'HOST': 'localhost', 
         'PORT': '5432',
      } 
