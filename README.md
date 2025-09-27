@@ -216,59 +216,57 @@ Sistema de gestión académica con PostgreSQL para manejo de docentes, materias 
 - *id_materia* (FK): Materia asignada
 - *estado*: Estado de la asignación
 
-## 🛠 Instalación
+## 🛠 Pasos de instalación
 
-### Prerequisitos
-- PostgreSQL 12+ instalado
-- pgAdmin4 (opcional, para interfaz gráfica)
+### 1. Crear la base de datos
+1. En **pgAdmin**:
+   - Click derecho en **Databases** → **Create** → **Database...**
+   - **Nombre**: `profesort_db`
+   - **Owner**: `postgres` (o el usuario que vayas a usar)
 
-# Pasos de instalación
+---
 
-1. *Crear base de datos:*
-   sql
-   CREATE DATABASE profesort_db;
-   
+### 2. Crear un usuario para la app
+1. En **pgAdmin**:
+   - Click derecho en **Login/Group Roles** → **Create** → **Login/Group Role...**
+   - **Name**: `profesort_db_admin`
+   - **Password**: `admin123` (o la que definas en `settings.py`)
+   - En **Privileges**, marcar:
+     - ✅ Can login?  
+     - ✅ Create DB? (opcional)
 
-2. *Ejecutar script de creación:*
-   bash
-   ## Opción 1: Con psql
-   psql -U postgres -d profesort_db -f create_database.sql
-   
-   ## Opción 2: Con pgAdmin4
-    Abrir Query Tool y ejecutar el contenido de create_database.sql
-   
+---
 
-3. *Verificar instalación:*
-   sql
-   -- Verificar tablas creadas
-   SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';
-   
-   -- Verificar datos iniciales
-   SELECT * FROM roles;
-   SELECT * FROM materias;
-   
+### 3. Dar permisos al usuario
+1. Click derecho en la base de datos `profesort_db` → **Properties** → **Privileges**
+2. Agregar el usuario `profesort_db_admin` con permisos:
+   - CONNECT  
+   - TEMPORARY  
+   - USAGE  
+   - (o todos los disponibles)
 
-## ⚙ Configuración Django
+---
+## 4. Activar entorno 
+- venv\Scripts\activate
+-----
+## 5. Instalar dependencias 
+- pip install -r requirements.txt
+-----
+## 6. Aplicar migraciones 
+- python manage.py migrate
 
-### Instalar dependencias:
-bash
-pip install psycopg2-binary python-decouple
+------
+## 7. Iniciar servidor
+- python manage.py runserver
+
+Acceder a:
+👉 http://localhost:8000/admin
+e ingresar con el superusuario creado.
 
 
-### Actualizar settings.py:
-python
-from decouple import config
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'profesort_db',
-        'USER': 'profesort_db_admin',
-        'PASSWORD': 'admin123',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+
+
 
 
 
