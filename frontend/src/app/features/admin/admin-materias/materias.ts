@@ -20,8 +20,11 @@ export class Materias {
   alertSuccess = '';
   alertError = '';
   showEliminar = false;
+  cargandoDatos = true;
+  
+  mostrarFormulario = false;
+  modoEdicion = false;
 
-  // Modelo del formulario
   formData: Partial<Materia> = {
     nombre: '',
     codigo: '',
@@ -35,26 +38,58 @@ export class Materias {
   }
 
   cargarMaterias(): void {
+    this.cargandoDatos = true;
     this.materiasService.getMaterias().subscribe({
-      next: (data: Materia[]) => this.materias = data,
-      error: () => this.materias = []
+      next: (data: Materia[]) => {
+        this.materias = data;
+        this.cargandoDatos = false;
+      },
+      error: () => {
+        this.materias = [];
+        this.cargandoDatos = false;
+        this.showError('Error al cargar las materias');
+      }
     });
   }
 
   get sinMaterias(): boolean {
-    return this.materias.length === 0;
+    return !this.cargandoDatos && this.materias.length === 0;
+  }
+  
+  abrirFormularioNuevo(): void {
+    this.mostrarFormulario = true;
+    this.modoEdicion = false;
+    this.resetForm();
+  }
+  
+  abrirFormularioEdicion(materia: Materia): void {
+    this.mostrarFormulario = true;
+    this.modoEdicion = true;
+    this.formData = { ...materia };
+    this.editandoId = materia.id;
+  }
+  
+  cerrarFormulario(): void {
+    this.mostrarFormulario = false;
+    this.modoEdicion = false;
+    this.resetForm();
   }
 
   guardar(): void {
-    if (!this.formData.nombre || !this.formData.codigo || !this.formData.profesor) return;
+    // Solo validar campos requeridos: nombre y código
+    if (!this.formData.nombre?.trim() || !this.formData.codigo?.trim()) {
+      this.showError('El nombre y código de la materia son obligatorios');
+      return;
+    }
+    
     this.alertError = '';
 
-    if (this.editandoId) {
+    if (this.modoEdicion && this.editandoId) {
       this.materiasService.updateMateria(this.editandoId, this.formData).subscribe({
         next: () => {
           this.showMessage('Materia actualizada exitosamente!');
           this.cargarMaterias();
-          this.resetForm();
+          this.cerrarFormulario();
         },
         error: (err) => {
           this.showError(err.message || 'Error al actualizar la materia.');
@@ -62,11 +97,16 @@ export class Materias {
       });
     } else {
       const { nombre, codigo, profesor } = this.formData;
-      this.materiasService.addMateria({ nombre: nombre!, codigo: codigo!, profesor: profesor! }).subscribe({
+      const nuevaMateria = { 
+        nombre: nombre!, 
+        codigo: codigo!, 
+        profesor: profesor || undefined  // Si está vacío, no se envía profesor
+      };
+      this.materiasService.addMateria(nuevaMateria).subscribe({
         next: () => {
           this.showMessage('Materia guardada exitosamente!');
           this.cargarMaterias();
-          this.resetForm();
+          this.cerrarFormulario();
         },
         error: (err) => {
           this.showError(err.message || 'Error al guardar la materia.');
@@ -76,8 +116,7 @@ export class Materias {
   }
 
   editar(materia: Materia): void {
-    this.formData = { ...materia };
-    this.editandoId = materia.id;
+    this.abrirFormularioEdicion(materia);
   }
 
   confirmarEliminar(id: number): void {
@@ -110,6 +149,11 @@ export class Materias {
     this.formData = { nombre: '', codigo: '', profesor: '' };
     this.editandoId = null;
     this.alertError = '';
+  }
+  
+  // Obtener texto para mostrar el profesor
+  obtenerTextoProfesor(profesor?: string): string {
+    return profesor || 'Sin asignar';
   }
 
   private showMessage(msg: string): void {

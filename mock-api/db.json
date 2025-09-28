@@ -217,19 +217,34 @@
       "id": 1,
       "nombre": "Matemática",
       "codigo": "MAT101",
-      "profesor": "Prof. Juan Ramirez"
+      "profesor": "Prof. Juan Pérez"
     },
     {
       "id": 2,
       "nombre": "Lengua",
       "codigo": "LEN201",
-      "profesor": "Prof. Sofia Martinez"
+      "profesor": "juan carlos"
     },
     {
       "id": 3,
       "nombre": "Historia",
       "codigo": "HIS301",
       "profesor": "Prof. Carlos Ruiz"
+    },
+    {
+      "id": 4,
+      "nombre": "Biología",
+      "codigo": "BIO101"
+    },
+    {
+      "nombre": "ed fisica",
+      "codigo": "2000",
+      "id": 7
+    },
+    {
+      "nombre": "matematica",
+      "codigo": "32131",
+      "id": 8
     }
   ],
   "users": [

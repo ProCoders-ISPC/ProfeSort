@@ -1,81 +1,175 @@
-<div class="form-container">
-    <div class="table-header">
-        <div class="table-title">Añadir Nueva Materia</div>
+<div class="materias-container">
+    <!-- Alerts Globales -->
+    <div *ngIf="alertSuccess" class="alert alert-success mb-3">
+        <i class="fas fa-check-circle me-2"></i>{{ alertSuccess }}
+    </div>
+    <div *ngIf="alertError" class="alert alert-danger mb-3">
+        <i class="fas fa-exclamation-circle me-2"></i>{{ alertError }}
     </div>
 
-    <!-- Formulario -->
-    <form (ngSubmit)="guardar()" #materiaForm="ngForm">
-        <input type="hidden" [(ngModel)]="formData.id" name="id">
 
-        <div class="mb-3">
-            <label class="form-label">Nombre de la materia</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.nombre" name="nombre"
-                placeholder="Ej: Matemática" required>
+    <div *ngIf="showEliminar" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Eliminación</h5>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar esta materia?</p>
+                <p class="text-muted">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" (click)="eliminar()">
+                    <i class="fas fa-trash me-1"></i>Eliminar
+                </button>
+                <button class="btn btn-secondary" (click)="cancelarEliminar()">
+                    <i class="fas fa-times me-1"></i>Cancelar
+                </button>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Código</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.codigo" name="codigo"
-                placeholder="Ej: MAT101" required>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Profesor</label>
-            <select class="form-control" [(ngModel)]="formData.profesor" name="profesor" required>
-                <option value="">Seleccione un profesor</option>
-                <option>Prof. Juan Pérez</option>
-                <option>Prof. Ana Gómez</option>
-                <option>Prof. Carlos Ruiz</option>
-            </select>
-        </div>
-
-        <div class="form-actions d-flex gap-2">
-            <button type="submit" class="btn btn-primary">{{ editandoId ? 'Actualizar' : 'Guardar'
-                }}</button>
-            <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
-        </div>
-    </form>
-
-    <!-- Alerts -->
-    <div *ngIf="alertSuccess" class="alert alert-success mt-3">{{ alertSuccess }}</div>
-    <div *ngIf="alertError" class="alert alert-danger mt-3">{{ alertError }}</div>
-    <div *ngIf="showEliminar" class="alert alert-warning mt-3">
-        ¿Está seguro que desea eliminar la materia?
-        <button class="btn btn-danger btn-sm ms-2" (click)="eliminar()">Eliminar</button>
-        <button class="btn btn-secondary btn-sm ms-1" (click)="cancelarEliminar()">Cancelar</button>
-    </div>
-    <div *ngIf="sinMaterias" class="alert alert-info mt-3">No hay materias cargadas</div>
-
-    <!-- Tabla -->
-    <div class="table-header mt-4">
-        <div class="table-title">Listado de Materias</div>
-    </div>
-    <div class="table-responsive">
-        <table class="table docente-table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Código</th>
-                    <th>Profesor</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let m of materias">
-                    <td>{{ m.nombre }}</td>
-                    <td>{{ m.codigo }}</td>
-                    <td>{{ m.profesor }}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary me-1" (click)="editar(m)">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-danger" (click)="confirmarEliminar(m.id)">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 
+    <div class="panel-principal" *ngIf="!mostrarFormulario">
+        <div class="panel-header">
+            <div class="header-content">
+                <h2 class="panel-title">
+                    <i class="fas fa-book me-2"></i>Gestión de Materias
+                </h2>
+                <p class="panel-subtitle">Administra las materias del sistema</p>
+            </div>
+            <button class="btn btn-primary btn-add" (click)="abrirFormularioNuevo()">
+                <i class="fas fa-plus me-2"></i>Nueva Materia
+            </button>
+        </div>
+
+        <div *ngIf="cargandoDatos" class="loading-state">
+            <div class="spinner"></div>
+            <p>Cargando materias...</p>
+        </div>
+
+        <div *ngIf="sinMaterias" class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h3>Aún no hay materias registradas</h3>
+            <p>Comienza agregando la primera materia al sistema.</p>
+            <button class="btn btn-primary" (click)="abrirFormularioNuevo()">
+                <i class="fas fa-plus me-2"></i>Agregar Primera Materia
+            </button>
+        </div>
+
+        <div *ngIf="!cargandoDatos && !sinMaterias" class="materias-grid">
+            <div class="materia-card" *ngFor="let materia of materias">
+                <div class="card-header">
+                    <h4 class="materia-nombre">{{ materia.nombre }}</h4>
+                    <span class="materia-codigo">{{ materia.codigo }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="profesor-info">
+                        <i class="fas fa-user-tie me-2"></i>
+                        <span [class.sin-asignar]="!materia.profesor">
+                            {{ obtenerTextoProfesor(materia.profesor) }}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-sm btn-outline-primary" 
+                            (click)="editar(materia)"
+                            title="Editar materia">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" 
+                            (click)="confirmarEliminar(materia.id)"
+                            title="Eliminar materia">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-formulario" *ngIf="mostrarFormulario">
+        <div class="panel-header">
+            <div class="header-content">
+                <h2 class="panel-title">
+                    <i class="fas fa-{{ modoEdicion ? 'edit' : 'plus' }} me-2"></i>
+                    {{ modoEdicion ? 'Editar Materia' : 'Nueva Materia' }}
+                </h2>
+                <p class="panel-subtitle">
+                    {{ modoEdicion ? 'Modifica los datos de la materia' : 'Completa los datos de la nueva materia' }}
+                </p>
+            </div>
+            <button class="btn btn-outline-secondary" (click)="cerrarFormulario()">
+                <i class="fas fa-times me-2"></i>Cancelar
+            </button>
+        </div>
+
+        <div class="formulario-content">
+            <form (ngSubmit)="guardar()" #materiaForm="ngForm">
+                <div class="form-section">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Nombre de la materia *</label>
+                        <input type="text" 
+                               class="form-control" 
+                               [(ngModel)]="formData.nombre" 
+                               name="nombre"
+                               placeholder="Ej: Matemática, Historia, Lengua..." 
+                               required
+                               #nombreInput="ngModel">
+                        <div *ngIf="nombreInput.invalid && nombreInput.touched" class="invalid-feedback">
+                            El nombre de la materia es obligatorio
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Código de la materia *</label>
+                        <input type="text" 
+                               class="form-control" 
+                               [(ngModel)]="formData.codigo" 
+                               name="codigo"
+                               placeholder="Ej: MAT101, HIS201, LEN301..." 
+                               required
+                               #codigoInput="ngModel">
+                        <div *ngIf="codigoInput.invalid && codigoInput.touched" class="invalid-feedback">
+                            El código de la materia es obligatorio
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h5 class="section-title">Asignación de Profesor</h5>
+                    <p class="section-description">
+                        Puedes asignar un profesor ahora o dejarlo para más tarde.
+                    </p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Profesor (Opcional)</label>
+                        <input type="text" 
+                               class="form-control" 
+                               [(ngModel)]="formData.profesor" 
+                               name="profesor"
+                               placeholder="Ej: Prof. María García, Dr. Juan López..."
+                               autocomplete="off">
+                        <small class="form-text text-muted">
+                            Escribe el nombre completo del profesor. Si no asignas un profesor ahora, podrás hacerlo más tarde editando la materia.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" 
+                            class="btn btn-primary"
+                            [disabled]="materiaForm.invalid">
+                        <i class="fas fa-save me-2"></i>
+                        {{ modoEdicion ? 'Actualizar Materia' : 'Guardar Materia' }}
+                    </button>
+                    <button type="button" 
+                            class="btn btn-secondary" 
+                            (click)="cerrarFormulario()">
+                        <i class="fas fa-times me-2"></i>Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
