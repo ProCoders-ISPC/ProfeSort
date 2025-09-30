@@ -59,7 +59,8 @@ frontend/tmp/
 frontend/out-tsc/
 
 # JSON Server databases (opcional - si quieres mantener los cambios en db.json)
-# mock-api/db.json
+ mock-api/db.json
+ frontend/db.json
 
 # Temporary files
 *.tmp
