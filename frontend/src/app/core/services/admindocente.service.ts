@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 export interface DocenteCarga {
   id: number;
@@ -30,15 +31,26 @@ export interface EstadisticasCarga {
   providedIn: 'root' 
 })
 export class AdminDocenteService {
-  private baseUrl = 'http://localhost:3001';
+  // URL configurada en environment.ts
+  private apiUrl = `${environment.apiUrl}/docentes`;
 
   constructor(private http: HttpClient) {}
+
+  // GET - Obtener todos los docentes
+  getDocentes(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  // GET - Obtener un docente por ID
+  getDocente(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
 
   /**
    * Obtiene la información de carga de todos los docentes
    */
   getDocentesCarga(): Observable<DocenteCarga[]> {
-    return this.http.get<DocenteCarga[]>(`${this.baseUrl}/carga`)
+    return this.http.get<DocenteCarga[]>(`${this.apiUrl}/carga`)
       .pipe(
         retry(1),
         catchError(this.handleError)
@@ -55,15 +67,27 @@ export class AdminDocenteService {
     );
   }
 
-  /**
-   * Obtiene la carga de un docente específico
-   */
-  getDocenteCarga(id: number): Observable<DocenteCarga> {
-    return this.http.get<DocenteCarga>(`${this.baseUrl}/carga/${id}`)
+  crearDocente(docente: DocenteCarga): Observable<DocenteCarga> {
+    return this.http.post<DocenteCarga>(`${this.apiUrl}/carga`, docente)
       .pipe(
-        retry(1),
         catchError(this.handleError)
       );
+  }
+
+  actualizarDocente(docente: DocenteCarga, docenteSeleccionado: any): Observable<DocenteCarga> {
+    return this.http.put<DocenteCarga>(`${this.apiUrl}/carga/${docente.id}`, docente)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
+
+  /**
+   * Elimina un docente por su ID
+   */
+  eliminarDocente(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
   /**
