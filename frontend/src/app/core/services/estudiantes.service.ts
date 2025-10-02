@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 export interface Estudiante {
+  legajo: any;
   id: number;
   nombre: string;
   apellidos: string;
