@@ -97,7 +97,20 @@
         </div>
       </div>
       
-      <div class="table-responsive">
+      <!-- Mensaje de error -->
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        <p>{{ errorMessage }}</p>
+        <button (click)="cargarEstudiantes()" class="btn btn-sm btn-outline-primary">
+          Reintentar
+        </button>
+      </div>
+      
+      <!-- Indicador de carga -->
+      <div *ngIf="isLoading" class="loading-container">
+        <p>Cargando estudiantes...</p>
+      </div>
+      
+      <div class="table-responsive" *ngIf="!isLoading">
         <table>
           <thead>
             <tr>
@@ -106,6 +119,7 @@
               <th>DNI</th>
               <th>Correo Electrónico</th>
               <th>Estado</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -115,10 +129,27 @@
               <td>{{estudiante.dni}}</td>
               <td>{{estudiante.email}}</td>
               <td>
-                <span class="status" 
-                      [ngClass]="'status-' + estudiante.estado.toLowerCase()">
-                  {{estudiante.estado}}
-                </span>
+                <select [value]="estudiante.estado" 
+                        (change)="actualizarEstadoEstudiante(estudiante, $any($event.target).value)"
+                        class="form-control form-control-sm"
+                        [disabled]="isLoading">
+                  <option value="Activo">Activo</option>
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+              </td>
+              <td>
+                <button (click)="eliminarEstudiante(estudiante)" 
+                        class="btn btn-sm btn-danger"
+                        [disabled]="isLoading"
+                        title="Eliminar estudiante">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="estudiantes.length === 0 && !isLoading && !errorMessage">
+              <td colspan="6" class="text-center">
+                No hay estudiantes asignados
               </td>
             </tr>
           </tbody>

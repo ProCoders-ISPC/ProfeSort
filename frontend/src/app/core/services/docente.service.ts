@@ -13,11 +13,22 @@ export interface Docente {
   legajo: string;
 }
 
+export interface Estudiante {
+  id: number;
+  nombre: string;
+  apellidos: string;
+  dni: string;
+  email: string;
+  estado: string;
+  docenteId: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class DocenteService {
   private apiUrl = environment.apiUrl + '/docentes';
+  private estudiantesUrl = environment.apiUrl + '/estudiantes';
 
   constructor(private http: HttpClient) {}
 
@@ -30,6 +41,13 @@ export class DocenteService {
   updateDocente(id: number, docente: Partial<Docente>): Observable<Docente> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.put<Docente>(url, docente).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Obtener estudiantes asignados a un docente
+  getEstudiantesByDocenteId(docenteId: number): Observable<Estudiante[]> {
+    return this.http.get<Estudiante[]>(`${this.estudiantesUrl}/docente/${docenteId}`).pipe(
       catchError(this.handleError)
     );
   }

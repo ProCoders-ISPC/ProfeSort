@@ -315,5 +315,70 @@
       "isActive": true,
       "createdAt": "2025-09-14T21:06:52.121Z"
     }
+  ],
+  "estudiantes": [
+    {
+      "id": 1,
+      "nombre": "Ana",
+      "apellidos": "García López",
+      "dni": "87654321",
+      "email": "ana.garcia@mail.com",
+      "estado": "Activo",
+      "docenteId": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Carlos",
+      "apellidos": "López Pérez",
+      "dni": "98765432",
+      "email": "carlos.lopez@mail.com",
+      "estado": "Pendiente",
+      "docenteId": 1
+    },
+    {
+      "id": 3,
+      "nombre": "María",
+      "apellidos": "Rodríguez Silva",
+      "dni": "45678912",
+      "email": "maria.rodriguez@mail.com",
+      "estado": "Activo",
+      "docenteId": 1
+    },
+    {
+      "id": 4,
+      "nombre": "Luis",
+      "apellidos": "Martínez Gómez",
+      "dni": "15975346",
+      "email": "luis.martinez@mail.com",
+      "estado": "Activo",
+      "docenteId": 2
+    },
+    {
+      "id": 5,
+      "nombre": "Sofia",
+      "apellidos": "Torres Vega",
+      "dni": "35791248",
+      "email": "sofia.torres@mail.com",
+      "estado": "Inactivo",
+      "docenteId": 2
+    },
+    {
+      "id": 6,
+      "nombre": "Miguel",
+      "apellidos": "Fernández Castro",
+      "dni": "75315926",
+      "email": "miguel.fernandez@mail.com",
+      "estado": "Activo",
+      "docenteId": 4
+    },
+    {
+      "id": 7,
+      "nombre": "Elena",
+      "apellidos": "Ruiz Morales",
+      "dni": "95175324",
+      "email": "elena.ruiz@mail.com",
+      "estado": "Pendiente",
+      "docenteId": 4
+    }
   ]
 }
