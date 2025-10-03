@@ -74,11 +74,9 @@ export class AdminDocenteService {
       );
   }
 
-  actualizarDocente(docente: DocenteCarga, docenteSeleccionado: any): Observable<DocenteCarga> {
-    return this.http.put<DocenteCarga>(`${this.apiUrl}/carga/${docente.id}`, docente)
-      .pipe(
-        catchError(this.handleError)
-      );
+  actualizarDocente(id: number, docente: any): Observable<any> {
+    console.log(`Enviando petición PUT a ${this.apiUrl}/${id}`, docente); // Para depuración
+    return this.http.put<any>(`${this.apiUrl}/${id}`, docente);
   }
 
 

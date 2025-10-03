@@ -42,6 +42,12 @@ export class AdminDocente implements OnInit {
   seleccionarDocente(docente: any): void {
     this.docenteSeleccionado = { ...docente };
     this.modoEdicion = true;
+
+    // Desplazarse al formulario de edición
+    setTimeout(() => {
+      const formElement = document.querySelector('.form-container');
+      formElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   }
 
   crearDocente(): void {
@@ -59,22 +65,32 @@ export class AdminDocente implements OnInit {
   }
 
   actualizarDocente(): void {
-    if (!this.docenteSeleccionado || !this.docenteSeleccionado.id_usuario) {
+    if (!this.docenteSeleccionado) {
       return;
     }
-
+    
+    console.log('Actualizando docente:', this.docenteSeleccionado); // Para depuración
+    
+    this.loading = true;
+    
+    // Aquí debería estar llamando al servicio
     this.adminDocenteService.actualizarDocente(
-      this.docenteSeleccionado.id_usuario, 
+      this.docenteSeleccionado.id, 
       this.docenteSeleccionado
     ).subscribe({
-      next: () => {
-        this.cargarDocentes();
-        this.cancelarEdicion();
-        alert('Docente actualizado exitosamente');
+      next: (respuesta) => {
+        console.log('Docente actualizado con éxito:', respuesta);
+        this.loading = false;
+        this.cargarDocentes(); // Recargar la lista
+        this.cancelarEdicion(); // Cerrar el formulario
+        
+        // Muestra un mensaje de éxito
+        alert('Docente actualizado correctamente');
       },
       error: (error) => {
         console.error('Error al actualizar docente:', error);
-        alert('Error al actualizar el docente');
+        this.loading = false;
+        alert('Error al actualizar el docente: ' + (error.message || 'Error desconocido'));
       }
     });
   }

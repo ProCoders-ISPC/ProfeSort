@@ -31,9 +31,7 @@
           <td>{{ docente.legajo }}</td>
           <td>{{ docente.area || 'N/A' }}</td>
           <td class="actions-column">
-            <button (click)="seleccionarDocente(docente)" class="btn-edit">
-              Editar
-            </button>
+            <button class="editar-btn" (click)="seleccionarDocente(docente)">Editar</button>
             <button (click)="eliminarDocente(docente.id_usuario)" class="btn-delete">
               Eliminar
             </button>
@@ -90,35 +88,34 @@
   <!-- Formulario para editar docente -->
   <div class="form-container" *ngIf="modoEdicion && docenteSeleccionado">
     <h3>Editar docente</h3>
-    <form (submit)="actualizarDocente()">
+    <form (submit)="$event.preventDefault(); actualizarDocente()">
+      <!-- Campos del formulario -->
       <div class="form-group">
-        <label for="edit-name">Nombre completo</label>
-        <input type="text" id="edit-name" name="name" [(ngModel)]="docenteSeleccionado.name" required>
+        <label for="edit-nombre">Nombre completo</label>
+        <input type="text" id="edit-nombre" [(ngModel)]="docenteSeleccionado.nombre" name="nombre" required>
       </div>
       
       <div class="form-group">
         <label for="edit-email">Email</label>
-        <input type="email" id="edit-email" name="email" [(ngModel)]="docenteSeleccionado.email" required>
+        <input type="email" id="edit-email" [(ngModel)]="docenteSeleccionado.email" name="email" required>
       </div>
       
       <div class="form-group">
         <label for="edit-legajo">Legajo</label>
-        <input type="text" id="edit-legajo" name="legajo" [(ngModel)]="docenteSeleccionado.legajo" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="edit-dni">DNI</label>
-        <input type="text" id="edit-dni" name="dni" [(ngModel)]="docenteSeleccionado.dni" required>
+        <input type="text" id="edit-legajo" [(ngModel)]="docenteSeleccionado.legajo" name="legajo" required>
       </div>
       
       <div class="form-group">
         <label for="edit-area">Área</label>
-        <input type="text" id="edit-area" name="area" [(ngModel)]="docenteSeleccionado.area">
+        <input type="text" id="edit-area" [(ngModel)]="docenteSeleccionado.area" name="area">
       </div>
       
+      <!-- Botones de acción -->
       <div class="form-actions">
         <button type="button" (click)="cancelarEdicion()" class="btn-cancel">Cancelar</button>
-        <button type="submit" class="btn-save">Actualizar</button>
+        <button type="button" class="btn-guardar" (click)="actualizarDocente()">
+          Guardar cambios
+        </button>
       </div>
     </form>
   </div>
