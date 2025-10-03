@@ -4,7 +4,7 @@ from .models import Materia
 class MateriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Materia
-        fields = ['id', 'nombre', 'codigo', 'descripcion', 'creditos', 'profesor']
+        fields = ['id', 'nombre', 'codigo', 'descripcion', 'profesor']
         
     def validate_codigo(self, value):
         """
