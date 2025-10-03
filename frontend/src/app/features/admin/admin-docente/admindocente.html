@@ -33,179 +33,184 @@
   </div>
 
   <!-- Indicador de carga -->
-  <div *ngIf="loading" class="loading-spinner">
-    <span>Cargando datos...</span>
-  </div>
+  @if (loading) {
+    <div class="loading-spinner">
+      <span>Cargando datos...</span>
+    </div>
+  }
   
   <!-- Mensaje de error -->
-  <div *ngIf="error" class="error-message">
-    <span>{{ error }}</span>
-    <button (click)="cargarDocentes()">Reintentar</button>
-  </div>
+  @if (error) {
+    <div class="error-message">
+      <span>{{ error }}</span>
+      <button (click)="cargarDocentes()">Reintentar</button>
+    </div>
+  }
 
   <!-- Tabla de docentes -->
-  <div class="table-container" *ngIf="!loading && !error">
-    <table class="docentes-table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Legajo</th>
-          <th>Área</th>
-          <th>Estado</th>
-          <th>Materias</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let docente of filteredDocentes">
-          <td>{{ docente.nombre }}</td>
-          <td>{{ docente.email }}</td>
-          <td>{{ docente.legajo }}</td>
-          <td>{{ docente.departamento || 'N/A' }}</td>
-          <td>
-            <span [ngClass]="docente.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo'">
-              {{ docente.estado }}
-            </span>
-          </td>
-          <td>{{ docente.cantidadMaterias }}</td>
-          <td class="acciones">
-            <div class="botones-accion">
-              <button class="editar-btn" (click)="seleccionarDocente(docente)">Editar</button>
-              <button class="eliminar-btn" (click)="eliminarDocente(docente.id)">Eliminar</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <div *ngIf="filteredDocentes.length === 0" class="no-results">
-      No se encontraron docentes con los criterios de búsqueda.
+  @if (!loading && !error) {
+    <div class="table-container">
+      <table class="docentes-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Legajo</th>
+            <th>Área</th>
+            <th>Estado</th>
+            <th>Materias</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (docente of filteredDocentes; track docente.id) {
+            <tr>
+              <td>{{ docente.nombre }}</td>
+              <td>{{ docente.email }}</td>
+              <td>{{ docente.legajo }}</td>
+              <td>{{ docente.departamento || 'N/A' }}</td>
+              <td>
+                <span [ngClass]="docente.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo'">
+                  {{ docente.estado }}
+                </span>
+              </td>
+              <td>{{ docente.cantidadMaterias }}</td>
+              <td class="acciones">
+                <div class="botones-accion">
+                  <button class="editar-btn" (click)="seleccionarDocente(docente)">Editar</button>
+                  <button class="eliminar-btn" (click)="eliminarDocente(docente.id)">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+          }
+          
+          @if (filteredDocentes.length === 0) {
+            <tr>
+              <td colspan="7" class="no-results">
+                No se encontraron docentes con los criterios de búsqueda.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      
+      <!-- Paginación -->
+      @if (totalItems > itemsPorPagina) {
+        <div class="paginacion">
+          <button 
+            [disabled]="paginaActual === 1" 
+            (click)="cambiarPagina(paginaActual - 1)"
+          >
+            Anterior
+          </button>
+          
+          <span>Página {{ paginaActual }} de {{ math.ceil(totalItems / itemsPorPagina) }}</span>
+          
+          <button 
+            [disabled]="paginaActual >= math.ceil(totalItems / itemsPorPagina)" 
+            (click)="cambiarPagina(paginaActual + 1)"
+          >
+            Siguiente
+          </button>
+        </div>
+      }
     </div>
-    
-    <!-- Paginación -->
-    <div class="paginacion" *ngIf="totalItems > itemsPorPagina">
-      <button 
-        [disabled]="paginaActual === 1" 
-        (click)="cambiarPagina(paginaActual - 1)"
-      >
-        Anterior
-      </button>
-      
-      <!-- Opción 1: Usar la propiedad math del componente -->
-      <span>Página {{ paginaActual }} de {{ math.ceil(totalItems / itemsPorPagina) }}</span>
-      
-      <button 
-        [disabled]="paginaActual >= math.ceil(totalItems / itemsPorPagina)" 
-        (click)="cambiarPagina(paginaActual + 1)"
-      >
-        Siguiente
-      </button>
-      
-      <!-- Opción 2 (alternativa): Usar el método helper -->
-      <!-- 
-      <span>Página {{ paginaActual }} de {{ getTotalPaginas() }}</span>
-      
-      <button 
-        [disabled]="paginaActual >= getTotalPaginas()" 
-        (click)="cambiarPagina(paginaActual + 1)"
-      >
-        Siguiente
-      </button>
-      -->
-    </div>
-  </div>
+  }
 
   <!-- Formulario para nuevo docente -->
-  <div class="form-container" *ngIf="!modoEdicion">
-    <h3>Registrar nuevo docente</h3>
-    <form (submit)="$event.preventDefault(); crearDocente()">
-      <div class="form-group">
-        <label for="nombre">Nombre completo*</label>
-        <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevoDocente.nombre" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="email">Email*</label>
-        <input type="email" id="email" name="email" [(ngModel)]="nuevoDocente.email" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="legajo">Legajo*</label>
-        <input type="text" id="legajo" name="legajo" [(ngModel)]="nuevoDocente.legajo" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="departamento">Departamento</label>
-        <select id="departamento" name="departamento" [(ngModel)]="nuevoDocente.departamento">
-          <option value="">Seleccione un departamento</option>
-          <option value="Matemáticas">Matemáticas</option>
-          <option value="Lengua">Lengua</option>
-          <option value="Ciencias">Ciencias</option>
-          <option value="Historia">Historia</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label for="fechaIngreso">Fecha de ingreso</label>
-        <input type="date" id="fechaIngreso" name="fechaIngreso" [(ngModel)]="nuevoDocente.fechaIngreso">
-      </div>
-      
-      <button type="submit" class="btn-guardar" [disabled]="loading">
-        {{ loading ? 'Guardando...' : 'Guardar' }}
-      </button>
-    </form>
-  </div>
+  @if (!modoEdicion) {
+    <div class="form-container">
+      <h3>Registrar nuevo docente</h3>
+      <form (submit)="$event.preventDefault(); crearDocente()">
+        <div class="form-group">
+          <label for="nombre">Nombre completo*</label>
+          <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevoDocente.nombre" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email*</label>
+          <input type="email" id="email" name="email" [(ngModel)]="nuevoDocente.email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="legajo">Legajo*</label>
+          <input type="text" id="legajo" name="legajo" [(ngModel)]="nuevoDocente.legajo" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="departamento">Departamento</label>
+          <select id="departamento" name="departamento" [(ngModel)]="nuevoDocente.departamento">
+            <option value="">Seleccione un departamento</option>
+            <option value="Matemáticas">Matemáticas</option>
+            <option value="Lengua">Lengua</option>
+            <option value="Ciencias">Ciencias</option>
+            <option value="Historia">Historia</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="fechaIngreso">Fecha de ingreso</label>
+          <input type="date" id="fechaIngreso" name="fechaIngreso" [(ngModel)]="nuevoDocente.fechaIngreso">
+        </div>
+        
+        <button type="submit" class="btn-guardar" [disabled]="loading">
+          {{ loading ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </form>
+    </div>
+  }
 
   <!-- Formulario para editar docente -->
-  <div class="form-container" *ngIf="modoEdicion && docenteSeleccionado">
-    <h3>Editar docente</h3>
-    <form (submit)="$event.preventDefault(); actualizarDocente()">
-      <div class="form-group">
-        <label for="edit-nombre">Nombre completo*</label>
-        <input type="text" id="edit-nombre" name="nombre" [(ngModel)]="docenteSeleccionado.nombre" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="edit-email">Email*</label>
-        <input type="email" id="edit-email" name="email" [(ngModel)]="docenteSeleccionado.email" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="edit-legajo">Legajo*</label>
-        <input type="text" id="edit-legajo" name="legajo" [(ngModel)]="docenteSeleccionado.legajo" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="edit-departamento">Departamento</label>
-        <select id="edit-departamento" name="departamento" [(ngModel)]="docenteSeleccionado.departamento">
-          <option value="">Seleccione un departamento</option>
-          <option value="Matemáticas">Matemáticas</option>
-          <option value="Lengua">Lengua</option>
-          <option value="Ciencias">Ciencias</option>
-          <option value="Historia">Historia</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label for="edit-estado">Estado</label>
-        <select id="edit-estado" name="estado" [(ngModel)]="docenteSeleccionado.estado">
-          <option value="Activo">Activo</option>
-          <option value="Inactivo">Inactivo</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label for="edit-fechaIngreso">Fecha de ingreso</label>
-        <input type="date" id="edit-fechaIngreso" name="fechaIngreso" [(ngModel)]="docenteSeleccionado.fechaIngreso">
-      </div>
-      
-      <div class="form-actions">
-        <button type="button" (click)="cancelarEdicion()" class="btn-cancelar">Cancelar</button>
-        <button type="submit" class="btn-guardar" [disabled]="loading">
-          {{ loading ? 'Guardando...' : 'Guardar cambios' }}
-        </button>
-      </div>
-    </form>
-  </div>
+  @if (modoEdicion && docenteSeleccionado) {
+    <div class="form-container">
+      <h3>Editar docente</h3>
+      <form (submit)="$event.preventDefault(); actualizarDocente()">
+        <div class="form-group">
+          <label for="edit-nombre">Nombre completo*</label>
+          <input type="text" id="edit-nombre" name="nombre" [(ngModel)]="docenteSeleccionado.nombre" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-email">Email*</label>
+          <input type="email" id="edit-email" name="email" [(ngModel)]="docenteSeleccionado.email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-legajo">Legajo*</label>
+          <input type="text" id="edit-legajo" name="legajo" [(ngModel)]="docenteSeleccionado.legajo" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-departamento">Departamento</label>
+          <select id="edit-departamento" name="departamento" [(ngModel)]="docenteSeleccionado.departamento">
+            <option value="">Seleccione un departamento</option>
+            <option value="Matemáticas">Matemáticas</option>
+            <option value="Lengua">Lengua</option>
+            <option value="Ciencias">Ciencias</option>
+            <option value="Historia">Historia</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-estado">Estado</label>
+          <select id="edit-estado" name="estado" [(ngModel)]="docenteSeleccionado.estado">
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="edit-fechaIngreso">Fecha de ingreso</label>
+          <input type="date" id="edit-fechaIngreso" name="fechaIngreso" [(ngModel)]="docenteSeleccionado.fechaIngreso">
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" (click)="cancelarEdicion()" class="btn-cancelar">Cancelar</button>
+          <button type="submit" class="btn-guardar" [disabled]="loading">
+            {{ loading ? 'Guardando...' : 'Guardar cambios' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
 </div>
