@@ -220,139 +220,164 @@ tr:hover {
   text-align: center;
 }
 
-/* Botones */
-.btn-edit, .btn-delete, .btn-save, .btn-cancel, .btn-retry {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+/* Estilos generales para botones */
+.btn-primary, .btn-buscar, .btn-limpiar, .editar-btn, .eliminar-btn, .btn-guardar, .btn-cancelar {
   font-weight: 500;
-  margin-right: 5px;
-}
-
-.btn-edit {
-  background-color: #4c67af;
-  color: white;
-}
-
-.btn-delete {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-save {
-  background-color: #28a745;
-  color: white;
-  width: 100px;
-}
-
-.btn-cancel {
-  background-color: #6c757d;
-  color: white;
-}
-
-.btn-retry {
-  background-color: #17a2b8;
-  color: white;
-}
-
-/* Formularios */
-.form-container {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 5px;
-  margin-top: 20px;
-  border: 1px solid #ddd;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.form-actions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Mensajes y loaders */
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.loading-spinner {
-  text-align: center;
-  padding: 30px;
-  color: #666;
-}
-
-.no-records {
-  text-align: center;
-  padding: 30px;
-  color: #666;
-  font-style: italic;
-}
-
-/* Estilos para los botones Editar y Eliminar */
-.editar-btn {
-  background-color: #4c67af;
-  color: white;
-  border: none;
   padding: 8px 16px;
   border-radius: 4px;
+  border: none;
   cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s;
-  margin-right: 5px;
-  min-width: 80px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.3px;
 }
 
-.editar-btn:hover {
-  background-color: #3a5198;
+/* Botón principal (azul) */
+.btn-primary, .btn-buscar, .editar-btn, .btn-guardar {
+  background: linear-gradient(145deg, #4c67af, #3f56a3);
+  color: white;
 }
 
+.btn-primary:hover, .btn-buscar:hover, .editar-btn:hover, .btn-guardar:hover {
+  background: linear-gradient(145deg, #3f56a3, #34488c);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+/* Botón de eliminación (rojo) */
 .eliminar-btn {
-  background-color: #dc3545;
+  background: linear-gradient(145deg, #e04c56, #d13b45);
   color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s;
-  min-width: 80px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .eliminar-btn:hover {
-  background-color: #c82333;
+  background: linear-gradient(145deg, #d13b45, #bd343d);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+/* Botón secundario (gris) */
+.btn-cancelar, .btn-limpiar {
+  background: linear-gradient(145deg, #7c8490, #6b7380);
+  color: white;
+}
+
+.btn-cancelar:hover, .btn-limpiar:hover {
+  background: linear-gradient(145deg, #6b7380, #5c6370);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+/* Botón de búsqueda con ícono */
+.btn-buscar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-buscar::before {
+  content: "🔍";
+  font-size: 14px;
+}
+
+/* Botón Limpiar filtros */
+.limpiar-filtros {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: #4c67af;
+  border: 1px solid #4c67af;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.limpiar-filtros:hover {
+  background-color: rgba(76, 103, 175, 0.1);
+}
+
+.limpiar-filtros::before {
+  content: "↺";
+  margin-right: 6px;
 }
 
 /* Contenedor para los botones de acción */
 .botones-accion {
   display: flex;
+  gap: 8px;
+}
+
+/* Estilos para los selects (combos) */
+select {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: all 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  padding-right: 32px;
+}
+
+select:hover, select:focus {
+  border-color: #4c67af;
+  box-shadow: 0 1px 3px rgba(76, 103, 175, 0.2);
+}
+
+/* Estilo para campos de búsqueda */
+input[type="text"], input[type="email"], input[type="search"] {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: all 0.2s;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="search"]:focus {
+  border-color: #4c67af;
+  box-shadow: 0 1px 3px rgba(76, 103, 175, 0.2);
+  outline: none;
+}
+
+/* Estilo para container de búsqueda */
+.busqueda-container {
+  background-color: white;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  border: 1px solid #eaeaea;
+}
+
+.busqueda-input {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.busqueda-input input {
+  flex: 1;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn-buscar {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 

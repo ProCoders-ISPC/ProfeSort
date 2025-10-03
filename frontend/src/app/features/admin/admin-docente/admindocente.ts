@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AdminDocenteService } from '../../../core/services/admindocente.service';
+import { AdminDocenteService, DocenteCarga } from '../../../core/services/admindocente.service';
 
 @Component({
   selector: 'app-admindocente',
@@ -11,12 +11,31 @@ import { AdminDocenteService } from '../../../core/services/admindocente.service
   styleUrls: ['./admindocente.css']
 })
 export class AdminDocente implements OnInit {
-  docentes: any[] = [];
-  nuevoDocente: any = {};
-  docenteSeleccionado: any = null;
+  // Exponer Math para poder usarlo en la plantilla HTML
+  math = Math; // Añadir esta línea para resolver el error
+  
+  // Lista de docentes
+  docentes: DocenteCarga[] = [];
+  filteredDocentes: DocenteCarga[] = [];
+  
+  // Docente seleccionado para editar
+  docenteSeleccionado: DocenteCarga | null = null;
+  nuevoDocente: Partial<DocenteCarga> = {};
   modoEdicion: boolean = false;
+  
+  // Estados de UI
   loading: boolean = false;
   error: string | null = null;
+  
+  // Parámetros de búsqueda
+  terminoBusqueda: string = '';
+  filtroEstado: string = '';
+  filtroDepartamento: string = '';
+  
+  // Paginación
+  paginaActual: number = 1;
+  totalItems: number = 0;
+  itemsPorPagina: number = 10;
 
   constructor(private adminDocenteService: AdminDocenteService) { }
 
@@ -26,92 +45,175 @@ export class AdminDocente implements OnInit {
 
   cargarDocentes(): void {
     this.loading = true;
-    this.adminDocenteService.getDocentes().subscribe({
+    this.error = null;
+    
+    this.adminDocenteService.getDocentesCarga(
+      this.terminoBusqueda,
+      this.filtroEstado,
+      this.filtroDepartamento,
+      this.paginaActual,
+      this.itemsPorPagina
+    ).subscribe({
       next: (data) => {
         this.docentes = data;
+        this.filteredDocentes = [...data]; // Mantener una copia para filtrados locales
         this.loading = false;
       },
-      error: (error) => {
-        console.error('Error al cargar docentes:', error);
-        this.error = 'No se pudieron cargar los docentes. Intente nuevamente.';
+      error: (err) => {
+        console.error('Error al cargar docentes:', err);
+        this.error = 'No se pudieron cargar los docentes. Por favor intente nuevamente.';
         this.loading = false;
       }
     });
-  }
-
-  seleccionarDocente(docente: any): void {
-    this.docenteSeleccionado = { ...docente };
-    this.modoEdicion = true;
-
-    // Desplazarse al formulario de edición
-    setTimeout(() => {
-      const formElement = document.querySelector('.form-container');
-      formElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-  }
-
-  crearDocente(): void {
-    this.adminDocenteService.crearDocente(this.nuevoDocente).subscribe({
-      next: () => {
-        this.cargarDocentes();
-        this.nuevoDocente = {};
-        alert('Docente creado exitosamente');
+    
+    // Cargar también las estadísticas
+    this.adminDocenteService.getEstadisticas().subscribe({
+      next: (stats) => {
+        this.totalItems = stats.totalDocentes;
       },
-      error: (error) => {
-        console.error('Error al crear docente:', error);
+      error: () => {} // Ignoramos errores en estadísticas
+    });
+  }
+  
+  // Método para búsqueda local rápida (sin llamar al servidor)
+  busquedaRapida(termino: string): void {
+    termino = termino.toLowerCase().trim();
+    
+    if (!termino) {
+      this.filteredDocentes = [...this.docentes];
+      return;
+    }
+    
+    this.filteredDocentes = this.docentes.filter(docente => 
+      docente.nombre.toLowerCase().includes(termino) || 
+      docente.email.toLowerCase().includes(termino) || 
+      docente.legajo.toLowerCase().includes(termino)
+    );
+  }
+  
+  // Método para búsqueda completa (llamando al servidor)
+  busquedaCompleta(): void {
+    this.paginaActual = 1; // Resetear paginación
+    this.cargarDocentes();
+  }
+  
+  cambiarPagina(pagina: number): void {
+    this.paginaActual = pagina;
+    this.cargarDocentes();
+  }
+  
+  seleccionarDocente(docente: DocenteCarga): void {
+    this.docenteSeleccionado = {...docente};
+    this.modoEdicion = true;
+  }
+  
+  crearDocente(): void {
+    if (!this.validarDocente(this.nuevoDocente)) {
+      return;
+    }
+    
+    this.loading = true;
+    
+    this.adminDocenteService.crearDocente({
+      ...this.nuevoDocente,
+      estado: 'Activo',
+      cantidadMaterias: 0,
+      cantidadEstudiantes: 0,
+      materias: []
+    }).subscribe({
+      next: () => {
+        this.loading = false;
+        this.nuevoDocente = {};
+        this.cargarDocentes();
+        alert('Docente creado correctamente');
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('Error al crear docente:', err);
         alert('Error al crear el docente');
       }
     });
   }
-
+  
   actualizarDocente(): void {
-    if (!this.docenteSeleccionado) {
+    if (!this.docenteSeleccionado || !this.validarDocente(this.docenteSeleccionado)) {
       return;
     }
     
-    console.log('Actualizando docente:', this.docenteSeleccionado); // Para depuración
-    
     this.loading = true;
     
-    // Aquí debería estar llamando al servicio
     this.adminDocenteService.actualizarDocente(
-      this.docenteSeleccionado.id, 
+      this.docenteSeleccionado.id,
       this.docenteSeleccionado
     ).subscribe({
-      next: (respuesta) => {
-        console.log('Docente actualizado con éxito:', respuesta);
+      next: () => {
         this.loading = false;
-        this.cargarDocentes(); // Recargar la lista
-        this.cancelarEdicion(); // Cerrar el formulario
-        
-        // Muestra un mensaje de éxito
+        this.cancelarEdicion();
+        this.cargarDocentes();
         alert('Docente actualizado correctamente');
       },
-      error: (error) => {
-        console.error('Error al actualizar docente:', error);
+      error: (err) => {
         this.loading = false;
-        alert('Error al actualizar el docente: ' + (error.message || 'Error desconocido'));
+        console.error('Error al actualizar docente:', err);
+        alert('Error al actualizar el docente');
       }
     });
   }
-
+  
   eliminarDocente(id: number): void {
-    if (confirm('¿Está seguro que desea eliminar este docente?')) {
-      this.adminDocenteService.eliminarDocente(id).subscribe({
-        next: () => {
-          this.cargarDocentes();
-          alert('Docente eliminado exitosamente');
-        },
-        error: (error) => {
-          console.error('Error al eliminar docente:', error);
-          alert('Error al eliminar el docente');
-        }
-      });
+    if (!confirm('¿Está seguro de eliminar este docente?')) {
+      return;
     }
+    
+    this.loading = true;
+    
+    this.adminDocenteService.eliminarDocente(id).subscribe({
+      next: () => {
+        this.loading = false;
+        this.cargarDocentes();
+        alert('Docente eliminado correctamente');
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('Error al eliminar docente:', err);
+        alert('Error al eliminar el docente');
+      }
+    });
   }
-
+  
   cancelarEdicion(): void {
     this.docenteSeleccionado = null;
     this.modoEdicion = false;
+  }
+  
+  validarDocente(docente: Partial<DocenteCarga>): boolean {
+    if (!docente.nombre || docente.nombre.trim() === '') {
+      alert('El nombre es obligatorio');
+      return false;
+    }
+    
+    if (!docente.email || docente.email.trim() === '') {
+      alert('El email es obligatorio');
+      return false;
+    }
+    
+    if (!docente.legajo || docente.legajo.trim() === '') {
+      alert('El legajo es obligatorio');
+      return false;
+    }
+    
+    return true;
+  }
+  
+  limpiarFiltros(): void {
+    this.terminoBusqueda = '';
+    this.filtroEstado = '';
+    this.filtroDepartamento = '';
+    this.busquedaCompleta();
+  }
+  
+  // Método auxiliar para calcular el total de páginas (alternativa)
+  getTotalPaginas(): number {
+    return Math.ceil(this.totalItems / this.itemsPorPagina);
   }
 }
