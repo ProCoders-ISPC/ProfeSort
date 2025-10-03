@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MateriasService, Materia } from '../../../core/services/materias.service';
+import { APP_CONFIG } from '../../../core/config/app.config';
 
 @Component({
   selector: 'app-materias',
@@ -24,6 +25,12 @@ export class Materias {
   
   mostrarFormulario = false;
   modoEdicion = false;
+
+  // Configuraciones desde APP_CONFIG
+  private readonly timeouts = APP_CONFIG.TIMEOUTS;
+  private readonly errorMessages = APP_CONFIG.ERROR_MESSAGES;
+  private readonly successMessages = APP_CONFIG.SUCCESS_MESSAGES;
+  private readonly validationConfig = APP_CONFIG.VALIDATION;
 
   formData: Partial<Materia> = {
     nombre: '',
@@ -47,7 +54,7 @@ export class Materias {
       error: () => {
         this.materias = [];
         this.cargandoDatos = false;
-        this.showError('Error al cargar las materias');
+        this.showError(this.errorMessages.NETWORK_ERROR);
       }
     });
   }
@@ -76,9 +83,9 @@ export class Materias {
   }
 
   guardar(): void {
-    // Solo validar campos requeridos: nombre y código
+    // Validar campos requeridos usando configuración
     if (!this.formData.nombre?.trim() || !this.formData.codigo?.trim()) {
-      this.showError('El nombre y código de la materia son obligatorios');
+      this.showError(this.errorMessages.VALIDATION_ERROR);
       return;
     }
     
@@ -87,12 +94,12 @@ export class Materias {
     if (this.modoEdicion && this.editandoId) {
       this.materiasService.updateMateria(this.editandoId, this.formData).subscribe({
         next: () => {
-          this.showMessage('Materia actualizada exitosamente!');
+          this.showMessage(this.successMessages.UPDATE_SUCCESS);
           this.cargarMaterias();
           this.cerrarFormulario();
         },
         error: (err) => {
-          this.showError(err.message || 'Error al actualizar la materia.');
+          this.showError(err.message || this.errorMessages.GENERIC_ERROR);
         }
       });
     } else {
@@ -100,16 +107,16 @@ export class Materias {
       const nuevaMateria = { 
         nombre: nombre!, 
         codigo: codigo!, 
-        profesor: profesor || undefined  // Si está vacío, no se envía profesor
+        profesor: profesor || undefined
       };
       this.materiasService.addMateria(nuevaMateria).subscribe({
         next: () => {
-          this.showMessage('Materia guardada exitosamente!');
+          this.showMessage(this.successMessages.SAVE_SUCCESS);
           this.cargarMaterias();
           this.cerrarFormulario();
         },
         error: (err) => {
-          this.showError(err.message || 'Error al guardar la materia.');
+          this.showError(err.message || this.errorMessages.GENERIC_ERROR);
         }
       });
     }
@@ -128,12 +135,12 @@ export class Materias {
     if (this.eliminarId) {
       this.materiasService.deleteMateria(this.eliminarId).subscribe({
         next: () => {
-          this.showMessage('Materia eliminada exitosamente!');
+          this.showMessage(this.successMessages.DELETE_SUCCESS);
           this.cargarMaterias();
           this.eliminarId = null;
         },
         error: (err) => {
-          this.showError(err.message || 'Error al eliminar la materia.');
+          this.showError(err.message || this.errorMessages.GENERIC_ERROR);
         }
       });
     }
@@ -158,11 +165,11 @@ export class Materias {
 
   private showMessage(msg: string): void {
     this.alertSuccess = msg;
-    setTimeout(() => this.alertSuccess = '', 2000);
+    setTimeout(() => this.alertSuccess = '', this.timeouts.SUCCESS_MESSAGE_DURATION);
   }
 
   private showError(msg: string): void {
     this.alertError = msg;
-    setTimeout(() => this.alertError = '', 3000);
+    setTimeout(() => this.alertError = '', this.timeouts.ALERT_DURATION);
   }
 }

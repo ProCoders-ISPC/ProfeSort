@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from .config import FRONTEND_URLS, DATABASE_CONFIG
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,10 +52,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],  # ← Sin autenticación
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4200",
-    "http://127.0.0.1:4200",
-]
+CORS_ALLOWED_ORIGINS = FRONTEND_URLS
 
 CORS_ALLOW_ALL_ORIGINS = True  # ← Solo para desarrollo
 
@@ -94,15 +92,7 @@ WSGI_APPLICATION = 'profesortbackend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = { 
-    'default': { 
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'profesort_db',
-        'USER': 'profesort_db_admin',
-        'PASSWORD': 'admin123', 
-        'HOST': 'localhost', 
-        'PORT': '5432',
-        
-    } 
+    'default': DATABASE_CONFIG
 }
 
 
