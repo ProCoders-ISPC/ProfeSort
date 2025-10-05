@@ -25,7 +25,7 @@ export interface EstadisticasCarga {
 })
 export class AdminDocenteService {
   // URL configurada en environment.ts
-  private apiUrl = `${environment.apiUrl}/docentes`;
+  private apiUrl = `${environment.apiUrl}/docentes/`;  // Añadir barra final aquí
 
   constructor(private http: HttpClient) {}
 
@@ -55,8 +55,8 @@ export class AdminDocenteService {
   }
 
   // Crear nuevo docente
-  crearDocente(docente: Partial<DocenteCarga>): Observable<DocenteCarga> {
-    return this.http.post<DocenteCarga>(this.apiUrl, docente);
+  crearDocente(docente: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, docente); 
   }
 
   // Actualizar docente existente
