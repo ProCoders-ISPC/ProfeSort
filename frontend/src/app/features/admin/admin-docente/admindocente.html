@@ -1,56 +1,33 @@
 <div class="admin-docente-container">
   <h2>Gestión de Docentes</h2>
   
-  <!-- Buscador y filtros -->
-  <div class="busqueda-container">
-    <div class="busqueda-input">
-      <input 
-        type="text" 
-        [(ngModel)]="terminoBusqueda" 
-        (input)="busquedaRapida(terminoBusqueda)"
-        placeholder="Buscar por nombre, email o legajo..."
-      >
-      <button class="btn-buscar" (click)="busquedaCompleta()">Buscar</button>
-    </div>
-    
-    <div class="filtros">
-      <select [(ngModel)]="filtroEstado" (change)="busquedaCompleta()">
-        <option value="">Todos los estados</option>
-        <option value="Activo">Activo</option>
-        <option value="Inactivo">Inactivo</option>
-      </select>
-      
-      <select [(ngModel)]="filtroDepartamento" (change)="busquedaCompleta()">
-        <option value="">Todos los departamentos</option>
-        <option value="Matemáticas">Matemáticas</option>
-        <option value="Lengua">Lengua</option>
-        <option value="Ciencias">Ciencias</option>
-        <option value="Historia">Historia</option>
-      </select>
-      
-      <button class="btn-limpiar" (click)="limpiarFiltros()">Limpiar filtros</button>
-    </div>
-  </div>
-
-  <!-- Indicador de carga -->
-  @if (loading) {
-    <div class="loading-spinner">
-      <span>Cargando datos...</span>
-    </div>
+  <!-- Mensaje de éxito o error -->
+  @if (mensaje) {
+    <div class="alert alert-success">{{ mensaje }}</div>
   }
   
-  <!-- Mensaje de error -->
   @if (error) {
-    <div class="error-message">
-      <span>{{ error }}</span>
-      <button (click)="cargarDocentes()">Reintentar</button>
-    </div>
+    <div class="alert alert-danger">{{ error }}</div>
+  }
+  
+  <!-- Botones de acción principal -->
+  <div class="acciones-container">
+    <button class="btn btn-primary" (click)="toggleMostrarUsuarios()">
+      {{ mostrarUsuariosRegulares ? 'Ver Docentes' : 'Asignar Rol Docente' }}
+    </button>
+  </div>
+  
+  <!-- Indicador de carga -->
+  @if (loading) {
+    <div class="spinner">Cargando...</div>
   }
 
-  <!-- Tabla de docentes -->
-  @if (!loading && !error) {
-    <div class="table-container">
-      <table class="docentes-table">
+  <!-- Lista de docentes actuales -->
+  @if (!mostrarUsuariosRegulares && !loading && !error) {
+    <div class="docentes-container">
+      <h3>Docentes Actuales</h3>
+      
+      <table class="table">
         <thead>
           <tr>
             <th>Nombre</th>
@@ -58,159 +35,69 @@
             <th>Legajo</th>
             <th>Área</th>
             <th>Estado</th>
-            <th>Materias</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          @for (docente of filteredDocentes; track docente.id) {
+          @for (docente of docentes; track docente.id) {
             <tr>
               <td>{{ docente.nombre }}</td>
               <td>{{ docente.email }}</td>
               <td>{{ docente.legajo }}</td>
-              <td>{{ docente.departamento || 'N/A' }}</td>
+              <td>{{ docente.area || 'No asignada' }}</td>
+              <td>{{ docente.estado }}</td>
               <td>
-                <span [ngClass]="docente.estado === 'Activo' ? 'estado-activo' : 'estado-inactivo'">
-                  {{ docente.estado }}
-                </span>
-              </td>
-              <td>{{ docente.cantidadMaterias }}</td>
-              <td class="acciones">
-                <div class="botones-accion">
-                  <button class="editar-btn" (click)="seleccionarDocente(docente)">Editar</button>
-                  <button class="eliminar-btn" (click)="eliminarDocente(docente.id)">Eliminar</button>
-                </div>
+                <button class="btn btn-sm btn-info" (click)="asignarMateria(docente.id)">
+                  Asignar Materia
+                </button>
               </td>
             </tr>
-          }
-          
-          @if (filteredDocentes.length === 0) {
+          } @empty {
             <tr>
-              <td colspan="7" class="no-results">
-                No se encontraron docentes con los criterios de búsqueda.
-              </td>
+              <td colspan="6" class="text-center">No hay docentes asignados</td>
             </tr>
           }
         </tbody>
       </table>
+    </div>
+  }
+
+  <!-- Vista para asignar roles de docente -->
+  @if (mostrarUsuariosRegulares && !loading && !error) {
+    <div class="usuarios-container">
+      <h3>Usuarios Registrados</h3>
+      <p>Selecciona los usuarios a los que deseas asignar el rol de docente:</p>
       
-      <!-- Paginación -->
-      @if (totalItems > itemsPorPagina) {
-        <div class="paginacion">
-          <button 
-            [disabled]="paginaActual === 1" 
-            (click)="cambiarPagina(paginaActual - 1)"
-          >
-            Anterior
-          </button>
-          
-          <span>Página {{ paginaActual }} de {{ math.ceil(totalItems / itemsPorPagina) }}</span>
-          
-          <button 
-            [disabled]="paginaActual >= math.ceil(totalItems / itemsPorPagina)" 
-            (click)="cambiarPagina(paginaActual + 1)"
-          >
-            Siguiente
-          </button>
-        </div>
-      }
-    </div>
-  }
-
-  <!-- Formulario para nuevo docente -->
-  @if (!modoEdicion) {
-    <div class="form-container">
-      <h3>Registrar nuevo docente</h3>
-      <form (submit)="$event.preventDefault(); crearDocente()">
-        <div class="form-group">
-          <label for="nombre">Nombre completo*</label>
-          <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevoDocente.nombre" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="email">Email*</label>
-          <input type="email" id="email" name="email" [(ngModel)]="nuevoDocente.email" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="legajo">Legajo*</label>
-          <input type="text" id="legajo" name="legajo" [(ngModel)]="nuevoDocente.legajo" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="departamento">Departamento</label>
-          <select id="departamento" name="departamento" [(ngModel)]="nuevoDocente.departamento">
-            <option value="">Seleccione un departamento</option>
-            <option value="Matemáticas">Matemáticas</option>
-            <option value="Lengua">Lengua</option>
-            <option value="Ciencias">Ciencias</option>
-            <option value="Historia">Historia</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="fechaIngreso">Fecha de ingreso</label>
-          <input type="date" id="fechaIngreso" name="fechaIngreso" [(ngModel)]="nuevoDocente.fechaIngreso">
-        </div>
-        
-        <button type="submit" class="btn-guardar" [disabled]="loading">
-          {{ loading ? 'Guardando...' : 'Guardar' }}
-        </button>
-      </form>
-    </div>
-  }
-
-  <!-- Formulario para editar docente -->
-  @if (modoEdicion && docenteSeleccionado) {
-    <div class="form-container">
-      <h3>Editar docente</h3>
-      <form (submit)="$event.preventDefault(); actualizarDocente()">
-        <div class="form-group">
-          <label for="edit-nombre">Nombre completo*</label>
-          <input type="text" id="edit-nombre" name="nombre" [(ngModel)]="docenteSeleccionado.nombre" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="edit-email">Email*</label>
-          <input type="email" id="edit-email" name="email" [(ngModel)]="docenteSeleccionado.email" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="edit-legajo">Legajo*</label>
-          <input type="text" id="edit-legajo" name="legajo" [(ngModel)]="docenteSeleccionado.legajo" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="edit-departamento">Departamento</label>
-          <select id="edit-departamento" name="departamento" [(ngModel)]="docenteSeleccionado.departamento">
-            <option value="">Seleccione un departamento</option>
-            <option value="Matemáticas">Matemáticas</option>
-            <option value="Lengua">Lengua</option>
-            <option value="Ciencias">Ciencias</option>
-            <option value="Historia">Historia</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="edit-estado">Estado</label>
-          <select id="edit-estado" name="estado" [(ngModel)]="docenteSeleccionado.estado">
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="edit-fechaIngreso">Fecha de ingreso</label>
-          <input type="date" id="edit-fechaIngreso" name="fechaIngreso" [(ngModel)]="docenteSeleccionado.fechaIngreso">
-        </div>
-        
-        <div class="form-actions">
-          <button type="button" (click)="cancelarEdicion()" class="btn-cancelar">Cancelar</button>
-          <button type="submit" class="btn-guardar" [disabled]="loading">
-            {{ loading ? 'Guardando...' : 'Guardar cambios' }}
-          </button>
-        </div>
-      </form>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Legajo</th>
+            <th>Fecha Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (usuario of usuariosRegulares; track usuario.id) {
+            <tr>
+              <td>{{ usuario.name }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>{{ usuario.legajo || 'No asignado' }}</td>
+              <td>{{ usuario.created_at | date }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="asignarRolDocente(usuario.id)">
+                  Convertir a Docente
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="text-center">No hay usuarios disponibles para asignar</td>
+            </tr>
+          }
+        </tbody>
+      </table>
     </div>
   }
 </div>

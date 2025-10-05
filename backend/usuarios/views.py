@@ -11,6 +11,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]  # Sin autenticación
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+    
+    def partial_update(self, request, *args, **kwargs):
+        """Permite actualización parcial (PATCH) para cambios de rol"""
+        print("PATCH recibido:", request.data)
+        return super().partial_update(request, *args, **kwargs)
 
 class RolViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]  # Sin autenticación  
