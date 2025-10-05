@@ -11,8 +11,8 @@ import { AdminDocenteService, DocenteCarga } from '../../../core/services/admind
   styleUrls: ['./admindocente.css']
 })
 export class AdminDocente implements OnInit {
-  // Exponer Math para poder usarlo en la plantilla HTML
-  math = Math; // Añadir esta línea para resolver el error
+
+  math = Math; 
   
   // Lista de docentes
   docentes: DocenteCarga[] = [];
@@ -56,7 +56,7 @@ export class AdminDocente implements OnInit {
     ).subscribe({
       next: (data) => {
         this.docentes = data;
-        this.filteredDocentes = [...data]; // Mantener una copia para filtrados locales
+        this.filteredDocentes = [...data]; 
         this.loading = false;
       },
       error: (err) => {
@@ -66,16 +66,16 @@ export class AdminDocente implements OnInit {
       }
     });
     
-    // Cargar también las estadísticas
+
     this.adminDocenteService.getEstadisticas().subscribe({
       next: (stats) => {
         this.totalItems = stats.totalDocentes;
       },
-      error: () => {} // Ignoramos errores en estadísticas
+      error: () => {} 
     });
   }
   
-  // Método para búsqueda local rápida (sin llamar al servidor)
+
   busquedaRapida(termino: string): void {
     termino = termino.toLowerCase().trim();
     
@@ -91,9 +91,9 @@ export class AdminDocente implements OnInit {
     );
   }
   
-  // Método para búsqueda completa (llamando al servidor)
+ 
   busquedaCompleta(): void {
-    this.paginaActual = 1; // Resetear paginación
+    this.paginaActual = 1; 
     this.cargarDocentes();
   }
   
@@ -114,13 +114,21 @@ export class AdminDocente implements OnInit {
     
     this.loading = true;
     
-    this.adminDocenteService.crearDocente({
-      ...this.nuevoDocente,
-      estado: 'Activo',
-      cantidadMaterias: 0,
-      cantidadEstudiantes: 0,
-      materias: []
-    }).subscribe({
+   
+    const docenteParaEnviar = {
+      name: this.nuevoDocente.nombre,
+      email: this.nuevoDocente.email,
+      legajo: this.nuevoDocente.legajo,
+      password: 'password123',
+      role_id: 2,
+      fecha_ingreso: this.nuevoDocente.fechaIngreso,
+      area: this.nuevoDocente.departamento,  
+      is_active: true                        
+    };
+    
+    console.log('Enviando datos:', docenteParaEnviar); 
+    
+    this.adminDocenteService.crearDocente(docenteParaEnviar).subscribe({
       next: () => {
         this.loading = false;
         this.nuevoDocente = {};
