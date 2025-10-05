@@ -9,7 +9,7 @@ import { GraficoBarrasComponent } from './grafico-barras';
   standalone: true,
   templateUrl: './informes.html',
   styleUrls: ['./informes.css'],
-  imports: [CommonModule, FormsModule, GraficoBarrasComponent]
+  imports: [CommonModule, FormsModule]
 })
 export class InformesComponent {
   tipoInforme = 'inscripciones';
