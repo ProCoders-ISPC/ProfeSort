@@ -1,4 +1,4 @@
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="container-fluid p-0">
   <div class="d-flex">
     <aside class="sidebar" id="sidebar">
@@ -41,12 +41,18 @@
         <div class="menu-item" routerLinkActive="active">
           <a routerLink="/admin/informes" class="d-flex align-items-center text-decoration-none text-reset w-100">
             <div class="menu-icon">
-              <img src="./img/icons/logout_icon.svg" alt="Icono Informes" height="20">
+              <img src="./img/icons/metrics_icon.svg" alt="Icono Informes" height="20">
             </div>
             <div>Informes</div>
           </a>
         </div>
       </nav>
+      <div class="menu-item logout-button">
+        <button class="btn-logout" (click)="cerrarSesion()">
+          <img src="/img/icons/logout_icon.svg" alt="Cerrar sesión" height="20" class="logout-icon">
+          <span>Cerrar sesión</span>
+        </button>
+      </div>
     </aside>
     <div class="main-content w-100">
       <div class="header">
