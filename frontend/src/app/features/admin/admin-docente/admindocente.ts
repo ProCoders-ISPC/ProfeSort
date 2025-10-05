@@ -11,7 +11,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule]
 })
-export class AdminDocente implements OnInit {
+export class AdminDocenteComponent implements OnInit {
   docentes: DocenteCarga[] = [];
   usuariosRegulares: any[] = [];
   loading = false;
@@ -32,7 +32,10 @@ export class AdminDocente implements OnInit {
   pageSize = 10;
   totalItems = 0;
   
-  constructor(private adminDocenteService: AdminDocenteService) {}
+  
+  constructor(
+    private adminDocenteService: AdminDocenteService,
+  ) {}
   
   ngOnInit(): void {
     // Configurar búsqueda con debounce
@@ -85,7 +88,7 @@ export class AdminDocente implements OnInit {
   
   asignarRolDocente(usuarioId: number): void {
     this.loading = true;
-    this.adminDocenteService.asignarRolDocente(usuarioId).subscribe({
+    this.adminDocenteService.asignarRol(usuarioId, this.adminDocenteService.ROL_DOCENTE).subscribe({
       next: () => {
         this.mensaje = 'Usuario convertido a docente correctamente';
         this.cargarUsuariosRegulares();
@@ -116,17 +119,17 @@ export class AdminDocente implements OnInit {
     setTimeout(() => this.mensaje = '', 3000);
   }
   
-  // Método para manejar input de búsqueda
+
   onSearch(term: string): void {
     this.searchTerms.next(term);
   }
   
   buscarDocentes(): void {
-    this.currentPage = 1; // Reiniciar a primera página
+    this.currentPage = 1; 
     this.cargarDocentes();
   }
   
-  // Filtros de búsqueda
+
   filtrarPorEstado(estado: string): void {
     this.estadoFiltro = estado;
     this.buscarDocentes();
@@ -137,9 +140,31 @@ export class AdminDocente implements OnInit {
     this.buscarDocentes();
   }
   
-  // Paginación
+
   cambiarPagina(pagina: number): void {
     this.currentPage = pagina;
     this.cargarDocentes();
+  }
+
+
+  promoverAAdmin(docenteId: number, nombreDocente: string): void {
+
+    if(confirm(`⚠️ ADVERTENCIA: Estás por promover a "${nombreDocente}" a ADMINISTRADOR.\n\nEsto otorgará acceso completo al sistema. ¿Estás seguro?`)) {
+      this.loading = true;
+      
+      this.adminDocenteService.asignarRol(docenteId, this.adminDocenteService.ROL_ADMIN).subscribe({
+        next: () => {
+          this.mensaje = `✅ Docente "${nombreDocente}" promovido a Administrador correctamente`;
+          this.cargarDocentes(); 
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error al promover a admin:', err);
+          this.error = '❌ Error al promover a administrador: ' + 
+                      (err.error?.error || 'Intente nuevamente');
+          this.loading = false;
+        }
+      });
+    }
   }
 }

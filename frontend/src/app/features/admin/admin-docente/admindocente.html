@@ -77,9 +77,14 @@
               <td>{{ docente.legajo }}</td>
               <td>{{ docente.area || 'No asignada' }}</td>
               <td>{{ docente.estado }}</td>
-              <td>
+              <td class="actions-cell">
                 <button class="btn btn-sm btn-info" (click)="asignarMateria(docente.id)">
                   Asignar Materia
+                </button>
+                
+                <button class="btn btn-sm btn-danger admin-btn" 
+                        (click)="promoverAAdmin(docente.id, docente.nombre)">
+                  Promover a Admin
                 </button>
               </td>
             </tr>
@@ -135,9 +140,11 @@
               <td>{{ usuario.legajo || 'No asignado' }}</td>
               <td>{{ usuario.created_at | date }}</td>
               <td>
-                <button class="btn btn-sm btn-primary" (click)="asignarRolDocente(usuario.id)">
-                  Convertir a Docente
-                </button>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-primary" (click)="asignarRolDocente(usuario.id)">
+                    Convertir a Docente
+                  </button>
+                </div>
               </td>
             </tr>
           } @empty {
