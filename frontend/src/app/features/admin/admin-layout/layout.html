@@ -6,14 +6,6 @@
         <div class="sidebar-logo">ProfeSort Admin</div>
       </div>
       <nav class="sidebar-menu">
-        <div class="menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a routerLink="/admin" class="d-flex align-items-center text-decoration-none text-reset w-100">
-            <div class="menu-icon">
-              <img src="./img/icons/profesort_icon.svg" alt="Icono Panel" height="20">
-            </div>
-            <div>Panel</div>
-          </a>
-        </div>
         <div class="menu-item" routerLinkActive="active">
           <a routerLink="/admin/docentes" class="d-flex align-items-center text-decoration-none text-reset w-100">
             <div class="menu-icon">
@@ -30,22 +22,8 @@
             <div>Materias</div>
           </a>
         </div>
-        <div class="menu-item" routerLinkActive="active">
-          <a routerLink="/admin/estudiantes" class="d-flex align-items-center text-decoration-none text-reset w-100">
-            <div class="menu-icon">
-              <img src="./img/icons/credential_icon.svg" alt="Icono Estudiantes" height="20">
-            </div>
-            <div>Estudiantes</div>
-          </a>
-        </div>
-        <div class="menu-item" routerLinkActive="active">
-          <a routerLink="/admin/informes" class="d-flex align-items-center text-decoration-none text-reset w-100">
-            <div class="menu-icon">
-              <img src="./img/icons/metrics_icon.svg" alt="Icono Informes" height="20">
-            </div>
-            <div>Informes</div>
-          </a>
-        </div>
+        <!-- Estudiantes entry removed per request -->
+        <!-- Informes entry removed per request -->
       </nav>
       <div class="menu-item logout-button">
         <button class="btn-logout" (click)="cerrarSesion()">
