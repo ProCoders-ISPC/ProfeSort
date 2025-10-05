@@ -22,11 +22,42 @@
     <div class="spinner">Cargando...</div>
   }
 
-  <!-- Lista de docentes actuales -->
+  <!-- Lista de docentes actuales con búsqueda -->
   @if (!mostrarUsuariosRegulares && !loading && !error) {
     <div class="docentes-container">
       <h3>Docentes Actuales</h3>
       
+      <!-- Filtros de búsqueda -->
+      <div class="filtros-container">
+        <div class="busqueda">
+          <input 
+            type="text" 
+            placeholder="Buscar por nombre, email o legajo..." 
+            (input)="onSearch($any($event.target).value)" 
+            class="search-input"
+          >
+        </div>
+        
+        <div class="filtros">
+          <select (change)="filtrarPorEstado($any($event.target).value)">
+            <option value="">Todos los estados</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+          
+          <select (change)="filtrarPorArea($any($event.target).value)">
+            <option value="">Todas las Areas</option>
+            <option value="Matemáticas">Matemáticas</option>
+            <option value="Ciencias Naturales">Ciencias Naturales</option>
+            <option value="Ciencias Sociales">Ciencias Sociales</option>
+            <option value="Lengua">Lengua</option>
+            <option value="LLengua extranjera">Lengua extranjera</option>
+
+          </select>
+        </div>
+      </div>
+      
+      <!-- Tabla de resultados -->
       <table class="table">
         <thead>
           <tr>
@@ -54,11 +85,29 @@
             </tr>
           } @empty {
             <tr>
-              <td colspan="6" class="text-center">No hay docentes asignados</td>
+              <td colspan="6" class="text-center">
+                {{ terminoBusqueda ? 'No se encontraron docentes con ese criterio' : 'No hay docentes registrados' }}
+              </td>
             </tr>
           }
         </tbody>
       </table>
+      
+      <!-- Paginación simple -->
+      @if (docentes.length > 0) {
+        <div class="pagination">
+          <button 
+            [disabled]="currentPage === 1" 
+            (click)="cambiarPagina(currentPage - 1)"
+          >
+            Anterior
+          </button>
+          <span>Página {{ currentPage }}</span>
+          <button (click)="cambiarPagina(currentPage + 1)">
+            Siguiente
+          </button>
+        </div>
+      }
     </div>
   }
 

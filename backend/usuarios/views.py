@@ -27,28 +27,27 @@ class DocenteViewSet(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
     
     def get_queryset(self):
-        # Filtrar solo usuarios con rol de docente (asumiendo que role_id=2 son docentes)
-        queryset = Usuario.objects.filter(role_id=2)
+        """Filtrar docentes por término de búsqueda, estado y area"""
+        queryset = Usuario.objects.filter(role__id=2)  # Solo usuarios con rol docente
         
-        # Filtrado por búsqueda
-        termino = self.request.query_params.get('termino')
+        # Filtros opcionales
+        termino = self.request.query_params.get('termino', None)
+        estado = self.request.query_params.get('estado', None)
+        area = self.request.query_params.get('area', None)
+        
         if termino:
             queryset = queryset.filter(
                 Q(name__icontains=termino) | 
-                Q(email__icontains=termino) | 
+                Q(email__icontains=termino) |
                 Q(legajo__icontains=termino)
             )
-        
-        # Filtrado por estado
-        estado = self.request.query_params.get('estado')
+            
         if estado:
-            queryset = queryset.filter(estado=estado)
+            queryset = queryset.filter(is_active=(estado.lower() == 'activo'))
             
-        # Filtrado por departamento
-        departamento = self.request.query_params.get('departamento')
-        if departamento:
-            queryset = queryset.filter(departamento=departamento)
-            
+        if area:
+            queryset = queryset.filter(area=area)
+
         return queryset
     
     @action(detail=False, methods=['get'])

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminDocenteService, DocenteCarga } from 'src/app/core/services/admindocente.service';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-admindocente',
@@ -20,15 +21,41 @@ export class AdminDocente implements OnInit {
   // Estado de vista
   mostrarUsuariosRegulares = false;
   
+  // Propiedades para búsqueda
+  terminoBusqueda = '';
+  estadoFiltro = '';
+  areaFiltro = '';
+  searchTerms = new Subject<string>();
+  
+  // Paginación
+  currentPage = 1;
+  pageSize = 10;
+  totalItems = 0;
+  
   constructor(private adminDocenteService: AdminDocenteService) {}
   
   ngOnInit(): void {
+    // Configurar búsqueda con debounce
+    this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.terminoBusqueda = term;
+      this.buscarDocentes();
+    });
+    
     this.cargarDocentes();
   }
   
   cargarDocentes(): void {
     this.loading = true;
-    this.adminDocenteService.getDocentesCarga().subscribe({
+    this.adminDocenteService.getDocentesCarga(
+      this.terminoBusqueda,
+      this.estadoFiltro,
+      this.areaFiltro,
+      this.currentPage,
+      this.pageSize
+    ).subscribe({
       next: (data) => {
         this.docentes = data;
         this.loading = false;
@@ -87,5 +114,32 @@ export class AdminDocente implements OnInit {
   mostrarMensaje(texto: string): void {
     this.mensaje = texto;
     setTimeout(() => this.mensaje = '', 3000);
+  }
+  
+  // Método para manejar input de búsqueda
+  onSearch(term: string): void {
+    this.searchTerms.next(term);
+  }
+  
+  buscarDocentes(): void {
+    this.currentPage = 1; // Reiniciar a primera página
+    this.cargarDocentes();
+  }
+  
+  // Filtros de búsqueda
+  filtrarPorEstado(estado: string): void {
+    this.estadoFiltro = estado;
+    this.buscarDocentes();
+  }
+
+  filtrarPorArea(area: string): void {
+    this.areaFiltro = area;
+    this.buscarDocentes();
+  }
+  
+  // Paginación
+  cambiarPagina(pagina: number): void {
+    this.currentPage = pagina;
+    this.cargarDocentes();
   }
 }
