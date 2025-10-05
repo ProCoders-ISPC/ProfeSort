@@ -220,6 +220,12 @@ tr:hover {
   text-align: center;
 }
 
+.actions-cell {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
 /* Estilos generales para botones */
 .btn-primary, .btn-buscar, .btn-limpiar, .editar-btn, .eliminar-btn, .btn-guardar, .btn-cancelar {
   font-weight: 500;
@@ -310,6 +316,28 @@ tr:hover {
 .botones-accion {
   display: flex;
   gap: 8px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 5px;
+}
+
+.admin-btn {
+  background-color: #d32f2f;
+  border-color: #b71c1c;
+  color: white;
+  position: relative;
+}
+
+.admin-btn:hover {
+  background-color: #b71c1c;
+}
+
+/* Icono de advertencia en el botón */
+.admin-btn::before {
+  content: "⚠️";
+  margin-right: 4px;
 }
 
 /* Estilos para los selects (combos) */
