@@ -340,6 +340,20 @@
       "telefono": "03517883811",
       "isActive": true,
       "createdAt": "2025-09-14T21:06:52.121Z"
+    },
+    {
+      "id": 7,
+      "email": "juangioda2@gmail.com",
+      "password": "Juanignacio123",
+      "name": "Juan Ignacio Gioda",
+      "role": "User",
+      "legajo": "2308",
+      "dni": "44274938",
+      "fechaNacimiento": "2002-08-23",
+      "domicilio": "pasaje regino maders 1734",
+      "telefono": "3516314245",
+      "isActive": true,
+      "createdAt": "2025-10-05T17:04:06.590Z"
     }
   ]
 }
