@@ -26,10 +26,10 @@ export interface EstadisticasCarga {
 })
 export class AdminDocenteService {
   private apiUrl = `${environment.apiUrl}/docentes`;
-  private usuariosUrl = `${environment.apiUrl}/usuarios`;
-
+  usuariosUrl: any;
+  
   constructor(private http: HttpClient) {}
-
+  
   // Obtener todos los docentes
   getDocentesCarga(
     termino?: string,
@@ -38,15 +38,16 @@ export class AdminDocenteService {
     page: number = 1, 
     limit: number = 10
   ): Observable<DocenteCarga[]> {
+    // Construir parámetros de búsqueda
     let params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
-      
+    
     if (termino) params = params.set('termino', termino);
     if (estado) params = params.set('estado', estado);
     if (departamento) params = params.set('departamento', departamento);
     
-    return this.http.get<DocenteCarga[]>(`${this.apiUrl}`, { params });
+    return this.http.get<DocenteCarga[]>(`${this.apiUrl}/`, { params });
   }
 
   // Obtener un docente específico por ID
