@@ -59,6 +59,7 @@ CORS_ALLOW_ALL_ORIGINS = True  # Para desarrollo
 # Para entorno de producción, usa esto en vez de CORS_ALLOW_ALL_ORIGINS:
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:4200",
+#     "http://127.0.0.1:4200"
 # ]
 
 CORS_ALLOW_CREDENTIALS = True
