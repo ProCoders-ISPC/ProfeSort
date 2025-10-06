@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Docente, User } from '../models/models';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { map, catchError, switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class DocentesService {
@@ -226,5 +227,23 @@ export class AuthService {
       rol: localStorage.getItem('rol') as 'Admin' | 'User' | null,
       user: this.getCurrentUser()
     };
+  }
+
+  // Validar sesión en base de datos
+  validateSessionInDB(): Observable<boolean> {
+    const currentUser = this.getCurrentUser();
+    const token = localStorage.getItem('token');
+    
+    if (!currentUser || !token) {
+      return of(false);
+    }
+
+    // Consultar la API para verificar si el usuario sigue activo
+    return this.http.get<ApiResponse<any>>(`${this.apiUrl}/validate-session`, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).pipe(
+      map(response => response.success && response.data?.isActive === true),
+      catchError(() => of(false))
+    );
   }
 }
