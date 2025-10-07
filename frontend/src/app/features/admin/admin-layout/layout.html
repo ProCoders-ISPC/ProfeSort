@@ -23,7 +23,14 @@
           </a>
         </div>
         <!-- Estudiantes entry removed per request -->
-        <!-- Informes entry removed per request -->
+              <div class="menu-item" routerLinkActive="active">
+                <a routerLink="/admin/informes" class="d-flex align-items-center text-decoration-none text-reset w-100">
+                  <div class="menu-icon">
+                    <img src="./img/icons/metrics_icon.svg" alt="Icono Informes" height="20">
+                  </div>
+                  <div>Informes</div>
+                </a>
+              </div>
       </nav>
       <div class="menu-item logout-button">
         <button class="btn-logout" (click)="cerrarSesion()">
