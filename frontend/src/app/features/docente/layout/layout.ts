@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
 export class Layout {
   menuItems = [
     { path: 'estudiantes', label: 'Estudiantes', icon: 'users' },
-    { path: 'materias', label: 'Materias', icon: 'book' },
-    { path: 'perfil', label: 'Perfil', icon: 'user' }
+    { path: 'materias', label: 'Materias', icon: 'book' }
   ];
 }
