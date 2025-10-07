@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, TrackByFunction } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InformesService } from '../../../core/services/informes.service';
+import { InformesService, DistribucionArea, CargaAcademica, EstadisticasCarga } from '../../../core/services/informes.service';
 import { GraficoBarrasComponent } from './grafico-barras';
 
 @Component({
@@ -9,81 +9,127 @@ import { GraficoBarrasComponent } from './grafico-barras';
   standalone: true,
   templateUrl: './informes.html',
   styleUrls: ['./informes.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, GraficoBarrasComponent]
 })
-export class InformesComponent {
-  tipoInforme = 'inscripciones';
-  periodo = '';
+export class InformesComponent implements OnInit {
+  tipoInforme = 'distribucion-areas';
   informeGenerado = false;
-  datosInforme: any = null;
+  cargandoDatos = false;
+  error = '';
 
-  private informesService = inject(InformesService);
+  // Datos para gráficos
+  distribucionAreas: DistribucionArea[] = [];
+  cargaAcademica: CargaAcademica[] = [];
+  estadisticasCarga: EstadisticasCarga | null = null;
 
-  generarInforme() {
+  // Datos procesados para gráficos
+  datosGraficoAreas: any = null;
+  datosGraficoCarga: any = null;
+trackItem: TrackByFunction<DistribucionArea> | undefined;
+
+  constructor(private informesService: InformesService) {}
+
+  ngOnInit(): void {
+    this.generarInforme();
+  }
+
+  generarInforme(): void {
+    this.cargandoDatos = true;
+    this.error = '';
     this.informeGenerado = false;
-    this.datosInforme = null;
-    let obs$;
-    if (this.tipoInforme === 'avance') {
-      // Avance académico: combinar inscripciones, asistencias y calificaciones
-      Promise.all([
-        this.informesService.getInscripciones().toPromise(),
-        this.informesService.getAsistencias().toPromise(),
-        this.informesService.getCalificaciones().toPromise()
-      ]).then(([inscripciones, asistencias, calificaciones]) => {
-        // Agrupar por estudiante y materia
-        const avance = (inscripciones as any[]).map(insc => {
-          const estudianteId = insc.estudianteId;
-          const materia = insc.materia;
-          const asis = (asistencias as any[]).filter(a => a.estudianteId === estudianteId && a.materia === materia);
-          const calif = (calificaciones as any[]).filter(c => c.estudianteId === estudianteId && c.materia === materia);
-          return {
-            estudianteId,
-            materia,
-            estado: insc.estado,
-            asistencias: asis.length,
-            presentes: asis.filter(a => a.presente).length,
-            ausentes: asis.filter(a => !a.presente).length,
-            calificaciones: calif.map(c => ({ nota: c.nota, fecha: c.fecha }))
-          };
-        });
-        this.datosInforme = avance;
+
+    if (this.tipoInforme === 'distribucion-areas') {
+      this.generarInformeDistribucion();
+    } else if (this.tipoInforme === 'carga-academica') {
+      this.generarInformeCarga();
+    }
+  }
+
+  private generarInformeDistribucion(): void {
+    this.informesService.getDistribucionPorArea().subscribe({
+      next: (data) => {
+        this.distribucionAreas = data;
+        this.procesarDatosDistribucion();
         this.informeGenerado = true;
-      }).catch(() => {
-        this.datosInforme = { error: 'No se pudo obtener el informe de avance académico.' };
-        this.informeGenerado = true;
-      });
-      return;
+        this.cargandoDatos = false;
+      },
+      error: (err) => {
+        console.error('Error al generar informe de distribución:', err);
+        this.error = 'Error al cargar datos de distribución por área';
+        this.cargandoDatos = false;
+      }
+    });
+  }
+
+  private generarInformeCarga(): void {
+    Promise.all([
+      this.informesService.getCargaAcademica().toPromise(),
+      this.informesService.getEstadisticasCarga().toPromise()
+    ]).then(([carga, estadisticas]) => {
+      this.cargaAcademica = carga || [];
+      this.estadisticasCarga = estadisticas || null;
+      this.procesarDatosCarga();
+      this.informeGenerado = true;
+      this.cargandoDatos = false;
+    }).catch((err) => {
+      console.error('Error al generar informe de carga:', err);
+      this.error = 'Error al cargar datos de carga académica';
+      this.cargandoDatos = false;
+    });
+  }
+
+  private procesarDatosDistribucion(): void {
+    this.datosGraficoAreas = {
+      tipo: 'barras',
+      titulo: 'Distribución de Docentes por Área',
+      etiquetas: this.distribucionAreas.map(item => item.area),
+      datos: this.distribucionAreas.map(item => item.cantidad),
+      colores: ['#4CAF50', '#2196F3', '#FF9800', '#F44336', '#9C27B0', '#00BCD4']
+    };
+  }
+
+  private procesarDatosCarga(): void {
+    const datosOrdenados = this.cargaAcademica
+      .sort((a, b) => b.cantidadMaterias - a.cantidadMaterias)
+      .slice(0, 15); 
+
+    this.datosGraficoCarga = {
+      tipo: 'barras',
+      titulo: 'Carga Académica por Docente (Top 15)',
+      etiquetas: datosOrdenados.map(item => item.nombreDocente),
+      datos: datosOrdenados.map(item => item.cantidadMaterias),
+      colores: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+    };
+  }
+
+  getPromedioFormateado(): string {
+    return this.estadisticasCarga?.promedio.toFixed(2) || '0';
+  }
+
+  getDesviacionFormateada(): string {
+    return this.estadisticasCarga?.desviacionEstandar.toFixed(2) || '0';
+  }
+
+  getInterpretacionDistribucion(): string {
+    if (this.distribucionAreas.length === 0) return '';
+    
+    const areaMayorDistribucion = this.distribucionAreas
+      .reduce((prev, current) => prev.cantidad > current.cantidad ? prev : current);
+    
+    return `El área con mayor concentración de docentes es ${areaMayorDistribucion.area} con ${areaMayorDistribucion.cantidad} docentes (${areaMayorDistribucion.porcentaje}% del total).`;
+  }
+
+  getInterpretacionCarga(): string {
+    if (!this.estadisticasCarga) return '';
+    
+    let interpretacion = `El promedio de materias por docente es ${this.getPromedioFormateado()}. `;
+    
+    if (this.estadisticasCarga.desviacionEstandar > 1.5) {
+      interpretacion += 'La alta desviación estándar indica una distribución desigual de la carga académica.';
+    } else {
+      interpretacion += 'La distribución de carga académica es relativamente equilibrada.';
     }
-    switch (this.tipoInforme) {
-      case 'inscripciones':
-        obs$ = this.informesService.getInscripciones();
-        break;
-      case 'docente':
-        obs$ = this.informesService.getCargaDocente();
-        break;
-      case 'asistencias':
-        obs$ = this.informesService.getAsistencias();
-        break;
-      case 'calificaciones':
-        obs$ = this.informesService.getCalificaciones();
-        break;
-      case 'materias':
-        obs$ = this.informesService.getMaterias();
-        break;
-      default:
-        obs$ = null;
-    }
-    if (obs$) {
-      obs$.subscribe({
-        next: (data) => {
-          this.datosInforme = data;
-          this.informeGenerado = true;
-        },
-        error: () => {
-          this.datosInforme = { error: 'No se pudo obtener el informe.' };
-          this.informeGenerado = true;
-        }
-      });
-    }
+    
+    return interpretacion;
   }
 }
