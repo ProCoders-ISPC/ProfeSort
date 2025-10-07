@@ -1,32 +1,120 @@
-<div class="informes-wrapper">
-  <h2 class="text-center informes-title">Informes Académicos y Administrativos</h2>
-  <div class="informes-content">
-    <div class="informes-card">
-      <form class="row g-3 mb-4">
-        <div class="col-12 col-md-6">
-          <label for="tipoInforme" class="form-label">Tipo de informe</label>
-          <select id="tipoInforme" class="form-select" [(ngModel)]="tipoInforme" name="tipoInforme">
-            <option value="inscripciones">Inscripciones</option>
-            <option value="avance">Avance académico</option>
-            <option value="docente">Carga docente</option>
-            <option value="asistencias">Asistencias</option>
-            <option value="calificaciones">Calificaciones</option>
-            <option value="materias">Materias</option>
-          </select>
-        </div>
-        <div class="col-12 col-md-6">
-          <label for="periodo" class="form-label">Periodo</label>
-          <input id="periodo" class="form-control" [(ngModel)]="periodo" name="periodo" placeholder="Ej: 2025-1">
-        </div>
-        <div class="col-12 d-flex justify-content-end">
-          <button type="button" class="btn btn-primary w-100 w-md-auto" (click)="generarInforme()">Generar informe</button>
-        </div>
-      </form>
-    </div>
-    <div class="informes-card informes-result" *ngIf="informeGenerado">
-      <h4 class="result-title">Resultado del informe</h4>
-      <div *ngIf="datosInforme?.error" class="alert alert-danger">{{ datosInforme.error }}</div>
-      <pre *ngIf="datosInforme && !datosInforme.error">{{ datosInforme | json }}</pre>
+<div class="informes-container">
+  <div class="informes-header">
+    <h2>Análisis Estadístico</h2>
+    <p class="subtitle">Distribución y Carga Académica Docente</p>
+  </div>
+
+  <div class="form-section">
+    <div class="form-group">
+      <label for="tipoInforme">Tipo de Análisis:</label>
+      <select id="tipoInforme" [(ngModel)]="tipoInforme" class="form-control" (change)="generarInforme()">
+        <option value="distribucion-areas">Distribución por Área</option>
+        <option value="carga-academica">Carga Académica</option>
+      </select>
     </div>
   </div>
+
+  @if (cargandoDatos) {
+    <div class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Generando análisis estadístico...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="alert alert-danger">
+      <i class="fas fa-exclamation-triangle"></i>
+      {{ error }}
+      <button class="btn btn-sm btn-outline-primary ml-2" (click)="generarInforme()">
+        Reintentar
+      </button>
+    </div>
+  }
+
+  @if (informeGenerado && !cargandoDatos && !error) {
+    <div class="informe-results">
+      
+      @if (tipoInforme === 'distribucion-areas' && datosGraficoAreas) {
+        <div class="analysis-section">
+          <h3>Distribución de Docentes por Área</h3>
+          
+          <!-- Gráfico -->
+          <div class="chart-container">
+            <app-grafico-barras [datos]="datosGraficoAreas"></app-grafico-barras>
+          </div>
+          
+          <div class="data-table">
+            <h4>Datos Detallados</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Área</th>
+                  <th>Cantidad</th>
+                  <th>Porcentaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of distribucionAreas; track item.area) {
+                  <tr>
+                    <td>{{ item.area }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>{{ item.porcentaje }}%</td>
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td colspan="3">No hay datos disponibles</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="interpretation">
+            <h4>Interpretación del Análisis</h4>
+            <p>{{ getInterpretacionDistribucion() }}</p>
+          </div>
+        </div>
+      }
+
+      @if (tipoInforme === 'carga-academica' && datosGraficoCarga) {
+        <div class="analysis-section">
+          <h3>Análisis de Carga Académica</h3>
+          
+          @if (estadisticasCarga) {
+            <div class="statistics-summary">
+              <div class="stat-card">
+                <h4>Promedio</h4>
+                <span class="stat-value">{{ getPromedioFormateado() }}</span>
+                <small>materias por docente</small>
+              </div>
+              <div class="stat-card">
+                <h4>Mediana</h4>
+                <span class="stat-value">{{ estadisticasCarga.mediana }}</span>
+                <small>materias por docente</small>
+              </div>
+              <div class="stat-card">
+                <h4>Máximo</h4>
+                <span class="stat-value">{{ estadisticasCarga.maximo }}</span>
+                <small>materias asignadas</small>
+              </div>
+              <div class="stat-card">
+                <h4>Desv. Estándar</h4>
+                <span class="stat-value">{{ getDesviacionFormateada() }}</span>
+                <small>variabilidad</small>
+              </div>
+            </div>
+          }
+          
+          <div class="chart-container">
+            <app-grafico-barras [datos]="datosGraficoCarga"></app-grafico-barras>
+          </div>
+          
+          <div class="interpretation">
+            <h4>Interpretación del Análisis</h4>
+            <p>{{ getInterpretacionCarga() }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
 </div>
