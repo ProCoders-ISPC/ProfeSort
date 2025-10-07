@@ -13,7 +13,6 @@ export interface DocenteCarga {
   cantidadEstudiantes: number;
   materias: string[];
   fechaIngreso?: string;
-  departamento?: string;
   area?: string; 
 }
 
@@ -37,7 +36,7 @@ export class AdminDocenteService {
   getDocentesCarga(
     termino?: string,
     estado?: string,
-    departamento?: string,
+    area?: string,
     page: number = 1, 
     limit: number = 10
   ): Observable<DocenteCarga[]> {
@@ -47,7 +46,7 @@ export class AdminDocenteService {
     
     if (termino) params = params.set('termino', termino);
     if (estado) params = params.set('estado', estado);
-    if (departamento) params = params.set('departamento', departamento);
+    if (area) params = params.set('area', area);
     
     return this.http.get<DocenteCarga[]>(`${this.apiUrl}/`, { params });
   }

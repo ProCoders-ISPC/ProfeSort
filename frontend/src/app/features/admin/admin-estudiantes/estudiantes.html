@@ -27,20 +27,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let estudiante of estudiantesFiltrados">
-              <td>{{ estudiante.nombre }}</td>
-              <td>{{ estudiante.legajo }}</td>
-              <td>{{ estudiante.email }}</td>
-              <td>{{ estudiante.estado }}</td>
-              <td>
-                <button (click)="verFicha(estudiante)" class="btn btn-info btn-sm me-1" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-eye"></i></button>
-                <button (click)="editarEstudiante(estudiante)" class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-pencil-square"></i></button>
-                <button (click)="eliminarEstudiante(estudiante.id)" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
+            @for (estudiante of estudiantesFiltrados; track estudiante.id) {
+              <tr>
+                <td>{{ estudiante.nombre }}</td>
+                <td>{{ estudiante.legajo }}</td>
+                <td>{{ estudiante.email }}</td>
+                <td>{{ estudiante.estado }}</td>
+                <td>
+                  <button (click)="verFicha(estudiante)" class="btn btn-info btn-sm me-1" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-eye"></i></button>
+                  <button (click)="editarEstudiante(estudiante)" class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#estudianteModal"><i class="bi bi-pencil-square"></i></button>
+                  <button (click)="eliminarEstudiante(estudiante.id)" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="text-center text-muted py-3">No hay estudiantes registrados.</td>
+              </tr>
+            }
           </tbody>
         </table>
-        <div *ngIf="estudiantesFiltrados.length === 0" class="text-center text-muted py-3">No hay estudiantes registrados.</div>
       </div>
     </div>
   </div>
@@ -55,13 +60,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div *ngIf="!modalEditMode">
-          <p><strong>Nombre:</strong> {{ estudianteSeleccionado?.nombre }}</p>
-          <p><strong>Legajo:</strong> {{ estudianteSeleccionado?.legajo }}</p>
-          <p><strong>Email:</strong> {{ estudianteSeleccionado?.email }}</p>
-          <p><strong>Estado:</strong> {{ estudianteSeleccionado?.estado }}</p>
-        </div>
-        <div *ngIf="modalEditMode">
+        @if (!modalEditMode) {
+          <div>
+            <p><strong>Nombre:</strong> {{ estudianteSeleccionado?.nombre }}</p>
+            <p><strong>Legajo:</strong> {{ estudianteSeleccionado?.legajo }}</p>
+            <p><strong>Email:</strong> {{ estudianteSeleccionado?.email }}</p>
+            <p><strong>Estado:</strong> {{ estudianteSeleccionado?.estado }}</p>
+          </div>
+        }
+        
+        @if (modalEditMode) {
           <form [formGroup]="estudianteForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
               <label for="nombreModal" class="form-label">Nombre</label>
@@ -84,7 +92,7 @@
               <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Cancelar</button>
             </div>
           </form>
-        </div>
+        }
       </div>
     </div>
   </div>
