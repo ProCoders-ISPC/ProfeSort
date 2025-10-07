@@ -10,6 +10,7 @@
       <select id="tipoInforme" [(ngModel)]="tipoInforme" class="form-control" (change)="generarInforme()">
         <option value="distribucion-areas">Distribución por Área</option>
         <option value="carga-academica">Carga Académica</option>
+        <option value="distribucion-materias">Distribución de Materias</option>
       </select>
     </div>
   </div>
@@ -38,7 +39,7 @@
         <div class="analysis-section">
           <h3>Distribución de Docentes por Área</h3>
           
-          <!-- Gráfico -->
+         
           <div class="chart-container">
             <app-grafico-barras [datos]="datosGraficoAreas"></app-grafico-barras>
           </div>
@@ -112,6 +113,129 @@
           <div class="interpretation">
             <h4>Interpretación del Análisis</h4>
             <p>{{ getInterpretacionCarga() }}</p>
+          </div>
+        </div>
+      }
+
+      
+      @if (tipoInforme === 'distribucion-materias' && datosGraficoMaterias) {
+        <div class="analysis-section">
+          <h3>Distribución de Materias por Área de Conocimiento</h3>
+          
+          @if (estadisticasMaterias) {
+            <div class="statistics-summary">
+              <div class="stat-card">
+                <h4>Total Materias</h4>
+                <span class="stat-value">{{ estadisticasMaterias.totalMaterias }}</span>
+                <small>en el sistema</small>
+              </div>
+              <div class="stat-card success">
+                <h4>Asignadas</h4>
+                <span class="stat-value">{{ estadisticasMaterias.totalAsignadas }}</span>
+                <small>{{ getPorcentajeAsignacionFormateado() }}% del total</small>
+              </div>
+              <div class="stat-card warning">
+                <h4>Sin Asignar</h4>
+                <span class="stat-value">{{ estadisticasMaterias.totalSinAsignar }}</span>
+                <small>{{ (100 - estadisticasMaterias.porcentajeAsignacion).toFixed(1) }}% del total</small>
+              </div>
+              <div class="stat-card info">
+                <h4>% Asignación</h4>
+                <span class="stat-value">{{ getPorcentajeAsignacionFormateado() }}%</span>
+                <small>cobertura total</small>
+              </div>
+            </div>
+          }
+          
+          
+          <div class="chart-container">
+            <app-grafico-barras [datos]="datosGraficoMaterias"></app-grafico-barras>
+          </div>
+
+          
+          @if (datosGraficoAsignacion) {
+            <div class="chart-container">
+              <div class="chart-header">
+                <h4>Comparativo: Materias Asignadas vs Sin Asignar</h4>
+              </div>
+              <div class="comparison-chart">
+                @for (area of distribucionMaterias; track area.area) {
+                  <div class="area-comparison">
+                    <div class="area-name">{{ area.area }}</div>
+                    <div class="bars-container">
+                      <div class="bar-group">
+                        <div class="bar assigned" 
+                             [style.height.px]="(area.materiasAsignadas / getMaxMaterias()) * 200"
+                             [title]="'Asignadas: ' + area.materiasAsignadas">
+                          <span class="bar-value">{{ area.materiasAsignadas }}</span>
+                        </div>
+                        <label>Asignadas</label>
+                      </div>
+                      <div class="bar-group">
+                        <div class="bar unassigned" 
+                             [style.height.px]="(area.materiasSinAsignar / getMaxMaterias()) * 200"
+                             [title]="'Sin asignar: ' + area.materiasSinAsignar">
+                          <span class="bar-value">{{ area.materiasSinAsignar }}</span>
+                        </div>
+                        <label>Sin Asignar</label>
+                      </div>
+                    </div>
+                    <div class="percentage-info">
+                      <span class="assigned-percent">{{ area.porcentajeAsignadas.toFixed(1) }}% asignadas</span>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+          
+         
+          <div class="data-table">
+            <h4>Datos Detallados por Área</h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Área de Conocimiento</th>
+                  <th>Total Materias</th>
+                  <th>Asignadas</th>
+                  <th>Sin Asignar</th>
+                  <th>% Asignación</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of distribucionMaterias; track item.area) {
+                  <tr>
+                    <td>{{ item.area }}</td>
+                    <td>{{ item.totalMaterias }}</td>
+                    <td class="text-success">{{ item.materiasAsignadas }}</td>
+                    <td class="text-warning">{{ item.materiasSinAsignar }}</td>
+                    <td>
+                      <div class="progress-bar-container">
+                        <div class="progress-bar" [style.width.%]="item.porcentajeAsignadas"></div>
+                        <span class="progress-text">{{ item.porcentajeAsignadas.toFixed(1) }}%</span>
+                      </div>
+                    </td>
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td colspan="5">No hay datos disponibles</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="interpretation">
+            <h4>Interpretación del Análisis</h4>
+            <p>{{ getInterpretacionMaterias() }}</p>
+            
+            @if (estadisticasMaterias && estadisticasMaterias.totalSinAsignar > 0) {
+              <div class="alert alert-warning mt-3">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Atención:</strong> Hay {{ estadisticasMaterias.totalSinAsignar }} materias sin asignar que requieren atención.
+                Se recomienda revisar la disponibilidad de docentes en las áreas con mayor déficit.
+              </div>
+            }
           </div>
         </div>
       }

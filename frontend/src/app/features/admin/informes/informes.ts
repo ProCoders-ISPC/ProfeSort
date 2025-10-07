@@ -1,7 +1,7 @@
 import { Component, OnInit, TrackByFunction } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InformesService, DistribucionArea, CargaAcademica, EstadisticasCarga } from '../../../core/services/informes.service';
+import { InformesService, DistribucionArea, CargaAcademica, EstadisticasCarga, DistribucionMaterias, EstadisticasMaterias } from '../../../core/services/informes.service';
 import { GraficoBarrasComponent } from './grafico-barras';
 
 @Component({
@@ -17,15 +17,22 @@ export class InformesComponent implements OnInit {
   cargandoDatos = false;
   error = '';
 
-  // Datos para gráficos
+  
   distribucionAreas: DistribucionArea[] = [];
   cargaAcademica: CargaAcademica[] = [];
   estadisticasCarga: EstadisticasCarga | null = null;
 
-  // Datos procesados para gráficos
+  
+  distribucionMaterias: DistribucionMaterias[] = [];
+  estadisticasMaterias: EstadisticasMaterias | null = null;
+
+
   datosGraficoAreas: any = null;
   datosGraficoCarga: any = null;
-trackItem: TrackByFunction<DistribucionArea> | undefined;
+  datosGraficoMaterias: any = null;
+  datosGraficoAsignacion: any = null;
+
+  trackItem: TrackByFunction<DistribucionArea> | undefined;
 
   constructor(private informesService: InformesService) {}
 
@@ -42,6 +49,8 @@ trackItem: TrackByFunction<DistribucionArea> | undefined;
       this.generarInformeDistribucion();
     } else if (this.tipoInforme === 'carga-academica') {
       this.generarInformeCarga();
+    } else if (this.tipoInforme === 'distribucion-materias') {
+      this.generarInformeMaterias();
     }
   }
 
@@ -78,6 +87,24 @@ trackItem: TrackByFunction<DistribucionArea> | undefined;
     });
   }
 
+
+  private generarInformeMaterias(): void {
+    Promise.all([
+      this.informesService.getDistribucionMaterias().toPromise(),
+      this.informesService.getEstadisticasMaterias().toPromise()
+    ]).then(([distribucion, estadisticas]) => {
+      this.distribucionMaterias = distribucion || [];
+      this.estadisticasMaterias = estadisticas || null;
+      this.procesarDatosMaterias();
+      this.informeGenerado = true;
+      this.cargandoDatos = false;
+    }).catch((err) => {
+      console.error('Error al generar informe de materias:', err);
+      this.error = 'Error al cargar datos de distribución de materias';
+      this.cargandoDatos = false;
+    });
+  }
+
   private procesarDatosDistribucion(): void {
     this.datosGraficoAreas = {
       tipo: 'barras',
@@ -102,12 +129,47 @@ trackItem: TrackByFunction<DistribucionArea> | undefined;
     };
   }
 
+ 
+  private procesarDatosMaterias(): void {
+  
+    this.datosGraficoMaterias = {
+      tipo: 'barras',
+      titulo: 'Total de Materias por Área de Conocimiento',
+      etiquetas: this.distribucionMaterias.map(item => item.area),
+      datos: this.distribucionMaterias.map(item => item.totalMaterias),
+      colores: ['#4CAF50', '#2196F3', '#FF9800', '#F44336', '#9C27B0', '#00BCD4', '#795548', '#607D8B']
+    };
+
+   
+    this.datosGraficoAsignacion = {
+      tipo: 'barras-comparativas',
+      titulo: 'Materias Asignadas vs Sin Asignar por Área',
+      categorias: this.distribucionMaterias.map(item => item.area),
+      series: [
+        {
+          nombre: 'Asignadas',
+          datos: this.distribucionMaterias.map(item => item.materiasAsignadas),
+          color: '#4CAF50'
+        },
+        {
+          nombre: 'Sin Asignar',
+          datos: this.distribucionMaterias.map(item => item.materiasSinAsignar),
+          color: '#F44336'
+        }
+      ]
+    };
+  }
+
   getPromedioFormateado(): string {
     return this.estadisticasCarga?.promedio.toFixed(2) || '0';
   }
 
   getDesviacionFormateada(): string {
     return this.estadisticasCarga?.desviacionEstandar.toFixed(2) || '0';
+  }
+
+  getPorcentajeAsignacionFormateado(): string {
+    return this.estadisticasMaterias?.porcentajeAsignacion.toFixed(1) || '0';
   }
 
   getInterpretacionDistribucion(): string {
@@ -131,5 +193,34 @@ trackItem: TrackByFunction<DistribucionArea> | undefined;
     }
     
     return interpretacion;
+  }
+
+ 
+  getInterpretacionMaterias(): string {
+    if (!this.estadisticasMaterias || this.distribucionMaterias.length === 0) return '';
+    
+    const areaMayorSinAsignar = this.distribucionMaterias
+      .reduce((prev, current) => prev.materiasSinAsignar > current.materiasSinAsignar ? prev : current);
+    
+    const areaMayorAsignacion = this.distribucionMaterias
+      .reduce((prev, current) => prev.porcentajeAsignadas > current.porcentajeAsignadas ? prev : current);
+
+    let interpretacion = `Del total de ${this.estadisticasMaterias.totalMaterias} materias, ${this.estadisticasMaterias.totalAsignadas} están asignadas (${this.getPorcentajeAsignacionFormateado()}%) y ${this.estadisticasMaterias.totalSinAsignar} sin asignar. `;
+    
+    interpretacion += `El área "${areaMayorSinAsignar.area}" tiene la mayor cantidad de materias sin asignar (${areaMayorSinAsignar.materiasSinAsignar}), `;
+    interpretacion += `mientras que "${areaMayorAsignacion.area}" tiene el mayor porcentaje de asignación (${areaMayorAsignacion.porcentajeAsignadas.toFixed(1)}%).`;
+    
+    return interpretacion;
+  }
+
+  
+  getMaxMaterias(): number {
+    if (this.distribucionMaterias.length === 0) return 1;
+    
+    return Math.max(
+      ...this.distribucionMaterias.map(area => 
+        Math.max(area.materiasAsignadas, area.materiasSinAsignar)
+      )
+    );
   }
 }
