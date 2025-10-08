@@ -1,7 +1,7 @@
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar-overlay" id="sidebarOverlay" (click)="closeSidebar()" [class.active]="sidebarOpen"></div>
 <div class="container-fluid p-0">
   <div class="d-flex">
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar" [class.active]="sidebarOpen">
       <div class="sidebar-header">
         <div class="sidebar-logo">ProfeSort Admin</div>
       </div>
@@ -49,8 +49,8 @@
       </nav>
     </aside>
     <div class="main-content w-100">
-      <div class="header header-sticky">
-        <button class="responsive-toggle" id="sidebarToggle">
+      <div class="header">
+        <button class="responsive-toggle" id="sidebarToggle" (click)="toggleSidebar()">
           <i class="fas fa-bars"></i>
         </button>
         <div class="page-title">Panel de Control</div>

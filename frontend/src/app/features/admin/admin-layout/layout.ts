@@ -16,6 +16,7 @@ export class AdminLayout implements OnInit {
   currentUser: AuthUser | null = null;
   userName: string = 'Administrador';
   userInitial: string = 'A';
+  sidebarOpen = false;
 
   constructor(
     private router: Router,
@@ -39,6 +40,14 @@ export class AdminLayout implements OnInit {
       .join('')
       .toUpperCase()
       .substring(0, 2);
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  closeSidebar() {
+    this.sidebarOpen = false;
   }
 
   irAlHome() {

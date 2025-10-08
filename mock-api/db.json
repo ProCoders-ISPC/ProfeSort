@@ -360,6 +360,20 @@
       "telefono": "3516314245",
       "isActive": true,
       "createdAt": "2025-10-05T17:04:06.590Z"
+    },
+    {
+      "id": 8,
+      "email": "jpsanchezbrandan@gmail.com",
+      "password": "Cavul693*",
+      "name": "Juan Pablo Sánchez Brandán",
+      "role": "User",
+      "legajo": "123456",
+      "dni": "44444091",
+      "fechaNacimiento": "2003-04-22",
+      "domicilio": "27 de Abril 693 ",
+      "telefono": "03856451757",
+      "isActive": true,
+      "createdAt": "2025-10-08T03:11:24.288Z"
     }
   ]
 }
