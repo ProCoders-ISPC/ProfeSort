@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { Component, HostListener } from '@angular/core';
+import { RouterModule, Router, NavigationStart } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -19,6 +19,23 @@ export class Layout {
   ];
 
   constructor(private router: Router) {}
+
+  sidebarOpen: boolean = false;
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  closeSidebar() {
+    this.sidebarOpen = false;
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    if (window.innerWidth > 768 && this.sidebarOpen) {
+      this.closeSidebar();
+    }
+  }
 
   cerrarSesion() {
     localStorage.removeItem('token');

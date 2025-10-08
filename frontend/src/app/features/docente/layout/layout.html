@@ -1,20 +1,21 @@
 <div class="docente-layout">
-  <!-- Sidebar -->
-  <nav class="docente-nav">
+  <div class="sidebar-overlay" id="sidebarOverlay" (click)="closeSidebar()" [class.active]="sidebarOpen"></div>
+
+  <nav class="sidebar" [class.active]="sidebarOpen">
     <div class="nav-header">
       <div class="nav-logo">ProfeSort Docente</div>
     </div>
 
     <div class="nav-menu">
       <div class="nav-item" routerLinkActive="active">
-        <a [routerLink]="['/docente/estudiantes']">
+        <a [routerLink]="['/docente/estudiantes']" (click)="closeSidebar()">
           <i class="fa fa-users nav-icon"></i>
           Estudiantes
         </a>
       </div>
 
       <div class="nav-item" routerLinkActive="active">
-        <a [routerLink]="['/docente/materias']">
+        <a [routerLink]="['/docente/materias']" (click)="closeSidebar()">
           <i class="fa fa-book nav-icon"></i>
           Materias
         </a>
@@ -30,9 +31,10 @@
     </div>
   </nav>
 
+
   <div class="main-content w-100">
     <div class="header">
-      <button class="responsive-toggle" id="sidebarToggle">
+      <button class="responsive-toggle" id="sidebarToggle" (click)="toggleSidebar()">
         <i class="fas fa-bars"></i>
       </button>
       <div class="page-title">Panel Docente</div>

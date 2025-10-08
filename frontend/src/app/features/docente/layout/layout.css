@@ -1,7 +1,13 @@
-/* ===== LAYOUT CONTAINERS ===== */
 .container {
   display: flex;
   min-height: 100vh;
+}
+
+.sidebar {
+  z-index: 1002 !important;
+}
+.sidebar-overlay {
+  z-index: 1000 !important;
 }
 
 .container-fluid {
@@ -10,7 +16,6 @@
   width: 100%;
 }
 
-/* ===== SIDEBAR ===== */
 .sidebar {
   width: 250px;
   background-color: #043237;
@@ -20,12 +25,12 @@
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 999;
+  z-index: 1002;
   display: flex;
   flex-direction: column;
   min-height: 100%;
 }
-/* ===== LAYOUT CONTAINERS ===== */
+
 .container {
   display: flex;
   min-height: 100vh;
@@ -37,7 +42,6 @@
   width: 100%;
 }
 
-/* ===== SIDEBAR ===== */
 .sidebar {
   width: 250px;
   background-color: #043237;
@@ -96,7 +100,6 @@
   text-align: center;
 }
 
-/* ===== CONTENIDO PRINCIPAL ===== */
 .main-content {
   flex: 1;
   width: calc(100% - 250px);
@@ -107,7 +110,6 @@
   background-color: #f5f5f5;
 }
 
-/* ===== HEADER ===== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -124,7 +126,6 @@
   color: white;
 }
 
-/* ===== PERFIL DE USUARIO ===== */
 .user-profile {
   display: flex;
   align-items: center;
@@ -143,7 +144,6 @@
   margin-right: 10px;
 }
 
-/* Botón de toggle para el sidebar en móvil */
 .responsive-toggle {
   background: transparent;
   border: none;
@@ -159,11 +159,10 @@
   outline: none;
 }
 
-/* Botón de cierre de sesión */
 .logout-button {
   margin-top: auto;
   padding: 12px;
-  padding-bottom: 20px; /* extra space at bottom to make it easier to tap */
+  padding-bottom: 20px;
 }
 
 .btn-logout {
@@ -189,7 +188,6 @@
   background-color: #d32f2f;
 }
 
-/* Media queries mejorados */
 @media screen and (max-width: 768px) {
   .responsive-toggle {
     display: block !important;
@@ -217,7 +215,49 @@
   }
 }
 
-/* ===== DOCENTE NAV (specific rules, keep header/main-content untouched) ===== */
+@media screen and (max-width: 768px) {
+  .docente-nav {
+    left: -250px;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    transition: left 0.25s ease-in-out;
+    z-index: 1002;
+  }
+
+  .docente-nav.active {
+    left: 0;
+  }
+
+  .docente-content,
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .docente-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  .docente-backdrop.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .responsive-toggle {
+    display: inline-block !important;
+  }
+}
+
 .docente-layout {
   display: flex;
   min-height: 100vh;
@@ -232,8 +272,8 @@
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 999;
-  display: flex; /* make sidebar a column flex container so logout-button can stick to bottom */
+  z-index: 1002;
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
@@ -254,7 +294,7 @@
 
 .nav-menu {
   padding: 20px 0;
-  flex: 1; /* allow menu to take available space inside the flex column */
+  flex: 1;
   overflow-y: auto;
 }
 
@@ -291,7 +331,6 @@
 }
 
 .docente-content {
-  /* align with .main-content so header sits identical */
   flex: 1;
   width: calc(100% - 250px);
   min-height: 100vh;
@@ -306,8 +345,6 @@
   padding: 20px;
 }
 
-
-/* Botón de toggle para el sidebar en móvil */
 .responsive-toggle {
   background: transparent;
   border: none;
@@ -323,7 +360,6 @@
   outline: none;
 }
 
-/* Botón de cierre de sesión */
 .logout-button {
   margin-top: auto;
   padding: 10px;
@@ -347,7 +383,6 @@
   background-color: #d32f2f;
 }
 
-/* Media queries mejorados */
 @media screen and (max-width: 768px) {
   .responsive-toggle {
     display: block !important;
@@ -373,4 +408,22 @@
   .header {
     padding: 10px 15px;
   }
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  pointer-events: none;
+}
+
+.sidebar.active ~ .main-content .sidebar-overlay,
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
