@@ -8,16 +8,10 @@ import { LayoutComponent } from './features/public/layout/layout';
 import { KarinaQuinteros } from './features/public/portfolios/karina-quinteros/karina-quinteros.component';
 import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez'
 import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda/juanignacio-gioda';
-import { Materias } from './features/docente/materias/materias';
 import { LauraZarateComponent as LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate.component';
-// import { CristianVargas } from './features/public/portfolios/cristian-vargas/cristian-vargas';
 import { DanielPaezComponent } from './features/public/portfolios/daniel-paez/daniel-paez';
 
-
-
-
 export const routes: Routes = [
-  
   {
     path: '',
     component: LayoutComponent,
@@ -28,7 +22,6 @@ export const routes: Routes = [
       { path: 'contact', component: ContactComponent },
     ]
   },
-
   
   { path: 'login', component: Login },
   { path: 'register', component: Register },
@@ -38,11 +31,8 @@ export const routes: Routes = [
   { path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
   { path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
   { path: 'portfolio/daniel-paez', component: DanielPaezComponent },
-  { path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
 
-  
-
-  //  RUTAS ADMIN (lazy loading - se cargará desde admin.routes.ts)
+  // RUTAS ADMIN (lazy loading - se cargará desde admin.routes.ts)
   {
     path: 'admin',
     loadChildren: () => import('./features/admin/admin.routes').then(m => m.ADMIN_ROUTES)
