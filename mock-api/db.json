@@ -252,10 +252,10 @@
       "id": 6,
       "nombre": "Química",
       "codigo": "QUI101",
-      "docenteId": 2,
-      "docenteNombre": "Karina del Valle Quinteros",
-      "docenteLegajo": "DOC001",
-      "docenteDni": null
+      "docenteId": 5,
+      "docenteNombre": "cristian vargas",
+      "docenteLegajo": "65416116851651",
+      "docenteDni": "36232100"
     },
     {
       "nombre": "Biologia",
