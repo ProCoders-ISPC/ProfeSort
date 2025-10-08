@@ -1,0 +1,75 @@
+<div class="perfil-container">
+  <div class="perfil-header">
+    <h2>Mi Perfil</h2>
+    <button *ngIf="!modoEdicion" class="btn btn-primary" (click)="toggleEdicion()">
+      <i class="fas fa-edit"></i> Editar Perfil
+    </button>
+  </div>
+
+  @if (mensaje) {
+    <div class="alert alert-success">{{ mensaje }}</div>
+  }
+
+  @if (error) {
+    <div class="alert alert-danger">{{ error }}</div>
+  }
+
+  <div class="perfil-card">
+    <div class="perfil-avatar">
+      <div class="avatar-circle">
+        {{ (currentUser?.name || 'U').charAt(0).toUpperCase() }}
+      </div>
+    </div>
+
+    <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+      <div class="form-section">
+        <h3>Información Personal</h3>
+        
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="name"
+            [readonly]="!modoEdicion">
+        </div>
+
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            formControlName="email"
+            readonly>
+        </div>
+
+        <div class="form-group">
+          <label>Legajo</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            formControlName="legajo"
+            readonly>
+        </div>
+
+        <div class="form-group">
+          <label>Rol</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            [value]="currentUser?.role === 'Admin' ? 'Administrador' : 'Docente'"
+            readonly>
+        </div>
+      </div>
+
+      <div class="form-actions" *ngIf="modoEdicion">
+        <button type="button" class="btn btn-secondary" (click)="toggleEdicion()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!perfilForm.valid">
+          <i class="fas fa-save"></i> Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

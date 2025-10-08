@@ -1,26 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService, AuthUser } from '../../../core/services/services';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, ReactiveFormsModule],
+  imports: [RouterOutlet, RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './layout.html',
   styleUrls: ['./layout.css']
 })
-export class AdminLayout {
+export class AdminLayout implements OnInit {
+  currentUser: AuthUser | null = null;
+  userName: string = 'Administrador';
+  userInitial: string = 'A';
+
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
-  cerrarSesion() {
-    // Eliminar información de sesión
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+  ngOnInit() {
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      if (user) {
+        this.userName = user.role === 'Admin' ? 'Administrador' : user.name;
+        this.userInitial = this.getInitials(this.userName);
+      }
+    });
+  }
 
-    // Redirigir a la página de login
+  getInitials(name: string): string {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  }
+
+  cerrarSesion() {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

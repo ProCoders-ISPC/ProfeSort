@@ -1,1 +1,50 @@
-<p>Panel materias</p>
+<div class="materias-container">
+  <div class="materias-header">
+    <h2>Mis Materias</h2>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Cargando materias...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="alert alert-danger">
+      <i class="fas fa-exclamation-triangle"></i>
+      {{ error }}
+      <button class="btn btn-sm btn-outline-primary" (click)="cargarMaterias()">
+        Reintentar
+      </button>
+    </div>
+  }
+
+  @if (!loading && !error) {
+    @if (materias.length === 0) {
+      <div class="empty-state">
+        <i class="fas fa-book-open"></i>
+        <h3>No hay materias asignadas</h3>
+        <p>Aún no se le han asignado materias a tu cuenta.</p>
+        <p class="hint">Contacta con el administrador para que te asigne materias.</p>
+      </div>
+    } @else {
+      <div class="materias-grid">
+        @for (materia of materias; track materia.id) {
+          <div class="materia-card">
+            <div class="materia-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <h3>{{ materia.nombre }}</h3>
+            <div class="materia-info">
+              <p><strong>Código:</strong> {{ materia.codigo }}</p>
+              @if (materia.profesor) {
+                <p><strong>Profesor:</strong> {{ materia.profesor }}</p>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

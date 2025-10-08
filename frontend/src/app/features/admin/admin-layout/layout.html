@@ -9,9 +9,9 @@
         <div class="menu-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <a routerLink="/admin" class="d-flex align-items-center text-decoration-none text-reset w-100">
             <div class="menu-icon">
-              <img src="./img/icons/profesort_icon.svg" alt="Icono Panel" height="20">
+              <img src="./img/icons/profesort_icon.svg" alt="Icono Inicio" height="20">
             </div>
-            <div>Panel</div>
+            <div>Inicio</div>
           </a>
         </div>
         <div class="menu-item" routerLinkActive="active">
@@ -47,12 +47,6 @@
           </a>
         </div>
       </nav>
-      <div class="menu-item logout-button">
-        <button class="btn-logout" (click)="cerrarSesion()">
-          <img src="/img/icons/logout_icon.svg" alt="Cerrar sesión" height="20" class="logout-icon">
-          <span>Cerrar sesión</span>
-        </button>
-      </div>
     </aside>
     <div class="main-content w-100">
       <div class="header">
@@ -61,8 +55,10 @@
         </button>
         <div class="page-title">Panel Administrador</div>
         <div class="user-profile">
-          <div class="user-avatar">A</div>
-          <div class="d-none d-sm-block">Administrador</div>
+          <span class="user-name">{{ userName }}</span>
+          <button class="btn-logout-header" (click)="cerrarSesion()" title="Cerrar sesión">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
         </div>
       </div>
       <router-outlet></router-outlet>

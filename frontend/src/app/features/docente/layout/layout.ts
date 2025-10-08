@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService, AuthUser } from '../../../core/services/services';
 
 @Component({
   selector: 'app-docente-layout',
@@ -12,9 +13,42 @@ import { CommonModule } from '@angular/common';
     RouterModule
   ]
 })
-export class Layout {
+export class Layout implements OnInit {
+  currentUser: AuthUser | null = null;
+  userName: string = 'Docente';
+  userInitial: string = 'D';
+
   menuItems = [
     { path: 'estudiantes', label: 'Estudiantes', icon: 'users' },
     { path: 'materias', label: 'Materias', icon: 'book' }
   ];
+
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      if (user) {
+        this.userName = user.name;
+        this.userInitial = this.getInitials(this.userName);
+      }
+    });
+  }
+
+  getInitials(name: string): string {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  }
+
+  cerrarSesion() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

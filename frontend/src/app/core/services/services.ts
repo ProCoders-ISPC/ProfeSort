@@ -65,8 +65,6 @@ export interface AuthUser {
   name: string;
   role: 'Admin' | 'User';
   legajo?: string;
-  token: string;
-  isLoggedIn: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -74,46 +72,33 @@ export class AuthService {
   
   private currentUserSubject = new BehaviorSubject<AuthUser | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
-  private apiUrl = 'http://localhost:3000/auth'; // Cambié de /api/auth a /auth
+  private apiUrl = 'http://localhost:3000/auth';
   
   constructor(private http: HttpClient) {
-    // Verificar si hay una sesión guardada al inicializar el servicio
     this.loadSavedSession();
   }
 
   private loadSavedSession(): void {
-    const savedUser = localStorage.getItem('currentUser');
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const userRole = localStorage.getItem('rol');
+    const savedUser = sessionStorage.getItem('currentUser');
 
-    if (savedUser && isLoggedIn === 'true') {
+    if (savedUser) {
       try {
         const user = JSON.parse(savedUser);
         this.currentUserSubject.next(user);
       } catch (error) {
-        // Si hay error al parsear, limpiar localStorage
         this.clearSession();
       }
     }
   }
 
   private saveSession(user: AuthUser): void {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('rol', user.role);
-    if (user.token) {
-      localStorage.setItem('token', user.token);
-    }
+    sessionStorage.setItem('currentUser', JSON.stringify(user));
   }
 
   private clearSession(): void {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('rol');
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('currentUser');
   }
 
-  // Login usando la API mock
   login(email: string, password: string): Observable<ApiResponse<AuthUser>> {
     const loginData: LoginRequest = { email, password };
     
@@ -122,7 +107,6 @@ export class AuthService {
         .subscribe({
           next: (response) => {
             if (response.success && response.data) {
-              // Guardar sesión
               this.saveSession(response.data);
               this.currentUserSubject.next(response.data);
             }
@@ -130,7 +114,6 @@ export class AuthService {
             observer.complete();
           },
           error: (error) => {
-            console.error('Error en login:', error);
             let errorResponse: ApiResponse<AuthUser>;
             
             if (error.status === 401) {
@@ -154,7 +137,6 @@ export class AuthService {
     });
   }
 
-  // Registro usando la API mock
   register(registerData: RegisterRequest): Observable<ApiResponse<any>> {
     return new Observable<ApiResponse<any>>(observer => {
       this.http.post<ApiResponse<any>>(`${this.apiUrl}/register`, registerData)
@@ -164,7 +146,6 @@ export class AuthService {
             observer.complete();
           },
           error: (error) => {
-            console.error('Error en registro:', error);
             let errorResponse: ApiResponse<any>;
             
             if (error.status === 409) {
@@ -188,44 +169,35 @@ export class AuthService {
     });
   }
 
-  // Logout
   logout(): void {
     this.clearSession();
     this.currentUserSubject.next(null);
   }
 
-  // Verificar si está autenticado
   isAuthenticated(): boolean {
-    const currentUser = this.currentUserSubject.value;
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    return currentUser !== null && isLoggedIn;
+    return this.currentUserSubject.value !== null;
   }
 
-  // Verificar si es administrador
   isAdmin(): boolean {
     const currentUser = this.currentUserSubject.value;
-    const role = localStorage.getItem('rol');
-    return currentUser !== null && (currentUser.role === 'Admin' || role === 'Admin') && this.isAuthenticated();
+    return currentUser !== null && currentUser.role === 'Admin';
   }
 
-  // Verificar si es docente/usuario
   isUser(): boolean {
     const currentUser = this.currentUserSubject.value;
-    const role = localStorage.getItem('rol');
-    return currentUser !== null && (currentUser.role === 'User' || role === 'User') && this.isAuthenticated();
+    return currentUser !== null && currentUser.role === 'User';
   }
   
-  // Obtener usuario actual
   getCurrentUser(): AuthUser | null {
     return this.currentUserSubject.value;
   }
 
-  // Obtener datos de sesión del localStorage (para compatibilidad)
   getSessionData() {
+    const user = this.getCurrentUser();
     return {
-      isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
-      rol: localStorage.getItem('rol') as 'Admin' | 'User' | null,
-      user: this.getCurrentUser()
+      isLoggedIn: user !== null,
+      rol: user?.role || null,
+      user: user
     };
   }
 }

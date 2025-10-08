@@ -11,12 +11,11 @@ export const ADMIN_ROUTES: Routes = [
     component: AdminLayout,
     canActivate: [AdminGuard], 
     children: [
+    { path: '', loadComponent: () => import('./inicio/inicio').then(m => m.AdminInicio) },
     { path: 'docentes', component: AdminDocenteComponent },
     { path: 'estudiantes', component: EstudiantesComponent },
     { path: 'materias', component: Materias },
-    { path: 'informes', loadComponent: () => import('./informes/informes').then(m => m.InformesComponent) },
-    { path: '', redirectTo: 'docentes', pathMatch: 'full' },
-
+    { path: 'informes', loadComponent: () => import('./informes/informes').then(m => m.InformesComponent) }
     ],
   },
 ];

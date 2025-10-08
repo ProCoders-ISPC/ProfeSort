@@ -8,11 +8,11 @@ export const DOCENTE_ROUTES: Routes = [
   {
     path: '',
     component: DocenteLayout,
-    //canActivate: [TeacherGuard], // 🛡️ Solo docentes pueden acceder
     children: [
+      { path: '', loadComponent: () => import('./inicio/inicio').then(m => m.DocenteInicio) },
       { path: 'estudiantes', component: Estudiantes },
       { path: 'materias', component: Materias },
-      { path: '', redirectTo: 'estudiantes', pathMatch: 'full' }
+      { path: 'perfil', loadComponent: () => import('./perfil/perfil').then(m => m.DocentePerfil) }
     ]
   }
 ];

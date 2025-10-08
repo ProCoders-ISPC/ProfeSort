@@ -101,6 +101,31 @@
 .user-profile {
   display: flex;
   align-items: center;
+  gap: 15px;
+}
+
+.user-name {
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.btn-logout-header {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+.btn-logout-header:hover {
+  background-color: #d32f2f;
 }
 
 .user-avatar {
@@ -130,30 +155,6 @@
 
 .responsive-toggle:focus {
   outline: none;
-}
-
-/* Botón de cierre de sesión */
-.logout-button {
-  margin-top: auto;
-  padding: 10px;
-}
-
-.btn-logout {
-  width: 100%;
-  padding: 10px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s;
-}
-
-.btn-logout:hover {
-  background-color: #d32f2f;
 }
 
 /* Media queries mejorados */

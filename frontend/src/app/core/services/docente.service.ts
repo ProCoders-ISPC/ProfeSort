@@ -32,6 +32,18 @@ export class DocenteService {
 
   constructor(private http: HttpClient) {}
 
+  getCurrentUser() {
+    const userStr = sessionStorage.getItem('currentUser');
+    if (userStr) {
+      try {
+        return JSON.parse(userStr);
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  }
+
   // Obtener datos del docente por ID
   getDocenteById(id: number): Observable<Docente> {
     return this.http.get<Docente>(`${this.apiUrl}/${id}`);

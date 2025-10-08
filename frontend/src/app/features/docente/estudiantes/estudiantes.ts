@@ -55,7 +55,6 @@ interface Estudiante {
   ) {}
 
   ngOnInit() {
-
     if (!this.verificarAutenticacion()) {
       this.router.navigate(['/login']);
       return;
@@ -68,18 +67,19 @@ interface Estudiante {
   }
 
   cargarDatos() {
-    // Cargar datos del docente (mantener mock por ahora)
-    this.docente = {
-      nombreCompleto: 'Juan Pérez',
-      dni: '12345678',
-      domicilio: 'Calle Principal 123',
-      email: 'juan.perez@mail.com',
-      estado: 'Activo' 
-    };
+    const currentUser = this.docenteService.getCurrentUser();
+    
+    if (currentUser) {
+      this.docente = {
+        nombreCompleto: currentUser.name,
+        dni: currentUser.legajo || 'N/A',
+        domicilio: 'No disponible',
+        email: currentUser.email,
+        estado: 'Activo'
+      };
+      this.iniciales = this.obtenerIniciales(this.docente.nombreCompleto);
+    }
 
-    this.iniciales = this.obtenerIniciales(this.docente.nombreCompleto);
-
-    // Cargar estudiantes desde la API usando el nuevo servicio
     this.cargarEstudiantes();
   }
 

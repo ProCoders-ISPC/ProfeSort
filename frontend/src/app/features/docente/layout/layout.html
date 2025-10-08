@@ -1,11 +1,16 @@
 <div class="docente-layout">
-  <!-- Sidebar -->
   <nav class="docente-nav">
     <div class="nav-header">
-      <div class="nav-logo">ProfeSort</div>
+      <div class="nav-logo">ProfeSort Docente</div>
     </div>
     
     <div class="nav-menu">
+      <div class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/docente']">
+          <i class="fa fa-home nav-icon"></i>
+          Inicio
+        </a>
+      </div>
       <div class="nav-item" routerLinkActive="active">
         <a [routerLink]="['/docente/estudiantes']">
           <i class="fa fa-users nav-icon"></i>
@@ -18,11 +23,28 @@
           Materias
         </a>
       </div>
+      <div class="nav-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/perfil']">
+          <i class="fa fa-user-edit nav-icon"></i>
+          Mi Perfil
+        </a>
+      </div>
     </div>
   </nav>
 
-  <!-- Contenido Principal -->
   <main class="docente-content">
+    <div class="header">
+      <button class="responsive-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="page-title">Panel Docente</div>
+      <div class="user-profile">
+        <span class="user-name">{{ userName }}</span>
+        <button class="btn-logout-header" (click)="cerrarSesion()" title="Cerrar sesión">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </main>
 </div>

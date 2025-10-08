@@ -1,11 +1,5 @@
 <div class="main-wrapper">
   <main class="main-content">
-    <header class="header">
-      <h1 class="page-title">Gestión de Datos</h1>
-      <div class="user-profile">
-        <div class="user-avatar" (click)="toggleEdicion()">{{iniciales}}</div>
-      </div>
-    </header>
 
     <!-- Datos del Docente -->
     <section class="form-container">
@@ -148,8 +142,10 @@
               </td>
             </tr>
             <tr *ngIf="estudiantes.length === 0 && !isLoading && !errorMessage">
-              <td colspan="6" class="text-center">
-                No hay estudiantes asignados
+              <td colspan="6" class="text-center empty-message">
+                <i class="fas fa-user-graduate"></i>
+                <p>Aún no se le han asignado estudiantes.</p>
+                <small>Contacta con el administrador para que te asigne estudiantes.</small>
               </td>
             </tr>
           </tbody>

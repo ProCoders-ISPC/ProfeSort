@@ -1,20 +1,13 @@
 module.exports = (req, res, next) => {
-  // Agregar headers CORS
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   
-  // Manejar preflight OPTIONS
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
   
-  // Logging de requests
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  
-  // Simulación de latencia
   setTimeout(() => {
-    // Simular errores basados en query parameters
     if (req.query.simulate_error === 'server') {
       return res.status(500).json({
         error: 'Error interno del servidor',
@@ -23,7 +16,6 @@ module.exports = (req, res, next) => {
       });
     }
 
-    // Manejo especial para endpoints de autenticación (con y sin /api)
     if ((req.url === '/api/auth/login' || req.url === '/auth/login') && req.method === 'POST') {
       return handleLogin(req, res);
     }
@@ -36,7 +28,6 @@ module.exports = (req, res, next) => {
   }, Math.random() * 300 + 200);
 };
 
-// Handler para login
 function handleLogin(req, res) {
   const { email, password } = req.body;
   const fs = require('fs');
@@ -46,7 +37,6 @@ function handleLogin(req, res) {
     const dbPath = path.join(__dirname, 'db.json');
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
     
-    // Buscar usuario por email y password
     const user = db.users.find(u => 
       u.email === email && 
       u.password === password && 
@@ -54,7 +44,6 @@ function handleLogin(req, res) {
     );
 
     if (user) {
-      // Login exitoso
       return res.status(200).json({
         success: true,
         message: 'Login exitoso',
@@ -63,13 +52,10 @@ function handleLogin(req, res) {
           email: user.email,
           name: user.name,
           role: user.role,
-          legajo: user.legajo || null,
-          token: `fake-jwt-token-${user.id}`,
-          isLoggedIn: true
+          legajo: user.legajo || null
         }
       });
     } else {
-      // Credenciales inválidas
       return res.status(401).json({
         success: false,
         message: 'Credenciales inválidas',
