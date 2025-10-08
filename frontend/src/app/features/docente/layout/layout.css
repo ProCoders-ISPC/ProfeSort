@@ -83,6 +83,11 @@
 .menu-item a {
   color: white !important;
   text-decoration: none !important;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 0.95rem;
+  font-family: inherit;
 }
 
 .menu-item:hover {
@@ -98,6 +103,25 @@
   margin-right: 10px;
   width: 20px;
   text-align: center;
+}
+
+.menu-icon img {
+  height: 20px;
+  display: block;
+}
+
+/* Force identical text/icon sizing with admin panel */
+.menu-item div:last-child,
+.menu-item a > div:last-child {
+  font-size: 0.95rem;
+  line-height: 1.2;
+  font-family: inherit;
+}
+
+/* Ensure icons keep correct aspect and size */
+.menu-icon img {
+  height: 20px !important;
+  width: auto !important;
 }
 
 .main-content {

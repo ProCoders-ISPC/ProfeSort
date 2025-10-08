@@ -6,22 +6,26 @@
       <div class="nav-logo">ProfeSort Docente</div>
     </div>
 
-    <div class="nav-menu">
-      <div class="nav-item" routerLinkActive="active">
-        <a [routerLink]="['/docente/estudiantes']" (click)="closeSidebar()">
-          <i class="fa fa-users nav-icon"></i>
-          Estudiantes
+    <nav class="sidebar-menu">
+      <div class="menu-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/estudiantes']" class="d-flex align-items-center text-decoration-none text-reset w-100" (click)="closeSidebar()">
+          <div class="menu-icon">
+            <img src="./img/icons/credential_icon.svg" alt="Icono Estudiantes" height="20">
+          </div>
+          <div>Estudiantes</div>
         </a>
       </div>
 
-      <div class="nav-item" routerLinkActive="active">
-        <a [routerLink]="['/docente/materias']" (click)="closeSidebar()">
-          <i class="fa fa-book nav-icon"></i>
-          Materias
+      <div class="menu-item" routerLinkActive="active">
+        <a [routerLink]="['/docente/materias']" class="d-flex align-items-center text-decoration-none text-reset w-100" (click)="closeSidebar()">
+          <div class="menu-icon">
+            <img src="./img/icons/subjects_icon.svg" alt="Icono Materias" height="20">
+          </div>
+          <div>Materias</div>
         </a>
       </div>
 
-    </div>
+    </nav>
 
     <div class="logout-button">
       <button class="btn-logout" (click)="cerrarSesion()">
