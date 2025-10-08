@@ -1,379 +1,202 @@
 {
-  "docentes": [
+  "roles": [
     {
       "id": 1,
-      "name": "Karina del Valle Quinteros",
-      "email": "karinaq38@gmail.com",
-      "legajo": "DOC001",
-      "estado": "Activo",
-      "password": "123456",
-      "nombre": "Kary Q",
-      "area": "Cs Nat"
+      "nombre": "ADMIN",
+      "descripcion": "Administrador del sistema",
+      "permisos": [
+        "CREATE",
+        "READ",
+        "UPDATE",
+        "DELETE"
+      ]
     },
     {
       "id": 2,
-      "name": "Juan Pablo Sanchez Brandán",
-      "email": "sanchezbrandan@gmail.com",
-      "legajo": "DOC002",
-      "estado": "Activo",
-      "password": "123456"
+      "nombre": "DOCENTE",
+      "descripcion": "Docente del sistema",
+      "permisos": [
+        "READ",
+        "UPDATE_OWN"
+      ]
     },
     {
       "id": 3,
-      "name": "Juan Ignacio Gioda",
-      "email": "juangioda@gmail.com",
-      "legajo": "DOC003",
-      "estado": "Inactivo",
-      "password": "123456"
+      "nombre": "USUARIO",
+      "descripcion": "Usuario general del sistema",
+      "permisos": [
+        "READ"
+      ]
     }
   ],
-  "carga": [
+  "usuarios": [
     {
       "id": 1,
-      "nombre": "Karina del Valle Quinteros",
-      "email": "karinaq38@gmail.com",
-      "legajo": "DOC001",
-      "estado": "Activo",
-      "cantidadMaterias": 3,
-      "cantidadEstudiantes": 45,
-      "materias": [
-        "Matemática",
-        "Física",
-        "Química"
-      ],
-      "fechaIngreso": "2020-03-15",
-      "departamento": "Ciencias Exactas"
+      "email": "admin@profesort.com",
+      "password": "admin123",
+      "name": "Administrador Principal",
+      "role_id": 1,
+      "legajo": "ADMIN001",
+      "dni": "12345678",
+      "fecha_nacimiento": "1980-01-01",
+      "domicilio": "Sistema Administrativo",
+      "telefono": "3888888888",
+      "fecha_ingreso": "2024-01-01T00:00:00.000Z",
+      "area": "ADMINISTRACION",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00.000Z"
     },
     {
       "id": 2,
-      "nombre": "Juan Pablo Sanchez Brandán",
-      "email": "sanchezbrandan@gmail.com",
-      "legajo": "DOC002",
-      "estado": "Activo",
-      "cantidadMaterias": 2,
-      "cantidadEstudiantes": 38,
-      "materias": [
-        "Historia",
-        "Geografía"
-      ],
-      "fechaIngreso": "2019-08-10",
-      "departamento": "Ciencias Sociales"
+      "email": "karinaq38@gmail.com",
+      "password": "123456",
+      "name": "Karina del Valle Quinteros",
+      "role_id": 2,
+      "legajo": "DOC001",
+      "dni": "28456789",
+      "fecha_nacimiento": "1980-05-15",
+      "domicilio": "Av. Libertador 1234",
+      "telefono": "3517883811",
+      "fecha_ingreso": "2024-01-15T10:30:00.000Z",
+      "area": "EXACTAS",
+      "is_active": true,
+      "created_at": "2024-01-15T10:30:00.000Z"
     },
     {
       "id": 3,
-      "nombre": "Juan Ignacio Gioda",
-      "email": "juangioda@gmail.com",
-      "legajo": "DOC003",
-      "estado": "Inactivo",
-      "cantidadMaterias": 1,
-      "cantidadEstudiantes": 0,
-      "materias": [
-        "Lengua"
-      ],
-      "fechaIngreso": "2018-02-20",
-      "departamento": "Lengua y Literatura"
+      "email": "sanchezbrandan@gmail.com",
+      "password": "123456",
+      "name": "Juan Pablo Sanchez Brandán",
+      "role_id": 2,
+      "legajo": "DOC002",
+      "dni": "32456123",
+      "fecha_nacimiento": "1985-08-22",
+      "domicilio": "Calle San Martín 567",
+      "telefono": "3515678901",
+      "fecha_ingreso": "2024-01-20T14:20:00.000Z",
+      "area": "SOCIALES",
+      "is_active": true,
+      "created_at": "2024-01-20T14:20:00.000Z"
     },
     {
       "id": 4,
-      "nombre": "Daniel Nicolas Paez",
-      "email": "dani.mercadolibre03@gmail.com",
-      "legajo": "DOC004",
-      "estado": "Activo",
-      "cantidadMaterias": 4,
-      "cantidadEstudiantes": 52,
-      "materias": [
-        "Biología",
-        "Química",
-        "Ciencias Naturales",
-        "Laboratorio"
-      ],
-      "fechaIngreso": "2021-01-12",
-      "departamento": "Ciencias Naturales"
+      "email": "cristian.v62@gmail.com",
+      "password": "Friopolar62",
+      "name": "Cristian Vargas",
+      "role_id": 2,
+      "legajo": "DOC003",
+      "dni": "35165185",
+      "fecha_nacimiento": "1996-01-10",
+      "domicilio": "dasdasfasdfasdf",
+      "telefono": "03517883811",
+      "fecha_ingreso": "2025-09-14T21:06:52.121Z",
+      "area": "EXACTAS",
+      "is_active": true,
+      "created_at": "2025-09-14T21:06:52.121Z"
     },
     {
       "id": 5,
-      "nombre": "Ana María Rodríguez",
-      "email": "ana.rodriguez@educacion.gov.ar",
-      "legajo": "DOC005",
-      "estado": "Activo",
-      "cantidadMaterias": 2,
-      "cantidadEstudiantes": 35,
-      "materias": [
-        "Inglés",
-        "Literatura"
-      ],
-      "fechaIngreso": "2019-07-22",
-      "departamento": "Lenguas Extranjeras"
+      "email": "ana.garcia@mail.com",
+      "password": "estudiante1",
+      "name": "Ana García",
+      "role_id": 3,
+      "legajo": "EST001",
+      "dni": "87654321",
+      "fecha_nacimiento": "2005-03-14",
+      "domicilio": "Bv. San Juan 500",
+      "telefono": "3514567890",
+      "fecha_ingreso": "2024-03-01T00:00:00.000Z",
+      "area": "EXACTAS",
+      "is_active": true,
+      "created_at": "2024-03-01T00:00:00.000Z"
     },
     {
       "id": 6,
-      "nombre": "Roberto Carlos Mendez",
-      "email": "roberto.mendez@universidad.edu",
-      "legajo": "DOC006",
-      "estado": "Activo",
-      "cantidadMaterias": 3,
-      "cantidadEstudiantes": 42,
-      "materias": [
-        "Educación Física",
-        "Deportes",
-        "Recreación"
-      ],
-      "fechaIngreso": "2020-11-08",
-      "departamento": "Educación Física"
+      "email": "carlos.lopez@mail.com",
+      "password": "estudiante2",
+      "name": "Carlos López",
+      "role_id": 3,
+      "legajo": "EST002",
+      "dni": "98765432",
+      "fecha_nacimiento": "2004-11-09",
+      "domicilio": "Av. Colón 321",
+      "telefono": "3516543210",
+      "fecha_ingreso": "2024-03-02T00:00:00.000Z",
+      "area": "SOCIALES",
+      "is_active": true,
+      "created_at": "2024-03-02T00:00:00.000Z"
     }
   ],
   "estudiantes": [
     {
       "id": 1,
       "nombre": "Ana",
-      "apellidos": "García López",
+      "apellidos": "García",
       "dni": "87654321",
       "email": "ana.garcia@mail.com",
       "estado": "Activo",
-      "docenteId": 1
+      "legajo": "EST001",
+      "docenteId": 2
     },
     {
       "id": 2,
       "nombre": "Carlos",
-      "apellidos": "López Pérez",
+      "apellidos": "López",
       "dni": "98765432",
       "email": "carlos.lopez@mail.com",
-      "estado": "Pendiente",
-      "docenteId": 1
+      "estado": "Activo",
+      "legajo": "EST002",
+      "docenteId": 3
     },
     {
       "id": 3,
       "nombre": "María",
-      "apellidos": "Rodríguez Silva",
-      "dni": "45678912",
+      "apellidos": "Rodríguez",
+      "dni": "45678901",
       "email": "maria.rodriguez@mail.com",
       "estado": "Activo",
-      "docenteId": 1
+      "legajo": "EST003",
+      "docenteId": 2
     },
     {
       "id": 4,
-      "nombre": "Luis",
-      "apellidos": "Martínez Gómez",
-      "dni": "15975346",
-      "email": "luis.martinez@mail.com",
+      "nombre": "Pedro",
+      "apellidos": "Martínez",
+      "dni": "56789012",
+      "email": "pedro.martinez@mail.com",
       "estado": "Activo",
-      "docenteId": 2
-    },
-    {
-      "id": 5,
-      "nombre": "Sofia",
-      "apellidos": "Torres Vega",
-      "dni": "35791248",
-      "email": "sofia.torres@mail.com",
-      "estado": "Inactivo",
-      "docenteId": 2
-    }
-  ],
-  "inscripciones": [
-    {
-      "id": 1,
-      "estudianteId": 1,
-      "materia": "Matemática",
-      "anio": 2025,
-      "estado": "Regular"
-    },
-    {
-      "id": 2,
-      "estudianteId": 1,
-      "materia": "Física",
-      "anio": 2025,
-      "estado": "Libre"
-    },
-    {
-      "id": 3,
-      "estudianteId": 2,
-      "materia": "Química",
-      "anio": 2025,
-      "estado": "Regular"
-    }
-  ],
-  "asistencias": [
-    {
-      "id": 1,
-      "estudianteId": 1,
-      "materia": "Matemática",
-      "fecha": "2025-09-01",
-      "presente": true
-    },
-    {
-      "id": 2,
-      "estudianteId": 1,
-      "materia": "Matemática",
-      "fecha": "2025-09-02",
-      "presente": false
-    },
-    {
-      "id": 3,
-      "estudianteId": 2,
-      "materia": "Química",
-      "fecha": "2025-09-01",
-      "presente": true
-    }
-  ],
-  "calificaciones": [
-    {
-      "id": 1,
-      "estudianteId": 1,
-      "materia": "Matemática",
-      "nota": 8,
-      "fecha": "2025-09-10"
-    },
-    {
-      "id": 2,
-      "estudianteId": 1,
-      "materia": "Física",
-      "nota": 6,
-      "fecha": "2025-09-11"
-    },
-    {
-      "id": 3,
-      "estudianteId": 2,
-      "materia": "Química",
-      "nota": 9,
-      "fecha": "2025-09-10"
+      "legajo": "EST004",
+      "docenteId": 4
     }
   ],
   "materias": [
     {
-      "id": 5,
-      "nombre": "Física",
-      "codigo": "FIS101",
-      "docenteId": 2,
-      "docenteNombre": "Karina del Valle Quinteros",
-      "docenteLegajo": "DOC001",
-      "docenteDni": null
+      "nombre": "Etica ",
+      "codigo": "ETI156",
+      "id": 6
     },
     {
-      "id": 6,
-      "nombre": "Química",
-      "codigo": "QUI101",
-      "docenteId": 5,
-      "docenteNombre": "cristian vargas",
-      "docenteLegajo": "65416116851651",
-      "docenteDni": "36232100"
-    },
-    {
-      "nombre": "Biologia",
-      "codigo": "BI258",
-      "id": 7,
-      "docenteId": 2,
-      "docenteNombre": "Karina del Valle Quinteros",
-      "docenteLegajo": "DOC001",
-      "docenteDni": "28456789"
+      "nombre": "Historia 2",
+      "codigo": "HIS345",
+      "id": 8
     }
   ],
-  "users": [
+  "asignaciones_docentes_materias": [
     {
-      "id": 1,
-      "email": "admin@profesort.com",
-      "password": "admin123",
-      "name": "Administrador Principal",
-      "role": "Admin",
-      "isActive": true,
-      "createdAt": "2024-01-01T00:00:00.000Z"
+      "id_rol": 2,
+      "id_materia": 6,
+      "id_usuario": 2,
+      "fecha_asignacion": "2025-10-08T12:50:33.362Z",
+      "estado": "ACTIVO",
+      "id": 5
     },
     {
-      "id": 2,
-      "email": "karinaq38@gmail.com",
-      "password": "123456",
-      "name": "Karina del Valle Quinteros",
-      "role": "User",
-      "legajo": "DOC001",
-      "dni": "28456789",
-      "fechaNacimiento": "1980-05-15",
-      "domicilio": "Av. Libertador 1234",
-      "telefono": "3516789012",
-      "isActive": true,
-      "createdAt": "2024-01-15T10:30:00.000Z"
-    },
-    {
-      "id": 3,
-      "email": "sanchezbrandan@gmail.com",
-      "password": "123456",
-      "name": "Juan Pablo Sanchez Brandán",
-      "role": "User",
-      "legajo": "DOC002",
-      "dni": "32456123",
-      "fechaNacimiento": "1985-08-22",
-      "domicilio": "Calle San Martín 567",
-      "telefono": "3515678901",
-      "isActive": true,
-      "createdAt": "2024-01-20T14:20:00.000Z"
-    },
-    {
-      "id": 4,
-      "email": "juangioda@gmail.com",
-      "password": "123456",
-      "name": "Juan Ignacio Gioda",
-      "role": "User",
-      "legajo": "DOC003",
-      "dni": "44274938",
-      "fechaNacimiento": "2002-08-23",
-      "domicilio": "Pasaje Regino Maders 1734",
-      "telefono": "3516314245",
-      "isActive": false,
-      "createdAt": "2024-01-25T09:15:00.000Z"
-    },
-    {
-      "id": 5,
-      "email": "normalauraferracane@gmail.com",
-      "password": "Redcros62",
-      "name": "cristian vargas",
-      "role": "User",
-      "legajo": "65416116851651",
-      "dni": "36232100",
-      "fechaNacimiento": "2002-12-31",
-      "domicilio": "dasdasdasdasd",
-      "telefono": "03517864742",
-      "isActive": true,
-      "createdAt": "2025-09-14T21:03:46.014Z"
-    },
-    {
-      "id": 6,
-      "email": "cristian.v62@gmail.com",
-      "password": "Friopolar62",
-      "name": "cristian vargas",
-      "role": "User",
-      "legajo": "516516518651651",
-      "dni": "35165185",
-      "fechaNacimiento": "1996-01-10",
-      "domicilio": "dasdasfasdfasdf",
-      "telefono": "03517883811",
-      "isActive": true,
-      "createdAt": "2025-09-14T21:06:52.121Z"
-    },
-    {
-      "id": 7,
-      "email": "juangioda2@gmail.com",
-      "password": "Juanignacio123",
-      "name": "Juan Ignacio Gioda",
-      "role": "User",
-      "legajo": "2308",
-      "dni": "44274938",
-      "fechaNacimiento": "2002-08-23",
-      "domicilio": "pasaje regino maders 1734",
-      "telefono": "3516314245",
-      "isActive": true,
-      "createdAt": "2025-10-05T17:04:06.590Z"
-    },
-    {
-      "id": 8,
-      "email": "jpsanchezbrandan@gmail.com",
-      "password": "Cavul693*",
-      "name": "Juan Pablo Sánchez Brandán",
-      "role": "User",
-      "legajo": "123456",
-      "dni": "44444091",
-      "fechaNacimiento": "2003-04-22",
-      "domicilio": "27 de Abril 693 ",
-      "telefono": "03856451757",
-      "isActive": true,
-      "createdAt": "2025-10-08T03:11:24.288Z"
+      "id_rol": 2,
+      "id_materia": 8,
+      "id_usuario": 2,
+      "fecha_asignacion": "2025-10-08T12:53:14.255Z",
+      "estado": "ACTIVO",
+      "id": 6
     }
   ]
 }

@@ -202,7 +202,7 @@
                                     
                                     @if (mostrarListaDocentes && docentesFiltrados.length > 0) {
                                         <div class="docentes-list">
-                                            @for (docente of docentesFiltrados; track docente.id) {
+                                            @for (docente of docentesFiltrados; track docente.id_usuario) {
                                                 <div class="docente-item" (click)="seleccionarDocente(docente)">
                                                     <i class="fas fa-user-circle"></i>
                                                     <div class="docente-data">
@@ -230,12 +230,16 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" 
+                        <button type="button" 
                                 class="btn btn-primary"
-                                [disabled]="materiaForm.invalid">
+                                (click)="guardarManual()">
                             <i class="fas fa-save me-2"></i>
                             {{ modoEdicion ? 'Actualizar Materia' : 'Guardar Materia' }}
                         </button>
+                        <!-- Debug: Mostrar estado del form -->
+                        <small class="text-muted d-block mt-2">
+                          Form valid: {{ materiaForm.valid }} | Form invalid: {{ materiaForm.invalid }}
+                        </small>
                         <button type="button" 
                                 class="btn btn-secondary" 
                                 (click)="cerrarFormulario()">

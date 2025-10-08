@@ -7,9 +7,6 @@
     <p class="welcome-subtitle" *ngIf="currentUser">
       Hola, <strong>{{ currentUser.name }}</strong>
     </p>
-    <p class="welcome-description">
-      Sistema de gestión educativa para administradores y docentes
-    </p>
     <div class="feature-cards">
       <div class="feature-card clickable" (click)="navegarA('/admin/docentes')">
         <i class="fas fa-chalkboard-teacher"></i>

@@ -1,13 +1,4 @@
 {
-  "/api/auth/login": "/api/auth/login",
-  "/api/auth/register": "/api/auth/register",
   "/auth/login": "/auth/login",
-  "/auth/register": "/auth/register",
-  "/api/docentes": "/docentes",
-  "/api/docentes/carga": "/carga",
-  "/api/docentes/:id": "/docentes/:id",
-  "/api/carga/:id": "/carga/:id",
-  "/api/estudiantes": "/estudiantes",
-  "/api/estudiantes/docente/:docenteId": "/estudiantes?docenteId=:docenteId",
-  "/api/*": "/$1"
+  "/auth/register": "/auth/register"
 }

@@ -54,25 +54,25 @@ export class InformesService {
 
   
   getDistribucionPorArea(): Observable<DistribucionArea[]> {
-    return this.http.get<DistribucionArea[]>(`${this.apiUrl}/informes/distribucion-areas/`);
+    return this.http.get<DistribucionArea[]>(`${this.apiUrl}/informes/distribucion-areas`);
   }
 
   
   getCargaAcademica(): Observable<CargaAcademica[]> {
-    return this.http.get<CargaAcademica[]>(`${this.apiUrl}/informes/carga-academica/`);
+    return this.http.get<CargaAcademica[]>(`${this.apiUrl}/informes/carga-academica`);
   }
 
   
   getEstadisticasCarga(): Observable<EstadisticasCarga> {
-    return this.http.get<EstadisticasCarga>(`${this.apiUrl}/informes/estadisticas-carga/`);
+    return this.http.get<EstadisticasCarga>(`${this.apiUrl}/informes/estadisticas-carga`);
   }
 
   getDistribucionMaterias(): Observable<DistribucionMaterias[]> {
-    return this.http.get<DistribucionMaterias[]>(`${this.apiUrl}/informes/distribucion-materias/`);
+    return this.http.get<DistribucionMaterias[]>(`${this.apiUrl}/informes/distribucion-materias`);
   }
 
  
   getEstadisticasMaterias(): Observable<EstadisticasMaterias> {
-    return this.http.get<EstadisticasMaterias>(`${this.apiUrl}/informes/estadisticas-materias/`);
+    return this.http.get<EstadisticasMaterias>(`${this.apiUrl}/informes/estadisticas-materias`);
   }
 }

@@ -31,9 +31,12 @@ export class Layout implements OnInit {
   ngOnInit() {
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
+      console.log('Layout docente - Usuario actual:', user);
       if (user) {
-        this.userName = user.name;
-        this.userInitial = this.getInitials(this.userName);
+        this.userName = user.name || '';
+        this.userInitial = this.getInitials(this.userName || 'Usuario');
+        console.log('Layout docente - userName:', this.userName);
+        console.log('Layout docente - userInitial:', this.userInitial);
       }
     });
   }

@@ -70,10 +70,10 @@
           <div class="docente-card">
             <div class="card-header">
               <div class="docente-avatar">
-                {{ docente.nombre.charAt(0).toUpperCase() }}
+                {{ docente.name.charAt(0).toUpperCase() }}
               </div>
               <div class="docente-info-header">
-                <h4 class="docente-nombre">{{ docente.nombre }}</h4>
+                <h4 class="docente-nombre">{{ docente.name }}</h4>
                 <span class="docente-legajo">{{ docente.legajo }}</span>
               </div>
               <span class="badge" [class.badge-success]="docente.estado === 'Activo'" 
@@ -88,21 +88,12 @@
                 <span>{{ docente.email }}</span>
               </div>
               
-              @if (docente.area) {
-                <div class="info-item">
-                  <i class="fas fa-graduation-cap"></i>
-                  <span>{{ docente.area }}</span>
-                </div>
-              }
+
               
               <div class="stats-row">
                 <div class="stat-item">
                   <i class="fas fa-book"></i>
                   <span>{{ docente.cantidadMaterias || 0 }} materias</span>
-                </div>
-                <div class="stat-item">
-                  <i class="fas fa-user-graduate"></i>
-                  <span>{{ docente.cantidadEstudiantes || 0 }} estudiantes</span>
                 </div>
               </div>
             </div>
@@ -115,7 +106,7 @@
               </button>
               
               <button class="btn btn-sm btn-outline-danger" 
-                      (click)="promoverAAdmin(docente.id, docente.nombre)"
+                      (click)="promoverAAdmin(docente.id, docente.name)"
                       title="Promover a administrador">
                 <i class="fas fa-user-shield"></i> Promover
               </button>
@@ -163,8 +154,12 @@
                       type="text" 
                       id="nombre"
                       class="form-control" 
+                      [class.is-invalid]="hasFieldError('nombre')"
                       formControlName="nombre"
                       placeholder="Ingrese el nombre">
+                    @if (hasFieldError('nombre')) {
+                      <div class="invalid-feedback">{{ getFieldError('nombre') }}</div>
+                    }
                   </div>
                   
                   <div class="form-group">
@@ -173,8 +168,12 @@
                       type="text" 
                       id="apellido"
                       class="form-control" 
+                      [class.is-invalid]="hasFieldError('apellido')"
                       formControlName="apellido"
                       placeholder="Ingrese el apellido">
+                    @if (hasFieldError('apellido')) {
+                      <div class="invalid-feedback">{{ getFieldError('apellido') }}</div>
+                    }
                   </div>
                 </div>
                 
@@ -185,9 +184,13 @@
                       type="text" 
                       id="dni"
                       class="form-control" 
+                      [class.is-invalid]="hasFieldError('dni')"
                       formControlName="dni"
                       placeholder="12345678"
                       maxlength="8">
+                    @if (hasFieldError('dni')) {
+                      <div class="invalid-feedback">{{ getFieldError('dni') }}</div>
+                    }
                   </div>
                   
                   <div class="form-group">
@@ -196,7 +199,11 @@
                       type="date" 
                       id="fechaNacimiento"
                       class="form-control" 
+                      [class.is-invalid]="hasFieldError('fechaNacimiento')"
                       formControlName="fechaNacimiento">
+                    @if (hasFieldError('fechaNacimiento')) {
+                      <div class="invalid-feedback">{{ getFieldError('fechaNacimiento') }}</div>
+                    }
                   </div>
                 </div>
               </div>
@@ -214,8 +221,12 @@
                       type="email" 
                       id="email"
                       class="form-control" 
+                      [class.is-invalid]="hasFieldError('email')"
                       formControlName="email"
                       placeholder="usuario@ejemplo.com">
+                    @if (hasFieldError('email')) {
+                      <div class="invalid-feedback">{{ getFieldError('email') }}</div>
+                    }
                   </div>
                   
                   <div class="form-group">
@@ -224,9 +235,13 @@
                       type="tel" 
                       id="telefono"
                       class="form-control" 
+                      [class.is-invalid]="hasFieldError('telefono')"
                       formControlName="telefono"
                       placeholder="Ingrese su teléfono"
                       maxlength="15">
+                    @if (hasFieldError('telefono')) {
+                      <div class="invalid-feedback">{{ getFieldError('telefono') }}</div>
+                    }
                   </div>
                 </div>
                 
@@ -237,8 +252,12 @@
                       type="text" 
                       id="domicilio"
                       class="form-control" 
+                      [class.is-invalid]="hasFieldError('domicilio')"
                       formControlName="domicilio"
                       placeholder="Ingrese su domicilio">
+                    @if (hasFieldError('domicilio')) {
+                      <div class="invalid-feedback">{{ getFieldError('domicilio') }}</div>
+                    }
                   </div>
                 </div>
               </div>
@@ -256,8 +275,12 @@
                       type="text" 
                       id="legajo"
                       class="form-control" 
+                      [class.is-invalid]="hasFieldError('legajo')"
                       formControlName="legajo"
                       placeholder="Ingrese su legajo">
+                    @if (hasFieldError('legajo')) {
+                      <div class="invalid-feedback">{{ getFieldError('legajo') }}</div>
+                    }
                   </div>
                   
                   <div class="form-group">
@@ -269,17 +292,7 @@
                   </div>
                 </div>
                 
-                <div class="form-row">
-                  <div class="form-group form-group-full">
-                    <label for="area">Área de Especialización</label>
-                    <input 
-                      type="text" 
-                      id="area"
-                      class="form-control" 
-                      formControlName="area"
-                      placeholder="Ej: Matemática, Historia, etc.">
-                  </div>
-                </div>
+
               </div>
             </div>
             
@@ -310,6 +323,12 @@
                   Guardar Cambios
                 }
               </button>
+              @if (!formularioEdicion.valid) {
+                <small class="form-validation-info">
+                  <i class="fas fa-info-circle"></i>
+                  Complete todos los campos requeridos para poder guardar
+                </small>
+              }
             </div>
           </form>
         }

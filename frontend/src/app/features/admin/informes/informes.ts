@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InformesService, DistribucionArea, CargaAcademica, EstadisticasCarga, DistribucionMaterias, EstadisticasMaterias } from '../../../core/services/informes.service';
 import { GraficoBarrasComponent } from './grafico-barras';
+import { EnConstruccionComponent } from '../../../shared/components/en-construccion/en-construccion.component';
 
 @Component({
   selector: 'app-informes',
   standalone: true,
   templateUrl: './informes.html',
   styleUrls: ['./informes.css'],
-  imports: [CommonModule, FormsModule, GraficoBarrasComponent]
+  imports: [CommonModule, FormsModule, GraficoBarrasComponent, EnConstruccionComponent]
 })
 export class InformesComponent implements OnInit {
   tipoInforme = 'distribucion-areas';
@@ -37,10 +38,15 @@ export class InformesComponent implements OnInit {
   constructor(private informesService: InformesService) {}
 
   ngOnInit(): void {
-    this.generarInforme();
+    // Funcionalidad deshabilitada - En desarrollo
+    // this.generarInforme();
   }
 
   generarInforme(): void {
+    // Funcionalidad deshabilitada - En desarrollo
+    return;
+    
+    /* CÓDIGO COMENTADO - SERÁ IMPLEMENTADO CON EL BACKEND REAL
     this.cargandoDatos = true;
     this.error = '';
     this.informeGenerado = false;
@@ -52,6 +58,7 @@ export class InformesComponent implements OnInit {
     } else if (this.tipoInforme === 'distribucion-materias') {
       this.generarInformeMaterias();
     }
+    */
   }
 
   private generarInformeDistribucion(): void {

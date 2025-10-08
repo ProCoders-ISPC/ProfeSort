@@ -6,11 +6,18 @@ import { environment } from '../../../environments/environment';
 
 export interface Docente {
   id: number;
-  nombreCompleto: string;
+  nombre: string;
+  apellido: string;
   dni: string;
   domicilio: string;
   email: string;
   legajo: string;
+  telefono?: string;
+  fechaNacimiento?: string;
+  fechaIngreso?: string;
+  area?: string;
+  departamento?: string;
+  estado?: string;
 }
 
 export interface Estudiante {
@@ -27,7 +34,7 @@ export interface Estudiante {
   providedIn: 'root'
 })
 export class DocenteService {
-  private apiUrl = environment.apiUrl + '/docentes';
+  private apiUrl = environment.apiUrl + '/usuarios';
   private estudiantesUrl = environment.apiUrl + '/estudiantes';
 
   constructor(private http: HttpClient) {}
@@ -59,7 +66,7 @@ export class DocenteService {
 
   // Obtener estudiantes asignados a un docente
   getEstudiantesByDocenteId(docenteId: number): Observable<Estudiante[]> {
-    return this.http.get<Estudiante[]>(`${this.estudiantesUrl}/docente/${docenteId}`).pipe(
+    return this.http.get<Estudiante[]>(`${this.estudiantesUrl}?docenteId=${docenteId}`).pipe(
       catchError(this.handleError)
     );
   }

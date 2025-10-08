@@ -61,14 +61,14 @@ export class NavComponent {
     const user = this.authService.getCurrentUser();
     console.log('Usuario actual:', user); // Debug
     
-    if (user?.role === 'Admin') {
+    if (user?.role_id === 1) {
       console.log('Navegando a admin panel'); // Debug
       this.router.navigate(['/admin']);
-    } else if (user?.role === 'User') {
+    } else if (user?.role_id === 2) {
       console.log('Navegando a docente panel'); // Debug
       this.router.navigate(['/docente']);
     } else {
-      console.log('Rol no reconocido:', user?.role); // Debug
+      console.log('Rol no reconocido:', user?.role_id); // Debug
     }
     this.closeDropdown();
   }

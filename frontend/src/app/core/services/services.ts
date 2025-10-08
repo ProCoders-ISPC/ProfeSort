@@ -1,36 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Docente, User } from '../models/models';
-import { BehaviorSubject, Observable,} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-
-
-@Injectable({ providedIn: 'root' })
-export class DocentesService {
-  private docentes: Docente[] = [
-    { id: 1, name: 'Karina Quinteros', email: 'karina@gmail.com', legajo: 'DOC001', estado: 'Activo' },
-    { id: 2, name: 'Juan Pablo Sánchez', email: 'juan@gmail.com', legajo: 'DOC002', estado: 'Activo' },
-  ];
-
-  getAll(): Docente[] {
-    return this.docentes;
-  }
-
-  add(docente: Docente) {
-    this.docentes.push({ ...docente, id: Date.now() });
-  }
-
-  update(id: number, docente: Partial<Docente>) {
-    const index = this.docentes.findIndex(d => d.id === id);
-    if (index !== -1) {
-      this.docentes[index] = { ...this.docentes[index], ...docente };
-    }
-  }
-
-  delete(id: number) {
-    this.docentes = this.docentes.filter(d => d.id !== id);
-  }
-}
 
 export interface LoginRequest {
   email: string;
@@ -61,10 +31,17 @@ export interface ApiResponse<T> {
 
 export interface AuthUser {
   id: number;
+  name: string; // Campo concatenado de la DB
   email: string;
-  name: string;
-  role: 'Admin' | 'User';
-  legajo?: string;
+  role_id: number;
+  legajo: string;
+  dni: string;
+  fecha_nacimiento: string;
+  domicilio: string;
+  telefono: string;
+  area: string;
+  fecha_ingreso: string;
+  is_active: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -84,15 +61,49 @@ export class AuthService {
     if (savedUser) {
       try {
         const user = JSON.parse(savedUser);
-        this.currentUserSubject.next(user);
+        
+        // Asegurar que el usuario tenga la estructura correcta
+        const authUser: AuthUser = {
+          id: user.id || user.id_usuario || 0,
+          name: user.name || `${user.nombre || ''} ${user.apellido || ''}`.trim() || '',
+          email: user.email || '',
+          role_id: user.role_id || (user.role === 'Admin' ? 1 : 2),
+          legajo: user.legajo || '',
+          dni: user.dni || '',
+          fecha_nacimiento: user.fecha_nacimiento || user.fechaNacimiento || '',
+          domicilio: user.domicilio || '',
+          telefono: user.telefono || '',
+          area: user.area || '',
+          fecha_ingreso: user.fecha_ingreso || user.createdAt || '',
+          is_active: user.is_active !== undefined ? user.is_active : (user.isActive || true)
+        };
+        
+        this.currentUserSubject.next(authUser);
       } catch (error) {
+        console.error('Error al cargar sesión:', error);
         this.clearSession();
       }
     }
   }
 
   private saveSession(user: AuthUser): void {
-    sessionStorage.setItem('currentUser', JSON.stringify(user));
+    // Asegurar que el usuario tenga la estructura correcta antes de guardar
+    const normalizedUser: AuthUser = {
+      id: user.id || (user as any).id_usuario || 0,
+      name: user.name || '',
+      email: user.email || '',
+      role_id: user.role_id || 2,
+      legajo: user.legajo || '',
+      dni: user.dni || '',
+      fecha_nacimiento: user.fecha_nacimiento || '',
+      domicilio: user.domicilio || '',
+      telefono: user.telefono || '',
+      area: user.area || '',
+      fecha_ingreso: user.fecha_ingreso || '',
+      is_active: user.is_active !== undefined ? user.is_active : true
+    };
+    
+    sessionStorage.setItem('currentUser', JSON.stringify(normalizedUser));
   }
 
   private clearSession(): void {
@@ -180,24 +191,46 @@ export class AuthService {
 
   isAdmin(): boolean {
     const currentUser = this.currentUserSubject.value;
-    return currentUser !== null && currentUser.role === 'Admin';
+    return currentUser !== null && currentUser.role_id === 1;
   }
 
   isUser(): boolean {
     const currentUser = this.currentUserSubject.value;
-    return currentUser !== null && currentUser.role === 'User';
+    return currentUser !== null && currentUser.role_id === 2;
   }
   
   getCurrentUser(): AuthUser | null {
-    return this.currentUserSubject.value;
+    const user = this.currentUserSubject.value;
+    if (!user) return null;
+    
+    // Asegurar que el usuario tenga la estructura correcta
+    return {
+      id: user.id || (user as any).id_usuario || 0,
+      name: user.name || '',
+      email: user.email || '',
+      role_id: user.role_id || 2,
+      legajo: user.legajo || '',
+      dni: user.dni || '',
+      fecha_nacimiento: user.fecha_nacimiento || '',
+      domicilio: user.domicilio || '',
+      telefono: user.telefono || '',
+      area: user.area || '',
+      fecha_ingreso: user.fecha_ingreso || '',
+      is_active: user.is_active !== undefined ? user.is_active : true
+    };
   }
 
   getSessionData() {
     const user = this.getCurrentUser();
     return {
       isLoggedIn: user !== null,
-      rol: user?.role || null,
+      rol: user?.role_id === 1 ? 'Admin' : 'User',
       user: user
     };
+  }
+
+  // Método para forzar la recarga del usuario con estructura correcta
+  refreshUserSession(): void {
+    this.loadSavedSession();
   }
 }

@@ -2,11 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService, AuthUser } from '../../../core/services/services';
+import { DocenteService } from '../../../core/services/docente.service';
+import { AdminDocenteService } from '../../../core/services/admindocente.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-docente-perfil',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './perfil.html',
   styleUrls: ['./perfil.css']
 })
@@ -27,16 +31,19 @@ export class DocentePerfil implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private docenteService: DocenteService,
+    private adminDocenteService: AdminDocenteService,
+    private http: HttpClient
   ) {
     this.perfilForm = this.fb.group({
-      name: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-ZÀ-ÿ\\u00f1\\u00d1\\s]+$')]],
       email: [{ value: '', disabled: true }],
       legajo: [{ value: '', disabled: true }],
-      dni: [''], // Opcional
-      fechaNacimiento: [''], // Opcional
-      domicilio: [''], // Opcional
-      telefono: [''] // Opcional
+      dni: [{ value: '', disabled: true }], // Solo admin puede modificar
+      fechaNacimiento: [''], // Docente puede modificar
+      domicilio: ['', [Validators.minLength(5)]], // Docente puede modificar
+      telefono: ['', [Validators.pattern('^[0-9]{10,15}$')]] // Docente puede modificar
     });
   }
 
@@ -44,15 +51,15 @@ export class DocentePerfil implements OnInit, OnDestroy {
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
       if (user) {
-        const userData = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
+        // Usar el nombre completo directamente de la base de datos
         this.perfilForm.patchValue({
-          name: user.name,
-          email: user.email,
+          nombre: user.name || '',
+          email: user.email || '',
           legajo: user.legajo || 'N/A',
-          dni: userData.dni || '',
-          fechaNacimiento: userData.fechaNacimiento || '',
-          domicilio: userData.domicilio || '',
-          telefono: userData.telefono || ''
+          dni: user.dni || '',
+          fechaNacimiento: user.fecha_nacimiento || '',
+          domicilio: user.domicilio || '',
+          telefono: user.telefono || ''
         });
       }
     });
@@ -64,43 +71,53 @@ export class DocentePerfil implements OnInit, OnDestroy {
     this.error = '';
     
     if (!this.modoEdicion && this.currentUser) {
+      // Restaurar valores originales al cancelar edición
       this.perfilForm.patchValue({
-        name: this.currentUser.name
+        nombre: this.currentUser.name || '',
+        fechaNacimiento: this.currentUser.fecha_nacimiento || '',
+        domicilio: this.currentUser.domicilio || '',
+        telefono: this.currentUser.telefono || ''
       });
     }
   }
 
   guardarCambios() {
-    console.log('Intentando guardar cambios...');
-    console.log('Formulario válido:', this.perfilForm.valid);
-    console.log('Usuario actual:', this.currentUser);
-    console.log('Valores del formulario:', this.perfilForm.value);
-    console.log('Errores del formulario:', this.perfilForm.errors);
-    
-    // Verificar errores específicos en cada campo
-    Object.keys(this.perfilForm.controls).forEach(key => {
-      const control = this.perfilForm.get(key);
-      if (control && control.errors) {
-        console.log(`Campo ${key} tiene errores:`, control.errors);
-      }
-    });
-    
     if (this.perfilForm.valid && this.currentUser) {
-      const userData = JSON.parse(sessionStorage.getItem('currentUser') || '{}');
-      const updatedUser = {
-        ...userData,
-        ...this.currentUser,
-        name: this.perfilForm.get('name')?.value,
+      const formData = this.perfilForm.value;
+            // Usar el nombre completo directamente del formulario
+      const docenteData = {
+        name: this.perfilForm.get('nombre')?.value,
+        email: this.perfilForm.get('email')?.value,
         dni: this.perfilForm.get('dni')?.value,
-        fechaNacimiento: this.perfilForm.get('fechaNacimiento')?.value,
+        fecha_nacimiento: this.perfilForm.get('fechaNacimiento')?.value,
         domicilio: this.perfilForm.get('domicilio')?.value,
         telefono: this.perfilForm.get('telefono')?.value
       };
       
-      console.log('Guardando usuario actualizado:', updatedUser);
+      // Crear usuario actualizado
+      const updatedAuthUser: AuthUser = {
+        id: this.currentUser.id,
+        name: this.perfilForm.get('nombre')?.value,
+        email: this.currentUser.email,
+        role_id: this.currentUser.role_id,
+        legajo: this.currentUser.legajo,
+        dni: this.currentUser.dni,
+        fecha_nacimiento: formData.fechaNacimiento,
+        domicilio: formData.domicilio,
+        telefono: formData.telefono,
+        area: this.currentUser.area,
+        fecha_ingreso: this.currentUser.fecha_ingreso,
+        is_active: this.currentUser.is_active
+      };
       
-      sessionStorage.setItem('currentUser', JSON.stringify(updatedUser));
-      this.authService['currentUserSubject'].next(updatedUser);
+      // Usar el método privado saveSession del AuthService para consistencia
+      (this.authService as any)['saveSession'](updatedAuthUser);
+      
+      // Actualizar el AuthService
+      this.authService['currentUserSubject'].next(updatedAuthUser);
+      
+      // Actualizar en la base de datos
+      this.actualizarEnBaseDatos(updatedAuthUser);
       
       this.mensaje = 'Perfil actualizado correctamente';
       this.modoEdicion = false;
@@ -109,7 +126,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
         this.mensaje = '';
       }, 3000);
     } else {
-      console.log('No se puede guardar: formulario inválido o usuario no existe');
       if (!this.perfilForm.valid) {
         this.error = 'Por favor, completa todos los campos requeridos';
         setTimeout(() => {
@@ -117,6 +133,37 @@ export class DocentePerfil implements OnInit, OnDestroy {
         }, 3000);
       }
     }
+  }
+
+  private actualizarEnBaseDatos(updatedUser: AuthUser) {
+    if (!this.currentUser) {
+      console.error('No hay usuario actual para actualizar');
+      return;
+    }
+
+    const userData = {
+      name: updatedUser.name,
+      email: updatedUser.email,
+      dni: updatedUser.dni,
+      fecha_nacimiento: updatedUser.fecha_nacimiento,
+      domicilio: updatedUser.domicilio,
+      telefono: updatedUser.telefono
+    };
+
+    // Usar HTTP directamente para actualizar en json-server
+    this.http.patch(`http://localhost:3000/usuarios/${this.currentUser.id}`, userData)
+      .subscribe({
+        next: (response) => {
+          // Perfil actualizado exitosamente
+        },
+        error: (error) => {
+          console.error('Error actualizando perfil:', error);
+          this.error = 'Error al guardar los cambios. Inténtalo de nuevo.';
+          setTimeout(() => {
+            this.error = '';
+          }, 3000);
+        }
+      });
   }
 
   mostrarTooltip(event: Event): void {

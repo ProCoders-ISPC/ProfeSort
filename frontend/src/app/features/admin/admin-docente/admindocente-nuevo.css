@@ -425,7 +425,7 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 900px;
-    max-height: 90vh;
+    max-height: 95vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -548,6 +548,27 @@
 
 .form-control:invalid {
     border-color: #dc3545;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+    background-color: #fff5f5;
+}
+
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #dc3545;
+}
+
+.form-validation-info {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-style: italic;
 }
 
 /* ===== ALERTAS DEL MODAL ===== */

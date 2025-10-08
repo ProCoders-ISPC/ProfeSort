@@ -6,26 +6,16 @@ module.exports = (req, res, next) => {
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
+
+  if ((req.url === '/api/auth/login' || req.url === '/auth/login') && req.method === 'POST') {
+    return handleLogin(req, res);
+  }
+
+  if ((req.url === '/api/auth/register' || req.url === '/auth/register') && req.method === 'POST') {
+    return handleRegister(req, res);
+  }
   
-  setTimeout(() => {
-    if (req.query.simulate_error === 'server') {
-      return res.status(500).json({
-        error: 'Error interno del servidor',
-        message: 'Simulación de error 500',
-        timestamp: new Date().toISOString()
-      });
-    }
-
-    if ((req.url === '/api/auth/login' || req.url === '/auth/login') && req.method === 'POST') {
-      return handleLogin(req, res);
-    }
-
-    if ((req.url === '/api/auth/register' || req.url === '/auth/register') && req.method === 'POST') {
-      return handleRegister(req, res);
-    }
-    
-    next();
-  }, Math.random() * 300 + 200);
+  next();
 };
 
 function handleLogin(req, res) {
@@ -37,10 +27,10 @@ function handleLogin(req, res) {
     const dbPath = path.join(__dirname, 'db.json');
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
     
-    const user = db.users.find(u => 
+    const user = db.usuarios.find(u => 
       u.email === email && 
       u.password === password && 
-      u.isActive
+      u.is_active
     );
 
     if (user) {
@@ -48,11 +38,18 @@ function handleLogin(req, res) {
         success: true,
         message: 'Login exitoso',
         data: {
-          id: user.id,
-          email: user.email,
+          id_usuario: user.id,
           name: user.name,
-          role: user.role,
-          legajo: user.legajo || null
+          email: user.email,
+          role_id: user.role_id,
+          legajo: user.legajo || null,
+          dni: user.dni,
+          fecha_nacimiento: user.fecha_nacimiento,
+          domicilio: user.domicilio,
+          telefono: user.telefono,
+          area: user.area,
+          fecha_ingreso: user.fecha_ingreso,
+          is_active: user.is_active
         }
       });
     } else {
@@ -82,7 +79,7 @@ function handleRegister(req, res) {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
     
     // Verificar si el email ya existe
-    const existingUser = db.users.find(u => u.email === email);
+    const existingUser = db.usuarios.find(u => u.email === email);
     if (existingUser) {
       return res.status(409).json({
         success: false,
@@ -92,7 +89,7 @@ function handleRegister(req, res) {
     }
 
     // Verificar si el legajo ya existe
-    const existingLegajo = db.users.find(u => u.legajo === legajo);
+    const existingLegajo = db.usuarios.find(u => u.legajo === legajo);
     if (existingLegajo) {
       return res.status(409).json({
         success: false,
@@ -103,22 +100,24 @@ function handleRegister(req, res) {
 
     // Crear nuevo usuario
     const newUser = {
-      id: Math.max(...db.users.map(u => u.id)) + 1,
+      id: Math.max(...db.usuarios.map(u => u.id)) + 1,
+      name: `${nombre} ${apellido}`,
       email,
       password,
-      name: `${nombre} ${apellido}`,
-      role: 'User',
       legajo,
       dni,
-      fechaNacimiento,
+      fecha_nacimiento: fechaNacimiento,
       domicilio,
       telefono,
-      isActive: true,
-      createdAt: new Date().toISOString()
+      role_id: 3, // USUARIO por defecto
+      area: null,
+      is_active: true,
+      fecha_ingreso: new Date().toISOString(),
+      created_at: new Date().toISOString()
     };
 
     // Agregar usuario a la base de datos
-    db.users.push(newUser);
+    db.usuarios.push(newUser);
     
     // Guardar cambios
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
@@ -128,10 +127,10 @@ function handleRegister(req, res) {
       success: true,
       message: 'Usuario registrado exitosamente',
       data: {
-        id: newUser.id,
-        email: newUser.email,
+        id_usuario: newUser.id,
         name: newUser.name,
-        role: newUser.role,
+        email: newUser.email,
+        role_id: newUser.role_id,
         legajo: newUser.legajo
       }
     });

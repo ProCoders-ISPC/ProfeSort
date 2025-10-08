@@ -1,19 +1,8 @@
 <div class="informes-container">
-  <div class="informes-header">
-    <h2>Análisis Estadístico</h2>
-    <p class="subtitle">Distribución y Carga Académica Docente</p>
-  </div>
-
-  <div class="form-section">
-    <div class="form-group">
-      <label for="tipoInforme">Tipo de Análisis:</label>
-      <select id="tipoInforme" [(ngModel)]="tipoInforme" class="form-control" (change)="generarInforme()">
-        <option value="distribucion-areas">Distribución por Área</option>
-        <option value="carga-academica">Carga Académica</option>
-        <option value="distribucion-materias">Distribución de Materias</option>
-      </select>
-    </div>
-  </div>
+  <!-- MENSAJE DE FUNCIONALIDAD EN DESARROLLO -->
+  <app-en-construccion 
+    mensaje="Los informes estadísticos están siendo desarrollados actualmente. Esta función estará disponible próximamente con análisis detallados de carga académica, distribución de docentes por área y estadísticas avanzadas.">
+  </app-en-construccion>
 
   @if (cargandoDatos) {
     <div class="loading-indicator">

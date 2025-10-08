@@ -47,15 +47,13 @@ export class AdminDocenteComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.formularioEdicion = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      dni: ['', Validators.required],
-      fechaNacimiento: ['', Validators.required],
-      domicilio: ['', Validators.required],
-      telefono: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      legajo: ['', Validators.required],
-      area: [''],
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-ZÀ-ÿ\\u00f1\\u00d1\\s]+$')]],
+      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]],
+      legajo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]{7,8}$')]],
+      fechaNacimiento: ['', [Validators.required]],
+      domicilio: ['', [Validators.required, Validators.minLength(5)]],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]],
       estado: ['Activo', Validators.required]
     });
   }
@@ -96,9 +94,10 @@ export class AdminDocenteComponent implements OnInit {
     if (this.terminoBusqueda) {
       const termino = this.terminoBusqueda.toLowerCase();
       docentesFiltrados = docentesFiltrados.filter(docente =>
-        docente.nombre.toLowerCase().includes(termino) ||
+        docente.name.toLowerCase().includes(termino) ||
         docente.email.toLowerCase().includes(termino) ||
-        docente.legajo.toLowerCase().includes(termino)
+        docente.legajo.toLowerCase().includes(termino) ||
+        docente.dni.toLowerCase().includes(termino)
       );
     }
 
@@ -161,22 +160,16 @@ export class AdminDocenteComponent implements OnInit {
   editarDocente(docente: DocenteCarga): void {
     this.docenteEditando = { ...docente }; // Crear una copia
     
-    // Separar nombre completo en nombre y apellido si es necesario
-    const nombreCompleto = docente.nombre.split(' ');
-    const nombre = nombreCompleto[0] || '';
-    const apellido = nombreCompleto.slice(1).join(' ') || '';
-    
+    // Usar el nombre completo directamente de la base de datos
     this.formularioEdicion.patchValue({
-      nombre: nombre,
-      apellido: apellido,
-      dni: (docente as any).dni || '',
-      fechaNacimiento: (docente as any).fechaNacimiento || '',
-      domicilio: (docente as any).domicilio || '',
-      telefono: (docente as any).telefono || '',
+      nombre: docente.name || '',
+      dni: docente.dni,
+      fechaNacimiento: docente.fecha_nacimiento,
+      domicilio: docente.domicilio,
+      telefono: docente.telefono,
       email: docente.email,
       legajo: docente.legajo,
-      area: docente.area || '',
-      estado: docente.estado
+      estado: docente.estado || 'Activo'
     });
     this.mostrarModalEdicion = true;
     this.mensajeModal = '';
@@ -191,49 +184,71 @@ export class AdminDocenteComponent implements OnInit {
     this.errorModal = '';
   }
 
+  cancelarEdicion(): void {
+    this.docenteEditando = null;
+    this.formularioEdicion.reset();
+    this.errorModal = '';
+  }
+
+  actualizarDocente(): void {
+    this.guardarCambios();
+  }
+
   guardarCambios(): void {
+    // Marcar todos los campos como touched para mostrar errores
+    Object.keys(this.formularioEdicion.controls).forEach(key => {
+      this.formularioEdicion.get(key)?.markAsTouched();
+    });
+
     if (this.formularioEdicion.valid && this.docenteEditando) {
       this.guardandoCambios = true;
       this.errorModal = '';
       
       const formValues = this.formularioEdicion.value;
       
-      // Combinar nombre y apellido
-      const nombreCompleto = `${formValues.nombre} ${formValues.apellido}`.trim();
-      
       const datosActualizados = {
-        ...this.docenteEditando,
-        nombre: nombreCompleto,
+        name: formValues.nombre,
         email: formValues.email,
         legajo: formValues.legajo,
         dni: formValues.dni,
-        fechaNacimiento: formValues.fechaNacimiento,
+        fecha_nacimiento: formValues.fechaNacimiento,
         domicilio: formValues.domicilio,
         telefono: formValues.telefono,
-        area: formValues.area,
-        estado: formValues.estado
+        is_active: formValues.estado === 'Activo'
       };
 
-      console.log('Guardando cambios del docente:', datosActualizados);
+      console.log('Formulario válido:', this.formularioEdicion.valid);
+      console.log('Datos del formulario:', formValues);
+      console.log('Docente editando:', this.docenteEditando);
+      console.log('Datos actualizados a enviar:', datosActualizados);
       
-      // Simulación de guardado (reemplazar con servicio real)
-      setTimeout(() => {
-        // Actualizar en la lista local
-        const index = this.docentesOriginales.findIndex(d => d.id === this.docenteEditando!.id);
-        if (index !== -1) {
-          this.docentesOriginales[index] = { ...datosActualizados };
-          this.aplicarFiltros(); // Reaplica filtros con los nuevos datos
+      // Usar el servicio real para actualizar
+      this.adminDocenteService.actualizarDocente(this.docenteEditando!.id, datosActualizados).subscribe({
+        next: (response) => {
+          console.log('Docente actualizado exitosamente:', response);
+          
+          // Actualizar en la lista local
+          const index = this.docentesOriginales.findIndex(d => d.id === this.docenteEditando!.id);
+          if (index !== -1) {
+            this.docentesOriginales[index] = { ...response, estado: response.is_active ? 'Activo' : 'Inactivo' };
+            this.aplicarFiltros(); // Reaplica filtros con los nuevos datos
+          }
+          
+          this.mensajeModal = 'Información del docente actualizada correctamente';
+          this.guardandoCambios = false;
+          
+          // Cerrar modal después de 2 segundos
+          setTimeout(() => {
+            this.cerrarModal();
+            this.mostrarMensaje('Docente actualizado correctamente');
+          }, 2000);
+        },
+        error: (error) => {
+          console.error('Error al actualizar docente:', error);
+          this.errorModal = 'Error al guardar los cambios. Inténtalo de nuevo.';
+          this.guardandoCambios = false;
         }
-        
-        this.mensajeModal = 'Información del docente actualizada correctamente';
-        this.guardandoCambios = false;
-        
-        // Cerrar modal después de 2 segundos
-        setTimeout(() => {
-          this.cerrarModal();
-          this.mostrarMensaje('Docente actualizado correctamente');
-        }, 2000);
-      }, 1000);
+      });
     } else {
       this.errorModal = 'Por favor, complete todos los campos requeridos';
     }
@@ -242,6 +257,29 @@ export class AdminDocenteComponent implements OnInit {
   mostrarMensaje(texto: string): void {
     this.mensaje = texto;
     setTimeout(() => this.mensaje = '', 3000);
+  }
+
+  // Método para obtener errores de campos del formulario
+  getFieldError(fieldName: string): string {
+    const field = this.formularioEdicion.get(fieldName);
+    
+    if (field && field.errors && field.touched) {
+      if (field.errors['required']) return `Este campo es obligatorio`;
+      if (field.errors['email']) return `Ingrese un correo electrónico válido`;
+      if (field.errors['minlength']) return `Debe tener al menos ${field.errors['minlength'].requiredLength} caracteres`;
+      if (field.errors['pattern']) {
+        if (fieldName === 'dni') return 'El DNI debe contener solo números (7-8 dígitos)';
+        if (fieldName === 'telefono') return 'El teléfono debe contener solo números (10-15 dígitos)';
+      }
+    }
+    
+    return '';
+  }
+
+  // Método para verificar si un campo tiene errores
+  hasFieldError(fieldName: string): boolean {
+    const field = this.formularioEdicion.get(fieldName);
+    return !!(field && field.errors && field.touched);
   }
   
 

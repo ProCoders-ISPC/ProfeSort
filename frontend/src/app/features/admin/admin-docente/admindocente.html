@@ -64,7 +64,6 @@
             <th>Nombre</th>
             <th>Email</th>
             <th>Legajo</th>
-            <th>Área</th>
             <th>Estado</th>
             <th>Acciones</th>
           </tr>
@@ -72,18 +71,21 @@
         <tbody>
           @for (docente of docentes; track docente.id) {
             <tr>
-              <td>{{ docente.nombre }}</td>
+              <td>{{ docente.name }}</td>
               <td>{{ docente.email }}</td>
               <td>{{ docente.legajo }}</td>
-              <td>{{ docente.area || 'No asignada' }}</td>
               <td>{{ docente.estado }}</td>
               <td class="actions-cell">
+                <button class="btn btn-sm btn-secondary" (click)="editarDocente(docente)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                
                 <button class="btn btn-sm btn-info" (click)="asignarMateria(docente.id)">
                   Asignar Materia
                 </button>
                 
                 <button class="btn btn-sm btn-danger admin-btn" 
-                        (click)="promoverAAdmin(docente.id, docente.nombre)">
+                        (click)="promoverAAdmin(docente.id, docente.name)">
                   Promover a Admin
                 </button>
               </td>
@@ -154,6 +156,145 @@
           }
         </tbody>
       </table>
+    </div>
+  }
+
+  <!-- Modal de Edición de Docente -->
+  @if (docenteEditando) {
+    <div class="modal-overlay" (click)="cancelarEdicion()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Editar Docente</h3>
+          <button class="close-btn" (click)="cancelarEdicion()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <form [formGroup]="formularioEdicion" (ngSubmit)="actualizarDocente()">
+          <div class="modal-body">
+            @if (errorModal) {
+              <div class="alert alert-danger">{{ errorModal }}</div>
+            }
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Nombre Completo *</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  formControlName="nombre"
+                  [class.is-invalid]="formularioEdicion.get('nombre')?.invalid && formularioEdicion.get('nombre')?.touched">
+                @if (formularioEdicion.get('nombre')?.invalid && formularioEdicion.get('nombre')?.touched) {
+                  <div class="invalid-feedback">
+                    El nombre es requerido y debe tener al menos 2 caracteres
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label>Email</label>
+                <input 
+                  type="email" 
+                  class="form-control"
+                  formControlName="email"
+                  readonly>
+                <small class="form-text text-muted">El email no puede ser modificado</small>
+              </div>
+
+              <div class="form-group">
+                <label>Legajo *</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  formControlName="legajo"
+                  [class.is-invalid]="formularioEdicion.get('legajo')?.invalid && formularioEdicion.get('legajo')?.touched">
+                @if (formularioEdicion.get('legajo')?.invalid && formularioEdicion.get('legajo')?.touched) {
+                  <div class="invalid-feedback">
+                    El legajo es requerido
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label>DNI *</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  formControlName="dni"
+                  [class.is-invalid]="formularioEdicion.get('dni')?.invalid && formularioEdicion.get('dni')?.touched">
+                @if (formularioEdicion.get('dni')?.invalid && formularioEdicion.get('dni')?.touched) {
+                  <div class="invalid-feedback">
+                    DNI debe tener entre 7 y 8 dígitos
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label>Fecha de Nacimiento *</label>
+                <input 
+                  type="date" 
+                  class="form-control"
+                  formControlName="fechaNacimiento"
+                  [class.is-invalid]="formularioEdicion.get('fechaNacimiento')?.invalid && formularioEdicion.get('fechaNacimiento')?.touched">
+                @if (formularioEdicion.get('fechaNacimiento')?.invalid && formularioEdicion.get('fechaNacimiento')?.touched) {
+                  <div class="invalid-feedback">
+                    La fecha de nacimiento es requerida
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label>Domicilio *</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  formControlName="domicilio"
+                  [class.is-invalid]="formularioEdicion.get('domicilio')?.invalid && formularioEdicion.get('domicilio')?.touched">
+                @if (formularioEdicion.get('domicilio')?.invalid && formularioEdicion.get('domicilio')?.touched) {
+                  <div class="invalid-feedback">
+                    El domicilio es requerido (mínimo 5 caracteres)
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label>Teléfono *</label>
+                <input 
+                  type="text" 
+                  class="form-control"
+                  formControlName="telefono"
+                  [class.is-invalid]="formularioEdicion.get('telefono')?.invalid && formularioEdicion.get('telefono')?.touched">
+                @if (formularioEdicion.get('telefono')?.invalid && formularioEdicion.get('telefono')?.touched) {
+                  <div class="invalid-feedback">
+                    Teléfono debe tener entre 10 y 15 dígitos
+                  </div>
+                }
+              </div>
+
+              <div class="form-group">
+                <label>Estado *</label>
+                <select class="form-control" formControlName="estado">
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cancelarEdicion()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="!formularioEdicion.valid || guardandoCambios">
+              @if (guardandoCambios) {
+                <i class="fas fa-spinner fa-spin"></i> Guardando...
+              } @else {
+                <i class="fas fa-save"></i> Guardar Cambios
+              }
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   }
 </div>

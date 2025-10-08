@@ -3,13 +3,20 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EstudiantesService, Estudiante } from 'src/app/core/services/estudiantes.service';
+import { EnConstruccionComponent } from '../../../shared/components/en-construccion/en-construccion.component';
 
 @Component({
   selector: 'app-estudiantes',
-  templateUrl: './estudiantes.html',
+  template: `
+    <div class="container-fluid px-4 py-3">
+      <app-en-construccion 
+        mensaje="La gestion de estudiantes esta siendo desarrollada actualmente. Esta funcionalidad estara disponible proximamente con registro completo de estudiantes, asignacion a docentes y seguimiento academico.">
+      </app-en-construccion>
+    </div>
+  `,
   styleUrls: ['./estudiantes.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [ReactiveFormsModule, CommonModule, EnConstruccionComponent]
 })
 export class EstudiantesComponent implements OnInit {
   estudianteForm!: FormGroup;
