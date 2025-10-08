@@ -2,9 +2,9 @@
   <!-- Sidebar -->
   <nav class="docente-nav">
     <div class="nav-header">
-      <div class="nav-logo">ProfeSort</div>
+      <div class="nav-logo">ProfeSort Docente</div>
     </div>
-    
+
     <div class="nav-menu">
       <div class="nav-item" routerLinkActive="active">
         <a [routerLink]="['/docente/estudiantes']">
@@ -12,17 +12,29 @@
           Estudiantes
         </a>
       </div>
+
       <div class="nav-item" routerLinkActive="active">
         <a [routerLink]="['/docente/materias']">
           <i class="fa fa-book nav-icon"></i>
           Materias
         </a>
       </div>
+
     </div>
   </nav>
 
-  <!-- Contenido Principal -->
-  <main class="docente-content">
+  <div class="main-content w-100">
+    <div class="header">
+      <button class="responsive-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="page-title">Panel Docente</div>
+      <div class="user-profile">
+        <div class="user-avatar">D</div>
+        <div class="d-none d-sm-block">Docente</div>
+      </div>
+    </div>
     <router-outlet></router-outlet>
-  </main>
+  </div>
+
 </div>
