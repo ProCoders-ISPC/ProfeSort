@@ -7,21 +7,18 @@
     <p class="welcome-subtitle" *ngIf="currentUser">
       Hola, <strong>{{ currentUser.name }}</strong>
     </p>
-    <p class="welcome-description">
-      Plataforma de gestión para docentes
-    </p>
     <div class="feature-cards">
-      <div class="feature-card">
+      <div class="feature-card clickable" (click)="navegarA('/docente/estudiantes')">
         <i class="fas fa-users"></i>
         <h3>Mis Estudiantes</h3>
         <p>Gestiona tu lista de estudiantes asignados</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card clickable" (click)="navegarA('/docente/materias')">
         <i class="fas fa-book"></i>
         <h3>Mis Materias</h3>
         <p>Administra las materias que impartes</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card clickable" (click)="navegarA('/docente/perfil')">
         <i class="fas fa-user-edit"></i>
         <h3>Mi Perfil</h3>
         <p>Actualiza tu información personal</p>

@@ -24,8 +24,8 @@ export interface EstadisticasCarga {
   providedIn: 'root' 
 })
 export class AdminDocenteService {
-  private apiUrl = `${environment.apiUrl}/docentes`;
-  private usuariosUrl = `${environment.apiUrl}/usuarios`; 
+  private apiUrl = `${environment.apiUrl}/carga`;
+  private usuariosUrl = `${environment.apiUrl}/users`; 
 
   readonly ROL_USUARIO = 1;
   readonly ROL_DOCENTE = 2;
@@ -40,15 +40,13 @@ export class AdminDocenteService {
     page: number = 1, 
     limit: number = 10
   ): Observable<DocenteCarga[]> {
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('limit', limit.toString());
+    let params = new HttpParams();
     
-    if (termino) params = params.set('termino', termino);
+    // json-server usa filtros simples sin paginación avanzada
     if (estado) params = params.set('estado', estado);
     if (area) params = params.set('area', area);
     
-    return this.http.get<DocenteCarga[]>(`${this.apiUrl}/`, { params });
+    return this.http.get<DocenteCarga[]>(`${this.apiUrl}`, { params });
   }
 
   getDocenteCarga(id: number): Observable<DocenteCarga> {
@@ -56,22 +54,22 @@ export class AdminDocenteService {
   }
 
   getUsuariosRegulares(page = 1, limit = 10): Observable<any[]> {
+    // Obtener usuarios que no son admin
     const params = new HttpParams()
-      .set('page', page.toString())
-      .set('limit', limit.toString())
-      .set('role_id', this.ROL_USUARIO.toString());
+      .set('role', 'docente'); // Filtrar por role
     
     return this.http.get<any[]>(`${this.usuariosUrl}`, { params });
   }
 
   asignarRol(usuarioId: number, rolId: number): Observable<any> {
-    return this.http.patch(`${this.usuariosUrl}/${usuarioId}/`, {
-      role_id: rolId
+    // Para mock-api, solo actualizar el rol
+    return this.http.patch(`${this.usuariosUrl}/${usuarioId}`, {
+      role: rolId === this.ROL_ADMIN ? 'admin' : 'docente'
     });
   }
   
   actualizarDocente(id: number, docente: Partial<DocenteCarga>): Observable<DocenteCarga> {
-    return this.http.put<DocenteCarga>(`${this.apiUrl}/${id}`, docente);
+    return this.http.patch<DocenteCarga>(`${this.apiUrl}/${id}`, docente);
   }
 
   getEstadisticas(): Observable<EstadisticasCarga> {

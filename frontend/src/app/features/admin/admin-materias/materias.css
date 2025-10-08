@@ -106,23 +106,26 @@
 .materias-grid {
     padding: 24px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
 }
 
 .materia-card {
-    background: white;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    padding: 20px;
-    transition: all 0.3s ease;
+    background: rgb(255, 255, 255);
+    border-radius: 0.4em;
+    box-shadow: 0.3em 0.3em 0.7em #00000015;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: rgb(250, 250, 250) 0.2em solid;
+    padding: 24px;
     position: relative;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
 }
 
 .materia-card:hover {
+    border: #043237 0.2em solid;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-color: #3abdcc;
 }
 
 .card-header {
@@ -513,6 +516,170 @@ tr:hover {
     background-color: #d1ecf1;
     border-color: #bee5eb;
     color: #0c5460;
+}
+
+/* ===== BÚSQUEDA Y SELECCIÓN DE DOCENTES ===== */
+.docente-selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #e8f8fa;
+    border: 2px solid #3abdcc;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.docente-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.docente-info i {
+    font-size: 24px;
+    color: #0F8795;
+}
+
+.docente-info div {
+    display: flex;
+    flex-direction: column;
+}
+
+.docente-info strong {
+    color: #2c3e50;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.docente-info small {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.docente-search {
+    position: relative;
+}
+
+.docentes-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #3abdcc;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.docente-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.docente-item:last-child {
+    border-bottom: none;
+}
+
+.docente-item:hover {
+    background-color: #f8f9fa;
+}
+
+.docente-item i {
+    font-size: 24px;
+    color: #6c757d;
+}
+
+.docente-data {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.docente-data strong {
+    color: #2c3e50;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.docente-data small {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.no-results {
+    padding: 24px;
+    text-align: center;
+    color: #6c757d;
+}
+
+.no-results i {
+    font-size: 32px;
+    color: #ddd;
+    margin-bottom: 8px;
+}
+
+.no-results p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.docente-info-card {
+    padding: 12px 0;
+}
+
+.docente-asignado {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.docente-asignado i {
+    font-size: 24px;
+    color: #0F8795;
+}
+
+.docente-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.docente-details strong {
+    color: #2c3e50;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.docente-details small {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.sin-docente {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.sin-docente i {
+    font-size: 20px;
+    color: #adb5bd;
 }
 
 /* ===== UTILITIES ===== */

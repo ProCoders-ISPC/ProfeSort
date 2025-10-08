@@ -77,11 +77,21 @@
                                 <span class="materia-codigo">{{ materia.codigo }}</span>
                             </div>
                             <div class="card-body">
-                                <div class="profesor-info">
-                                    <i class="fas fa-user-tie me-2"></i>
-                                    <span [class.sin-asignar]="!materia.profesor">
-                                        {{ obtenerTextoProfesor(materia.profesor) }}
-                                    </span>
+                                <div class="docente-info-card">
+                                    @if (materia.docenteNombre) {
+                                        <div class="docente-asignado">
+                                            <i class="fas fa-user-tie me-2"></i>
+                                            <div class="docente-details">
+                                                <strong>{{ materia.docenteNombre }}</strong>
+                                                <small>Legajo: {{ materia.docenteLegajo }} | DNI: {{ materia.docenteDni || 'N/A' }}</small>
+                                            </div>
+                                        </div>
+                                    } @else {
+                                        <div class="sin-docente">
+                                            <i class="fas fa-user-slash me-2"></i>
+                                            <span class="text-muted">Sin docente asignado</span>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <div class="card-actions">
@@ -160,21 +170,61 @@
                     </div>
 
                     <div class="form-section">
-                        <h5 class="section-title">Asignación de Profesor</h5>
+                        <h5 class="section-title">Asignación de Docente</h5>
                         <p class="section-description">
-                            Puedes asignar un profesor ahora o dejarlo para más tarde.
+                            Puedes asignar un docente ahora o dejarlo para más tarde.
                         </p>
                         
                         <div class="form-group">
-                            <label class="form-label">Profesor (Opcional)</label>
-                            <input type="text" 
-                                class="form-control" 
-                                [(ngModel)]="formData.profesor" 
-                                name="profesor"
-                                placeholder="Ej: Prof. María García, Dr. Juan López..."
-                                autocomplete="off">
+                            <label class="form-label">Docente (Opcional)</label>
+                            @if (docenteSeleccionado) {
+                                <div class="docente-selected">
+                                    <div class="docente-info">
+                                        <i class="fas fa-user-tie"></i>
+                                        <div>
+                                            <strong>{{ docenteSeleccionado.name }}</strong>
+                                            <small>Legajo: {{ docenteSeleccionado.legajo }} | DNI: {{ docenteSeleccionado.dni || 'N/A' }}</small>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-danger" (click)="quitarDocente()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            } @else {
+                                <div class="docente-search">
+                                    <input type="text" 
+                                        class="form-control" 
+                                        [(ngModel)]="busquedaDocente" 
+                                        (ngModelChange)="filtrarDocentes()"
+                                        name="busquedaDocente"
+                                        placeholder="Buscar por nombre, legajo o DNI..."
+                                        autocomplete="off">
+                                    
+                                    @if (mostrarListaDocentes && docentesFiltrados.length > 0) {
+                                        <div class="docentes-list">
+                                            @for (docente of docentesFiltrados; track docente.id) {
+                                                <div class="docente-item" (click)="seleccionarDocente(docente)">
+                                                    <i class="fas fa-user-circle"></i>
+                                                    <div class="docente-data">
+                                                        <strong>{{ docente.name }}</strong>
+                                                        <small>Legajo: {{ docente.legajo }} | DNI: {{ docente.dni || 'N/A' }}</small>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    
+                                    @if (mostrarListaDocentes && busquedaDocente && docentesFiltrados.length === 0) {
+                                        <div class="no-results">
+                                            <i class="fas fa-search"></i>
+                                            <p>No se encontraron docentes</p>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            
                             <small class="form-text text-muted">
-                                Escribe el nombre completo del profesor. Si no asignas un profesor ahora, podrás hacerlo más tarde editando la materia.
+                                Busca y selecciona un docente para asignar a esta materia.
                             </small>
                         </div>
                     </div>

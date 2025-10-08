@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { AuthService, AuthUser } from '../../../core/services/services';
 
 @Component({
@@ -12,11 +13,18 @@ import { AuthService, AuthUser } from '../../../core/services/services';
 export class AdminInicio implements OnInit {
   currentUser: AuthUser | null = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
+  }
+
+  navegarA(ruta: string): void {
+    this.router.navigate([ruta]);
   }
 }

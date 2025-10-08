@@ -1,156 +1,80 @@
 <div class="main-wrapper">
   <main class="main-content">
-
-    <!-- Datos del Docente -->
-    <section class="form-container">
-      <div class="section-header">
-        <h2>Datos Personales</h2>
-        <button *ngIf="!modoEdicion" 
-                (click)="toggleEdicion()" 
-                class="btn btn-primary">
-          Editar Datos
-        </button>
-      </div>
-
-      <!-- Vista de solo lectura -->
-      <div *ngIf="!modoEdicion" class="datos-preview">
-        <div class="dato-item">
-          <label>Nombre Completo:</label>
-          <span>{{docente.nombreCompleto}}</span>
-        </div>
-        <div class="dato-item">
-          <label>DNI:</label>
-          <span>{{docente.dni}}</span>
-        </div>
-        <div class="dato-item">
-          <label>Correo Electrónico:</label>
-          <span>{{docente.email}}</span>
-        </div>
-        <div class="dato-item">
-          <label>Estado:</label>
-          <span>{{docente.estado}}</span>
-        </div>
-      </div>
-
-      <!-- Formulario de edición -->
-      <form *ngIf="modoEdicion" (ngSubmit)="guardarDatos()">
-        <div class="form-group">
-          <label class="form-label">Nombre Completo</label>
-          <input type="text" 
-                 class="form-control" 
-                 [(ngModel)]="docente.nombreCompleto" 
-                 name="nombreCompleto"
-                 required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">DNI</label>
-          <input type="text" 
-                 class="form-control" 
-                 [(ngModel)]="docente.dni" 
-                 name="dni" 
-                 required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Domicilio</label>
-          <input type="text" 
-                 class="form-control" 
-                 [(ngModel)]="docente.domicilio" 
-                 name="domicilio"
-                 required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Correo Electrónico</label>
-          <input type="email" 
-                 class="form-control" 
-                 [(ngModel)]="docente.email" 
-                 name="email"
-                 required>
-        </div>
-        <div class="form-actions">
-          <button type="button" 
-                  class="btn btn-secondary" 
-                  (click)="toggleEdicion()">
-            Cancelar
-          </button>
-          <button type="submit" 
-                  class="btn btn-primary">
-            Guardar Cambios
-          </button>
-        </div>
-      </form>
-    </section>
-
     <!-- Listado de Estudiantes -->
     <section class="table-container">
       <div class="table-header">
         <h2 class="table-title">Mis Estudiantes</h2>
         <div class="table-actions">
           <input type="search" 
+                 [(ngModel)]="searchTerm"
+                 (ngModelChange)="filtrarEstudiantes()"
                  placeholder="Buscar estudiante..." 
                  class="form-control search-input">
         </div>
       </div>
       
       <!-- Mensaje de error -->
-      <div *ngIf="errorMessage" class="alert alert-danger">
-        <p>{{ errorMessage }}</p>
-        <button (click)="cargarEstudiantes()" class="btn btn-sm btn-outline-primary">
-          Reintentar
-        </button>
-      </div>
+      @if (errorMessage) {
+        <div class="alert alert-danger">
+          <p>{{ errorMessage }}</p>
+          <button (click)="cargarEstudiantes()" class="btn btn-sm btn-outline-primary">
+            Reintentar
+          </button>
+        </div>
+      }
       
       <!-- Indicador de carga -->
-      <div *ngIf="isLoading" class="loading-container">
-        <p>Cargando estudiantes...</p>
-      </div>
+      @if (isLoading) {
+        <div class="loading-container">
+          <p>Cargando estudiantes...</p>
+        </div>
+      }
       
-      <div class="table-responsive" *ngIf="!isLoading">
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Apellidos</th>
-              <th>DNI</th>
-              <th>Correo Electrónico</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let estudiante of estudiantes">
-              <td>{{estudiante.nombre}}</td>
-              <td>{{estudiante.apellidos}}</td>
-              <td>{{estudiante.dni}}</td>
-              <td>{{estudiante.email}}</td>
-              <td>
-                <select [value]="estudiante.estado" 
-                        (change)="actualizarEstadoEstudiante(estudiante, $any($event.target).value)"
-                        class="form-control form-control-sm"
-                        [disabled]="isLoading">
-                  <option value="Activo">Activo</option>
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
-              </td>
-              <td>
-                <button (click)="eliminarEstudiante(estudiante)" 
-                        class="btn btn-sm btn-danger"
-                        [disabled]="isLoading"
-                        title="Eliminar estudiante">
-                  🗑️
-                </button>
-              </td>
-            </tr>
-            <tr *ngIf="estudiantes.length === 0 && !isLoading && !errorMessage">
-              <td colspan="6" class="text-center empty-message">
-                <i class="fas fa-user-graduate"></i>
-                <p>Aún no se le han asignado estudiantes.</p>
-                <small>Contacta con el administrador para que te asigne estudiantes.</small>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      @if (!isLoading) {
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>DNI</th>
+                <th>Correo Electrónico</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (estudiante of estudiantesFiltrados; track estudiante.id) {
+                <tr>
+                  <td>{{estudiante.nombre}}</td>
+                  <td>{{estudiante.apellidos}}</td>
+                  <td>{{estudiante.dni}}</td>
+                  <td>{{estudiante.email}}</td>
+                  <td>
+                    <span class="badge" [class.badge-success]="estudiante.estado === 'Activo'"
+                                       [class.badge-warning]="estudiante.estado === 'Pendiente'"
+                                       [class.badge-secondary]="estudiante.estado === 'Inactivo'">
+                      {{estudiante.estado}}
+                    </span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="text-center empty-message">
+                    @if (searchTerm) {
+                      <i class="fas fa-search"></i>
+                      <p>No se encontraron estudiantes con "{{ searchTerm }}"</p>
+                    } @else {
+                      <i class="fas fa-user-graduate"></i>
+                      <p>Aún no se le han asignado estudiantes.</p>
+                      <small>Contacta con el administrador para que te asigne estudiantes.</small>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
     </section>
   </main>
 </div>

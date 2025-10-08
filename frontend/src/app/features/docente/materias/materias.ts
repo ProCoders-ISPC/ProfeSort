@@ -24,14 +24,28 @@ export class Materias implements OnInit {
   ngOnInit() {
     const user = this.authService.getCurrentUser();
     this.userName = user?.name || 'Docente';
-    this.cargarMaterias();
+    if (user?.id) {
+      this.cargarMaterias(user.id);
+    }
   }
 
-  cargarMaterias() {
+  cargarMaterias(docenteId?: number) {
     this.loading = true;
     this.error = '';
     
-    this.materiasService.getMaterias().subscribe({
+    // Si no se pasa docenteId, obtenerlo del usuario actual
+    if (!docenteId) {
+      const user = this.authService.getCurrentUser();
+      docenteId = user?.id;
+    }
+
+    if (!docenteId) {
+      this.error = 'No se pudo obtener el ID del docente';
+      this.loading = false;
+      return;
+    }
+    
+    this.materiasService.getMateriasByDocente(docenteId).subscribe({
       next: (materias) => {
         this.materias = materias;
         this.loading = false;

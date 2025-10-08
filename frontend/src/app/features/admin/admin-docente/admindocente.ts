@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminDocenteService, DocenteCarga } from 'src/app/core/services/admindocente.service';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-admindocente',
-  templateUrl: './admindocente.html',
-  styleUrls: ['./admindocente.css'],
+  templateUrl: './admindocente-nuevo.html',
+  styleUrls: ['./admindocente-nuevo.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule]
 })
 export class AdminDocenteComponent implements OnInit {
   docentes: DocenteCarga[] = [];
+  docentesOriginales: DocenteCarga[] = [];
   usuariosRegulares: any[] = [];
   loading = false;
   error = '';
@@ -32,10 +33,32 @@ export class AdminDocenteComponent implements OnInit {
   pageSize = 10;
   totalItems = 0;
   
+  // Propiedades para el modal de edición
+  mostrarModalEdicion = false;
+  docenteEditando: DocenteCarga | null = null;
+  formularioEdicion: FormGroup;
+  guardandoCambios = false;
+  mensajeModal = '';
+  errorModal = '';
+  
   
   constructor(
     private adminDocenteService: AdminDocenteService,
-  ) {}
+    private fb: FormBuilder
+  ) {
+    this.formularioEdicion = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      dni: ['', Validators.required],
+      fechaNacimiento: ['', Validators.required],
+      domicilio: ['', Validators.required],
+      telefono: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      legajo: ['', Validators.required],
+      area: [''],
+      estado: ['Activo', Validators.required]
+    });
+  }
   
   ngOnInit(): void {
     // Configurar búsqueda con debounce
@@ -52,15 +75,10 @@ export class AdminDocenteComponent implements OnInit {
   
   cargarDocentes(): void {
     this.loading = true;
-    this.adminDocenteService.getDocentesCarga(
-      this.terminoBusqueda,
-      this.estadoFiltro,
-      this.areaFiltro,
-      this.currentPage,
-      this.pageSize
-    ).subscribe({
+    this.adminDocenteService.getDocentesCarga().subscribe({
       next: (data) => {
-        this.docentes = data;
+        this.docentesOriginales = data;
+        this.aplicarFiltros();
         this.loading = false;
       },
       error: (err) => {
@@ -69,6 +87,36 @@ export class AdminDocenteComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  aplicarFiltros(): void {
+    let docentesFiltrados = [...this.docentesOriginales];
+
+    // Filtro por término de búsqueda
+    if (this.terminoBusqueda) {
+      const termino = this.terminoBusqueda.toLowerCase();
+      docentesFiltrados = docentesFiltrados.filter(docente =>
+        docente.nombre.toLowerCase().includes(termino) ||
+        docente.email.toLowerCase().includes(termino) ||
+        docente.legajo.toLowerCase().includes(termino)
+      );
+    }
+
+    // Filtro por estado
+    if (this.estadoFiltro) {
+      docentesFiltrados = docentesFiltrados.filter(docente =>
+        docente.estado === this.estadoFiltro
+      );
+    }
+
+    // Filtro por área
+    if (this.areaFiltro) {
+      docentesFiltrados = docentesFiltrados.filter(docente =>
+        docente.area === this.areaFiltro
+      );
+    }
+
+    this.docentes = docentesFiltrados;
   }
   
   cargarUsuariosRegulares(): void {
@@ -110,8 +158,85 @@ export class AdminDocenteComponent implements OnInit {
     }
   }
   
-  asignarMateria(docenteId: number): void {
-    console.log('Asignar materias al docente:', docenteId);
+  editarDocente(docente: DocenteCarga): void {
+    this.docenteEditando = { ...docente }; // Crear una copia
+    
+    // Separar nombre completo en nombre y apellido si es necesario
+    const nombreCompleto = docente.nombre.split(' ');
+    const nombre = nombreCompleto[0] || '';
+    const apellido = nombreCompleto.slice(1).join(' ') || '';
+    
+    this.formularioEdicion.patchValue({
+      nombre: nombre,
+      apellido: apellido,
+      dni: (docente as any).dni || '',
+      fechaNacimiento: (docente as any).fechaNacimiento || '',
+      domicilio: (docente as any).domicilio || '',
+      telefono: (docente as any).telefono || '',
+      email: docente.email,
+      legajo: docente.legajo,
+      area: docente.area || '',
+      estado: docente.estado
+    });
+    this.mostrarModalEdicion = true;
+    this.mensajeModal = '';
+    this.errorModal = '';
+  }
+
+  cerrarModal(): void {
+    this.mostrarModalEdicion = false;
+    this.docenteEditando = null;
+    this.formularioEdicion.reset();
+    this.mensajeModal = '';
+    this.errorModal = '';
+  }
+
+  guardarCambios(): void {
+    if (this.formularioEdicion.valid && this.docenteEditando) {
+      this.guardandoCambios = true;
+      this.errorModal = '';
+      
+      const formValues = this.formularioEdicion.value;
+      
+      // Combinar nombre y apellido
+      const nombreCompleto = `${formValues.nombre} ${formValues.apellido}`.trim();
+      
+      const datosActualizados = {
+        ...this.docenteEditando,
+        nombre: nombreCompleto,
+        email: formValues.email,
+        legajo: formValues.legajo,
+        dni: formValues.dni,
+        fechaNacimiento: formValues.fechaNacimiento,
+        domicilio: formValues.domicilio,
+        telefono: formValues.telefono,
+        area: formValues.area,
+        estado: formValues.estado
+      };
+
+      console.log('Guardando cambios del docente:', datosActualizados);
+      
+      // Simulación de guardado (reemplazar con servicio real)
+      setTimeout(() => {
+        // Actualizar en la lista local
+        const index = this.docentesOriginales.findIndex(d => d.id === this.docenteEditando!.id);
+        if (index !== -1) {
+          this.docentesOriginales[index] = { ...datosActualizados };
+          this.aplicarFiltros(); // Reaplica filtros con los nuevos datos
+        }
+        
+        this.mensajeModal = 'Información del docente actualizada correctamente';
+        this.guardandoCambios = false;
+        
+        // Cerrar modal después de 2 segundos
+        setTimeout(() => {
+          this.cerrarModal();
+          this.mostrarMensaje('Docente actualizado correctamente');
+        }, 2000);
+      }, 1000);
+    } else {
+      this.errorModal = 'Por favor, complete todos los campos requeridos';
+    }
   }
   
   mostrarMensaje(texto: string): void {
@@ -125,19 +250,18 @@ export class AdminDocenteComponent implements OnInit {
   }
   
   buscarDocentes(): void {
-    this.currentPage = 1; 
-    this.cargarDocentes();
+    this.aplicarFiltros();
   }
   
 
   filtrarPorEstado(estado: string): void {
     this.estadoFiltro = estado;
-    this.buscarDocentes();
+    this.aplicarFiltros();
   }
 
   filtrarPorArea(area: string): void {
     this.areaFiltro = area;
-    this.buscarDocentes();
+    this.aplicarFiltros();
   }
   
 

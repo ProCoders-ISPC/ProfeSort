@@ -240,37 +240,31 @@
   ],
   "materias": [
     {
-      "id": 1,
-      "nombre": "Matemática",
-      "codigo": "MAT101",
-      "profesor": "Prof. Juan Pérez"
+      "id": 5,
+      "nombre": "Física",
+      "codigo": "FIS101",
+      "docenteId": 2,
+      "docenteNombre": "Karina del Valle Quinteros",
+      "docenteLegajo": "DOC001",
+      "docenteDni": null
     },
     {
-      "id": 2,
-      "nombre": "Lengua",
-      "codigo": "LEN201",
-      "profesor": "juan carlos"
+      "id": 6,
+      "nombre": "Química",
+      "codigo": "QUI101",
+      "docenteId": 2,
+      "docenteNombre": "Karina del Valle Quinteros",
+      "docenteLegajo": "DOC001",
+      "docenteDni": null
     },
     {
-      "id": 3,
-      "nombre": "Historia",
-      "codigo": "HIS301",
-      "profesor": "Prof. Carlos Ruiz"
-    },
-    {
-      "id": 4,
-      "nombre": "Biología",
-      "codigo": "BIO101"
-    },
-    {
-      "nombre": "ed fisica",
-      "codigo": "2000",
-      "id": 7
-    },
-    {
-      "nombre": "matematica",
-      "codigo": "32131",
-      "id": 8
+      "nombre": "Biologia",
+      "codigo": "BI258",
+      "id": 7,
+      "docenteId": 2,
+      "docenteNombre": "Karina del Valle Quinteros",
+      "docenteLegajo": "DOC001",
+      "docenteDni": "28456789"
     }
   ],
   "users": [
@@ -290,6 +284,10 @@
       "name": "Karina del Valle Quinteros",
       "role": "User",
       "legajo": "DOC001",
+      "dni": "28456789",
+      "fechaNacimiento": "1980-05-15",
+      "domicilio": "Av. Libertador 1234",
+      "telefono": "3516789012",
       "isActive": true,
       "createdAt": "2024-01-15T10:30:00.000Z"
     },
@@ -300,6 +298,10 @@
       "name": "Juan Pablo Sanchez Brandán",
       "role": "User",
       "legajo": "DOC002",
+      "dni": "32456123",
+      "fechaNacimiento": "1985-08-22",
+      "domicilio": "Calle San Martín 567",
+      "telefono": "3515678901",
       "isActive": true,
       "createdAt": "2024-01-20T14:20:00.000Z"
     },
@@ -310,6 +312,10 @@
       "name": "Juan Ignacio Gioda",
       "role": "User",
       "legajo": "DOC003",
+      "dni": "44274938",
+      "fechaNacimiento": "2002-08-23",
+      "domicilio": "Pasaje Regino Maders 1734",
+      "telefono": "3516314245",
       "isActive": false,
       "createdAt": "2024-01-25T09:15:00.000Z"
     },

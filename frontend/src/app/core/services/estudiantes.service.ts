@@ -55,7 +55,7 @@ export class EstudiantesService {
    * Obtener estudiantes asignados a un docente específico
    */
   getEstudiantesByDocenteId(docenteId: number): Observable<Estudiante[]> {
-    return this.http.get<Estudiante[]>(`${this.apiUrl}/docente/${docenteId}`).pipe(
+    return this.http.get<Estudiante[]>(`${this.apiUrl}?docenteId=${docenteId}`).pipe(
       catchError(this.handleError)
     );
   }
