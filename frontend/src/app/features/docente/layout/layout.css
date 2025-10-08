@@ -162,7 +162,8 @@
 /* Botón de cierre de sesión */
 .logout-button {
   margin-top: auto;
-  padding: 10px;
+  padding: 12px;
+  padding-bottom: 20px; /* extra space at bottom to make it easier to tap */
 }
 
 .btn-logout {
@@ -177,6 +178,11 @@
   align-items: center;
   gap: 8px;
   transition: background-color 0.3s;
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .btn-logout:hover {
@@ -227,6 +233,9 @@
   top: 0;
   bottom: 0;
   z-index: 999;
+  display: flex; /* make sidebar a column flex container so logout-button can stick to bottom */
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .nav-header {
@@ -245,7 +254,7 @@
 
 .nav-menu {
   padding: 20px 0;
-  height: calc(100vh - 100px);
+  flex: 1; /* allow menu to take available space inside the flex column */
   overflow-y: auto;
 }
 

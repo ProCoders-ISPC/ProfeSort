@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -17,4 +17,12 @@ export class Layout {
     { path: 'estudiantes', label: 'Estudiantes', icon: 'users' },
     { path: 'materias', label: 'Materias', icon: 'book' }
   ];
+
+  constructor(private router: Router) {}
+
+  cerrarSesion() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
 }
