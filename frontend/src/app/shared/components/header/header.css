@@ -18,6 +18,9 @@
     box-shadow: none;
     width: 100%;
     box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+    overflow: visible; /* Permite que el dropdown sea visible */
   }
   
   .header {
@@ -35,17 +38,21 @@
   .header__nav-desktop {
     display: flex;
     align-items: center;
+    gap: 25px; /* Mejor espaciado entre elementos */
   }
   
   .header__nav-desktop a {
     color: var(--white);
-    margin-left: 20px;
     text-decoration: none;
     transition: color 0.3s ease;
+    padding: 8px 12px; /* Padding para mejor área de click */
+    border-radius: 4px;
+    white-space: nowrap; /* Evita cortes de texto */
   }
   
   .header__nav-desktop a:hover {
     color: var(--accent-yellow);
+    background-color: rgba(255, 255, 255, 0.1);
   }
   
   /* ===== HEADER BURGER MENU (RESPONSIVE) - OPTIMIZADO ===== */

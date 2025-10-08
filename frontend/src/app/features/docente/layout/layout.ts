@@ -47,7 +47,19 @@ export class Layout implements OnInit {
       .substring(0, 2);
   }
 
-  cerrarSesion() {
+  irAlHome() {
+    this.router.navigate(['/home']);
+  }
+
+  volverAlPanel(event: Event) {
+    event.preventDefault();
+    this.router.navigate(['/docente']);
+  }
+
+  cerrarSesion(event?: Event) {
+    if (event) {
+      event.preventDefault();
+    }
     this.authService.logout();
     this.router.navigate(['/login']);
   }

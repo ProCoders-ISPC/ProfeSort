@@ -41,7 +41,19 @@ export class AdminLayout implements OnInit {
       .substring(0, 2);
   }
 
-  cerrarSesion() {
+  irAlHome() {
+    this.router.navigate(['/home']);
+  }
+
+  volverAlPanel(event: Event) {
+    event.preventDefault();
+    this.router.navigate(['/admin']);
+  }
+
+  cerrarSesion(event?: Event) {
+    if (event) {
+      event.preventDefault();
+    }
     this.authService.logout();
     this.router.navigate(['/login']);
   }

@@ -112,6 +112,41 @@
   gap: 15px;
 }
 
+.btn-home-header {
+  background-color: #043237;
+  color: white;
+  border: 1px solid #3abdcc;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+  font-size: 0.9rem;
+}
+
+.btn-home-header:hover {
+  background-color: #3abdcc;
+}
+
+.btn-user-dropdown {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.btn-user-dropdown:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.3);
+}
+
 .user-name {
   color: white;
   font-weight: 500;

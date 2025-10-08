@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 export interface DocenteCarga {
@@ -46,7 +47,28 @@ export class AdminDocenteService {
     if (estado) params = params.set('estado', estado);
     if (area) params = params.set('area', area);
     
-    return this.http.get<DocenteCarga[]>(`${this.apiUrl}`, { params });
+    // Combinamos datos de carga con conteos reales de estudiantes y materias usando forkJoin
+    return forkJoin({
+      docentesCarga: this.http.get<DocenteCarga[]>(`${this.apiUrl}`, { params }),
+      estudiantes: this.http.get<any[]>(`${environment.apiUrl}/estudiantes`),
+      materias: this.http.get<any[]>(`${environment.apiUrl}/materias`)
+    }).pipe(
+      map(({ docentesCarga, estudiantes, materias }) => {
+        return docentesCarga.map(docente => {
+          // Contar estudiantes reales asignados a este docente
+          const estudiantesDelDocente = estudiantes.filter(est => est.docenteId === docente.id);
+          
+          // Contar materias reales asignadas a este docente
+          const materiasDelDocente = materias.filter(mat => mat.docenteId === docente.id);
+          
+          return {
+            ...docente,
+            cantidadEstudiantes: estudiantesDelDocente.length,
+            cantidadMaterias: materiasDelDocente.length
+          };
+        });
+      })
+    );
   }
 
   getDocenteCarga(id: number): Observable<DocenteCarga> {
