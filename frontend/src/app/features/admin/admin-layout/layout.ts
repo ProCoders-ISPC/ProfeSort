@@ -11,16 +11,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./layout.css']
 })
 export class AdminLayout {
+  sidebarOpen = false;
   constructor(
     private router: Router
   ) {}
 
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  closeSidebar() {
+    this.sidebarOpen = false;
+  }
+
   cerrarSesion() {
-    // Eliminar información de sesión
     localStorage.removeItem('token');
     localStorage.removeItem('user');
 
-    // Redirigir a la página de login
     this.router.navigate(['/login']);
   }
 }
