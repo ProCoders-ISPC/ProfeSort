@@ -77,9 +77,9 @@ export class Login {
             this.loginMessage = 'Inicio de sesión exitoso. Redirigiendo...';
             
             setTimeout(() => {
-              if (response.data?.role_id === 1) {
+              if (response.data?.id_rol === 1) {
                 this.router.navigate(['/admin']);
-              } else if (response.data?.role_id === 2) {
+              } else if (response.data?.id_rol === 2) {
                 this.router.navigate(['/docente']);
               } else {
                 this.router.navigate(['/home']);

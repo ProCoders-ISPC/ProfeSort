@@ -99,7 +99,7 @@ export class DocentePerfil implements OnInit, OnDestroy {
         id: this.currentUser.id,
         name: this.perfilForm.get('nombre')?.value,
         email: this.currentUser.email,
-        role_id: this.currentUser.role_id,
+        id_rol: this.currentUser.id_rol,
         legajo: this.currentUser.legajo,
         dni: this.currentUser.dni,
         fecha_nacimiento: formData.fechaNacimiento,

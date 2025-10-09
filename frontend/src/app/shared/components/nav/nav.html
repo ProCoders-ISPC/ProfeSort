@@ -13,7 +13,7 @@
       </button>
       @if (isDropdownOpen) {
         <ul class="dropdown-menu show">
-          <li><button class="dropdown-item" type="button" (click)="goToPanel()">Panel {{ currentUser?.role_id === 1 ? 'Admin' : 'Docente' }}</button></li>
+          <li><button class="dropdown-item" type="button" (click)="goToPanel()">Panel {{ currentUser?.id_rol === 1 ? 'Admin' : 'Docente' }}</button></li>
           <li><hr class="dropdown-divider"></li>
           <li><button class="dropdown-item" type="button" (click)="logout()">Cerrar Sesión</button></li>
         </ul>
@@ -46,7 +46,7 @@
           <i class="fa-solid fa-user"></i>
           {{ currentUser?.name }}
         </span>
-        <a (click)="goToPanel()">Panel {{ currentUser?.role_id === 1 ? 'Admin' : 'Docente' }}</a>
+        <a (click)="goToPanel()">Panel {{ currentUser?.id_rol === 1 ? 'Admin' : 'Docente' }}</a>
         <a (click)="logout()">Cerrar Sesión</a>
       </div>
     }

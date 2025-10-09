@@ -15,12 +15,11 @@ export interface DocenteCarga {
   domicilio: string;
   telefono: string;
   password?: string;
-  role_id: number;
+  id_rol: number;
   area?: string;
   fecha_ingreso?: string;
   is_active?: boolean;
   created_at?: string;
-  // Campos adicionales para la funcionalidad de docentes
   estado?: 'Activo' | 'Inactivo';
   cantidadMaterias?: number;
   cantidadEstudiantes?: number;
@@ -53,8 +52,8 @@ export class AdminDocenteService {
   ): Observable<DocenteCarga[]> {
     let params = new HttpParams();
     
-    // Filtrar solo docentes (role_id = 2)
-    params = params.set('role_id', '2');
+
+    params = params.set('id_rol', '2');
     
     if (area) params = params.set('area', area);
     if (termino) params = params.set('name_like', termino);
@@ -98,21 +97,18 @@ export class AdminDocenteService {
   }
 
   getDocenteCarga(id: number): Observable<DocenteCarga> {
-    // Con la nueva estructura usando 'id' como primary key, json-server funciona directamente
     return this.http.get<DocenteCarga>(`${this.apiUrl}/${id}`);
   }
 
   getUsuariosRegulares(page = 1, limit = 10): Observable<any[]> {
-    // Obtener usuarios que no son admin
     const params = new HttpParams()
-      .set('role', 'docente'); // Filtrar por role
+      .set('id_rol', 'docente'); 
     
     return this.http.get<any[]>(`${this.usuariosUrl}`, { params });
   }
 
   asignarRol(usuarioId: number, rolId: number): Observable<any> {
-    // Con la nueva estructura usando 'id' como primary key, json-server funciona directamente
-    return this.http.patch(`${this.usuariosUrl}/${usuarioId}`, { role_id: rolId });
+    return this.http.patch(`${this.usuariosUrl}/${usuarioId}`, { id_rol: rolId });
   }
   
   actualizarDocente(id: number, docente: Partial<DocenteCarga>): Observable<DocenteCarga> {

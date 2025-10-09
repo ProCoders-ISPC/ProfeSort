@@ -150,7 +150,7 @@
           <input 
             type="text" 
             class="form-control readonly-field" 
-            [value]="currentUser?.role_id === 1 ? 'Administrador' : 'Docente'"
+            [value]="currentUser?.id_rol === 1 ? 'Administrador' : 'Docente'"
             readonly>
           <small class="form-text text-muted">
             <i class="fas fa-lock"></i> Solo puede ser modificado por el administrador
