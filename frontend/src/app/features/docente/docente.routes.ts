@@ -8,6 +8,7 @@ export const DOCENTE_ROUTES: Routes = [
   {
     path: '',
     component: DocenteLayout,
+    canActivate: [TeacherGuard],
     children: [
       { path: '', loadComponent: () => import('./inicio/inicio').then(m => m.DocenteInicio) },
       { path: 'estudiantes', component: Estudiantes },

@@ -14,6 +14,10 @@ module.exports = (req, res, next) => {
   if ((req.url === '/api/auth/register' || req.url === '/auth/register') && req.method === 'POST') {
     return handleRegister(req, res);
   }
+
+  if (req.url.startsWith('/auth/validate-session/') && req.method === 'GET') {
+    return handleValidateSession(req, res);
+  }
   
   next();
 };
@@ -134,6 +138,54 @@ function handleRegister(req, res) {
         legajo: newUser.legajo
       }
     });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error interno del servidor',
+      error: error.message
+    });
+  }
+}
+
+// Handler para validar sesión
+function handleValidateSession(req, res) {
+  const userId = req.url.split('/').pop();
+  const fs = require('fs');
+  const path = require('path');
+  
+  try {
+    const dbPath = path.join(__dirname, 'db.json');
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+    
+    // Buscar el usuario por ID y verificar que esté activo
+    const user = db.usuarios.find(u => u.id == userId && u.is_active);
+
+    if (user) {
+      return res.status(200).json({
+        success: true,
+        message: 'Sesión válida',
+        data: {
+          id_usuario: user.id,
+          name: user.name,
+          email: user.email,
+          role_id: user.role_id,
+          legajo: user.legajo || null,
+          dni: user.dni,
+          fecha_nacimiento: user.fecha_nacimiento,
+          domicilio: user.domicilio,
+          telefono: user.telefono,
+          area: user.area,
+          fecha_ingreso: user.fecha_ingreso,
+          is_active: user.is_active
+        }
+      });
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: 'Sesión inválida',
+        error: 'Usuario no encontrado o cuenta desactivada'
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       success: false,
