@@ -132,7 +132,7 @@ export class MateriasService {
    * Obtener lista de docentes disponibles
    */
   getDocentes(): Observable<DocenteSimple[]> {
-    return this.http.get<DocenteSimple[]>(`${this.usersUrl}?role_id=2`).pipe(
+    return this.http.get<DocenteSimple[]>(`${this.usersUrl}?id_rol=2`).pipe(
       map(docentes => docentes.map(docente => ({
         ...docente,
         id_usuario: docente.id // Mapear id a id_usuario para compatibilidad

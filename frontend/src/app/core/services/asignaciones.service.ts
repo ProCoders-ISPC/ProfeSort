@@ -143,7 +143,7 @@ export class AsignacionesService {
     return forkJoin({
       materias: this.http.get<any[]>(this.materiasUrl),
       asignaciones: this.http.get<Asignacion[]>(this.apiUrl),
-      usuarios: this.http.get<any[]>(`${this.usuariosUrl}?role_id=2`)
+      usuarios: this.http.get<any[]>(`${this.usuariosUrl}?id_rol=2`)
     }).pipe(
       map(({ materias, asignaciones, usuarios }) => {
         return materias.map(materia => {
@@ -216,7 +216,7 @@ export class AsignacionesService {
    */
   getDocentesConMaterias(): Observable<DocenteConMaterias[]> {
     return forkJoin({
-      usuarios: this.http.get<any[]>(`${this.usuariosUrl}?role_id=2`),
+      usuarios: this.http.get<any[]>(`${this.usuariosUrl}?id_rol=2`),
       asignaciones: this.http.get<Asignacion[]>(this.apiUrl),
       materias: this.http.get<any[]>(this.materiasUrl)
     }).pipe(
