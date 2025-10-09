@@ -45,7 +45,7 @@ function handleLogin(req, res) {
           id_usuario: user.id,
           name: user.name,
           email: user.email,
-          role_id: user.role_id,
+          id_rol: user.role_id,
           legajo: user.legajo || null,
           dni: user.dni,
           fecha_nacimiento: user.fecha_nacimiento,
@@ -134,7 +134,7 @@ function handleRegister(req, res) {
         id_usuario: newUser.id,
         name: newUser.name,
         email: newUser.email,
-        role_id: newUser.role_id,
+        id_rol: newUser.role_id,
         legajo: newUser.legajo
       }
     });
@@ -168,7 +168,7 @@ function handleValidateSession(req, res) {
           id_usuario: user.id,
           name: user.name,
           email: user.email,
-          role_id: user.role_id,
+          id_rol: user.role_id,
           legajo: user.legajo || null,
           dni: user.dni,
           fecha_nacimiento: user.fecha_nacimiento,

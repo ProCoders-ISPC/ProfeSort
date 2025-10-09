@@ -125,6 +125,22 @@
       "area": "SOCIALES",
       "is_active": true,
       "created_at": "2024-03-02T00:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "name": "maria rodriguez",
+      "email": "karinaq38@hotmail.com",
+      "password": "Kary123",
+      "legajo": "R1234",
+      "dni": "28456789",
+      "fecha_nacimiento": "1986-05-26",
+      "domicilio": "castañeda",
+      "telefono": "3547589654",
+      "role_id": 3,
+      "area": null,
+      "is_active": true,
+      "fecha_ingreso": "2025-10-09T02:02:47.144Z",
+      "created_at": "2025-10-09T02:02:47.144Z"
     }
   ],
   "estudiantes": [
