@@ -34,7 +34,7 @@ export interface AuthUser {
   id: number;
   name: string; 
   email: string;
-  role_id: number;
+  id_rol: number;
   legajo: string;
   dni: string;
   fecha_nacimiento: string;
@@ -68,7 +68,7 @@ export class AuthService {
           id: user.id || user.id_usuario || 0,
           name: user.name || `${user.nombre || ''} ${user.apellido || ''}`.trim() || '',
           email: user.email || '',
-          role_id: user.role_id || (user.role === 'Admin' ? 1 : 2),
+          id_rol: user.id_rol || (user.id_rol === 'Admin' ? 1 : 2),
           legajo: user.legajo || '',
           dni: user.dni || '',
           fecha_nacimiento: user.fecha_nacimiento || user.fechaNacimiento || '',
@@ -93,7 +93,7 @@ export class AuthService {
       id: user.id || (user as any).id_usuario || 0,
       name: user.name || '',
       email: user.email || '',
-      role_id: user.role_id || 2,
+      id_rol: user.id_rol || 2,
       legajo: user.legajo || '',
       dni: user.dni || '',
       fecha_nacimiento: user.fecha_nacimiento || '',
@@ -192,12 +192,12 @@ export class AuthService {
 
   isAdmin(): boolean {
     const currentUser = this.currentUserSubject.value;
-    return currentUser !== null && currentUser.role_id === 1;
+    return currentUser !== null && currentUser.id_rol === 1;
   }
 
   isUser(): boolean {
     const currentUser = this.currentUserSubject.value;
-    return currentUser !== null && currentUser.role_id === 2;
+    return currentUser !== null && currentUser.id_rol === 2;
   }
   
   getCurrentUser(): AuthUser | null {
@@ -209,7 +209,7 @@ export class AuthService {
       id: user.id || (user as any).id_usuario || 0,
       name: user.name || '',
       email: user.email || '',
-      role_id: user.role_id || 2,
+      id_rol: user.id_rol || 2,
       legajo: user.legajo || '',
       dni: user.dni || '',
       fecha_nacimiento: user.fecha_nacimiento || '',
@@ -225,7 +225,7 @@ export class AuthService {
     const user = this.getCurrentUser();
     return {
       isLoggedIn: user !== null,
-      rol: user?.role_id === 1 ? 'Admin' : 'User',
+      rol: user?.id_rol === 1 ? 'Admin' : 'User',
       user: user
     };
   }

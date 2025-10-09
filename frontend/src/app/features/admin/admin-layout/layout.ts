@@ -27,7 +27,7 @@ export class AdminLayout implements OnInit {
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
       if (user) {
-        this.userName = user.role_id === 1 ? 'Administrador' : user.name;
+        this.userName = user.id_rol === 1 ? 'Administrador' : user.name;
         this.userInitial = this.getInitials(this.userName);
       }
     });

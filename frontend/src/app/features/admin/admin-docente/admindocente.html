@@ -25,88 +25,111 @@
   <!-- Lista de docentes actuales con búsqueda -->
   @if (!mostrarUsuariosRegulares && !loading && !error) {
     <div class="docentes-container">
-      <h3>Docentes Actuales</h3>
-      
-      <!-- Filtros de búsqueda -->
-      <div class="filtros-container">
-        <div class="busqueda">
-          <input 
-            type="text" 
-            placeholder="Buscar por nombre, email o legajo..." 
-            (input)="onSearch($any($event.target).value)" 
-            class="search-input"
-          >
+      <div class="panel-principal">
+        <div class="panel-header">
+          <div class="header-content">
+            <h2 class="panel-title">
+              <i class="fas fa-user-tie me-2"></i>Gestión de Docentes
+            </h2>
+            <p class="panel-subtitle">Administra los docentes del sistema</p>
+          </div>
         </div>
-        
-        <div class="filtros">
-          <select (change)="filtrarPorEstado($any($event.target).value)">
+      </div>
+
+      <!-- Filtros de búsqueda -->
+      <div class="filtros-section">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input 
+            type="text"
+            class="search-input"
+            placeholder="Buscar por nombre, email o legajo..."
+            [(ngModel)]="terminoBusqueda"
+            (ngModelChange)="onSearch(terminoBusqueda)">
+        </div>
+        <div class="filtros-group">
+          <select class="filter-select" [(ngModel)]="estadoFiltro" (change)="filtrarPorEstado(estadoFiltro)">
             <option value="">Todos los estados</option>
             <option value="Activo">Activo</option>
             <option value="Inactivo">Inactivo</option>
           </select>
-          
-          <select (change)="filtrarPorArea($any($event.target).value)">
-            <option value="">Todas las Areas</option>
+          <select class="filter-select" [(ngModel)]="areaFiltro" (change)="filtrarPorArea(areaFiltro)">
+            <option value="">Todas las Áreas</option>
             <option value="Matemáticas">Matemáticas</option>
             <option value="Ciencias Naturales">Ciencias Naturales</option>
             <option value="Ciencias Sociales">Ciencias Sociales</option>
             <option value="Lengua">Lengua</option>
-            <option value="LLengua extranjera">Lengua extranjera</option>
-
+            <option value="Lengua extranjera">Lengua extranjera</option>
           </select>
         </div>
       </div>
-      
-      <!-- Tabla de resultados -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Legajo</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
+
+      <!-- Sin docentes -->
+      @if (!loading && docentes.length === 0 && !terminoBusqueda) {
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3>No hay docentes registrados</h3>
+          <p>Aún no existen docentes en el sistema.</p>
+        </div>
+      }
+
+      <!-- Grid de docentes -->
+      @if (!loading && docentes.length > 0) {
+        <div class="docentes-grid">
           @for (docente of docentes; track docente.id) {
-            <tr>
-              <td>{{ docente.name }}</td>
-              <td>{{ docente.email }}</td>
-              <td>{{ docente.legajo }}</td>
-              <td>{{ docente.estado }}</td>
-              <td class="actions-cell">
-                <button class="btn btn-sm btn-secondary" (click)="editarDocente(docente)">
-                  <i class="fas fa-edit"></i> Editar
+            <div class="docente-card">
+              <div class="card-header">
+                <div class="docente-avatar">
+                  {{ docente.name.charAt(0).toUpperCase() }}
+                </div>
+                <div class="docente-info-header">
+                  <h4 class="docente-nombre">{{ docente.name }}</h4>
+                  <span class="docente-legajo">{{ docente.legajo }}</span>
+                </div>
+                <span class="badge" [class.badge-success]="docente.estado === 'Activo'" 
+                                    [class.badge-secondary]="docente.estado === 'Inactivo'">
+                  {{ docente.estado }}
+                </span>
+              </div>
+              <div class="card-body">
+                <div class="info-item">
+                  <i class="fas fa-envelope"></i>
+                  <span>{{ docente.email }}</span>
+                </div>
+                <div class="stats-row">
+                  <div class="stat-item">
+                    <i class="fas fa-book"></i>
+                    <span>{{ docente.cantidadMaterias || 0 }} materias</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-sm btn-outline-primary" 
+                        (click)="editarDocente(docente)"
+                        title="Editar información del docente">
+                  <i class="fas fa-user-edit"></i> Editar Información
                 </button>
-                
-                <button class="btn btn-sm btn-info" (click)="asignarMateria(docente.id)">
-                  Asignar Materia
+                <button class="btn btn-sm btn-outline-danger" 
+                        (click)="promoverAAdmin(docente.id, docente.name)"
+                        title="Promover a administrador">
+                  <i class="fas fa-user-shield"></i> Promover
                 </button>
-                
-                <button class="btn btn-sm btn-danger admin-btn" 
-                        (click)="promoverAAdmin(docente.id, docente.name)">
-                  Promover a Admin
-                </button>
-              </td>
-            </tr>
+              </div>
+            </div>
           } @empty {
-            <tr>
-              <td colspan="6" class="text-center">
-                {{ terminoBusqueda ? 'No se encontraron docentes con ese criterio' : 'No hay docentes registrados' }}
-              </td>
-            </tr>
+            <div class="empty-search">
+              <i class="fas fa-search"></i>
+              <p>No se encontraron docentes con "{{ terminoBusqueda }}"</p>
+            </div>
           }
-        </tbody>
-      </table>
-      
-      <!-- Paginación simple -->
-      @if (docentes.length > 0) {
-        <div class="pagination">
+        </div>
+        <!-- Paginación simple -->
+        <div class="pagination" *ngIf="docentes.length > 0">
           <button 
             [disabled]="currentPage === 1" 
-            (click)="cambiarPagina(currentPage - 1)"
-          >
+            (click)="cambiarPagina(currentPage - 1)">
             Anterior
           </button>
           <span>Página {{ currentPage }}</span>
@@ -123,7 +146,6 @@
     <div class="usuarios-container">
       <h3>Usuarios Registrados</h3>
       <p>Selecciona los usuarios a los que deseas asignar el rol de docente:</p>
-      
       <table class="table">
         <thead>
           <tr>
@@ -160,140 +182,196 @@
   }
 
   <!-- Modal de Edición de Docente -->
-  @if (docenteEditando) {
-    <div class="modal-overlay" (click)="cancelarEdicion()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
+  @if (mostrarModalEdicion && docenteEditando) {
+    <div class="modal-overlay">
+      <div class="modal-container">
         <div class="modal-header">
-          <h3>Editar Docente</h3>
-          <button class="close-btn" (click)="cancelarEdicion()">
+          <h3>
+            <i class="fas fa-user-edit me-2"></i>
+            Editar Información del Docente
+          </h3>
+          <button type="button" class="modal-close" (click)="cerrarModal()">
             <i class="fas fa-times"></i>
           </button>
         </div>
-        
-        <form [formGroup]="formularioEdicion" (ngSubmit)="actualizarDocente()">
-          <div class="modal-body">
-            @if (errorModal) {
-              <div class="alert alert-danger">{{ errorModal }}</div>
-            }
-            
+        <div class="modal-body">
+          <form [formGroup]="formularioEdicion" (ngSubmit)="guardarCambios()">
             <div class="form-grid">
-              <div class="form-group">
-                <label>Nombre Completo *</label>
-                <input 
-                  type="text" 
-                  class="form-control"
-                  formControlName="nombre"
-                  [class.is-invalid]="formularioEdicion.get('nombre')?.invalid && formularioEdicion.get('nombre')?.touched">
-                @if (formularioEdicion.get('nombre')?.invalid && formularioEdicion.get('nombre')?.touched) {
-                  <div class="invalid-feedback">
-                    El nombre es requerido y debe tener al menos 2 caracteres
+              <!-- Información Personal -->
+              <div class="form-section">
+                <h4 class="section-title">
+                  <i class="fas fa-user"></i> Información Personal
+                </h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="nombre">Nombre *</label>
+                    <input 
+                      type="text" 
+                      id="nombre"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('nombre')"
+                      formControlName="nombre"
+                      placeholder="Ingrese el nombre">
+                    @if (hasFieldError('nombre')) {
+                      <div class="invalid-feedback">{{ getFieldError('nombre') }}</div>
+                    }
                   </div>
-                }
-              </div>
-
-              <div class="form-group">
-                <label>Email</label>
-                <input 
-                  type="email" 
-                  class="form-control"
-                  formControlName="email"
-                  readonly>
-                <small class="form-text text-muted">El email no puede ser modificado</small>
-              </div>
-
-              <div class="form-group">
-                <label>Legajo *</label>
-                <input 
-                  type="text" 
-                  class="form-control"
-                  formControlName="legajo"
-                  [class.is-invalid]="formularioEdicion.get('legajo')?.invalid && formularioEdicion.get('legajo')?.touched">
-                @if (formularioEdicion.get('legajo')?.invalid && formularioEdicion.get('legajo')?.touched) {
-                  <div class="invalid-feedback">
-                    El legajo es requerido
+                  <div class="form-group">
+                    <label for="apellido">Apellido *</label>
+                    <input 
+                      type="text" 
+                      id="apellido"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('apellido')"
+                      formControlName="apellido"
+                      placeholder="Ingrese el apellido">
+                    @if (hasFieldError('apellido')) {
+                      <div class="invalid-feedback">{{ getFieldError('apellido') }}</div>
+                    }
                   </div>
-                }
-              </div>
-
-              <div class="form-group">
-                <label>DNI *</label>
-                <input 
-                  type="text" 
-                  class="form-control"
-                  formControlName="dni"
-                  [class.is-invalid]="formularioEdicion.get('dni')?.invalid && formularioEdicion.get('dni')?.touched">
-                @if (formularioEdicion.get('dni')?.invalid && formularioEdicion.get('dni')?.touched) {
-                  <div class="invalid-feedback">
-                    DNI debe tener entre 7 y 8 dígitos
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="dni">DNI *</label>
+                    <input 
+                      type="text" 
+                      id="dni"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('dni')"
+                      formControlName="dni"
+                      placeholder="12345678"
+                      maxlength="8">
+                    @if (hasFieldError('dni')) {
+                      <div class="invalid-feedback">{{ getFieldError('dni') }}</div>
+                    }
                   </div>
-                }
-              </div>
-
-              <div class="form-group">
-                <label>Fecha de Nacimiento *</label>
-                <input 
-                  type="date" 
-                  class="form-control"
-                  formControlName="fechaNacimiento"
-                  [class.is-invalid]="formularioEdicion.get('fechaNacimiento')?.invalid && formularioEdicion.get('fechaNacimiento')?.touched">
-                @if (formularioEdicion.get('fechaNacimiento')?.invalid && formularioEdicion.get('fechaNacimiento')?.touched) {
-                  <div class="invalid-feedback">
-                    La fecha de nacimiento es requerida
+                  <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de Nacimiento *</label>
+                    <input 
+                      type="date" 
+                      id="fechaNacimiento"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('fechaNacimiento')"
+                      formControlName="fechaNacimiento">
+                    @if (hasFieldError('fechaNacimiento')) {
+                      <div class="invalid-feedback">{{ getFieldError('fechaNacimiento') }}</div>
+                    }
                   </div>
-                }
+                </div>
               </div>
-
-              <div class="form-group">
-                <label>Domicilio *</label>
-                <input 
-                  type="text" 
-                  class="form-control"
-                  formControlName="domicilio"
-                  [class.is-invalid]="formularioEdicion.get('domicilio')?.invalid && formularioEdicion.get('domicilio')?.touched">
-                @if (formularioEdicion.get('domicilio')?.invalid && formularioEdicion.get('domicilio')?.touched) {
-                  <div class="invalid-feedback">
-                    El domicilio es requerido (mínimo 5 caracteres)
+              <!-- Información de Contacto -->
+              <div class="form-section">
+                <h4 class="section-title">
+                  <i class="fas fa-address-book"></i> Información de Contacto
+                </h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="email">Correo Electrónico *</label>
+                    <input 
+                      type="email" 
+                      id="email"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('email')"
+                      formControlName="email"
+                      placeholder="usuario@ejemplo.com">
+                    @if (hasFieldError('email')) {
+                      <div class="invalid-feedback">{{ getFieldError('email') }}</div>
+                    }
                   </div>
-                }
-              </div>
-
-              <div class="form-group">
-                <label>Teléfono *</label>
-                <input 
-                  type="text" 
-                  class="form-control"
-                  formControlName="telefono"
-                  [class.is-invalid]="formularioEdicion.get('telefono')?.invalid && formularioEdicion.get('telefono')?.touched">
-                @if (formularioEdicion.get('telefono')?.invalid && formularioEdicion.get('telefono')?.touched) {
-                  <div class="invalid-feedback">
-                    Teléfono debe tener entre 10 y 15 dígitos
+                  <div class="form-group">
+                    <label for="telefono">Teléfono *</label>
+                    <input 
+                      type="tel" 
+                      id="telefono"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('telefono')"
+                      formControlName="telefono"
+                      placeholder="Ingrese su teléfono"
+                      maxlength="15">
+                    @if (hasFieldError('telefono')) {
+                      <div class="invalid-feedback">{{ getFieldError('telefono') }}</div>
+                    }
                   </div>
-                }
+                </div>
+                <div class="form-row">
+                  <div class="form-group form-group-full">
+                    <label for="domicilio">Domicilio *</label>
+                    <input 
+                      type="text" 
+                      id="domicilio"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('domicilio')"
+                      formControlName="domicilio"
+                      placeholder="Ingrese su domicilio">
+                    @if (hasFieldError('domicilio')) {
+                      <div class="invalid-feedback">{{ getFieldError('domicilio') }}</div>
+                    }
+                  </div>
+                </div>
               </div>
-
-              <div class="form-group">
-                <label>Estado *</label>
-                <select class="form-control" formControlName="estado">
-                  <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
+              <!-- Información Académica -->
+              <div class="form-section">
+                <h4 class="section-title">
+                  <i class="fas fa-graduation-cap"></i> Información Académica
+                </h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="legajo">Legajo *</label>
+                    <input 
+                      type="text" 
+                      id="legajo"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('legajo')"
+                      formControlName="legajo"
+                      placeholder="Ingrese su legajo">
+                    @if (hasFieldError('legajo')) {
+                      <div class="invalid-feedback">{{ getFieldError('legajo') }}</div>
+                    }
+                  </div>
+                  <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <select id="estado" class="form-control" formControlName="estado">
+                      <option value="Activo">Activo</option>
+                      <option value="Inactivo">Inactivo</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="cancelarEdicion()">
-              Cancelar
-            </button>
-            <button type="submit" class="btn btn-primary" [disabled]="!formularioEdicion.valid || guardandoCambios">
-              @if (guardandoCambios) {
-                <i class="fas fa-spinner fa-spin"></i> Guardando...
-              } @else {
-                <i class="fas fa-save"></i> Guardar Cambios
+            <!-- Alertas del modal -->
+            @if (mensajeModal) {
+              <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> {{ mensajeModal }}
+              </div>
+            }
+            @if (errorModal) {
+              <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle"></i> {{ errorModal }}
+              </div>
+            }
+            <!-- Botones del modal -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
+                <i class="fas fa-times"></i> Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="!formularioEdicion.valid || guardandoCambios">
+                <i class="fas fa-save"></i>
+                @if (guardandoCambios) {
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                  Guardando...
+                } @else {
+                  Guardar Cambios
+                }
+              </button>
+              @if (!formularioEdicion.valid) {
+                <small class="form-validation-info">
+                  <i class="fas fa-info-circle"></i>
+                  Complete todos los campos requeridos para poder guardar
+                </small>
               }
-            </button>
-          </div>
-        </form>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   }
