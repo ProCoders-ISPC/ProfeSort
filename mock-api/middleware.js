@@ -41,7 +41,7 @@ function handleLogin(req, res) {
           id_usuario: user.id,
           name: user.name,
           email: user.email,
-          role_id: user.role_id,
+          id_rol: user.id_rol,
           legajo: user.legajo || null,
           dni: user.dni,
           fecha_nacimiento: user.fecha_nacimiento,
@@ -109,7 +109,7 @@ function handleRegister(req, res) {
       fecha_nacimiento: fechaNacimiento,
       domicilio,
       telefono,
-      role_id: 3, // USUARIO por defecto
+      id_rol: 3, // USUARIO por defecto
       area: null,
       is_active: true,
       fecha_ingreso: new Date().toISOString(),
@@ -130,7 +130,7 @@ function handleRegister(req, res) {
         id_usuario: newUser.id,
         name: newUser.name,
         email: newUser.email,
-        role_id: newUser.role_id,
+        id_rol: newUser.id_rol,
         legajo: newUser.legajo
       }
     });

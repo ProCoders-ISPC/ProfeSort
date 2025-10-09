@@ -125,6 +125,22 @@
       "area": "SOCIALES",
       "is_active": true,
       "created_at": "2024-03-02T00:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "name": "lau za",
+      "email": "lau@mail.com",
+      "password": "A123456",
+      "legajo": "z1234",
+      "dni": "23456788",
+      "fecha_nacimiento": "2000-11-11",
+      "domicilio": "la tablada",
+      "telefono": "234456777677",
+      "role_id": 3,
+      "area": null,
+      "is_active": true,
+      "fecha_ingreso": "2025-10-08T20:14:18.980Z",
+      "created_at": "2025-10-08T20:14:18.980Z"
     }
   ],
   "estudiantes": [
@@ -179,6 +195,11 @@
       "nombre": "Historia 2",
       "codigo": "HIS345",
       "id": 8
+    },
+    {
+      "nombre": "ciencias sociales",
+      "codigo": "cs234",
+      "id": 9
     }
   ],
   "asignaciones_docentes_materias": [
@@ -194,9 +215,17 @@
       "id_rol": 2,
       "id_materia": 8,
       "id_usuario": 2,
-      "fecha_asignacion": "2025-10-08T12:53:14.255Z",
+      "fecha_asignacion": "2025-10-08T20:20:03.464Z",
       "estado": "ACTIVO",
       "id": 6
+    },
+    {
+      "id_rol": 2,
+      "id_materia": 9,
+      "id_usuario": 3,
+      "fecha_asignacion": "2025-10-08T20:20:22.165Z",
+      "estado": "ACTIVO",
+      "id": 7
     }
   ]
 }
