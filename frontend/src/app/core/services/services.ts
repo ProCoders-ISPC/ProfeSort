@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 
 export interface LoginRequest {
   email: string;
@@ -62,7 +63,7 @@ export class AuthService {
       try {
         const user = JSON.parse(savedUser);
         
-        // Asegurar que el usuario tenga la estructura correcta
+        
         const authUser: AuthUser = {
           id: user.id || user.id_usuario || 0,
           name: user.name || `${user.nombre || ''} ${user.apellido || ''}`.trim() || '',
@@ -87,7 +88,7 @@ export class AuthService {
   }
 
   private saveSession(user: AuthUser): void {
-    // Asegurar que el usuario tenga la estructura correcta antes de guardar
+    
     const normalizedUser: AuthUser = {
       id: user.id || (user as any).id_usuario || 0,
       name: user.name || '',
@@ -203,7 +204,7 @@ export class AuthService {
     const user = this.currentUserSubject.value;
     if (!user) return null;
     
-    // Asegurar que el usuario tenga la estructura correcta
+    
     return {
       id: user.id || (user as any).id_usuario || 0,
       name: user.name || '',
@@ -229,8 +230,39 @@ export class AuthService {
     };
   }
 
-  // Método para forzar la recarga del usuario con estructura correcta
+  
   refreshUserSession(): void {
     this.loadSavedSession();
+  }
+
+ 
+  validateSession(): Observable<boolean> {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) {
+      return new Observable(observer => {
+        observer.next(false);
+        observer.complete();
+      });
+    }
+
+    return this.http.get<{success: boolean, data: any}>(`${this.apiUrl}/validate-session/${currentUser.id}`)
+      .pipe(
+        map(response => {
+          if (response.success && response.data) {
+            
+            this.saveSession(response.data);
+            return true;
+          } else {
+            
+            this.clearSession();
+            return false;
+          }
+        }),
+        catchError(() => {
+      
+          this.clearSession();
+          return of(false);
+        })
+      );
   }
 }

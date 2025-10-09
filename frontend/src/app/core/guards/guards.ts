@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../services/services';
 
 @Injectable({
@@ -55,17 +57,32 @@ export class TeacherGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(): boolean {
-    if (this.authService.isAuthenticated() && 
-        (this.authService.isUser() || this.authService.isAdmin())) {
-      return true;
-    } else if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/home']);
-      return false;
-    } else {
+  canActivate(): Observable<boolean> | boolean {
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
       return false;
     }
+
+    if (!(this.authService.isUser() || this.authService.isAdmin())) {
+      this.router.navigate(['/home']);
+      return false;
+    }
+
+   
+    return this.authService.validateSession().pipe(
+      map(isValid => {
+        if (!isValid) {
+          this.router.navigate(['/login']);
+          return false;
+        }
+        
+        if (!(this.authService.isUser() || this.authService.isAdmin())) {
+          this.router.navigate(['/home']);
+          return false;
+        }
+        return true;
+      })
+    );
   }
 }
 
@@ -78,15 +95,31 @@ export class InformesGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(): boolean {
-    if (this.authService.isAuthenticated() && this.authService.isAdmin()) {
-      return true;
-    } else if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/home']);
-      return false;
-    } else {
+  canActivate(): Observable<boolean> | boolean {
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
       return false;
     }
+
+    if (!this.authService.isAdmin()) {
+      this.router.navigate(['/home']);
+      return false;
+    }
+
+  
+    return this.authService.validateSession().pipe(
+      map(isValid => {
+        if (!isValid) {
+          this.router.navigate(['/login']);
+          return false;
+        }
+        
+        if (!this.authService.isAdmin()) {
+          this.router.navigate(['/home']);
+          return false;
+        }
+        return true;
+      })
+    );
   }
 }
