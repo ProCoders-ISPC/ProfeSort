@@ -31,7 +31,7 @@ class DocenteViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         """Filtrar docentes por término de búsqueda, estado y area"""
-        queryset = Usuario.objects.filter(role__id=2)  # Solo usuarios con rol docente
+        queryset = Usuario.objects.filter(id_rol__id=2)  # Solo usuarios con rol docente
         
         # Filtros opcionales
         termino = self.request.query_params.get('termino', None)
@@ -64,7 +64,7 @@ class DocenteViewSet(viewsets.ModelViewSet):
             
             # Buscar el docente por ID
             try:
-                docente = Usuario.objects.get(pk=docente_id, role__id=2)
+                docente = Usuario.objects.get(pk=docente_id, id_rol__id=2)
             except Usuario.DoesNotExist:
                 return Response(
                     {
@@ -136,7 +136,7 @@ class DocenteViewSet(viewsets.ModelViewSet):
         PUT/PATCH /docente/{id}/actualizar_datos_personales/
         """
         try:
-            docente = get_object_or_404(Usuario, pk=pk, role__id=2)
+            docente = get_object_or_404(Usuario, pk=pk, id_rol__id=2)
             
             # Campos permitidos para actualización de datos personales
             campos_permitidos = [

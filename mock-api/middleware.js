@@ -168,7 +168,7 @@ function handleValidateSession(req, res) {
           id_usuario: user.id,
           name: user.name,
           email: user.email,
-          id_rol: user.role_id,
+          id_rol: user.id_rol,
           legajo: user.legajo || null,
           dni: user.dni,
           fecha_nacimiento: user.fecha_nacimiento,

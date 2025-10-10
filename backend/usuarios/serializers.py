@@ -9,7 +9,7 @@ class RolSerializer(serializers.ModelSerializer):
         fields = '__all__'  
 
 class UsuarioSerializer(serializers.ModelSerializer):
-    rol_nombre = serializers.CharField(source='role.nombre', read_only=True)
+    rol_nombre = serializers.CharField(source='id_rol.nombre', read_only=True)
     
     class Meta:
         model = Usuario

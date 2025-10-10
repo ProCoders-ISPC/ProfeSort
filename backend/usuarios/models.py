@@ -15,7 +15,7 @@ class Usuario(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
-    role = models.ForeignKey(Rol, on_delete=models.CASCADE, db_column='role_id')
+    id_rol = models.ForeignKey(Rol, on_delete=models.CASCADE, db_column='id_rol')
     legajo = models.CharField(max_length=50, unique=True, blank=True, null=True)
     dni = models.CharField(max_length=20, blank=True, null=True)
     fecha_nacimiento = models.DateField(blank=True, null=True)
