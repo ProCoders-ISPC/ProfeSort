@@ -150,8 +150,7 @@ export class DocentePerfil implements OnInit, OnDestroy {
       telefono: updatedUser.telefono
     };
 
-    // Usar HTTP directamente para actualizar en json-server
-    this.http.patch(`http://localhost:3000/usuarios/${this.currentUser.id}`, userData)
+    this.http.patch(`${environment.apiUrl}/usuarios/${this.currentUser.id}/`, userData)
       .subscribe({
         next: (response) => {
           // Perfil actualizado exitosamente

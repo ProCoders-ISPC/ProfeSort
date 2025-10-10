@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
@@ -35,7 +35,7 @@ export interface Estudiante {
 })
 export class DocenteService {
   private apiUrl = environment.apiUrl + '/usuarios';
-  private estudiantesUrl = environment.apiUrl + '/estudiantes';
+  // private estudiantesUrl = environment.apiUrl + '/estudiantes'; // Módulo desactivado
 
   constructor(private http: HttpClient) {}
 
@@ -53,22 +53,23 @@ export class DocenteService {
 
   // Obtener datos del docente por ID
   getDocenteById(id: number): Observable<Docente> {
-    return this.http.get<Docente>(`${this.apiUrl}/${id}`);
+    return this.http.get<Docente>(`${this.apiUrl}/${id}/`);
   }
 
   // Actualizar datos del docente
   updateDocente(id: number, docente: Partial<Docente>): Observable<Docente> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}/${id}/`;
     return this.http.put<Docente>(url, docente).pipe(
       catchError(this.handleError)
     );
   }
 
-  // Obtener estudiantes asignados a un docente
+  // Obtener estudiantes asignados a un docente (Módulo desactivado)
   getEstudiantesByDocenteId(docenteId: number): Observable<Estudiante[]> {
-    return this.http.get<Estudiante[]>(`${this.estudiantesUrl}?docenteId=${docenteId}`).pipe(
-      catchError(this.handleError)
-    );
+    // return this.http.get<Estudiante[]>(`${this.estudiantesUrl}/?docenteId=${docenteId}`).pipe(
+    //   catchError(this.handleError)
+    // );
+    return of([]); // Retornar array vacío - módulo desactivado
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -68,21 +68,7 @@ export class TeacherGuard implements CanActivate {
       return false;
     }
 
-   
-    return this.authService.validateSession().pipe(
-      map(isValid => {
-        if (!isValid) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-        
-        if (!(this.authService.isUser() || this.authService.isAdmin())) {
-          this.router.navigate(['/home']);
-          return false;
-        }
-        return true;
-      })
-    );
+    return true;
   }
 }
 
@@ -106,20 +92,6 @@ export class InformesGuard implements CanActivate {
       return false;
     }
 
-  
-    return this.authService.validateSession().pipe(
-      map(isValid => {
-        if (!isValid) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-        
-        if (!this.authService.isAdmin()) {
-          this.router.navigate(['/home']);
-          return false;
-        }
-        return true;
-      })
-    );
+    return true;
   }
 }

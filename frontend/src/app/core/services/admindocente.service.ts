@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, forkJoin } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, forkJoin, of } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 export interface DocenteCarga {
@@ -60,28 +60,34 @@ export class AdminDocenteService {
     
     // Obtener docentes y calcular conteos usando asignaciones
     return forkJoin({
-      docentes: this.http.get<any[]>(`${this.apiUrl}`, { params }),
-      estudiantes: this.http.get<any[]>(`${environment.apiUrl}/estudiantes`),
-      asignaciones: this.http.get<any[]>(`${environment.apiUrl}/asignaciones_docentes_materias`),
-      materias: this.http.get<any[]>(`${environment.apiUrl}/materias`)
+      docentes: this.http.get<any>(`${this.apiUrl}/`, { params }),
+      // estudiantes: Módulo desactivado temporalmente
+      asignaciones: this.http.get<any>(`${environment.apiUrl}/asignaciones_docentes_materias/`),
+      materias: this.http.get<any>(`${environment.apiUrl}/materias/`)
     }).pipe(
-      map(({ docentes, estudiantes, asignaciones, materias }) => {
-        return docentes.map(docente => {
+      map(({ docentes, asignaciones, materias }) => {
+        // Extraer los arrays de data de las respuestas de la API
+        const docentesData = docentes.data || [];
+        const estudiantesData: any[] = []; // Array vacío - módulo desactivado
+        const asignacionesData = asignaciones.data || [];
+        const materiasData = materias.data || [];
+        
+        return docentesData.map((docente: any) => {
           // Contar estudiantes asignados a este docente
-          const estudiantesDelDocente = estudiantes.filter(
-            est => est.docenteId === docente.id
+          const estudiantesDelDocente = estudiantesData.filter(
+            (est: any) => est.docenteId === docente.id
           );
           
           // Obtener asignaciones activas de este docente
-          const asignacionesDocente = asignaciones.filter(
-            asig => asig.id_usuario === docente.id && asig.estado === 'ACTIVO'
+          const asignacionesDocente = asignacionesData.filter(
+            (asig: any) => asig.id_usuario === docente.id && asig.estado === 'ACTIVO'
           );
           
           // Obtener materias de las asignaciones
-          const materiasDelDocente = asignacionesDocente.map(asig => {
-            const materia = materias.find(mat => mat.id === asig.id_materia);
+          const materiasDelDocente = asignacionesDocente.map((asig: any) => {
+            const materia = materiasData.find((mat: any) => mat.id === asig.id_materia);
             return materia ? materia.nombre : null;
-          }).filter(nombre => nombre !== null);
+          }).filter((nombre: any) => nombre !== null);
           
           return {
             ...docente,
@@ -97,26 +103,25 @@ export class AdminDocenteService {
   }
 
   getDocenteCarga(id: number): Observable<DocenteCarga> {
-    return this.http.get<DocenteCarga>(`${this.apiUrl}/${id}`);
+    return this.http.get<DocenteCarga>(`${this.apiUrl}/${id}/`);
   }
 
   getUsuariosRegulares(page = 1, limit = 10): Observable<any[]> {
     const params = new HttpParams()
       .set('id_rol', 'docente'); 
     
-    return this.http.get<any[]>(`${this.usuariosUrl}`, { params });
+    return this.http.get<any[]>(`${this.usuariosUrl}/`, { params });
   }
 
   asignarRol(usuarioId: number, rolId: number): Observable<any> {
-    return this.http.patch(`${this.usuariosUrl}/${usuarioId}`, { id_rol: rolId });
+    return this.http.patch(`${this.usuariosUrl}/${usuarioId}/`, { id_rol: rolId });
   }
   
   actualizarDocente(id: number, docente: Partial<DocenteCarga>): Observable<DocenteCarga> {
-    // Con la nueva estructura usando 'id' como primary key, json-server funciona directamente
-    return this.http.patch<DocenteCarga>(`${this.apiUrl}/${id}`, docente);
+    return this.http.patch<DocenteCarga>(`${this.apiUrl}/${id}/`, docente);
   }
 
   getEstadisticas(): Observable<EstadisticasCarga> {
-    return this.http.get<EstadisticasCarga>(`${this.apiUrl}/estadisticas`);
+    return this.http.get<EstadisticasCarga>(`${this.apiUrl}/estadisticas/`);
   }
 }

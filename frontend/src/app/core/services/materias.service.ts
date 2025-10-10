@@ -34,8 +34,8 @@ export interface Materia {
 
 @Injectable({ providedIn: 'root' })
 export class MateriasService {
-  private apiUrl = 'http://localhost:3000/materias';
-  private usersUrl = 'http://localhost:3000/usuarios';
+  private apiUrl = `${environment.apiUrl}/materias`;
+  private usersUrl = `${environment.apiUrl}/usuarios`;
 
   constructor(
     private http: HttpClient,
@@ -62,15 +62,14 @@ export class MateriasService {
    * Crear nueva materia (sin asignación de docente)
    */
   addMateria(materia: Omit<Materia, 'id'>): Observable<Materia> {
-    return this.http.post<Materia>(this.apiUrl, materia);
+    return this.http.post<Materia>(`${this.apiUrl}/`, materia);
   }
 
   /**
    * Actualizar materia
    */
   updateMateria(id: number, materia: Partial<Materia>): Observable<Materia> {
-    // Con la nueva estructura usando 'id' como primary key, json-server funciona directamente
-    return this.http.patch<Materia>(`${this.apiUrl}/${id}`, materia);
+    return this.http.patch<Materia>(`${this.apiUrl}/${id}/`, materia);
   }
 
   /**
@@ -86,7 +85,7 @@ export class MateriasService {
         );
         return Promise.all(deletePromises);
       }),
-      switchMap(() => this.http.delete<void>(`${this.apiUrl}/${id}`))
+      switchMap(() => this.http.delete<void>(`${this.apiUrl}/${id}/`))
     );
   }
 
@@ -132,11 +131,14 @@ export class MateriasService {
    * Obtener lista de docentes disponibles
    */
   getDocentes(): Observable<DocenteSimple[]> {
-    return this.http.get<DocenteSimple[]>(`${this.usersUrl}?id_rol=2`).pipe(
-      map(docentes => docentes.map(docente => ({
-        ...docente,
-        id_usuario: docente.id // Mapear id a id_usuario para compatibilidad
-      })))
+    return this.http.get<any>(`${this.usersUrl}/?id_rol=2`).pipe(
+      map(response => {
+        const docentes = response.data || [];
+        return docentes.map((docente: any) => ({
+          ...docente,
+          id_usuario: docente.id // Mapear id a id_usuario para compatibilidad
+        }));
+      })
     );
   }
 }

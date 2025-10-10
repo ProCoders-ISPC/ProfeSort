@@ -45,10 +45,11 @@ export class EstudiantesComponent implements OnInit {
       estado: ['', Validators.required]
     });
 
-    this.estudiantesService.getEstudiantes().subscribe((data: Estudiante[]) => {
-      this.estudiantes = data;
-      this.estudiantesFiltrados = [...this.estudiantes];
-    });
+    // Módulo en desarrollo - no cargar datos
+    // this.estudiantesService.getEstudiantes().subscribe((data: Estudiante[]) => {
+    //   this.estudiantes = data;
+    //   this.estudiantesFiltrados = [...this.estudiantes];
+    // });
   }
   buscarEstudiantes(termino: string): void {
     const t = termino.trim().toLowerCase();

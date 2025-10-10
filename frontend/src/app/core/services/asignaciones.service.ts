@@ -61,28 +61,34 @@ export class AsignacionesService {
    * Obtener todas las asignaciones
    */
   getAsignaciones(): Observable<Asignacion[]> {
-    return this.http.get<Asignacion[]>(this.apiUrl);
+    return this.http.get<any>(`${this.apiUrl}/`).pipe(
+      map(response => response.data || [])
+    );
   }
 
   /**
    * Obtener asignaciones de un docente específico
    */
   getAsignacionesByDocente(idUsuario: number): Observable<Asignacion[]> {
-    return this.http.get<Asignacion[]>(`${this.apiUrl}?id_usuario=${idUsuario}`);
+    return this.http.get<any>(`${this.apiUrl}/?id_usuario=${idUsuario}`).pipe(
+      map(response => response.data || [])
+    );
   }
 
   /**
    * Obtener asignaciones de una materia específica
    */
   getAsignacionesByMateria(idMateria: number): Observable<Asignacion[]> {
-    return this.http.get<Asignacion[]>(`${this.apiUrl}?id_materia=${idMateria}`);
+    return this.http.get<any>(`${this.apiUrl}/?id_materia=${idMateria}`).pipe(
+      map(response => response.data || [])
+    );
   }
 
   /**
    * Crear una nueva asignación
    */
   crearAsignacion(asignacion: Omit<Asignacion, 'id'>): Observable<Asignacion> {
-    return this.http.post<Asignacion>(this.apiUrl, {
+    return this.http.post<Asignacion>(`${this.apiUrl}/`, {
       ...asignacion,
       fecha_asignacion: new Date().toISOString(),
       estado: 'ACTIVO'
@@ -93,16 +99,14 @@ export class AsignacionesService {
    * Actualizar una asignación existente
    */
   actualizarAsignacion(id: number, asignacion: Partial<Asignacion>): Observable<Asignacion> {
-    // Con la nueva estructura usando 'id' como primary key, json-server funciona directamente
-    return this.http.patch<Asignacion>(`${this.apiUrl}/${id}`, asignacion);
+    return this.http.patch<Asignacion>(`${this.apiUrl}/${id}/`, asignacion);
   }
 
   /**
    * Eliminar una asignación
    */
   eliminarAsignacion(id: number): Observable<void> {
-    // Con la nueva estructura usando 'id' como primary key, json-server funciona directamente
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}/`);
   }
 
   /**
@@ -141,20 +145,24 @@ export class AsignacionesService {
    */
   getMateriasConDocentes(): Observable<MateriaConDocente[]> {
     return forkJoin({
-      materias: this.http.get<any[]>(this.materiasUrl),
-      asignaciones: this.http.get<Asignacion[]>(this.apiUrl),
-      usuarios: this.http.get<any[]>(`${this.usuariosUrl}?id_rol=2`)
+      materias: this.http.get<any>(`${this.materiasUrl}/`),
+      asignaciones: this.http.get<any>(`${this.apiUrl}/`),
+      usuarios: this.http.get<any>(`${this.usuariosUrl}/?id_rol=2`)
     }).pipe(
       map(({ materias, asignaciones, usuarios }) => {
-        return materias.map(materia => {
+        const materiasData = materias.data || [];
+        const asignacionesData = asignaciones.data || [];
+        const usuariosData = usuarios.data || [];
+        
+        return materiasData.map((materia: any) => {
           // Buscar asignación activa para esta materia
-          const asignacion = asignaciones.find(
-            a => a.id_materia === materia.id && a.estado === 'ACTIVO'
+          const asignacion = asignacionesData.find(
+            (a: any) => a.id_materia === materia.id && a.estado === 'ACTIVO'
           );
 
           if (asignacion) {
             // Buscar el docente asignado
-            const docente = usuarios.find(u => u.id === asignacion.id_usuario);
+            const docente = usuariosData.find((u: any) => u.id === asignacion.id_usuario);
             
             if (docente) {
               return {
@@ -190,13 +198,14 @@ export class AsignacionesService {
   getMateriasDeDocente(idUsuario: number): Observable<any[]> {
     return forkJoin({
       asignaciones: this.getAsignacionesByDocente(idUsuario),
-      materias: this.http.get<any[]>(this.materiasUrl)
+      materias: this.http.get<any>(`${this.materiasUrl}/`)
     }).pipe(
       map(({ asignaciones, materias }) => {
+        const materiasData = materias.data || [];
         const materiasAsignadas = asignaciones
-          .filter(a => a.estado === 'ACTIVO')
-          .map(asignacion => {
-            const materia = materias.find(m => m.id === asignacion.id_materia);
+          .filter((a: any) => a.estado === 'ACTIVO')
+          .map((asignacion: any) => {
+            const materia = materiasData.find((m: any) => m.id === asignacion.id_materia);
             return materia ? {
               ...materia,
               idmateria: materia.id, // Mapear id a idmateria para compatibilidad
@@ -204,7 +213,7 @@ export class AsignacionesService {
               id_asignacion: asignacion.id
             } : null;
           })
-          .filter(m => m !== null);
+          .filter((m: any) => m !== null);
 
         return materiasAsignadas;
       })
@@ -216,20 +225,24 @@ export class AsignacionesService {
    */
   getDocentesConMaterias(): Observable<DocenteConMaterias[]> {
     return forkJoin({
-      usuarios: this.http.get<any[]>(`${this.usuariosUrl}?id_rol=2`),
-      asignaciones: this.http.get<Asignacion[]>(this.apiUrl),
-      materias: this.http.get<any[]>(this.materiasUrl)
+      usuarios: this.http.get<any>(`${this.usuariosUrl}/?id_rol=2`),
+      asignaciones: this.http.get<any>(`${this.apiUrl}/`),
+      materias: this.http.get<any>(`${this.materiasUrl}/`)
     }).pipe(
       map(({ usuarios, asignaciones, materias }) => {
-        return usuarios.map(usuario => {
+        const usuariosData = usuarios.data || [];
+        const asignacionesData = asignaciones.data || [];
+        const materiasData = materias.data || [];
+        
+        return usuariosData.map((usuario: any) => {
           // Buscar asignaciones activas de este docente
-          const asignacionesDocente = asignaciones.filter(
-            a => a.id_usuario === usuario.id && a.estado === 'ACTIVO'
+          const asignacionesDocente = asignacionesData.filter(
+            (a: any) => a.id_usuario === usuario.id && a.estado === 'ACTIVO'
           );
 
           // Obtener las materias asignadas
-          const materiasAsignadas = asignacionesDocente.map(asignacion => {
-            const materia = materias.find(m => m.id === asignacion.id_materia);
+          const materiasAsignadas = asignacionesDocente.map((asignacion: any) => {
+            const materia = materiasData.find((m: any) => m.id === asignacion.id_materia);
             return materia ? {
               id: materia.id,
               idmateria: materia.id, // Mapear id a idmateria para compatibilidad
@@ -238,7 +251,7 @@ export class AsignacionesService {
               fecha_asignacion: asignacion.fecha_asignacion,
               estado: asignacion.estado
             } : null;
-          }).filter(m => m !== null) as any[];
+          }).filter((m: any) => m !== null) as any[];
 
           return {
             id_usuario: usuario.id,

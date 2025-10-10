@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 export interface LoginRequest {
   email: string;
@@ -50,7 +51,7 @@ export class AuthService {
   
   private currentUserSubject = new BehaviorSubject<AuthUser | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
-  private apiUrl = 'http://localhost:3000/auth';
+  private apiUrl = `${environment.apiUrl}/usuarios`;
   
   constructor(private http: HttpClient) {
     this.loadSavedSession();
@@ -115,7 +116,7 @@ export class AuthService {
     const loginData: LoginRequest = { email, password };
     
     return new Observable<ApiResponse<AuthUser>>(observer => {
-      this.http.post<ApiResponse<AuthUser>>(`${this.apiUrl}/login`, loginData)
+      this.http.post<ApiResponse<AuthUser>>(`${this.apiUrl}/login/`, loginData)
         .subscribe({
           next: (response) => {
             if (response.success && response.data) {
@@ -151,7 +152,7 @@ export class AuthService {
 
   register(registerData: RegisterRequest): Observable<ApiResponse<any>> {
     return new Observable<ApiResponse<any>>(observer => {
-      this.http.post<ApiResponse<any>>(`${this.apiUrl}/register`, registerData)
+      this.http.post<ApiResponse<any>>(`${this.apiUrl}/register/`, registerData)
         .subscribe({
           next: (response) => {
             observer.next(response);
