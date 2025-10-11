@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-admindocente',
-  templateUrl: './admindocente-nuevo.html',
+  templateUrl: './admindocente.html',
   styleUrls: ['./admindocente.css'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule]

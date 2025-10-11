@@ -1,6 +1,4 @@
 <div class="admin-docente-container">
-  <h2>Gestión de Docentes</h2>
-  
   <!-- Mensaje de éxito o error -->
   @if (mensaje) {
     <div class="alert alert-success">{{ mensaje }}</div>
@@ -10,20 +8,13 @@
     <div class="alert alert-danger">{{ error }}</div>
   }
   
-  <!-- Botones de acción principal -->
-  <div class="acciones-container">
-    <button class="btn btn-primary" (click)="toggleMostrarUsuarios()">
-      {{ mostrarUsuariosRegulares ? 'Ver Docentes' : 'Asignar Rol Docente' }}
-    </button>
-  </div>
-  
   <!-- Indicador de carga -->
   @if (loading) {
     <div class="spinner">Cargando...</div>
   }
 
   <!-- Lista de docentes actuales con búsqueda -->
-  @if (!mostrarUsuariosRegulares && !loading && !error) {
+  @if (!mostrarUsuariosRegulares && !loading) {
     <div class="docentes-container">
       <div class="panel-principal">
         <div class="panel-header">
@@ -33,34 +24,43 @@
             </h2>
             <p class="panel-subtitle">Administra los docentes del sistema</p>
           </div>
+          <button class="btn btn-primary btn-add" (click)="toggleMostrarUsuarios()">
+            <i class="fas fa-plus me-2"></i>
+            {{ mostrarUsuariosRegulares ? 'Ver Docentes' : 'Asignar Rol Docente' }}
+          </button>
         </div>
-      </div>
 
-      <!-- Filtros de búsqueda -->
+      <!-- Filtros de búsqueda (integrados en una sola fila) -->
       <div class="filtros-section">
-        <div class="search-bar">
-          <i class="fas fa-search"></i>
-          <input 
-            type="text"
-            class="search-input"
-            placeholder="Buscar por nombre, email o legajo..."
-            [(ngModel)]="terminoBusqueda"
-            (ngModelChange)="onSearch(terminoBusqueda)">
-        </div>
-        <div class="filtros-group">
-          <select class="filter-select" [(ngModel)]="estadoFiltro" (change)="filtrarPorEstado(estadoFiltro)">
-            <option value="">Todos los estados</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-          </select>
-          <select class="filter-select" [(ngModel)]="areaFiltro" (change)="filtrarPorArea(areaFiltro)">
-            <option value="">Todas las Áreas</option>
-            <option value="Matemáticas">Matemáticas</option>
-            <option value="Ciencias Naturales">Ciencias Naturales</option>
-            <option value="Ciencias Sociales">Ciencias Sociales</option>
-            <option value="Lengua">Lengua</option>
-            <option value="Lengua extranjera">Lengua extranjera</option>
-          </select>
+        <div class="filtros-inner">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input 
+              type="text"
+              class="search-input"
+              placeholder="Buscar por nombre, email o legajo..."
+              [(ngModel)]="terminoBusqueda"
+              (ngModelChange)="onSearch(terminoBusqueda)">
+          </div>
+
+          <div class="filtros-group">
+            <label class="sr-only">Estado</label>
+            <select class="filter-select" [(ngModel)]="estadoFiltro" (change)="filtrarPorEstado(estadoFiltro)">
+              <option value="">Todos los estados</option>
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+
+            <label class="sr-only">Área</label>
+            <select class="filter-select" [(ngModel)]="areaFiltro" (change)="filtrarPorArea(areaFiltro)">
+              <option value="">Todas las Áreas</option>
+              <option value="Matemáticas">Matemáticas</option>
+              <option value="Ciencias Naturales">Ciencias Naturales</option>
+              <option value="Ciencias Sociales">Ciencias Sociales</option>
+              <option value="Lengua">Lengua</option>
+              <option value="Lengua extranjera">Lengua extranjera</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -72,6 +72,9 @@
           </div>
           <h3>No hay docentes registrados</h3>
           <p>Aún no existen docentes en el sistema.</p>
+          <button class="btn btn-primary" (click)="toggleMostrarUsuarios()">
+            <i class="fas fa-plus me-2"></i> Agregar Primer Docente
+          </button>
         </div>
       }
 
@@ -138,6 +141,7 @@
           </button>
         </div>
       }
+      </div> <!-- .panel-principal -->
     </div>
   }
 
