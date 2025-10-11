@@ -127,15 +127,43 @@ export class AuthService {
             observer.complete();
           },
           error: (error) => {
+            console.error('Error en login service:', error);
             let errorResponse: ApiResponse<AuthUser>;
             
-            if (error.status === 401) {
+            // Error 403 - Usuario inactivo
+            if (error.status === 403) {
+              errorResponse = {
+                success: false,
+                message: 'Tu cuenta está inactiva. Por favor, contacta al administrador para activarla.',
+                error: error.error?.error || 'Cuenta desactivada'
+              };
+            } 
+            // Error 401 - Credenciales inválidas
+            else if (error.status === 401) {
               errorResponse = {
                 success: false,
                 message: 'Credenciales inválidas',
-                error: 'Email o contraseña incorrectos'
+                error: error.error?.error || 'Email o contraseña incorrectos'
               };
-            } else {
+            } 
+            // Error 400 - Datos inválidos
+            else if (error.status === 400) {
+              errorResponse = {
+                success: false,
+                message: 'Datos inválidos',
+                error: error.error?.message || 'Verifica los datos ingresados'
+              };
+            }
+            // Error 500 - Error del servidor
+            else if (error.status === 500) {
+              errorResponse = {
+                success: false,
+                message: 'Error en el servidor',
+                error: 'Ocurrió un error en el servidor. Intenta más tarde.'
+              };
+            }
+            // Otros errores (red, timeout, etc.)
+            else {
               errorResponse = {
                 success: false,
                 message: 'Error de conexión',

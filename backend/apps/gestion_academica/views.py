@@ -47,7 +47,19 @@ class MateriaDetailView(APIView):
 
 class AsignacionDocenteMateriaListCreateView(APIView):
     def get(self, request):
+        # Obtener parámetros de filtrado
+        id_materia = request.GET.get('id_materia')
+        id_usuario = request.GET.get('id_usuario')
+        
+        # Filtrar asignaciones según parámetros
         asignaciones = AsignacionDocenteMateria.objects.all()
+        
+        if id_materia:
+            asignaciones = asignaciones.filter(id_materia=id_materia)
+        
+        if id_usuario:
+            asignaciones = asignaciones.filter(id_usuario=id_usuario)
+        
         serializer = AsignacionDocenteMateriaSerializer(asignaciones, many=True)
         return success_response(data=serializer.data)
     
@@ -69,6 +81,14 @@ class AsignacionDocenteMateriaDetailView(APIView):
     def put(self, request, pk):
         asignacion = get_object_or_404(AsignacionDocenteMateria, pk=pk)
         serializer = AsignacionDocenteMateriaSerializer(asignacion, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return success_response(data=serializer.data)
+        return error_response(error=serializer.errors, message="Error al actualizar asignación", status_code=status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self, request, pk):
+        asignacion = get_object_or_404(AsignacionDocenteMateria, pk=pk)
+        serializer = AsignacionDocenteMateriaSerializer(asignacion, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return success_response(data=serializer.data)

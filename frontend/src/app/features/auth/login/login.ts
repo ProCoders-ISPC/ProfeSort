@@ -72,6 +72,7 @@ export class Login {
       this.authService.login(email, password).subscribe({
         next: (response) => {
           this.isLoading = false;
+          console.log('Respuesta de login:', response);
           
           if (response.success && response.data) {
             this.loginMessage = 'Inicio de sesión exitoso. Redirigiendo...';
@@ -86,12 +87,9 @@ export class Login {
               }
             }, 1000);
           } else {
-            this.loginError = response.error || response.message || 'Error en el inicio de sesión';
+            // Usar el mensaje que viene del servicio
+            this.loginError = response.message || response.error || 'Error en el inicio de sesión';
           }
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.loginError = 'Error de conexión. Por favor, intente nuevamente.';
         }
       });
     } else {

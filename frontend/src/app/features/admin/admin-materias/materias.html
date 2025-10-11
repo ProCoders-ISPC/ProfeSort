@@ -145,7 +145,7 @@
                                 placeholder="Ej: Matemática, Historia, Lengua..." 
                                 required
                                 #nombreInput="ngModel">
-                            @if (nombreInput.invalid && nombreInput.touched) {
+                            @if (nombreInput && nombreInput.invalid && nombreInput.touched) {
                                 <div class="invalid-feedback">
                                     El nombre de la materia es obligatorio
                                 </div>
@@ -161,7 +161,7 @@
                                 placeholder="Ej: MAT101, HIS201, LEN301..." 
                                 required
                                 #codigoInput="ngModel">
-                            @if (codigoInput.invalid && codigoInput.touched) {
+                            @if (codigoInput && codigoInput.invalid && codigoInput.touched) {
                                 <div class="invalid-feedback">
                                     El código de la materia es obligatorio
                                 </div>

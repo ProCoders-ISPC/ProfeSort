@@ -94,37 +94,43 @@ export class MateriasService {
    * Usa la tabla de asignaciones_docentes_materias
    */
   asignarDocente(materiaId: number, docenteId: number | null): Observable<any> {
-    if (docenteId === null) {
-      // Desasignar docente
-      return this.asignacionesService.getAsignacionesByMateria(materiaId).pipe(
-        switchMap(asignaciones => {
+    console.log('🎯 asignarDocente() llamado:', { materiaId, docenteId });
+    
+    // Primero obtener asignaciones actuales de esta materia específica
+    return this.asignacionesService.getAsignacionesByMateria(materiaId).pipe(
+      switchMap(asignaciones => {
+        console.log('  📋 Asignaciones encontradas para materia', materiaId, ':', asignaciones);
+        
+        if (docenteId === null) {
+          console.log('  ➡️ Desasignando docente...');
+          // Eliminar asignación si existe
           if (asignaciones.length > 0) {
-            // Eliminar la asignación existente
+            console.log('  🗑️ Eliminando asignación ID:', asignaciones[0].id);
             return this.asignacionesService.eliminarAsignacion(asignaciones[0].id);
           }
+          console.log('  ℹ️ No hay asignaciones para eliminar');
           return new Observable(observer => {
             observer.next(null);
             observer.complete();
           });
-        })
-      );
-    } else {
-      // Primero verificar si ya existe una asignación
-      return this.asignacionesService.getAsignacionesByMateria(materiaId).pipe(
-        switchMap(asignaciones => {
+        } else {
+          console.log('  ➡️ Asignando/actualizando docente a ID:', docenteId);
+          
           if (asignaciones.length > 0) {
-            // Ya existe una asignación, actualizarla
+            // Ya existe una asignación para esta materia, actualizarla
+            console.log('  ✏️ Actualizando asignación ID:', asignaciones[0].id, 'con docente:', docenteId);
             return this.asignacionesService.actualizarAsignacion(
               asignaciones[0].id,
-              { id_usuario: docenteId, estado: 'ACTIVO' }
+              { id_usuario: docenteId, id_materia: materiaId, estado: 'ACTIVO' }
             );
           } else {
             // No existe asignación, crear una nueva
+            console.log('  ➕ Creando nueva asignación para materia:', materiaId, 'docente:', docenteId);
             return this.asignacionesService.asignarDocenteAMateria(materiaId, docenteId);
           }
-        })
-      );
-    }
+        }
+      })
+    );
   }
 
   /**
