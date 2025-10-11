@@ -211,6 +211,16 @@
   margin-bottom: 10px;
   font-size: 0.9rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.login__error-message::before {
+  content: '⚠️';
+  font-size: 1.2rem;
 }
 
 /* ===== ENLACE DE REGISTRO ===== */

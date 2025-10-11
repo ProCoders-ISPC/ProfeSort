@@ -227,10 +227,17 @@ export class AdminDocenteComponent implements OnInit {
         next: (response) => {
           console.log('Docente actualizado exitosamente:', response);
           
-          // Actualizar en la lista local
+          // Actualizar en la lista local con la respuesta del servidor
           const index = this.docentesOriginales.findIndex(d => d.id === this.docenteEditando!.id);
           if (index !== -1) {
-            this.docentesOriginales[index] = { ...response, estado: response.is_active ? 'Activo' : 'Inactivo' };
+            // Combinar la respuesta con los datos anteriores para asegurar que no falte nada
+            const docenteActualizado: DocenteCarga = {
+              ...this.docentesOriginales[index],  // Mantener datos anteriores
+              ...response,                         // Actualizar con la respuesta del servidor
+              name: response.name || datosActualizados.name || this.docentesOriginales[index].name,  // Asegurar que name existe
+              estado: response.is_active ? 'Activo' : 'Inactivo'
+            };
+            this.docentesOriginales[index] = docenteActualizado;
             this.aplicarFiltros(); // Reaplica filtros con los nuevos datos
           }
           

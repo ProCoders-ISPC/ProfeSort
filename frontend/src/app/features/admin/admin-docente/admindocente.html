@@ -1,191 +1,119 @@
-<div class="admin-docente-container">
-  <!-- Mensaje de éxito o error -->
-  @if (mensaje) {
-    <div class="alert alert-success">{{ mensaje }}</div>
-  }
-  
-  @if (error) {
-    <div class="alert alert-danger">{{ error }}</div>
-  }
-  
-  <!-- Indicador de carga -->
-  @if (loading) {
-    <div class="spinner">Cargando...</div>
-  }
+<div class="docentes-container">
+  <div class="panel-principal">
+    <div class="panel-header">
+      <div class="header-content">
+        <h2 class="panel-title">
+          <i class="fas fa-user-tie me-2"></i>Gestión de Docentes
+        </h2>
+        <p class="panel-subtitle">Administra los docentes del sistema</p>
+      </div>
+    </div>
 
-  <!-- Lista de docentes actuales con búsqueda -->
-  @if (!mostrarUsuariosRegulares && !loading) {
-    <div class="docentes-container">
-      <div class="panel-principal">
-        <div class="panel-header">
-          <div class="header-content">
-            <h2 class="panel-title">
-              <i class="fas fa-user-tie me-2"></i>Gestión de Docentes
-            </h2>
-            <p class="panel-subtitle">Administra los docentes del sistema</p>
-          </div>
-          <button class="btn btn-primary btn-add" (click)="toggleMostrarUsuarios()">
-            <i class="fas fa-plus me-2"></i>
-            {{ mostrarUsuariosRegulares ? 'Ver Docentes' : 'Asignar Rol Docente' }}
-          </button>
+    @if (mensaje) {
+      <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i> {{ mensaje }}
+      </div>
+    }
+
+    @if (error) {
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i> {{ error }}
+      </div>
+    }
+
+    @if (loading) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando docentes...</p>
+      </div>
+    }
+
+    @if (!loading && docentes.length === 0 && !terminoBusqueda) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="fas fa-user-tie"></i>
         </div>
+        <h3>No hay docentes registrados</h3>
+        <p>Aún no existen docentes en el sistema.</p>
+      </div>
+    }
 
-      <!-- Filtros de búsqueda (integrados en una sola fila) -->
+    @if (!loading && docentes.length > 0) {
       <div class="filtros-section">
-        <div class="filtros-inner">
-          <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input 
-              type="text"
-              class="search-input"
-              placeholder="Buscar por nombre, email o legajo..."
-              [(ngModel)]="terminoBusqueda"
-              (ngModelChange)="onSearch(terminoBusqueda)">
-          </div>
-
-          <div class="filtros-group">
-            <label class="sr-only">Estado</label>
-            <select class="filter-select" [(ngModel)]="estadoFiltro" (change)="filtrarPorEstado(estadoFiltro)">
-              <option value="">Todos los estados</option>
-              <option value="Activo">Activo</option>
-              <option value="Inactivo">Inactivo</option>
-            </select>
-
-            <label class="sr-only">Área</label>
-            <select class="filter-select" [(ngModel)]="areaFiltro" (change)="filtrarPorArea(areaFiltro)">
-              <option value="">Todas las Áreas</option>
-              <option value="Matemáticas">Matemáticas</option>
-              <option value="Ciencias Naturales">Ciencias Naturales</option>
-              <option value="Ciencias Sociales">Ciencias Sociales</option>
-              <option value="Lengua">Lengua</option>
-              <option value="Lengua extranjera">Lengua extranjera</option>
-            </select>
-          </div>
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input 
+            type="text"
+            class="search-input"
+            placeholder="Buscar por nombre, email o legajo..."
+            [(ngModel)]="terminoBusqueda"
+            (ngModelChange)="onSearch(terminoBusqueda)">
+        </div>
+        
+        <div class="filtros-group">
+          <select class="filter-select" [(ngModel)]="estadoFiltro" (change)="filtrarPorEstado(estadoFiltro)">
+            <option value="">Todos los estados</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
         </div>
       </div>
 
-      <!-- Sin docentes -->
-      @if (!loading && docentes.length === 0 && !terminoBusqueda) {
-        <div class="empty-state">
-          <div class="empty-icon">
-            <i class="fas fa-user-tie"></i>
+      <div class="docentes-grid">
+        @for (docente of docentes; track docente.id) {
+          <div class="docente-card">
+            <div class="card-header">
+              <div class="docente-avatar">
+                {{ docente.name && docente.name.length > 0 ? docente.name.charAt(0).toUpperCase() : '?' }}
+              </div>
+              <div class="docente-info-header">
+                <h4 class="docente-nombre">{{ docente.name || 'Sin nombre' }}</h4>
+                <span class="docente-legajo">{{ docente.legajo }}</span>
+              </div>
+              <span class="badge" [class.badge-success]="docente.estado === 'Activo'" 
+                                  [class.badge-secondary]="docente.estado === 'Inactivo'">
+                {{ docente.estado }}
+              </span>
+            </div>
+            
+            <div class="card-body">
+              <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <span>{{ docente.email }}</span>
+              </div>
+              
+              <div class="stats-row">
+                <div class="stat-item">
+                  <i class="fas fa-book"></i>
+                  <span>{{ docente.cantidadMaterias || 0 }} materias</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card-actions">
+              <button class="btn btn-sm btn-outline-primary" 
+                      (click)="editarDocente(docente)"
+                      title="Editar información del docente">
+                <i class="fas fa-user-edit"></i> Editar Información
+              </button>
+              
+              <button class="btn btn-sm btn-outline-danger" 
+                      (click)="promoverAAdmin(docente.id, docente.name)"
+                      title="Promover a administrador">
+                <i class="fas fa-user-shield"></i> Promover
+              </button>
+            </div>
           </div>
-          <h3>No hay docentes registrados</h3>
-          <p>Aún no existen docentes en el sistema.</p>
-          <button class="btn btn-primary" (click)="toggleMostrarUsuarios()">
-            <i class="fas fa-plus me-2"></i> Agregar Primer Docente
-          </button>
-        </div>
-      }
+        } @empty {
+          <div class="empty-search">
+            <i class="fas fa-search"></i>
+            <p>No se encontraron docentes con "{{ terminoBusqueda }}"</p>
+          </div>
+        }
+      </div>
+    }
+  </div>
 
-      <!-- Grid de docentes -->
-      @if (!loading && docentes.length > 0) {
-        <div class="docentes-grid">
-          @for (docente of docentes; track docente.id) {
-            <div class="docente-card">
-              <div class="card-header">
-                <div class="docente-avatar">
-                  {{ docente.name.charAt(0).toUpperCase() }}
-                </div>
-                <div class="docente-info-header">
-                  <h4 class="docente-nombre">{{ docente.name }}</h4>
-                  <span class="docente-legajo">{{ docente.legajo }}</span>
-                </div>
-                <span class="badge" [class.badge-success]="docente.estado === 'Activo'" 
-                                    [class.badge-secondary]="docente.estado === 'Inactivo'">
-                  {{ docente.estado }}
-                </span>
-              </div>
-              <div class="card-body">
-                <div class="info-item">
-                  <i class="fas fa-envelope"></i>
-                  <span>{{ docente.email }}</span>
-                </div>
-                <div class="stats-row">
-                  <div class="stat-item">
-                    <i class="fas fa-book"></i>
-                    <span>{{ docente.cantidadMaterias || 0 }} materias</span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-actions">
-                <button class="btn btn-sm btn-outline-primary" 
-                        (click)="editarDocente(docente)"
-                        title="Editar información del docente">
-                  <i class="fas fa-user-edit"></i> Editar Información
-                </button>
-                <button class="btn btn-sm btn-outline-danger" 
-                        (click)="promoverAAdmin(docente.id, docente.name)"
-                        title="Promover a administrador">
-                  <i class="fas fa-user-shield"></i> Promover
-                </button>
-              </div>
-            </div>
-          } @empty {
-            <div class="empty-search">
-              <i class="fas fa-search"></i>
-              <p>No se encontraron docentes con "{{ terminoBusqueda }}"</p>
-            </div>
-          }
-        </div>
-        <!-- Paginación simple -->
-        <div class="pagination" *ngIf="docentes.length > 0">
-          <button 
-            [disabled]="currentPage === 1" 
-            (click)="cambiarPagina(currentPage - 1)">
-            Anterior
-          </button>
-          <span>Página {{ currentPage }}</span>
-          <button (click)="cambiarPagina(currentPage + 1)">
-            Siguiente
-          </button>
-        </div>
-      }
-      </div> <!-- .panel-principal -->
-    </div>
-  }
-
-  <!-- Vista para asignar roles de docente -->
-  @if (mostrarUsuariosRegulares && !loading && !error) {
-    <div class="usuarios-container">
-      <h3>Usuarios Registrados</h3>
-      <p>Selecciona los usuarios a los que deseas asignar el rol de docente:</p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Legajo</th>
-            <th>Fecha Registro</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (usuario of usuariosRegulares; track usuario.id) {
-            <tr>
-              <td>{{ usuario.name }}</td>
-              <td>{{ usuario.email }}</td>
-              <td>{{ usuario.legajo || 'No asignado' }}</td>
-              <td>{{ usuario.created_at | date }}</td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-sm btn-primary" (click)="asignarRolDocente(usuario.id)">
-                    Convertir a Docente
-                  </button>
-                </div>
-              </td>
-            </tr>
-          } @empty {
-            <tr>
-              <td colspan="5" class="text-center">No hay usuarios disponibles para asignar</td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  }
-
-  <!-- Modal de Edición de Docente -->
   @if (mostrarModalEdicion && docenteEditando) {
     <div class="modal-overlay">
       <div class="modal-container">
@@ -201,7 +129,6 @@
         <div class="modal-body">
           <form [formGroup]="formularioEdicion" (ngSubmit)="guardarCambios()">
             <div class="form-grid">
-              <!-- Información Personal -->
               <div class="form-section">
                 <h4 class="section-title">
                   <i class="fas fa-user"></i> Información Personal
@@ -215,26 +142,11 @@
                       class="form-control" 
                       [class.is-invalid]="hasFieldError('nombre')"
                       formControlName="nombre"
-                      placeholder="Ingrese el nombre">
+                      placeholder="Ingrese el nombre completo">
                     @if (hasFieldError('nombre')) {
                       <div class="invalid-feedback">{{ getFieldError('nombre') }}</div>
                     }
                   </div>
-                  <div class="form-group">
-                    <label for="apellido">Apellido *</label>
-                    <input 
-                      type="text" 
-                      id="apellido"
-                      class="form-control" 
-                      [class.is-invalid]="hasFieldError('apellido')"
-                      formControlName="apellido"
-                      placeholder="Ingrese el apellido">
-                    @if (hasFieldError('apellido')) {
-                      <div class="invalid-feedback">{{ getFieldError('apellido') }}</div>
-                    }
-                  </div>
-                </div>
-                <div class="form-row">
                   <div class="form-group">
                     <label for="dni">DNI *</label>
                     <input 
@@ -249,6 +161,8 @@
                       <div class="invalid-feedback">{{ getFieldError('dni') }}</div>
                     }
                   </div>
+                </div>
+                <div class="form-row">
                   <div class="form-group">
                     <label for="fechaNacimiento">Fecha de Nacimiento *</label>
                     <input 
@@ -261,9 +175,22 @@
                       <div class="invalid-feedback">{{ getFieldError('fechaNacimiento') }}</div>
                     }
                   </div>
+                  <div class="form-group">
+                    <label for="legajo">Legajo *</label>
+                    <input 
+                      type="text" 
+                      id="legajo"
+                      class="form-control" 
+                      [class.is-invalid]="hasFieldError('legajo')"
+                      formControlName="legajo"
+                      placeholder="Ingrese su legajo">
+                    @if (hasFieldError('legajo')) {
+                      <div class="invalid-feedback">{{ getFieldError('legajo') }}</div>
+                    }
+                  </div>
                 </div>
               </div>
-              <!-- Información de Contacto -->
+              
               <div class="form-section">
                 <h4 class="section-title">
                   <i class="fas fa-address-book"></i> Información de Contacto
@@ -313,25 +240,12 @@
                   </div>
                 </div>
               </div>
-              <!-- Información Académica -->
+              
               <div class="form-section">
                 <h4 class="section-title">
                   <i class="fas fa-graduation-cap"></i> Información Académica
                 </h4>
                 <div class="form-row">
-                  <div class="form-group">
-                    <label for="legajo">Legajo *</label>
-                    <input 
-                      type="text" 
-                      id="legajo"
-                      class="form-control" 
-                      [class.is-invalid]="hasFieldError('legajo')"
-                      formControlName="legajo"
-                      placeholder="Ingrese su legajo">
-                    @if (hasFieldError('legajo')) {
-                      <div class="invalid-feedback">{{ getFieldError('legajo') }}</div>
-                    }
-                  </div>
                   <div class="form-group">
                     <label for="estado">Estado</label>
                     <select id="estado" class="form-control" formControlName="estado">
@@ -342,7 +256,7 @@
                 </div>
               </div>
             </div>
-            <!-- Alertas del modal -->
+            
             @if (mensajeModal) {
               <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i> {{ mensajeModal }}
@@ -353,7 +267,7 @@
                 <i class="fas fa-exclamation-triangle"></i> {{ errorModal }}
               </div>
             }
-            <!-- Botones del modal -->
+            
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" (click)="cerrarModal()">
                 <i class="fas fa-times"></i> Cancelar

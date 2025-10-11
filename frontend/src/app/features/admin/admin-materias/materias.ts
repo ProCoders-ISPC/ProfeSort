@@ -55,13 +55,26 @@ export class Materias {
   }
 
   cargarMaterias(): void {
+    console.log('🔄 Recargando materias...');
     this.cargandoDatos = true;
     this.materiasService.getMaterias().subscribe({
       next: (data: Materia[]) => {
+        console.log('✅ Materias cargadas:', data);
+        console.log('📊 Total materias:', data.length);
+        data.forEach((m, i) => {
+          console.log(`  Materia ${i + 1}:`, {
+            nombre: m.nombre,
+            codigo: m.codigo,
+            docenteId: m.docenteId,
+            docenteNombre: m.docenteNombre,
+            docenteLegajo: m.docenteLegajo
+          });
+        });
         this.materias = data;
         this.cargandoDatos = false;
       },
-      error: () => {
+      error: (err) => {
+        console.error('❌ Error cargando materias:', err);
         this.materias = [];
         this.cargandoDatos = false;
         this.showError(this.errorMessages.NETWORK_ERROR);
@@ -115,9 +128,12 @@ export class Materias {
   }
   
   abrirFormularioNuevo(): void {
-    this.mostrarFormulario = true;
+    console.log('🚀 abrirFormularioNuevo() ejecutado');
+    console.log('Estado antes - mostrarFormulario:', this.mostrarFormulario);
     this.modoEdicion = false;
     this.resetForm();
+    this.mostrarFormulario = true; // Establecer después de resetForm
+    console.log('Estado después - mostrarFormulario:', this.mostrarFormulario);
   }
   
   abrirFormularioEdicion(materia: Materia): void {
@@ -138,7 +154,10 @@ export class Materias {
   cerrarFormulario(): void {
     this.mostrarFormulario = false;
     this.modoEdicion = false;
-    this.resetForm();
+    // Pequeño delay para evitar errores de validación durante la transición
+    setTimeout(() => {
+      this.resetForm();
+    }, 100);
   }
 
   guardar(): void {
@@ -188,8 +207,8 @@ export class Materias {
         next: (response) => {
           console.log('Materia y asignación actualizadas exitosamente:', response);
           this.showMessage(this.successMessages.UPDATE_SUCCESS);
+          this.resetForm();
           this.cargarMaterias();
-          this.cerrarFormulario();
         },
         error: (err) => {
           console.error('Error actualizando materia:', err);
@@ -222,8 +241,8 @@ export class Materias {
       ).subscribe({
         next: () => {
           this.showMessage(this.successMessages.SAVE_SUCCESS);
+          this.resetForm();
           this.cargarMaterias();
-          this.cerrarFormulario();
         },
         error: (err) => {
           this.showError(err.message || this.errorMessages.GENERIC_ERROR);
@@ -277,6 +296,8 @@ export class Materias {
     this.docenteSeleccionado = null;
     this.busquedaDocente = '';
     this.mostrarListaDocentes = false;
+    this.modoEdicion = false;
+    this.mostrarFormulario = false;
   }
 
   private showMessage(msg: string): void {

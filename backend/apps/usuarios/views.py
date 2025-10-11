@@ -68,13 +68,13 @@ class LoginView(APIView):
         try:
             usuario = Usuario.objects.get(email=email)
         except Usuario.DoesNotExist:
-            return error_response(message="Credenciales inválidas", status_code=status.HTTP_401_UNAUTHORIZED)
+            return error_response(error="Usuario no encontrado", message="Credenciales inválidas", status_code=status.HTTP_401_UNAUTHORIZED)
         
         if usuario.password != password:
-            return error_response(message="Credenciales inválidas", status_code=status.HTTP_401_UNAUTHORIZED)
+            return error_response(error="Contraseña incorrecta", message="Credenciales inválidas", status_code=status.HTTP_401_UNAUTHORIZED)
         
         if not usuario.is_active:
-            return error_response(message="Usuario inactivo", status_code=status.HTTP_403_FORBIDDEN)
+            return error_response(error="Cuenta desactivada", message="Usuario inactivo", status_code=status.HTTP_403_FORBIDDEN)
         
         usuario_data = UsuarioSerializer(usuario).data
         return success_response(data=usuario_data, message="Login exitoso")
