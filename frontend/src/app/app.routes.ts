@@ -7,7 +7,6 @@ import { ContactComponent } from './features/public/contact/contact';
 import { LayoutComponent } from './features/public/layout/layout';
 import { JuanpabloSanchez } from './features/public/portfolios/juanpablo-sanchez/juanpablo-sanchez'
 import { JuanignacioGioda } from './features/public/portfolios/juanignacio-gioda/juanignacio-gioda';
-import { LauraZarateComponent as LauraZarate } from './features/public/portfolios/laura-zarate/laura-zarate.component';
 import { DanielPaezComponent } from './features/public/portfolios/daniel-paez/daniel-paez';
 
 export const routes: Routes = [
@@ -25,7 +24,6 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
-  { path: 'portfolio/laura-zarate', component: LauraZarate },
   { path: 'portfolio/juanpablo-sanchez', component: JuanpabloSanchez },
   { path: 'portfolio/juanignacio-gioda', component: JuanignacioGioda },
   { path: 'portfolio/daniel-paez', component: DanielPaezComponent },
