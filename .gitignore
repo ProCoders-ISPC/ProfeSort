@@ -88,7 +88,7 @@ MANIFEST
 # Django specific
 *.sqlite3
 db.sqlite3
-migrations/
+# migrations/ - COMENTADO: Las migraciones deben versionarse en Django
 
 # Virtual environments
 venv/
