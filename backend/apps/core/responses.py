@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 
-def success_response(data, message="Operación exitosa", status_code=200):
+def success_response(data=None, message="Operación exitosa", status_code=200):
     return Response({
         'success': True,
         'message': message,

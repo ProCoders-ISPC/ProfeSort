@@ -11,6 +11,7 @@ django.setup()
 
 from apps.usuarios.models import Rol, Usuario
 from datetime import datetime
+from django.utils import timezone
 
 def init_roles():
     roles_data = [
@@ -43,7 +44,7 @@ def init_admin():
             "fecha_nacimiento": datetime(1990, 1, 1).date(),
             "domicilio": "Dirección Admin",
             "telefono": "000000000",
-            "fecha_ingreso": datetime.now(),
+            "fecha_ingreso": timezone.now(),
             "area": "Administración",
             "is_active": True
         }
