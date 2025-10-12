@@ -138,21 +138,31 @@ export class AuthService {
                 error: error.error?.error || 'Cuenta desactivada'
               };
             } 
-            // Error 401 - Credenciales inválidas
+            // Error 401 - Usuario no registrado
             else if (error.status === 401) {
               errorResponse = {
                 success: false,
-                message: 'Credenciales inválidas',
-                error: error.error?.error || 'Email o contraseña incorrectos'
+                message: 'Usuario no registrado en ProfeSort',
+                error: error.error?.error || 'El usuario no existe'
               };
             } 
-            // Error 400 - Datos inválidos
+            // Error 400 - Contraseña incorrecta o datos inválidos
             else if (error.status === 400) {
-              errorResponse = {
-                success: false,
-                message: 'Datos inválidos',
-                error: error.error?.message || 'Verifica los datos ingresados'
-              };
+              // Verificar si el error es específicamente de contraseña incorrecta
+              const errorMsg = error.error?.error || error.error?.message || '';
+              if (errorMsg.toLowerCase().includes('contraseña')) {
+                errorResponse = {
+                  success: false,
+                  message: 'Contraseña incorrecta',
+                  error: error.error?.error || 'La contraseña ingresada es incorrecta'
+                };
+              } else {
+                errorResponse = {
+                  success: false,
+                  message: 'Datos inválidos',
+                  error: error.error?.message || 'Verifica los datos ingresados'
+                };
+              }
             }
             // Error 500 - Error del servidor
             else if (error.status === 500) {
