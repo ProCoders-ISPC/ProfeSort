@@ -8,7 +8,7 @@ import { switchMap, map } from 'rxjs/operators';
 
 export interface DocenteSimple {
   id: number;
-  id_usuario?: number; // Mantener compatibilidad
+  id_usuario?: number; 
   name: string;
   legajo: string;
   dni?: string;
@@ -18,13 +18,12 @@ export interface DocenteSimple {
 
 export interface Materia {
   id: number;
-  idmateria?: number; // Mantener compatibilidad con el frontend
+  idmateria?: number; 
   nombre: string;
   codigo: string;
   horas_semanales?: number;
   area?: string;
   nivel?: string;
-  // Para mostrar datos del docente asignado (via JOIN con asignaciones)
   docenteId?: number | null;
   docenteNombre?: string | null;
   docenteLegajo?: string | null;
@@ -42,42 +41,32 @@ export class MateriasService {
     private asignacionesService: AsignacionesService
   ) {}
 
-  /**
-   * Obtener todas las materias CON datos de docentes asignados
-   * Usa el servicio de asignaciones para hacer el JOIN
-   */
+
   getMaterias(): Observable<Materia[]> {
     return this.asignacionesService.getMateriasConDocentes();
   }
 
-  /**
-   * Obtener materias de un docente específico
-   * Usa el servicio de asignaciones para filtrar por docente
-   */
+
   getMateriasByDocente(docenteId: number): Observable<Materia[]> {
     return this.asignacionesService.getMateriasDeDocente(docenteId);
   }
 
-  /**
-   * Crear nueva materia (sin asignación de docente)
-   */
+
   addMateria(materia: Omit<Materia, 'id'>): Observable<Materia> {
-    return this.http.post<Materia>(`${this.apiUrl}/`, materia);
+    return this.http.post<any>(`${this.apiUrl}/`, materia).pipe(
+      map(response => response.data || response)
+    );
   }
 
-  /**
-   * Actualizar materia
-   */
+
   updateMateria(id: number, materia: Partial<Materia>): Observable<Materia> {
-    return this.http.patch<Materia>(`${this.apiUrl}/${id}/`, materia);
+    return this.http.patch<any>(`${this.apiUrl}/${id}/`, materia).pipe(
+      map(response => response.data || response)
+    );
   }
 
-  /**
-   * Eliminar materia
-   * También elimina las asignaciones relacionadas
-   */
+
   deleteMateria(id: number): Observable<void> {
-    // Eliminar asignaciones primero, luego la materia
     return this.asignacionesService.getAsignacionesByMateria(id).pipe(
       switchMap(asignaciones => {
         const deletePromises = asignaciones.map(a => 
@@ -89,21 +78,16 @@ export class MateriasService {
     );
   }
 
-  /**
-   * Asignar o desasignar docente a materia
-   * Usa la tabla de asignaciones_docentes_materias
-   */
+
   asignarDocente(materiaId: number, docenteId: number | null): Observable<any> {
     console.log('🎯 asignarDocente() llamado:', { materiaId, docenteId });
     
-    // Primero obtener asignaciones actuales de esta materia específica
     return this.asignacionesService.getAsignacionesByMateria(materiaId).pipe(
       switchMap(asignaciones => {
         console.log('  📋 Asignaciones encontradas para materia', materiaId, ':', asignaciones);
         
         if (docenteId === null) {
           console.log('  ➡️ Desasignando docente...');
-          // Eliminar asignación si existe
           if (asignaciones.length > 0) {
             console.log('  🗑️ Eliminando asignación ID:', asignaciones[0].id);
             return this.asignacionesService.eliminarAsignacion(asignaciones[0].id);
@@ -117,14 +101,12 @@ export class MateriasService {
           console.log('  ➡️ Asignando/actualizando docente a ID:', docenteId);
           
           if (asignaciones.length > 0) {
-            // Ya existe una asignación para esta materia, actualizarla
             console.log('  ✏️ Actualizando asignación ID:', asignaciones[0].id, 'con docente:', docenteId);
             return this.asignacionesService.actualizarAsignacion(
               asignaciones[0].id,
               { id_usuario: docenteId, id_materia: materiaId, estado: 'ACTIVO' }
             );
           } else {
-            // No existe asignación, crear una nueva
             console.log('  ➕ Creando nueva asignación para materia:', materiaId, 'docente:', docenteId);
             return this.asignacionesService.asignarDocenteAMateria(materiaId, docenteId);
           }
@@ -133,16 +115,14 @@ export class MateriasService {
     );
   }
 
-  /**
-   * Obtener lista de docentes disponibles
-   */
+
   getDocentes(): Observable<DocenteSimple[]> {
     return this.http.get<any>(`${this.usersUrl}/?id_rol=2`).pipe(
       map(response => {
         const docentes = response.data || [];
         return docentes.map((docente: any) => ({
           ...docente,
-          id_usuario: docente.id // Mapear id a id_usuario para compatibilidad
+          id_usuario: docente.id 
         }));
       })
     );

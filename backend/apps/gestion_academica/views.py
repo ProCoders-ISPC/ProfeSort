@@ -54,11 +54,27 @@ class AsignacionDocenteMateriaListCreateView(APIView):
         # Filtrar asignaciones según parámetros
         asignaciones = AsignacionDocenteMateria.objects.all()
         
-        if id_materia:
-            asignaciones = asignaciones.filter(id_materia=id_materia)
+        # Validar y filtrar por id_materia solo si es un número válido
+        if id_materia and id_materia != 'undefined' and id_materia != 'null':
+            try:
+                id_materia = int(id_materia)
+                asignaciones = asignaciones.filter(id_materia=id_materia)
+            except (ValueError, TypeError):
+                return error_response(
+                    message="El parámetro id_materia debe ser un número válido",
+                    status_code=status.HTTP_400_BAD_REQUEST
+                )
         
-        if id_usuario:
-            asignaciones = asignaciones.filter(id_usuario=id_usuario)
+        # Validar y filtrar por id_usuario solo si es un número válido
+        if id_usuario and id_usuario != 'undefined' and id_usuario != 'null':
+            try:
+                id_usuario = int(id_usuario)
+                asignaciones = asignaciones.filter(id_usuario=id_usuario)
+            except (ValueError, TypeError):
+                return error_response(
+                    message="El parámetro id_usuario debe ser un número válido",
+                    status_code=status.HTTP_400_BAD_REQUEST
+                )
         
         serializer = AsignacionDocenteMateriaSerializer(asignaciones, many=True)
         return success_response(data=serializer.data)
