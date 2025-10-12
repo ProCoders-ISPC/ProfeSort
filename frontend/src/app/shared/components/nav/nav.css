@@ -3,6 +3,7 @@
   position: relative;
   display: inline-block;
   margin-left: 25px; /* Mejor separación del enlace anterior */
+  z-index: 10000; /* Z-index alto para estar por encima del header */
 }
 
 .btn-user-dropdown {
@@ -48,20 +49,21 @@
   border-radius: 8px; /* Bordes más redondeados */
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
   min-width: 200px; /* Más ancho */
-  padding: 8px 0;
+  padding: 0; /* Eliminamos padding para evitar espacios internos */
   margin: 8px 0 0; /* Mayor separación del botón */
   font-size: 14px;
   color: var(--primary-dark);
   position: absolute;
   top: 100%;
   right: 0;
-  z-index: 9999; /* Z-index muy alto para estar por encima */
+  z-index: 10001; /* Z-index muy alto, mayor que el dropdown container */
   display: none;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s ease;
   overflow: visible; /* Evita problemas de overflow */
+  list-style: none; /* Elimina los bullets de la lista */
 }
 
 .dropdown-menu.show {
@@ -74,7 +76,7 @@
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 10px 20px; /* Mayor padding */
+  padding: 12px 20px; /* Mayor padding para mejor área de click */
   clear: both;
   font-weight: 400;
   line-height: 1.5;
@@ -90,17 +92,30 @@
   font-size: 14px; /* Tamaño consistente */
 }
 
+/* Primer elemento con borde superior redondeado */
+.dropdown-item:first-child,
+.dropdown-menu li:first-child .dropdown-item {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Último elemento con borde inferior redondeado */
+.dropdown-item:last-child,
+.dropdown-menu li:last-child .dropdown-item {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
 .dropdown-item:hover,
 .dropdown-item:focus {
   background-color: #f8f9fa;
   color: var(--primary-dark);
   text-decoration: none;
-  transform: translateX(5px); /* Pequeño desplazamiento al hover */
 }
 
 .dropdown-divider {
   height: 0;
-  margin: 8px 0;
+  margin: 0; /* Sin margen para que quede pegado a los items */
   overflow: hidden;
   border-top: 1px solid #e9ecef;
 }

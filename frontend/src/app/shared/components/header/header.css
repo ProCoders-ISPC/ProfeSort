@@ -32,6 +32,23 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--accent-yellow);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  header .logo:hover,
+  .header__logo:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+
+  header .logo img,
+  .header__logo img {
+    display: block;
+    height: 80px;
+    width: auto;
   }
   
   /* Navegación desktop */
@@ -39,6 +56,8 @@
     display: flex;
     align-items: center;
     gap: 25px; /* Mejor espaciado entre elementos */
+    overflow: visible; /* Permite que el dropdown sea visible fuera del contenedor */
+    position: relative; /* Contexto de posicionamiento para el dropdown */
   }
   
   .header__nav-desktop a {
