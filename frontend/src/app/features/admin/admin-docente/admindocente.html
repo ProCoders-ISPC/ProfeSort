@@ -49,14 +49,6 @@
             [(ngModel)]="terminoBusqueda"
             (ngModelChange)="onSearch(terminoBusqueda)">
         </div>
-        
-        <div class="filtros-group">
-          <select class="filter-select" [(ngModel)]="estadoFiltro" (change)="filtrarPorEstado(estadoFiltro)">
-            <option value="">Todos los estados</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-          </select>
-        </div>
       </div>
 
       <div class="docentes-grid">

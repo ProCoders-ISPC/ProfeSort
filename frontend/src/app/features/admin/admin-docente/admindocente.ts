@@ -19,21 +19,17 @@ export class AdminDocenteComponent implements OnInit {
   error = '';
   mensaje = '';
   
-  // Estado de vista
   mostrarUsuariosRegulares = false;
   
-  // Propiedades para búsqueda
   terminoBusqueda = '';
   estadoFiltro = '';
   areaFiltro = '';
   searchTerms = new Subject<string>();
   
-  // Paginación
   currentPage = 1;
   pageSize = 10;
   totalItems = 0;
   
-  // Propiedades para el modal de edición
   mostrarModalEdicion = false;
   docenteEditando: DocenteCarga | null = null;
   formularioEdicion: FormGroup;
@@ -59,7 +55,6 @@ export class AdminDocenteComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // Configurar búsqueda con debounce
     this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged()
@@ -90,7 +85,6 @@ export class AdminDocenteComponent implements OnInit {
   aplicarFiltros(): void {
     let docentesFiltrados = [...this.docentesOriginales];
 
-    // Filtro por término de búsqueda
     if (this.terminoBusqueda) {
       const termino = this.terminoBusqueda.toLowerCase();
       docentesFiltrados = docentesFiltrados.filter(docente =>
@@ -101,14 +95,12 @@ export class AdminDocenteComponent implements OnInit {
       );
     }
 
-    // Filtro por estado
     if (this.estadoFiltro) {
       docentesFiltrados = docentesFiltrados.filter(docente =>
         docente.estado === this.estadoFiltro
       );
     }
 
-    // Filtro por área
     if (this.areaFiltro) {
       docentesFiltrados = docentesFiltrados.filter(docente =>
         docente.area === this.areaFiltro
@@ -158,9 +150,8 @@ export class AdminDocenteComponent implements OnInit {
   }
   
   editarDocente(docente: DocenteCarga): void {
-    this.docenteEditando = { ...docente }; // Crear una copia
+    this.docenteEditando = { ...docente };
     
-    // Usar el nombre completo directamente de la base de datos
     this.formularioEdicion.patchValue({
       nombre: docente.name || '',
       dni: docente.dni,
@@ -195,7 +186,6 @@ export class AdminDocenteComponent implements OnInit {
   }
 
   guardarCambios(): void {
-    // Marcar todos los campos como touched para mostrar errores
     Object.keys(this.formularioEdicion.controls).forEach(key => {
       this.formularioEdicion.get(key)?.markAsTouched();
     });
@@ -222,29 +212,25 @@ export class AdminDocenteComponent implements OnInit {
       console.log('Docente editando:', this.docenteEditando);
       console.log('Datos actualizados a enviar:', datosActualizados);
       
-      // Usar el servicio real para actualizar
       this.adminDocenteService.actualizarDocente(this.docenteEditando!.id, datosActualizados).subscribe({
         next: (response) => {
           console.log('Docente actualizado exitosamente:', response);
           
-          // Actualizar en la lista local con la respuesta del servidor
           const index = this.docentesOriginales.findIndex(d => d.id === this.docenteEditando!.id);
           if (index !== -1) {
-            // Combinar la respuesta con los datos anteriores para asegurar que no falte nada
             const docenteActualizado: DocenteCarga = {
-              ...this.docentesOriginales[index],  // Mantener datos anteriores
-              ...response,                         // Actualizar con la respuesta del servidor
+              ...this.docentesOriginales[index], 
+              ...response,                        
               name: response.name || datosActualizados.name || this.docentesOriginales[index].name,  // Asegurar que name existe
               estado: response.is_active ? 'Activo' : 'Inactivo'
             };
             this.docentesOriginales[index] = docenteActualizado;
-            this.aplicarFiltros(); // Reaplica filtros con los nuevos datos
+            this.aplicarFiltros(); 
           }
           
           this.mensajeModal = 'Información del docente actualizada correctamente';
           this.guardandoCambios = false;
           
-          // Cerrar modal después de 2 segundos
           setTimeout(() => {
             this.cerrarModal();
             this.mostrarMensaje('Docente actualizado correctamente');
@@ -266,7 +252,6 @@ export class AdminDocenteComponent implements OnInit {
     setTimeout(() => this.mensaje = '', 3000);
   }
 
-  // Método para obtener errores de campos del formulario
   getFieldError(fieldName: string): string {
     const field = this.formularioEdicion.get(fieldName);
     
@@ -283,7 +268,6 @@ export class AdminDocenteComponent implements OnInit {
     return '';
   }
 
-  // Método para verificar si un campo tiene errores
   hasFieldError(fieldName: string): boolean {
     const field = this.formularioEdicion.get(fieldName);
     return !!(field && field.errors && field.touched);
