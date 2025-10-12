@@ -19,8 +19,9 @@
 
 .welcome-icon {
   font-size: 80px;
-  color: #0F8795;
+  color: #E5AF24;
   margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .welcome-title {
@@ -53,7 +54,8 @@
   background: #f8f9fa;
   border-radius: 12px;
   padding: 30px 20px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+  border: 2px solid transparent;
 }
 
 .feature-card.clickable {
@@ -62,13 +64,20 @@
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(229, 175, 36, 0.3);
+  border-color: #E5AF24;
+}
+
+.feature-card:hover i {
+  color: #E5AF24;
+  transform: scale(1.1);
 }
 
 .feature-card i {
   font-size: 40px;
   color: #0F8795;
   margin-bottom: 15px;
+  transition: all 0.3s;
 }
 
 .feature-card h3 {

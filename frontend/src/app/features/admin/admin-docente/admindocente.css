@@ -46,18 +46,19 @@
 }
 
 .btn-add {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    font-weight: 500;
+    background: #E5AF24;
+    border: 1px solid #E5AF24;
+    color: #043237;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .btn-add:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
-    color: white;
-    transform: translateY(-1px);
+    background: #d19d1f;
+    border-color: #d19d1f;
+    color: #043237;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3);
 }
 
 .loading-state,
@@ -1177,4 +1178,21 @@ tr:hover {
 
 .is-invalid:focus {
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+}
+
+/* ===== OVERRIDE PARA BOTONES PRIMARIOS CON COLOR DORADO ===== */
+.docentes-container .btn-primary,
+.panel-formulario .btn-primary {
+    background-color: #E5AF24 !important;
+    border-color: #E5AF24 !important;
+    color: #043237 !important;
+    font-weight: 600 !important;
+}
+
+.docentes-container .btn-primary:hover:not(:disabled),
+.panel-formulario .btn-primary:hover:not(:disabled) {
+    background-color: #d19d1f !important;
+    border-color: #d19d1f !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3) !important;
 }

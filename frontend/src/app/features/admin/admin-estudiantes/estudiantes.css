@@ -9,8 +9,18 @@
 }
 
 .btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #E5AF24;
+  border-color: #E5AF24;
+  color: #043237;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-success:hover {
+  background-color: #d19d1f;
+  border-color: #d19d1f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3);
 }
 
 .btn-info {

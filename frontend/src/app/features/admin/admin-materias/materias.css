@@ -42,18 +42,19 @@
 }
 
 .btn-add {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    font-weight: 500;
+    background: #E5AF24;
+    border: 1px solid #E5AF24;
+    color: #043237;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .btn-add:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
-    color: white;
-    transform: translateY(-1px);
+    background: #d19d1f;
+    border-color: #d19d1f;
+    color: #043237;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3);
 }
 
 /* ===== ESTADOS ===== */
@@ -375,15 +376,17 @@ tr:hover {
 }
 
 .btn-primary {
-    background-color: #043237;
-    border-color: #043237;
-    color: white;
+    background-color: #E5AF24;
+    border-color: #E5AF24;
+    color: #043237;
+    font-weight: 600;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background-color: #0F8795;
-    border-color: #0F8795;
-    transform: translateY(-1px);
+    background-color: #d19d1f;
+    border-color: #d19d1f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3);
 }
 
 .btn-secondary {
@@ -412,13 +415,14 @@ tr:hover {
 
 .btn-outline-primary {
     background-color: transparent;
-    border-color: #043237;
-    color: #043237;
+    border-color: #E5AF24;
+    color: #E5AF24;
+    font-weight: 600;
 }
 
 .btn-outline-primary:hover:not(:disabled) {
-    background-color: #043237;
-    color: white;
+    background-color: #E5AF24;
+    color: #043237;
 }
 
 .btn-outline-secondary {

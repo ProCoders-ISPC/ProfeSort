@@ -180,9 +180,17 @@ tr:hover {
 }
 
 .btn-primary {
-  background-color: var(--accent-blue);
-  color: var(--white);
+  background-color: #E5AF24;
+  border-color: #E5AF24;
+  color: #043237;
+  font-weight: 600;
   border: none;
+}
+
+.btn-primary:hover {
+  background-color: #d19d1f;
+  border-color: #d19d1f;
+  box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3);
 }
 
 .btn-secondary {

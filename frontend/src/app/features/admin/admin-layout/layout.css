@@ -53,18 +53,33 @@
 }
 
 .menu-item:hover {
-  background-color: #3abdcc;
+  background-color: #0F8795;
   color: white;
+  border-left: 4px solid #E5AF24;
+}
+
+.menu-item:hover .menu-icon i {
+  color: #E5AF24;
 }
 
 .menu-item.active {
   background-color: #0F8795;
+  border-left: 4px solid #E5AF24;
+}
+
+.menu-item.active .menu-icon i {
+  color: #E5AF24;
 }
 
 .menu-icon {
   margin-right: 10px;
   width: 20px;
   text-align: center;
+}
+
+.menu-icon i {
+  font-size: 18px;
+  transition: color 0.3s;
 }
 
 .main-content {
@@ -108,21 +123,25 @@
 }
 
 .btn-home-header {
-  background-color: #043237;
-  color: white;
-  border: 1px solid #3abdcc;
+  background-color: #E5AF24;
+  color: #043237;
+  border: 1px solid #E5AF24;
   border-radius: 4px;
   padding: 8px 12px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
   font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .btn-home-header:hover {
-  background-color: #3abdcc;
+  background-color: #d19d1f;
+  border-color: #d19d1f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3);
 }
 
 .btn-user-dropdown {
@@ -280,4 +299,28 @@
   .header {
     padding: 8px 12px;
   }
+}
+
+/* ===== DROPDOWN CUSTOMIZATION ===== */
+.dropdown-menu {
+  border: 1px solid #E5AF24 !important;
+  box-shadow: 0 4px 12px rgba(229, 175, 36, 0.15) !important;
+}
+
+.dropdown-item {
+  transition: all 0.3s !important;
+}
+
+.dropdown-item:hover {
+  background-color: #E5AF24 !important;
+  color: white !important;
+}
+
+.dropdown-item:hover i {
+  color: white !important;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #f44336 !important;
+  color: white !important;
 }
