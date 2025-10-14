@@ -5,7 +5,7 @@ import { Register } from './features/auth/register/register';
 import { About } from './features/public/about/about';
 import { ContactComponent } from './features/public/contact/contact';
 import { LayoutComponent } from './features/public/layout/layout';
-import { DanielPaezComponent } from './features/public/portfolios/daniel-paez/daniel-paez';
+
 
 export const routes: Routes = [
   {
@@ -22,7 +22,6 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
-  { path: 'portfolio/daniel-paez', component: DanielPaezComponent },
 
 
   {
