@@ -87,7 +87,6 @@ export class Login {
               }
             }, 1000);
           } else {
-            // Usar el mensaje que viene del servicio
             this.loginError = response.message || response.error || 'Error en el inicio de sesión';
           }
         }

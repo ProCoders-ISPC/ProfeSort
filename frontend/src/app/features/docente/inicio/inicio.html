@@ -4,9 +4,11 @@
       <i class="fas fa-chalkboard-teacher"></i>
     </div>
     <h1 class="welcome-title">¡Bienvenido a ProfeSort!</h1>
-    <p class="welcome-subtitle" *ngIf="currentUser">
-      Hola, <strong>{{ currentUser.name }}</strong>
-    </p>
+    @if (currentUser) {
+      <p class="welcome-subtitle">
+        Hola, <strong>{{ currentUser.name }}</strong>
+      </p>
+    }
     <div class="feature-cards">
       <div class="feature-card clickable" (click)="navegarA('/docente/estudiantes')">
         <i class="fas fa-users"></i>

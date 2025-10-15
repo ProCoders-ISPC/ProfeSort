@@ -1,4 +1,4 @@
-/* ===== REGISTER FORM STYLES ===== */
+
 .register {
   position: relative;
   min-height: 100vh;
@@ -236,7 +236,6 @@
   margin-bottom: 0;
 }
 
-/* ===== RESPONSIVE ===== */
 @media screen and (max-width: 768px) {
   .register {
     padding: 15px;
@@ -347,7 +346,6 @@
   color: var(--white);
 }
 
-/* ===== FONDO ANIMADO ===== */
 .background {
   top: -20%;
   position: fixed;
@@ -443,14 +441,14 @@
   }
 }
 
-/* ===== RESPONSIVE PARA MOVILES ===== */
+
 @media screen and (max-width: 480px) {
   .background__row {
     font-size: 32px;
   }
 }
 
-/* ===== MENSAJES DE ESTADO ===== */
+
 .register__messages {
   margin-bottom: 20px;
 }
@@ -477,7 +475,7 @@
   text-align: center;
 }
 
-/* ===== ENLACE DE LOGIN ===== */
+
 .register__login-link {
   text-align: center;
   margin: 15px 0;
