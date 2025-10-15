@@ -2,7 +2,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { MateriasService, Materia, DocenteSimple } from '../../../core/services/materias.service';
 import { AsignacionesService } from '../../../core/services/asignaciones.service';
 import { APP_CONFIG } from '../../../core/config/app.config';
@@ -28,14 +27,12 @@ export class Materias {
   mostrarFormulario = false;
   modoEdicion = false;
 
-  // Búsqueda y selección de docentes
   docentes: DocenteSimple[] = [];
   docentesFiltrados: DocenteSimple[] = [];
   docenteSeleccionado: DocenteSimple | null = null;
   busquedaDocente = '';
   mostrarListaDocentes = false;
 
-  // Configuraciones desde APP_CONFIG
   private readonly timeouts = APP_CONFIG.TIMEOUTS;
   private readonly errorMessages = APP_CONFIG.ERROR_MESSAGES;
   private readonly successMessages = APP_CONFIG.SUCCESS_MESSAGES;
@@ -132,7 +129,7 @@ export class Materias {
     console.log('Estado antes - mostrarFormulario:', this.mostrarFormulario);
     this.modoEdicion = false;
     this.resetForm();
-    this.mostrarFormulario = true; // Establecer después de resetForm
+    this.mostrarFormulario = true; 
     console.log('Estado después - mostrarFormulario:', this.mostrarFormulario);
   }
   
@@ -142,7 +139,7 @@ export class Materias {
     this.formData = { ...materia };
     this.editandoId = materia.id;
     
-    // Cargar docente si está asignado
+ 
     if (materia.docenteId) {
       const docente = this.docentes.find(d => d.id === materia.docenteId);
       if (docente) {
@@ -154,7 +151,7 @@ export class Materias {
   cerrarFormulario(): void {
     this.mostrarFormulario = false;
     this.modoEdicion = false;
-    // Pequeño delay para evitar errores de validación durante la transición
+ 
     setTimeout(() => {
       this.resetForm();
     }, 100);
@@ -167,7 +164,6 @@ export class Materias {
     console.log('Form data:', this.formData);
     console.log('Docente seleccionado:', this.docenteSeleccionado);
     
-    // Validar campos requeridos usando configuración
     console.log('Validando campos:');
     console.log('- formData.nombre:', this.formData.nombre);
     console.log('- formData.codigo:', this.formData.codigo);
@@ -187,8 +183,8 @@ export class Materias {
 
     if (this.modoEdicion && this.editandoId) {
       console.log('Enviando actualización con datos:', this.formData);
-      
-      // Actualizar datos básicos de la materia (sin docente)
+ 
+
       const materiaData = {
         nombre: this.formData.nombre,
         codigo: this.formData.codigo,
@@ -199,7 +195,7 @@ export class Materias {
       
       this.materiasService.updateMateria(this.editandoId, materiaData).pipe(
         switchMap(() => {
-          // Después de actualizar la materia, manejar la asignación del docente
+
           const docenteId = this.docenteSeleccionado ? this.docenteSeleccionado.id : null;
           return this.materiasService.asignarDocente(this.editandoId!, docenteId);
         })
@@ -225,17 +221,17 @@ export class Materias {
         nivel
       };
       
-      // Primero crear la materia
+
       this.materiasService.addMateria(nuevaMateria).pipe(
         switchMap((materiaCreada: any) => {
-          // Si hay docente seleccionado, crear la asignación
+
           if (this.docenteSeleccionado) {
             return this.materiasService.asignarDocente(
               materiaCreada.id, 
               this.docenteSeleccionado.id
             );
           }
-          // Si no hay docente, retornar la materia creada
+
           return [materiaCreada];
         })
       ).subscribe({
@@ -265,12 +261,12 @@ export class Materias {
       const idAEliminar = this.eliminarId;
       this.materiasService.deleteMateria(idAEliminar).subscribe({
         next: () => {
-          // Actualizar la lista localmente primero para respuesta inmediata
+
           this.materias = this.materias.filter(m => m.id !== idAEliminar);
           this.showMessage(this.successMessages.DELETE_SUCCESS);
           this.eliminarId = null;
           this.showEliminar = false;
-          // Recargar desde el servidor para sincronizar
+
           this.cargarMaterias();
         },
         error: (err) => {

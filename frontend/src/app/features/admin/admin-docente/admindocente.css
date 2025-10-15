@@ -209,7 +209,7 @@
     margin-top: auto;
 }
 
-/* ===== GRID DE MATERIAS ===== */
+
 .materias-grid {
     padding: 24px;
     display: grid;
@@ -1180,7 +1180,7 @@ tr:hover {
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
 }
 
-/* ===== OVERRIDE PARA BOTONES PRIMARIOS CON COLOR DORADO ===== */
+
 .docentes-container .btn-primary,
 .panel-formulario .btn-primary {
     background-color: #E5AF24 !important;

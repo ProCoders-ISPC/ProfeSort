@@ -24,16 +24,13 @@ export class Materias implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Suscribirse a los cambios del usuario
-    this.userSubscription = this.authService.currentUser$.subscribe(user => {
+      this.userSubscription = this.authService.currentUser$.subscribe(user => {
       if (user) {
         this.userName = user.name || 'Docente';
-        // Asegurar que obtenemos el ID correcto
         const userId = user.id || (user as any).id_usuario;
         if (userId) {
           this.cargarMaterias(userId);
         } else {
-          // Si no hay ID, intentar refrescar la sesión
           this.authService.refreshUserSession();
         }
       }
@@ -50,11 +47,9 @@ export class Materias implements OnInit, OnDestroy {
     this.loading = true;
     this.error = '';
     
-    // Si no se pasa docenteId, obtenerlo del usuario actual
     if (!docenteId) {
       let user = this.authService.getCurrentUser();
       
-      // Si no hay usuario, intentar refrescar la sesión
       if (!user) {
         this.authService.refreshUserSession();
         user = this.authService.getCurrentUser();
@@ -66,7 +61,6 @@ export class Materias implements OnInit, OnDestroy {
         return;
       }
       
-      // Asegurar que obtenemos el ID correcto, sin importar si viene como 'id' o 'id_usuario'
       docenteId = user?.id || (user as any)?.id_usuario;
     }
 
