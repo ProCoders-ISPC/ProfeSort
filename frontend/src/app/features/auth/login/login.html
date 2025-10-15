@@ -15,9 +15,11 @@
           formControlName="email"
           placeholder="usuario@ejemplo.com">
         <div class="login__error-container">
-          <div class="login__error" *ngIf="hasFieldError('email')">
-            {{ getFieldError('email') }}
-          </div>
+          @if (hasFieldError('email')) {
+            <div class="login__error">
+              {{ getFieldError('email') }}
+            </div>
+          }
         </div>
       </div>
 
@@ -31,28 +33,35 @@
           formControlName="password"
           placeholder="Mínimo 6 caracteres">
         <div class="login__error-container">
-          <div class="login__error" *ngIf="hasFieldError('password')">
-            {{ getFieldError('password') }}
-          </div>
+          @if (hasFieldError('password')) {
+            <div class="login__error">
+              {{ getFieldError('password') }}
+            </div>
+          }
         </div>
       </div>
 
-      <!-- Mensajes de estado -->
-      <div class="login__messages" *ngIf="loginMessage || loginError">
-        <div class="login__success-message" *ngIf="loginMessage">
-          {{ loginMessage }}
+      @if (loginMessage || loginError) {
+        <div class="login__messages">
+          @if (loginMessage) {
+            <div class="login__success-message">
+              {{ loginMessage }}
+            </div>
+          }
+          @if (loginError) {
+            <div class="login__error-message">
+              {{ loginError }}
+            </div>
+          }
         </div>
-        <div class="login__error-message" *ngIf="loginError">
-          {{ loginError }}
-        </div>
-      </div>
+      }
 
       <button 
         class="login__button" 
         type="submit"
         [disabled]="isLoading">
-        <span *ngIf="!isLoading">Iniciar sesión</span>
-        <span *ngIf="isLoading">Iniciando sesión...</span>
+        @if (!isLoading) { <span>Iniciar sesión</span> }
+        @if (isLoading) { <span>Iniciando sesión...</span> }
       </button>
       
       <div class="login__help">
@@ -63,7 +72,6 @@
         <p>¿No estás registrado? <a routerLink="/register" class="login__register-link-text">Regístrate</a></p>
       </div>
 
-      <!-- Campos obligatorios -->
       <p class="login__required-note">
         <small>Los campos marcados con * son obligatorios</small>
       </p>
