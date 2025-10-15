@@ -51,12 +51,12 @@ export class DocenteService {
     return null;
   }
 
-  // Obtener datos del docente por ID
+ 
   getDocenteById(id: number): Observable<Docente> {
     return this.http.get<Docente>(`${this.apiUrl}/${id}/`);
   }
 
-  // Actualizar datos del docente
+  
   updateDocente(id: number, docente: Partial<Docente>): Observable<Docente> {
     const url = `${this.apiUrl}/${id}/`;
     return this.http.put<Docente>(url, docente).pipe(
@@ -73,13 +73,13 @@ export class DocenteService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    // Puedes personalizar el manejo de errores aquí
+    
     let errorMsg = 'Ocurrió un error inesperado.';
     if (error.error instanceof ErrorEvent) {
-      // Error del lado del cliente
+     
       errorMsg = `Error: ${error.error.message}`;
     } else {
-      // Error del lado del servidor
+      
       errorMsg = `Error ${error.status}: ${error.message}`;
     }
     return throwError(() => new Error(errorMsg));

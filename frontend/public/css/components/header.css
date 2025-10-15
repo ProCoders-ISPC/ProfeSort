@@ -25,7 +25,7 @@ header .logo,
   color: var(--accent-yellow);
 }
 
-/* Navegación desktop */
+
 .header__nav-desktop {
   display: flex;
   align-items: center;
@@ -76,7 +76,7 @@ header .logo,
   transition: all 0.3s ease;
 }
 
-/* Botón de cerrar dentro del menú móvil */
+
 .header__close-btn {
   display: none;
   position: absolute;

@@ -172,12 +172,11 @@
   }
 }
 
-/* Mobile-only grouping: keep desktop sizes unchanged, but stack and center
-   text and image on very small viewports to avoid large lateral gutters. */
+
 @media (max-width: 500px) {
   .hero .swiper-slide,
   .hero swiper-slide {
-    /* stack with image first */
+   
     flex-direction: column-reverse !important;
     align-items: center !important;
     justify-content: center !important;
@@ -196,7 +195,7 @@
     align-items: center !important;
   }
 
-  /* Center the primary action button on mobile */
+  
   .hero-text button {
     margin-left: auto !important;
     margin-right: auto !important;

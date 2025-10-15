@@ -1,6 +1,4 @@
-/* ABOUT PAGE STYLES */
 
-/* Ensure about page takes full width */
 app-about {
   display: block;
   width: 100%;
@@ -87,7 +85,7 @@ body.about {
   outline: none;
 }
 
-/* Sección ¿Qué es ProfeSort? */
+
 .about__ProfeSort {
   background: #fff;
   color: #084c4e;
@@ -109,7 +107,7 @@ body.about {
   line-height: 1.6;
 }
 
-/* Sección ¿Quiénes Somos? */
+
 .about__Quienes__Somos {
   background: #fff;
   color: #084c4e;
@@ -192,7 +190,7 @@ E.about__contacto__portfolios {
   text-align: center;
 }
 
-/* Responsive para About */
+
 @media (max-width: 900px) {
   #hero { 
     height: 70vh;

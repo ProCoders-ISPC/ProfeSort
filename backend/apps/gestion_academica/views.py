@@ -47,14 +47,14 @@ class MateriaDetailView(APIView):
 
 class AsignacionDocenteMateriaListCreateView(APIView):
     def get(self, request):
-        # Obtener parámetros de filtrado
+       
         id_materia = request.GET.get('id_materia')
         id_usuario = request.GET.get('id_usuario')
         
-        # Filtrar asignaciones según parámetros
+      
         asignaciones = AsignacionDocenteMateria.objects.all()
         
-        # Validar y filtrar por id_materia solo si es un número válido
+       
         if id_materia and id_materia != 'undefined' and id_materia != 'null':
             try:
                 id_materia = int(id_materia)
@@ -65,7 +65,7 @@ class AsignacionDocenteMateriaListCreateView(APIView):
                     status_code=status.HTTP_400_BAD_REQUEST
                 )
         
-        # Validar y filtrar por id_usuario solo si es un número válido
+        
         if id_usuario and id_usuario != 'undefined' and id_usuario != 'null':
             try:
                 id_usuario = int(id_usuario)

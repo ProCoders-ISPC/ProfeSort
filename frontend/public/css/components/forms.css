@@ -1,8 +1,5 @@
 /* ===== ESTILOS GENERALES COMPARTIDOS ===== */
-/* Este archivo solo contiene estilos comunes que pueden ser reutilizados */
-/* Los estilos específicos de cada formulario están en sus respectivos componentes */
 
-/* Estilos para elementos genéricos de utilidad */
 .form-help {
   text-align: center;
   margin-top: 15px;

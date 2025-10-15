@@ -130,7 +130,7 @@ export class AuthService {
             console.error('Error en login service:', error);
             let errorResponse: ApiResponse<AuthUser>;
             
-            // Error 403 - Usuario inactivo
+            
             if (error.status === 403) {
               errorResponse = {
                 success: false,
@@ -138,7 +138,7 @@ export class AuthService {
                 error: error.error?.error || 'Cuenta desactivada'
               };
             } 
-            // Error 401 - Usuario no registrado
+          
             else if (error.status === 401) {
               errorResponse = {
                 success: false,
@@ -146,9 +146,9 @@ export class AuthService {
                 error: error.error?.error || 'El usuario no existe'
               };
             } 
-            // Error 400 - Contraseña incorrecta o datos inválidos
+            
             else if (error.status === 400) {
-              // Verificar si el error es específicamente de contraseña incorrecta
+              
               const errorMsg = error.error?.error || error.error?.message || '';
               if (errorMsg.toLowerCase().includes('contraseña')) {
                 errorResponse = {
@@ -164,7 +164,7 @@ export class AuthService {
                 };
               }
             }
-            // Error 500 - Error del servidor
+            
             else if (error.status === 500) {
               errorResponse = {
                 success: false,
@@ -172,7 +172,7 @@ export class AuthService {
                 error: 'Ocurrió un error en el servidor. Intenta más tarde.'
               };
             }
-            // Otros errores (red, timeout, etc.)
+          
             else {
               errorResponse = {
                 success: false,

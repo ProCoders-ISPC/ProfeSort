@@ -1,13 +1,13 @@
 import os
 import django
 
-# Configurar Django
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
 from apps.usuarios.models import Usuario
 
-# Email del usuario a activar
+
 email = 'cristianvargas@gmail.com'
 
 try:
@@ -23,7 +23,7 @@ try:
     else:
         print('ℹ️ El usuario ya estaba activo')
         
-    # Mostrar información final
+  
     print(f'\nEstado final:')
     print(f'- Nombre: {usuario.name}')
     print(f'- Email: {usuario.email}')

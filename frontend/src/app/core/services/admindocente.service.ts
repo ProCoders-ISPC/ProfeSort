@@ -6,8 +6,8 @@ import { environment } from 'src/environments/environment';
 
 export interface DocenteCarga {
   id: number;
-  id_usuario?: number; // Mantener compatibilidad con el frontend
-  name: string; // Nombre completo como en db.json
+  id_usuario?: number; 
+  name: string; 
   email: string;
   legajo: string;
   dni: string;
@@ -34,7 +34,7 @@ export interface EstadisticasCarga {
   providedIn: 'root' 
 })
 export class AdminDocenteService {
-  private apiUrl = `${environment.apiUrl}/usuarios`; // Nuevo endpoint usuarios
+  private apiUrl = `${environment.apiUrl}/usuarios`; 
   private usuariosUrl = `${environment.apiUrl}/usuarios`; 
 
   readonly ROL_ADMIN = 1;
@@ -58,7 +58,7 @@ export class AdminDocenteService {
     if (area) params = params.set('area', area);
     if (termino) params = params.set('name_like', termino);
     
-    // Obtener docentes y calcular conteos usando asignaciones
+    
     return forkJoin({
       docentes: this.http.get<any>(`${this.apiUrl}/`, { params }),
       // estudiantes: Módulo desactivado temporalmente
@@ -66,7 +66,7 @@ export class AdminDocenteService {
       materias: this.http.get<any>(`${environment.apiUrl}/materias/`)
     }).pipe(
       map(({ docentes, asignaciones, materias }) => {
-        // Extraer los arrays de data de las respuestas de la API
+        
         const docentesData = docentes.data || [];
         const estudiantesData: any[] = []; // Array vacío - módulo desactivado
         const asignacionesData = asignaciones.data || [];
@@ -91,7 +91,7 @@ export class AdminDocenteService {
           
           return {
             ...docente,
-            id_usuario: docente.id, // Mapear id a id_usuario para compatibilidad
+            id_usuario: docente.id, 
             estado: docente.is_active ? 'Activo' : 'Inactivo',
             cantidadEstudiantes: estudiantesDelDocente.length,
             cantidadMaterias: asignacionesDocente.length,

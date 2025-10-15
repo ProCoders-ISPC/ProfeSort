@@ -169,9 +169,7 @@ export class AsignacionesService {
     );
   }
 
-  /**
-   * Obtener materias de un docente específico (JOIN manual)
-   */
+  
   getMateriasDeDocente(idUsuario: number): Observable<any[]> {
     return forkJoin({
       asignaciones: this.getAsignacionesByDocente(idUsuario),
@@ -185,7 +183,7 @@ export class AsignacionesService {
             const materia = materiasData.find((m: any) => m.id === asignacion.id_materia);
             return materia ? {
               ...materia,
-              idmateria: materia.id, // Mapear id a idmateria para compatibilidad
+              idmateria: materia.id, 
               fecha_asignacion: asignacion.fecha_asignacion,
               id_asignacion: asignacion.id
             } : null;
