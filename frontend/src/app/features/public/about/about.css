@@ -153,18 +153,21 @@ app-about {
     margin-bottom: 40px;
   }
   .about__cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    /* Use a responsive grid so cards reflow automatically */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 15px;
     margin-top: 30px;
+    align-items: start;
   }
   .about__card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 160px;
+    width: 100%;
+    max-width: 220px; /* keeps cards readable on wide screens */
     padding: 15px;
+    margin: 0 auto; /* center inside grid cell */
     background: #ffffff;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -174,19 +177,21 @@ app-about {
     font-size: 1rem;
     overflow: hidden;
     transition: box-shadow 0.2s;
+    box-sizing: border-box;
   }
   .about__card:hover {
     box-shadow: 0 2px 8px rgba(8,76,78,0.08);
   }
   .about__card img {
-    width: 40px;
-    height: 40px;
+    width: 64px;
+    height: 64px;
     margin-bottom: 10px;
     border-radius: 50%;
     object-fit: cover;
   }
   .about__card span {
     text-align: center;
+    word-break: break-word;
   }
   
   /* Responsive para About */
@@ -237,12 +242,16 @@ app-about {
     }
     .about__cards {
       gap: 10px;
-      max-width: 300px;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     }
     .about__card {
-      min-width: 120px;
       padding: 12px;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      max-width: 180px;
+    }
+    .about__card img {
+      width: 48px;
+      height: 48px;
     }
   }
   
