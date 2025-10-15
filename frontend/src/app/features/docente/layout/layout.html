@@ -1,5 +1,5 @@
 <div class="docente-layout">
-  <nav class="docente-nav">
+  <nav class="docente-nav" [class.active]="sidebarActive">
     <div class="nav-header">
       <div class="nav-logo">ProfeSort Docente</div>
     </div>
@@ -35,7 +35,7 @@
 
   <main class="docente-content">
     <div class="header header-sticky">
-      <button class="responsive-toggle" id="sidebarToggle">
+      <button class="responsive-toggle" (click)="toggleSidebar()" aria-label="Abrir menú">
         <i class="fas fa-bars"></i>
       </button>
       <div class="page-title">Panel de Control</div>
@@ -63,5 +63,8 @@
     </div>
     <router-outlet></router-outlet>
   </main>
+
+  
+  <div class="docente-overlay" *ngIf="sidebarActive" (click)="toggleSidebar()" aria-hidden="true"></div>
 
 </div>

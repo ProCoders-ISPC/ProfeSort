@@ -1,10 +1,4 @@
-/* Usar los estilos globales del header */
-/* Temporalmente comentado hasta resolver la configuración de assets */
-/* @import url('/assets/css/components/header.css'); */
-
-/* Usar los estilos globales del header */
-/* Temporalmente comentado hasta resolver la configuración de assets */
-/* @import url('/assets/css/components/header.css'); */header,
+header,
 .header {
     display: flex;
     justify-content: space-between;
@@ -20,7 +14,7 @@
     box-sizing: border-box;
     position: relative;
     z-index: 1000;
-    overflow: visible; /* Permite que el dropdown sea visible */
+    overflow: visible;
   }
   
   .header {
@@ -51,22 +45,22 @@
     width: auto;
   }
   
-  /* Navegación desktop */
+
   .header__nav-desktop {
     display: flex;
     align-items: center;
-    gap: 25px; /* Mejor espaciado entre elementos */
-    overflow: visible; /* Permite que el dropdown sea visible fuera del contenedor */
-    position: relative; /* Contexto de posicionamiento para el dropdown */
+    gap: 25px;
+    overflow: visible;
+    position: relative;
   }
   
   .header__nav-desktop a {
     color: var(--white);
     text-decoration: none;
     transition: color 0.3s ease;
-    padding: 8px 12px; /* Padding para mejor área de click */
+    padding: 8px 12px;
     border-radius: 4px;
-    white-space: nowrap; /* Evita cortes de texto */
+    white-space: nowrap;
   }
   
   .header__nav-desktop a:hover {
@@ -74,7 +68,7 @@
     background-color: rgba(255, 255, 255, 0.1);
   }
   
-  /* ===== HEADER BURGER MENU (RESPONSIVE) - OPTIMIZADO ===== */
+
   .header__burger {
     display: none;
     position: relative;
@@ -108,7 +102,7 @@
     transition: all 0.3s ease;
   }
   
-  /* Botón de cerrar dentro del menú móvil */
+
   .header__close-btn {
     display: none;
     position: absolute;

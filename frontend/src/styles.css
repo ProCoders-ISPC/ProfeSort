@@ -15,7 +15,7 @@
 
 
 
-/* Override Bootstrap styles */
+
 body {
   margin: 0 !important;
   padding: 0 !important;
@@ -80,15 +80,7 @@ router-outlet {
   width: 100% !important;
 }
 
-/*===FUENTES===
-@font-face {
-    font-family: 'Acephimere';
-    src: url('/fonts/Acephimere.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}*/
 
-/* ===== SIDEBAR ===== */
 .sidebar {
   width: 250px;
   background-color: var(--primary-medium);
@@ -134,7 +126,7 @@ router-outlet {
   text-align: center;
 }
 
-/* ===== PERFIL DE USUARIO ===== */
+
 .user-profile {
   display: flex;
   align-items: center;
@@ -153,7 +145,6 @@ router-outlet {
   margin-right: 10px;
 }
 
-/* ===== CONTENEDORES DE TABLA ===== */
 .table-container {
   background-color: var(--white);
   border-radius: 8px;
@@ -182,7 +173,6 @@ router-outlet {
   gap: 10px;
 }
 
-/* ===== TABLAS ===== */
 table,
 .docente-table {
   width: 100%;
@@ -218,7 +208,7 @@ tr:hover {
   background-color: #f9f9f9;
 }
 
-/* ===== ESTADOS Y STATUS ===== */
+
 .status {
   padding: 5px 10px;
   border-radius: 20px;
@@ -240,7 +230,7 @@ tr:hover {
   color: #e74c3c;
 }
 
-/* ===== ACCIONES ===== */
+
 .actions {
   display: flex;
   gap: 5px;
@@ -277,7 +267,7 @@ tr:hover {
   color: var(--text-dark);
 }
 
-/* ===== FORMULARIOS ===== */
+
 .form-container {
   background-color: var(--white);
   border-radius: 8px;
@@ -361,7 +351,6 @@ tr:hover {
   gap: 1rem;
 }
 
-/* ===== ESTILOS ESPECÍFICOS PARA EL PANEL ADMINISTRATIVO ===== */
 .admin .header {
   background-color: var(--white);
   color: var(--text-dark);
@@ -375,7 +364,6 @@ tr:hover {
   color: var(--text-dark);
 }
 
-/* Botón de toggle para el sidebar en móvil */
 .responsive-toggle {
   background: transparent;
   border: none;

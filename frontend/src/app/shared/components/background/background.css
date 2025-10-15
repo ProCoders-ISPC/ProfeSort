@@ -1,4 +1,4 @@
-/* ===== FONDO ANIMADO ===== */
+
 .background {
   top: -20%;
   position: fixed;
@@ -94,7 +94,6 @@
   }
 }
 
-/* ===== RESPONSIVE PARA MOVILES ===== */
 @media screen and (max-width: 480px) {
   .background__row {
     font-size: 32px;

@@ -17,6 +17,7 @@ export class Layout implements OnInit {
   currentUser: AuthUser | null = null;
   userName: string = 'Docente';
   userInitial: string = 'D';
+  sidebarActive: boolean = false;
 
   menuItems = [
     { path: 'estudiantes', label: 'Estudiantes', icon: 'users' },
@@ -39,6 +40,10 @@ export class Layout implements OnInit {
         console.log('Layout docente - userInitial:', this.userInitial);
       }
     });
+  }
+
+  toggleSidebar() {
+    this.sidebarActive = !this.sidebarActive;
   }
 
   getInitials(name: string): string {

@@ -1,4 +1,4 @@
-/* ===== LAYOUT GENERAL ===== */
+
 .layout-container {
   margin: 0 !important;
   padding: 0 !important;
@@ -16,7 +16,7 @@
   overflow-y: auto;
 }
 
-/* ===== SELECTORES ESPECIALES ===== */
+
 .layout-container * {
   box-sizing: border-box;
 }
@@ -27,7 +27,7 @@ router-outlet + * {
   width: 100%;
 }
 
-/* ===== CONTENEDORES ADICIONALES ===== */
+
 .container {
   display: flex;
   min-height: 100vh;
@@ -39,7 +39,6 @@ router-outlet + * {
   width: 100%;
 }
 
-/* ===== RESPONSIVE LAYOUT ===== */
 @media (max-width: 768px) {
   .main-content {
     min-height: calc(100vh - 120px);

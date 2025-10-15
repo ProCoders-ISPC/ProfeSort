@@ -1,12 +1,4 @@
-/* Usar los estilos globales del footer */
-/* Temporalmente comentado hasta resolver la configuración de assets */
-/* @import url('/assets/css/components/footer.css'); */
 
-/* Usar los estilos globales del footer */
-/* Temporalmente comentado hasta resolver la configuración de assets */
-/* @import url('/assets/css/components/footer.css'); */
-
-/* ===== FOOTER ===== */
 footer,
 .footer {
   background-color: var(--accent-yellow);
@@ -65,7 +57,6 @@ footer {
   transform: scale(1.15);
 }
 
-/* ===== FOOTER RESPONSIVE ===== */
 @media screen and (max-width: 768px) {
   .footer-links,
   .footer__links {

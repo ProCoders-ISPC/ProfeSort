@@ -13,7 +13,7 @@
   left: 0;
   top: 0;
   bottom: 0;
-  z-index: 999;
+  z-index: 1005;
   display: flex;
   flex-direction: column;
 }
@@ -48,6 +48,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  pointer-events: auto;
 }
 
 .nav-item:hover {
@@ -211,11 +212,15 @@
   }
   
   .docente-nav {
-    left: -250px;
+    left: -260px;
+    transition: left 0.25s ease-in-out;
+    pointer-events: auto;
   }
   
   .docente-nav.active {
     left: 0;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.12);
+    z-index: 1007;
   }
   
   .docente-content {
@@ -226,6 +231,24 @@
   .header {
     padding: 10px 15px;
   }
+}
+
+.docente-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1003;
+}
+
+
+@media screen and (max-width: 480px) {
+  .nav-logo { font-size: 18px; }
+  .nav-item { padding: 12px 14px; }
+  .page-title { font-size: 1rem; }
+  .btn-home-header span { display: none; }
 }
 
 .dropdown-menu {

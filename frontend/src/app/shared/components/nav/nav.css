@@ -1,9 +1,9 @@
-/* Estilos para el dropdown del usuario */
+
 .dropdown {
   position: relative;
   display: inline-block;
-  margin-left: 25px; /* Mejor separación del enlace anterior */
-  z-index: 10000; /* Z-index alto para estar por encima del header */
+  margin-left: 25px;
+  z-index: 10000;
 }
 
 .btn-user-dropdown {
@@ -12,15 +12,15 @@
   color: var(--white);
   display: flex;
   align-items: center;
-  gap: 10px; /* Mayor separación entre elementos */
-  padding: 10px 15px; /* Mayor padding para mejor área de click */
+  gap: 10px;
+  padding: 10px 15px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 15px; /* Ligeramente más grande */
+  font-size: 15px;
   font-family: inherit;
-  white-space: nowrap; /* Evita que el texto se corte */
-  min-height: 40px; /* Altura mínima consistente */
+  white-space: nowrap;
+  min-height: 40px;
 }
 
 .btn-user-dropdown:hover {
@@ -30,13 +30,13 @@
 
 .btn-user-dropdown i:first-child {
   font-size: 16px;
-  flex-shrink: 0; /* No se reduce */
+  flex-shrink: 0;
 }
 
 .btn-user-dropdown i:last-child {
   font-size: 12px;
   transition: transform 0.3s ease;
-  flex-shrink: 0; /* No se reduce */
+  flex-shrink: 0;
 }
 
 .btn-user-dropdown i.rotated {
@@ -46,24 +46,24 @@
 .dropdown-menu {
   background-color: var(--white);
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 8px; /* Bordes más redondeados */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-  min-width: 200px; /* Más ancho */
-  padding: 0; /* Eliminamos padding para evitar espacios internos */
-  margin: 8px 0 0; /* Mayor separación del botón */
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  padding: 0;
+  margin: 8px 0 0;
   font-size: 14px;
   color: var(--primary-dark);
   position: absolute;
   top: 100%;
   right: 0;
-  z-index: 10001; /* Z-index muy alto, mayor que el dropdown container */
+  z-index: 10001;
   display: none;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s ease;
-  overflow: visible; /* Evita problemas de overflow */
-  list-style: none; /* Elimina los bullets de la lista */
+  overflow: visible;
+  list-style: none;
 }
 
 .dropdown-menu.show {
@@ -76,7 +76,7 @@
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 12px 20px; /* Mayor padding para mejor área de click */
+  padding: 12px 20px;
   clear: both;
   font-weight: 400;
   line-height: 1.5;
@@ -87,19 +87,19 @@
   border: 0;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left; /* Alineación a la izquierda */
-  font-family: inherit; /* Heredar tipografía */
-  font-size: 14px; /* Tamaño consistente */
+  text-align: left;
+  font-family: inherit;
+  font-size: 14px;
 }
 
-/* Primer elemento con borde superior redondeado */
+
 .dropdown-item:first-child,
 .dropdown-menu li:first-child .dropdown-item {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
 
-/* Último elemento con borde inferior redondeado */
+
 .dropdown-item:last-child,
 .dropdown-menu li:last-child .dropdown-item {
   border-bottom-left-radius: 8px;
@@ -115,18 +115,17 @@
 
 .dropdown-divider {
   height: 0;
-  margin: 0; /* Sin margen para que quede pegado a los items */
+  margin: 0;
   overflow: hidden;
   border-top: 1px solid #e9ecef;
 }
 
-/* Estilos para menú móvil cuando está autenticado */
 .mobile-user-menu {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Mayor separación */
+  gap: 20px;
   width: 100%;
-  padding: 20px 0; /* Padding adicional */
+  padding: 20px 0;
 }
 
 .mobile-user-menu .user-name {
@@ -134,11 +133,11 @@
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 12px; /* Mayor separación */
+  gap: 12px;
   justify-content: center;
-  padding: 15px 0; /* Mayor padding */
-  border-bottom: 2px solid rgba(255,255,255,0.2); /* Borde más grueso */
-  font-size: 1.2rem; /* Texto más grande */
+  padding: 15px 0;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  font-size: 1.2rem;
 }
 
 .mobile-user-menu a {
@@ -147,7 +146,7 @@
   margin: 0 !important;
   width: 100% !important;
   text-align: center !important;
-  padding: 18px 0 !important; /* Mayor padding */
+  padding: 18px 0 !important;
   border-bottom: 1px solid rgba(255,255,255,0.1) !important;
   text-decoration: none !important;
   text-transform: uppercase !important;
@@ -155,8 +154,8 @@
   letter-spacing: 0.5px !important;
   transition: all 0.3s ease !important;
   cursor: pointer !important;
-  border-radius: 8px !important; /* Bordes redondeados */
-  margin: 0 20px !important; /* Margen lateral */
+  border-radius: 8px !important;
+  margin: 0 20px !important;
 }
 
 .mobile-user-menu a:hover {

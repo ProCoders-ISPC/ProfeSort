@@ -14,10 +14,10 @@ register();
 export class Home implements OnInit, OnDestroy {
   
   ngOnInit() {
-    // El swiper-element se auto-inicializa con los atributos del HTML
+  
   }
 
   ngOnDestroy() {
-    // Cleanup si es necesario
+
   }
 }

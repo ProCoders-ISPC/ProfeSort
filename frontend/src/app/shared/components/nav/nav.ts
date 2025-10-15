@@ -49,26 +49,26 @@ export class NavComponent {
       event.stopPropagation();
     }
     this.isDropdownOpen = !this.isDropdownOpen;
-    console.log('Dropdown estado:', this.isDropdownOpen); // Debug
+    console.log('Dropdown estado:', this.isDropdownOpen);
   }
 
   closeDropdown() {
     this.isDropdownOpen = false;
-    console.log('Cerrando dropdown'); // Debug
+    console.log('Cerrando dropdown');
   }
 
   goToPanel() {
     const user = this.authService.getCurrentUser();
-    console.log('Usuario actual:', user); // Debug
+    console.log('Usuario actual:', user);
     
     if (user?.id_rol === 1) {
-      console.log('Navegando a admin panel'); // Debug
+      console.log('Navegando a admin panel');
       this.router.navigate(['/admin']);
     } else if (user?.id_rol === 2) {
-      console.log('Navegando a docente panel'); // Debug
+      console.log('Navegando a docente panel');
       this.router.navigate(['/docente']);
     } else {
-      console.log('Rol no reconocido:', user?.id_rol); // Debug
+      console.log('Rol no reconocido:', user?.id_rol);
     }
     this.closeDropdown();
   }

@@ -1,4 +1,4 @@
-/* Formulario */
+
 .form {
   width: 100%;
   flex: 1;
@@ -6,7 +6,7 @@
   min-width: 300px;
 }
 
-/* Grupo de campos */
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -20,7 +20,6 @@
   color: #2c3e50;
 }
 
-/* Input y textarea */
 .form-input {
   width: 100%;
   padding: 12px;
@@ -36,7 +35,7 @@
   border-color: #3498db;
 }
 
-/* Botón de enviar */
+
 .form-primary-button {
   width: 100%;
   padding: 14px 0;
@@ -57,7 +56,7 @@
   background-color: #084c4e;
 }
 
-/* Acciones del formulario */
+
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -101,7 +100,7 @@
   margin-top: 4px;
 }
 
-/* Responsive */
+
 @media (max-width: 900px) {
   .contacto-container {
     flex-direction: column;
