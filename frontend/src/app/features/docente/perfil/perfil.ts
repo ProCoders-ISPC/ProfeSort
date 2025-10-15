@@ -21,7 +21,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
   mensaje = '';
   error = '';
   
-  // Propiedades para el tooltip personalizado
   mostrandoTooltip = false;
   mensajeTooltip = '';
   tooltipPosicion = { x: 0, y: 0 };
@@ -40,10 +39,10 @@ export class DocentePerfil implements OnInit, OnDestroy {
       nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-ZÀ-ÿ\\u00f1\\u00d1\\s]+$')]],
       email: [{ value: '', disabled: true }],
       legajo: [{ value: '', disabled: true }],
-      dni: [{ value: '', disabled: true }], // Solo admin puede modificar
-      fechaNacimiento: [''], // Docente puede modificar
-      domicilio: ['', [Validators.minLength(5)]], // Docente puede modificar
-      telefono: ['', [Validators.pattern('^[0-9]{10,15}$')]] // Docente puede modificar
+      dni: [{ value: '', disabled: true }], 
+      fechaNacimiento: [''],
+      domicilio: ['', [Validators.minLength(5)]], 
+      telefono: ['', [Validators.pattern('^[0-9]{10,15}$')]] 
     });
   }
 
@@ -51,7 +50,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
       if (user) {
-        // Usar el nombre completo directamente de la base de datos
         this.perfilForm.patchValue({
           nombre: user.name || '',
           email: user.email || '',
@@ -71,7 +69,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
     this.error = '';
     
     if (!this.modoEdicion && this.currentUser) {
-      // Restaurar valores originales al cancelar edición
       this.perfilForm.patchValue({
         nombre: this.currentUser.name || '',
         fechaNacimiento: this.currentUser.fecha_nacimiento || '',
@@ -84,7 +81,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
   guardarCambios() {
     if (this.perfilForm.valid && this.currentUser) {
       const formData = this.perfilForm.value;
-            // Usar el nombre completo directamente del formulario
       const docenteData = {
         name: this.perfilForm.get('nombre')?.value,
         email: this.perfilForm.get('email')?.value,
@@ -94,7 +90,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
         telefono: this.perfilForm.get('telefono')?.value
       };
       
-      // Crear usuario actualizado
       const updatedAuthUser: AuthUser = {
         id: this.currentUser.id,
         name: this.perfilForm.get('nombre')?.value,
@@ -110,13 +105,10 @@ export class DocentePerfil implements OnInit, OnDestroy {
         is_active: this.currentUser.is_active
       };
       
-      // Usar el método privado saveSession del AuthService para consistencia
       (this.authService as any)['saveSession'](updatedAuthUser);
       
-      // Actualizar el AuthService
       this.authService['currentUserSubject'].next(updatedAuthUser);
       
-      // Actualizar en la base de datos
       this.actualizarEnBaseDatos(updatedAuthUser);
       
       this.mensaje = 'Perfil actualizado correctamente';
@@ -153,7 +145,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
     this.http.patch(`${environment.apiUrl}/usuarios/${this.currentUser.id}/`, userData)
       .subscribe({
         next: (response) => {
-          // Perfil actualizado exitosamente
         },
         error: (error) => {
           console.error('Error actualizando perfil:', error);
@@ -167,25 +158,23 @@ export class DocentePerfil implements OnInit, OnDestroy {
 
   mostrarTooltip(event: Event): void {
     if (!this.modoEdicion) {
-      // Cerrar tooltip anterior si existe
+
       this.cerrarTooltip();
       
       const target = event.target as HTMLInputElement;
       this.currentTarget = target;
       
-      // Mostrar tooltip
+
       this.mensajeTooltip = 'Activa el modo edición para modificar este campo';
       this.mostrandoTooltip = true;
       
-      target.blur(); // Quita el foco del campo
+      target.blur(); 
       
-      // Posicionar tooltip después de que Angular renderice
       setTimeout(() => {
         this.actualizarPosicionTooltip();
         this.configurarEventListeners();
       }, 0);
       
-      // Auto-cerrar después de 5 segundos
       setTimeout(() => {
         this.cerrarTooltip();
       }, 5000);
@@ -195,12 +184,11 @@ export class DocentePerfil implements OnInit, OnDestroy {
   private actualizarPosicionTooltip(): void {
     if (this.currentTarget && this.mostrandoTooltip) {
       const rect = this.currentTarget.getBoundingClientRect();
-      
-      // Calcular posición centrada horizontalmente
+
       const tooltipWidth = 300;
       let x = rect.left + rect.width / 2 - tooltipWidth / 2;
       
-      // Asegurar que no se salga de la pantalla
+
       const margin = 10;
       if (x < margin) {
         x = margin;
@@ -208,21 +196,20 @@ export class DocentePerfil implements OnInit, OnDestroy {
         x = window.innerWidth - tooltipWidth - margin;
       }
       
-      // Para position: fixed, usamos directamente rect.bottom sin scrollY
       this.tooltipPosicion = {
         x: x,
         y: rect.bottom + 8
       };
       
-      // console.log('Tooltip posicionado en:', this.tooltipPosicion, 'para campo:', this.currentTarget.getAttribute('formControlName'));
+      
     }
   }
 
   private configurarEventListeners(): void {
-    // Remover listener anterior si existe
+
     this.removerEventListeners();
     
-    // Escuchar scroll para actualizar posición
+
     this.scrollListener = () => {
       this.actualizarPosicionTooltip();
     };
@@ -230,7 +217,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
     window.addEventListener('scroll', this.scrollListener);
     window.addEventListener('resize', this.scrollListener);
     
-    // Cerrar al hacer click fuera
     document.addEventListener('click', this.onDocumentClick);
   }
 
@@ -245,7 +231,6 @@ export class DocentePerfil implements OnInit, OnDestroy {
 
   private onDocumentClick = (event: Event) => {
     const target = event.target as HTMLElement;
-    // Cerrar si el click no es en el tooltip
     if (target && !target.closest('.custom-tooltip')) {
       this.cerrarTooltip();
     }

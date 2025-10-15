@@ -1,4 +1,4 @@
-/* Contenedor Principal */
+
 .main-wrapper {
   width: 100%;
 }
@@ -24,7 +24,6 @@
   transform: scale(1.05);
 }
 
-/* Sección de Datos Personales */
 .form-container {
   background: var(--white);
   border-radius: 8px;
@@ -40,7 +39,6 @@
   margin-bottom: 2rem;
 }
 
-/* Vista previa de datos */
 .datos-preview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -58,7 +56,6 @@
   color: var(--text-dark);
 }
 
-/* Formulario de edición */
 .form-group {
   margin-bottom: 1.25rem;
 }
@@ -97,7 +94,6 @@
   margin-top: 2rem;
 }
 
-/* Tabla de Estudiantes */
 .table-container {
   background: var(--white);
   border-radius: 8px;
@@ -145,7 +141,6 @@ tr:hover {
   background-color: var(--background-light);
 }
 
-/* Estados */
 .status {
   display: inline-flex;
   align-items: center;
@@ -170,7 +165,6 @@ tr:hover {
   color: var(--danger-dark);
 }
 
-/* Botones */
 .btn {
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -204,7 +198,6 @@ tr:hover {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Estados de error y carga */
 .alert {
   padding: 1rem;
   border-radius: 6px;
@@ -259,7 +252,6 @@ tr:hover {
   font-style: italic;
 }
 
-/* Estilos para campos deshabilitados */
 .form-control:disabled,
 select:disabled {
   background-color: #f8f9fa;
@@ -278,7 +270,6 @@ select:disabled {
   box-shadow: none;
 }
 
-/* Badges */
 .badge {
   padding: 4px 12px;
   border-radius: 20px;
@@ -302,7 +293,6 @@ select:disabled {
   color: #383d41;
 }
 
-/* Centrar y limitar el ancho del contenido principal */
 .main-wrapper {
   display: flex;
   flex-direction: column;
@@ -316,7 +306,6 @@ select:disabled {
   margin: 0 auto;
 }
 
-/* Media Queries */
 @media (max-width: 1024px) {
   .container {
     grid-template-columns: 200px 1fr;

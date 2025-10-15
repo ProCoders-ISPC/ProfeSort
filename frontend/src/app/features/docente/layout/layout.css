@@ -1,10 +1,9 @@
-/* ===== LAYOUT CONTAINERS ===== */
+
 .docente-layout {
   display: flex;
   min-height: 100vh;
 }
 
-/* ===== SIDEBAR ===== */
 .docente-nav {
   width: 250px;
   background-color: #043237;
@@ -76,7 +75,6 @@
   transition: color 0.3s;
 }
 
-/* ===== CONTENIDO PRINCIPAL ===== */
 .docente-content {
   flex: 1;
   width: calc(100% - 250px);
@@ -88,7 +86,6 @@
   flex-direction: column;
 }
 
-/* ===== HEADER ===== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -112,7 +109,6 @@
   color: white;
 }
 
-/* ===== PERFIL DE USUARIO ===== */
 .user-profile {
   display: flex;
   align-items: center;
@@ -194,7 +190,6 @@
   font-weight: bold;
 }
 
-/* Botón de toggle para el sidebar en móvil */
 .responsive-toggle {
   background: transparent;
   border: none;
@@ -210,7 +205,6 @@
   outline: none;
 }
 
-/* Media queries */
 @media screen and (max-width: 768px) {
   .responsive-toggle {
     display: block !important;
@@ -234,7 +228,6 @@
   }
 }
 
-/* ===== DROPDOWN CUSTOMIZATION ===== */
 .dropdown-menu {
   border: 1px solid #E5AF24 !important;
   box-shadow: 0 4px 12px rgba(229, 175, 36, 0.15) !important;

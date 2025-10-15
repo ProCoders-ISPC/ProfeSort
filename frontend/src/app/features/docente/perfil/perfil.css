@@ -154,7 +154,6 @@
   border: 1px solid #f5c6cb;
 }
 
-/* Campo de solo lectura con fondo gris */
 .readonly-field {
   background-color: #e9ecef !important;
   cursor: not-allowed;
@@ -167,7 +166,6 @@
   box-shadow: none !important;
 }
 
-/* Estilos para campos editables con tooltip */
 .field-clickable {
   cursor: pointer !important;
   position: relative;
@@ -187,7 +185,6 @@
   box-shadow: 0 0 0 0.2rem rgba(15, 135, 149, 0.25) !important;
 }
 
-/* Wrapper para los inputs con icono */
 .input-wrapper {
   position: relative;
   display: flex;
@@ -211,10 +208,9 @@
 }
 
 .field-clickable {
-  padding-right: 35px !important; /* Espacio para el icono */
+  padding-right: 35px !important;
 }
 
-/* Información de validación */
 .form-validation-info {
   display: block;
   color: #0F8795;
@@ -227,7 +223,6 @@
   margin-right: 5px;
 }
 
-/* Mejorar el estilo de alerts */
 .alert {
   border-radius: 8px;
   padding: 12px 16px;
@@ -248,13 +243,12 @@
   border-left: 4px solid #dc3545;
 }
 
-/* Tooltip personalizado */
 .custom-tooltip {
   position: fixed;
   z-index: 9999;
   width: 300px;
   pointer-events: auto;
-  transform: translateZ(0); /* Fuerza aceleración por hardware */
+  transform: translateZ(0); 
 }
 
 .tooltip-content {

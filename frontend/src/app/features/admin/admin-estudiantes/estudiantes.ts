@@ -89,7 +89,7 @@ export class EstudiantesComponent implements OnInit {
       this.estudianteForm.reset();
       this.modalEditMode = false;
       this.estudianteSeleccionado = null;
-      // Cerrar modal programáticamente
+   
       const modal = document.getElementById('estudianteModal');
       if (modal) {
         const modalInstance = (window as any).bootstrap?.Modal?.getInstance(modal);
