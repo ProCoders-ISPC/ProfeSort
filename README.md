@@ -181,7 +181,8 @@ python manage.py runserver
     <li>
         <strong>Inicio de Sesión como Administrador:</strong>
         <ul>
-            <li>Ingresa a la aplicación web (Frontend) e inicia sesión con las credenciales: <strong>admin@profesort.com / Admin123456</strong>.</li>
+            <li>Ingresa a la aplicación web (Frontend) e inicia sesión con las credenciales: <br><br>
+            <h2><strong style="color: red;">User: admin@profesort.com <br><br> Contraseña: Admin123456</strong></li> <br></h2>
             <li>Desde el panel, navega a la sección de Materias y <strong>Crea una nueva Materia</strong> (ej. "Historia").</li>
         </ul>
     </li>
