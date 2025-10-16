@@ -99,12 +99,14 @@ Sigue estos pasos para configurar y levantar el servidor backend en tu entorno d
 2.  **Crea y activa un entorno virtual** (recomendado para aislar dependencias):
     ```bash
     python -m venv venv
-    
-    venv\Scripts\activate
-    
     ```
 
-3.  **Instala las dependencias** de Python:
+     ```bash
+    venv\Scripts\activate
+    ```
+    
+
+4.  **Instala las dependencias** de Python:
     ```bash
     pip install -r requirements.txt
     ```
