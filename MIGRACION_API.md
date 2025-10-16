@@ -17,32 +17,20 @@
 
 <ul align="left">
   <li>Visualización pública de un sitio web responsive con secciones de inicio, login/registro y sobre nosotros.</li><br>
-  <li>Carga y gestión de la información de los estudiantes inscriptos por parte de los administradores del Plan FinEs.</li><br>
-  <li>Gestión de materias: registro de materias y su asociación con áreas académicas específicas.</li><br>
+  <li>Gestión de materias: registro de materias y su asociación.</li><br>
   <li>Asignación de materias a los docentes correspondientes.</li><br>
-  <li>Visualización de métricas básicas desde un panel de administración, como:
-    <ul>
-      <li>Cantidad total de estudiantes inscriptos.</li>
-      <li>Porcentaje de inscriptos por materia.</li>
-      <li>Número y porcentaje de estudiantes desmatriculados.</li>
-    </ul>
-  </li><br>
-  <li>Acceso para docentes, quienes podrán registrarse y visualizar la lista de estudiantes asignados a su área.</li>
+  <li>Visualización de métricas básicas desde un panel de administración-/li><
+  <li>Acceso para docentes, quienes podrán registrarse y visualizar sus materias a cargo.</li>
 </ul>
 
 ###
 
 <h3 align="left">Estado del Proyecto:</h3>
 
-###
 
-<p align="left">El proyecto se encuentra en su fase inicial de desarrollo. En este momento estamos definiendo las historias de usuario y preparando la documentación básica. A continuación, construiremos una maqueta estática para diseñar el frontend y establecer la estructura general del sistema, con la previsión de incorporar Angular para lograr una interfaz dinámica e interactiva. Una vez completada esta etapa, avanzaremos con la implementación del backend utilizando Django</p>
 
 ###
 
-###
-
-<h3 align="left">Tecnologías que se emplearán en el proyecto:</h3>
 
 ###
 
