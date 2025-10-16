@@ -207,7 +207,7 @@ python manage.py runserver
         <ul>
             <li><strong>Cierra la sesión</strong> del administrador.</li>
             <li><strong>Inicia sesión como el Docente</strong> recién registrado.</li>
-            <li>El docente podrá ver la Materia Asignada ("Historia") en su panel o listado de cursos.</li>
+            <li>El docente podrá ver la Materia Asignada ("Historia") en su panel materias.</li>
         </ul>
     </li>
 </ol>
