@@ -1,1 +1,178 @@
-<p>perfil works!</p>
+<div class="perfil-container">
+  <div class="perfil-header">
+    <h2>Mi Perfil</h2>
+    @if (!modoEdicion) {
+      <button class="btn btn-primary" (click)="toggleEdicion()">
+        <i class="fas fa-edit"></i> Editar Perfil
+      </button>
+    }
+  </div>
+
+  @if (mensaje) {
+    <div class="alert alert-success">{{ mensaje }}</div>
+  }
+
+  @if (error && !mostrandoTooltip) {
+    <div class="alert alert-danger">{{ error }}</div>
+  }
+
+  @if (mostrandoTooltip) {
+    <div class="custom-tooltip" [style.left.px]="tooltipPosicion.x" [style.top.px]="tooltipPosicion.y">
+      <div class="tooltip-content">
+        <i class="fas fa-info-circle"></i>
+        <span>{{ mensajeTooltip }}</span>
+        <button type="button" class="tooltip-close" (click)="cerrarTooltip()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="tooltip-arrow"></div>
+    </div>
+  }
+
+  <div class="perfil-card">
+    <div class="perfil-avatar">
+      <div class="avatar-circle">
+        {{ (perfilForm.get('nombre')?.value || 'U').charAt(0).toUpperCase() }}
+      </div>
+    </div>
+
+    <form [formGroup]="perfilForm" (ngSubmit)="guardarCambios()">
+      <div class="form-section">
+        <h3>Información Personal</h3>
+        
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              class="form-control"
+              [class.field-clickable]="!modoEdicion"
+              formControlName="nombre"
+              [readonly]="!modoEdicion"
+              (click)="mostrarTooltip($event); $event.stopPropagation()">
+            @if (!modoEdicion) {
+              <i class="field-icon fas fa-info-circle"></i>
+            }
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input 
+            type="email" 
+            class="form-control readonly-field" 
+            formControlName="email"
+            readonly>
+          <small class="form-text text-muted">
+            <i class="fas fa-lock"></i> Solo puede ser modificado por el administrador
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Legajo</label>
+          <input 
+            type="text" 
+            class="form-control readonly-field" 
+            formControlName="legajo"
+            readonly>
+          <small class="form-text text-muted">
+            <i class="fas fa-lock"></i> Solo puede ser modificado por el administrador
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>DNI</label>
+          <input 
+            type="text" 
+            class="form-control readonly-field" 
+            formControlName="dni"
+            readonly>
+          <small class="form-text text-muted">
+            <i class="fas fa-lock"></i> Solo puede ser modificado por el administrador
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de Nacimiento</label>
+          <div class="input-wrapper">
+            <input 
+              type="date" 
+              class="form-control"
+              [class.field-clickable]="!modoEdicion" 
+              formControlName="fechaNacimiento"
+              [readonly]="!modoEdicion"
+              (click)="mostrarTooltip($event); $event.stopPropagation()">
+            @if (!modoEdicion) {
+              <i class="field-icon fas fa-info-circle"></i>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Domicilio</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              class="form-control"
+              [class.field-clickable]="!modoEdicion"
+              formControlName="domicilio"
+              [readonly]="!modoEdicion"
+              (click)="mostrarTooltip($event); $event.stopPropagation()">
+            @if (!modoEdicion) {
+              <i class="field-icon fas fa-info-circle"></i>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Teléfono</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              class="form-control"
+              [class.field-clickable]="!modoEdicion"
+              formControlName="telefono"
+              [readonly]="!modoEdicion"
+              (click)="mostrarTooltip($event); $event.stopPropagation()">
+            @if (!modoEdicion) {
+              <i class="field-icon fas fa-info-circle"></i>
+            }
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label>Rol</label>
+          <input 
+            type="text" 
+            class="form-control readonly-field" 
+            [value]="currentUser?.id_rol === 1 ? 'Administrador' : 'Docente'"
+            readonly>
+          <small class="form-text text-muted">
+            <i class="fas fa-lock"></i> Solo puede ser modificado por el administrador
+          </small>
+        </div>
+      </div>
+
+      @if (modoEdicion) {
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="toggleEdicion()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="!perfilForm.valid">
+            <i class="fas fa-save"></i> Guardar Cambios
+          </button>
+          @if (!perfilForm.valid) {
+            <small class="form-validation-info">
+              <i class="fas fa-info-circle"></i> 
+              Complete el nombre para poder guardar
+            </small>
+          }
+        </div>
+      }
+    </form>
+  </div>
+</div>

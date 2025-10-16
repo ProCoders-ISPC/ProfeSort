@@ -17,32 +17,20 @@
 
 <ul align="left">
   <li>Visualización pública de un sitio web responsive con secciones de inicio, login/registro y sobre nosotros.</li><br>
-  <li>Carga y gestión de la información de los estudiantes inscriptos por parte de los administradores del Plan FinEs.</li><br>
-  <li>Gestión de materias: registro de materias y su asociación con áreas académicas específicas.</li><br>
+  <li>Gestión de materias: registro de materias y su asociación.</li><br>
   <li>Asignación de materias a los docentes correspondientes.</li><br>
-  <li>Visualización de métricas básicas desde un panel de administración, como:
-    <ul>
-      <li>Cantidad total de estudiantes inscriptos.</li>
-      <li>Porcentaje de inscriptos por materia.</li>
-      <li>Número y porcentaje de estudiantes desmatriculados.</li>
-    </ul>
-  </li><br>
-  <li>Acceso para docentes, quienes podrán registrarse y visualizar la lista de estudiantes asignados a su área.</li>
+  <li>Visualización de métricas básicas desde un panel de administración-/li><
+  <li>Acceso para docentes, quienes podrán registrarse y visualizar sus materias a cargo.</li>
 </ul>
 
 ###
 
 <h3 align="left">Estado del Proyecto:</h3>
 
-###
 
-<p align="left">El proyecto se encuentra en su fase inicial de desarrollo. En este momento estamos definiendo las historias de usuario y preparando la documentación básica. A continuación, construiremos una maqueta estática para diseñar el frontend y establecer la estructura general del sistema, con la previsión de incorporar Angular para lograr una interfaz dinámica e interactiva. Una vez completada esta etapa, avanzaremos con la implementación del backend utilizando Django</p>
 
 ###
 
-###
-
-<h3 align="left">Tecnologías que se emplearán en el proyecto:</h3>
 
 ###
 
@@ -63,7 +51,7 @@
 ###
 
 <div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript logo"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="40" alt="typescript logo" height="40" alt="javascript logo"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" height="40" alt="angularjs logo"  />
 </div>
 
@@ -80,107 +68,144 @@
 </div>
 
 ###
+<h4 align="left">Base de Datos:</h4>
 
 
-###
-
-<h2 align="left">Estructura de carpetas y justificacion</h2>
-
-````bash
-maqueta/
-````
-<p>
-
-<p>Es la base estática del proyecto. En esta carpeta se diseñan los prototipos iniciales del sistema, que permiten visualizar la estructura y distribución de los elementos. Contiene:<ul> <li><b>assets/</b>: Archivos estáticos utilizados por la maqueta. Contiene: <ul> <li><code>css/</code>: Estilos principales del sitio. <ul> <li><code>base/</code>: Estilos generales como reset, variables, etc.</li> <li><code>components/</code>: Estilos reutilizables (botones, formularios, tarjetas).</li> <li><code>pages/</code>: Estilos específicos para cada vista (por ejemplo, login, about, panel).</li> <li><code>styles.css</code>: Archivo central que importa los demás y aplica los estilos globales.</li> </ul> </li> <li><code>fonts/</code>: Tipografías personalizadas del sistema.</li> <li><code>img/</code>: Imágenes usadas en las vistas.</li> <li><code>js/</code>: Código JavaScript para funcionalidades del sitio (por ejemplo, <code>home.js</code> para sliders con Swiper.js).</li> <li><code>videos/</code>: Recursos audiovisuales si se usan en el sitio.</li> </ul> </li> <li><b>pages/</b>: Contiene vistas individuales del sistema. <ul> <li><code>admin_forms/</code>: Formularios administrativos que serán parte del panel.</li> <li><code>portfolios/</code>: Subcarpetas por integrante del equipo, usadas para prácticas o versiones personales. <ul> <li><code>cristian_vargas/</code></li> <li><code>daniel_paez/</code></li> <li><code>juanignacio_gioda/</code></li> <li><code>juanpablo_sanchez/</code></li> <li><code>karina_quinteros/</code></li> <li><code>laura_zarate/</code></li> </ul> </li> <li><b>Archivos .html principales:</b> <ul> <li><code>about.html</code>: Sección “Sobre nosotros”.</li> <li><code>login.html</code>: Formulario de inicio de sesión.</li> <li><code>register.html</code>: Formulario de registro.</li> <li><code>panel-admin.html</code>: Panel de administración.</li> </ul> </li> </ul> </li> </ul>
-<li><code>index.html</code>: Página de inicio del sitio web.</li> 
-
-````bash
-
-
-frontend/
-````
-
-<p> En esta carpeta se desarrollará la interfaz del sistema usando Angular, incluyendo componentes, vistas y estilos. Conti
-Es la base principal del proyecto Angular. En esta carpeta se encuentra toda la lógica, vistas y configuraciones del sistema. Contiene:
-
-- **ap**: Carpeta principal de la aplicación.
-  - **core/**: Lógica global, cargada una sola vez en el sistema.
-    - **guards/**: Mecanismos de seguridad para las rutas (ejemplo: `AuthGuard`, `RoleGuard`).
-    - **interceptors/**: Interceptores HTTP para autenticación y manejo de errores.
-    - **models/**: Interfaces y clases de dominio (ejemplo: `Usuario`, `Docente`, `Estudiante`, `Materia`).
-    - **services/**: Servicios globales utilizados en toda la aplicación (ejemplo: `AuthService`, `ApiService`).
-  - **shared/**: Elementos reutilizables en todo el sistema.
-    - **components/**: Componentes compartidos (Navbar, Footer, botones, inputs).
-    - **directives/**: Directivas personalizadas.
-    - **pipes/**: Pipes personalizados.
-  - **features/**: Funcionalidades organizadas por módulos.
-    - **auth/**: Módulo de autenticación del sistema.
-      - **login/**: Vista de inicio de sesión (`LoginComponent`).
-      - **register/**: Vista de registro (`RegisterComponent`).
-    - **public/**: Páginas públicas accesibles sin autenticación.
-      - **layout/**: `PublicLayoutComponent` (estructura general: header, nav, footer).
-
-
-
-
-````bash
-backend/
-````
-<p> Esta carpeta contendrá la lógica de negocio, los servicios, y la conexión con la base de datos. Su desarrollo se realizará en una etapa posterior al diseño de la maqueta y la implementación del frontend. </p>
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="40" alt="python logo"  />
+  <img width="12" />
+</div>
 
 ###
 
-###
+# Instrucciones para probar el proyecto
 
-## 🛠️ Instrucciones para probar el proyecto
+Para ejecutar **ProfeSort** se detallan los pasos de instalación y ejecución:
 
-Para ejecutar **ProfeSort** se utiliza una **mock API** que simula el backend.  
-A continuación, se detallan los pasos de instalación y ejecución:
+## Instalación y Ejecución Local
 
----
+Sigue estos pasos para configurar y levantar el servidor backend en tu entorno de desarrollo.
 
-### Terminal 1 – API General
+### 1. Preparación del Entorno
+
+1.  **Navega al directorio del proyecto `backend`**:
+    ```bash
+    cd backend
+    ```
+
+2.  **Crea y activa un entorno virtual** (recomendado para aislar dependencias):
+    ```bash
+    python -m venv venv
+    ```
+
+     ```bash
+    venv\Scripts\activate
+    ```
+    
+
+4.  **Instala las dependencias** de Python:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### 2. Configuración de la Base de Datos
+
+1.  **Crea el archivo de variables de entorno `.env`** en el directorio `backend/` y configúralo con tus credenciales de PostgreSQL.
+
+    ```bash
+    DB_NAME=profesort_db
+    DB_USER=postgres
+    DB_PASSWORD=tu_password  # Coloca tu contraseña real de PostgreSQL
+    DB_HOST=localhost
+    DB_PORT=5432
+    
+    SECRET_KEY=tu_secret_key # Generás una clave segura
+    DEBUG=True
+    ```
+
+2.  **Crea la base de datos PostgreSQL** (ejecuta esto en tu cliente de base de datos, como pgAdmin o psql):
+    ```sql
+    CREATE DATABASE profesort_db;
+    ```
+
+### 3. Inicialización del Sistema
+
+1.  **Ejecuta las migraciones** de Django para crear las tablas:
+    ```bash
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+
+2.  **Inicializa los datos base** (roles y un usuario administrador):
+    ```bash
+    python init_data.py
+    ```
+
+### 4. Ejecutar el Servidor
+
+Inicia el servidor de desarrollo de Django:
 
 ```bash
-cd mock-api
-npm install -g json-server
-```
-###
-```bash
-npx json-server@0.17.4 --watch db.json --routes routes.json --middlewares middleware.js --port 3000
-```
-👉 Función: Maneja los datos principales: estudiantes, materias, docentes y métricas.
-🔗 Acceso: http://localhost:3000
 
-### Terminal 2 – Frontend
-
-```bash
-cd frontend
-npm install
-```
-###
-```bash
-ng serve -o
-```
-👉 Función: Levanta el frontend en Angular para visualizar la aplicación en el navegador.
-🔗 Acceso: http://localhost:4200
-
-
-
--------------------
-### 🔑 Credenciales de acceso
-
-Para acceder a los paneles de administrador autenticado, existen credenciales preconfiguradas en el código:
-```
-"email": "admin@profesort.com"
-"password": "admin123"
+python manage.py runserver
 ```
 
-👉 Con estas credenciales podrás ingresar al panel de administración y probar las funcionalidades de gestión.
+-----------
+<h2>2. Frontend (Angular)</h2>
+<p>El frontend es la aplicación web que interactúa con la API.</p>
 
-👉 Para acceder a los paneles de docente se debe registrar el usuario y luego iniciar sesión 
+<h3>2 Instalación y Ejecución</h3>
 
+<ol>
+    <li>
+        <strong>Abre una nueva terminal y navega al directorio <code>frontend</code></strong>:
+        <pre><code class="bash">cd frontend</code></pre>
+    </li>
+    <li>
+        <strong>Instala las dependencias de Node.js</strong> (asegúrate de tener Node.js y npm instalados):
+        <pre><code class="bash">npm install</code></pre>
+    </li>
+    <li>
+        <strong>Inicia el servidor de desarrollo y abre la aplicación</strong>:
+        <pre><code class="bash">ng serve -o</code></pre>
+        <p>La aplicación se abrirá automáticamente (usualmente en <code>http://localhost:4200</code>), y ya podrás ver la interfaz visual.</p>
+    </li>
+</ol>
 
+<hr>
 
+<h2>🏃 Flujo de Trabajo (Demostración)</h2>
+<p>Una vez que ambos servidores (Backend y Frontend) están corriendo, puedes simular el flujo de trabajo inicial del sistema:</p>
 
-
+<ol>
+    <li>
+        <strong>Inicio de Sesión como Administrador:</strong>
+        <ul>
+            <li>Ingresa a la aplicación web (Frontend) e inicia sesión con las credenciales: <br><br>
+            <h2><strong style="color: red;">User: admin@profesort.com <br><br> Contraseña: Admin123456</strong></li> <br></h2>
+            <li>Desde el panel, navega a la sección de Materias y <strong>Crea una nueva Materia</strong> (ej. "Historia").</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Registro de un Nuevo Docente:</strong>
+        <ul>
+            <li><strong>Cierra la sesión</strong> del administrador.</li>
+            <li>Utiliza la opción de <strong>Registro</strong> en la interfaz para crear una cuenta nueva. Esta cuenta representará a un nuevo Docente.</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Asignación de Materia (Administrador):</strong>
+        <ul>
+            <li>Vuelve a <strong>iniciar sesión como administrador</strong>.</li>
+            <li>Desde el panel, navega a la sección de Asignación Docente-Materia y <strong>Asigna la Materia</strong> que creaste (ej. "Historia") al Docente que acabas de registrar.</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Verificación Docente:</strong>
+        <ul>
+            <li><strong>Cierra la sesión</strong> del administrador.</li>
+            <li><strong>Inicia sesión como el Docente</strong> recién registrado.</li>
+            <li>El docente podrá ver la Materia Asignada ("Historia") en su panel materias.</li>
+        </ul>
+    </li>
+</ol>

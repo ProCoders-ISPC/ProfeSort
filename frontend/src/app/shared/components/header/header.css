@@ -18,6 +18,9 @@
     box-shadow: none;
     width: 100%;
     box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+    overflow: visible; /* Permite que el dropdown sea visible */
   }
   
   .header {
@@ -29,23 +32,46 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--accent-yellow);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  header .logo:hover,
+  .header__logo:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+
+  header .logo img,
+  .header__logo img {
+    display: block;
+    height: 80px;
+    width: auto;
   }
   
   /* Navegación desktop */
   .header__nav-desktop {
     display: flex;
     align-items: center;
+    gap: 25px; /* Mejor espaciado entre elementos */
+    overflow: visible; /* Permite que el dropdown sea visible fuera del contenedor */
+    position: relative; /* Contexto de posicionamiento para el dropdown */
   }
   
   .header__nav-desktop a {
     color: var(--white);
-    margin-left: 20px;
     text-decoration: none;
     transition: color 0.3s ease;
+    padding: 8px 12px; /* Padding para mejor área de click */
+    border-radius: 4px;
+    white-space: nowrap; /* Evita cortes de texto */
   }
   
   .header__nav-desktop a:hover {
     color: var(--accent-yellow);
+    background-color: rgba(255, 255, 255, 0.1);
   }
   
   /* ===== HEADER BURGER MENU (RESPONSIVE) - OPTIMIZADO ===== */

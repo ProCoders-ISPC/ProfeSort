@@ -1,11 +1,88 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MateriasService, Materia } from '../../../core/services/materias.service';
+import { AuthService } from '../../../core/services/services';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-materias',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './materias.html',
   styleUrl: './materias.css'
 })
-export class Materias {
+export class Materias implements OnInit, OnDestroy {
+  materias: Materia[] = [];
+  loading = false;
+  error = '';
+  userName = '';
+  private userSubscription?: Subscription;
 
+  constructor(
+    private materiasService: MateriasService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+      this.userSubscription = this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.userName = user.name || 'Docente';
+        const userId = user.id || (user as any).id_usuario;
+        if (userId) {
+          this.cargarMaterias(userId);
+        } else {
+          this.authService.refreshUserSession();
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+  }
+
+  cargarMaterias(docenteId?: number) {
+    this.loading = true;
+    this.error = '';
+    
+    if (!docenteId) {
+      let user = this.authService.getCurrentUser();
+      
+      if (!user) {
+        this.authService.refreshUserSession();
+        user = this.authService.getCurrentUser();
+      }
+      
+      if (!user) {
+        this.error = 'No hay usuario autenticado. Por favor, inicia sesión nuevamente.';
+        this.loading = false;
+        return;
+      }
+      
+      docenteId = user?.id || (user as any)?.id_usuario;
+    }
+
+    if (!docenteId) {
+      this.error = 'No se pudo obtener el ID del docente. Intenta cerrar sesión y volver a iniciar.';
+      this.loading = false;
+      return;
+    }
+
+    console.log('Cargando materias para docente ID:', docenteId);
+    
+    this.materiasService.getMateriasByDocente(docenteId).subscribe({
+      next: (materias) => {
+        console.log('Materias cargadas exitosamente:', materias);
+        this.materias = materias;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar materias:', err);
+        this.error = 'Error al cargar las materias. Verifica tu conexión e inténtalo de nuevo.';
+        this.loading = false;
+      }
+    });
+  }
 }

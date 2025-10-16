@@ -1,4 +1,4 @@
-/* ===== LOGIN FORM STYLES ===== */
+
 .login {
   position: relative;
   min-height: 100vh;
@@ -156,7 +156,7 @@
   margin-bottom: 0;
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 768px) {
   .login {
     padding: 15px;
@@ -186,7 +186,6 @@
   }
 }
 
-/* ===== MENSAJES DE ESTADO ===== */
 .login__messages {
   margin-bottom: 20px;
 }
@@ -211,9 +210,19 @@
   margin-bottom: 10px;
   font-size: 0.9rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
 }
 
-/* ===== ENLACE DE REGISTRO ===== */
+.login__error-message::before {
+  content: '⚠️';
+  font-size: 1.2rem;
+}
+
+
 .login__register-link {
   text-align: center;
   margin-top: 15px;

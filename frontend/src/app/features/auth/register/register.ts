@@ -28,7 +28,7 @@ export class Register {
       nombre: ['', [
         Validators.required, 
         Validators.minLength(2),
-        Validators.pattern('^[a-zA-ZÀ-ÿ\\u00f1\\u00d1\\s]+$') // Solo letras y espacios
+        Validators.pattern('^[a-zA-ZÀ-ÿ\\u00f1\\u00d1\\s]+$')
       ]],
       apellido: ['', [
         Validators.required,
@@ -37,7 +37,7 @@ export class Register {
       ]],
       dni: ['', [
         Validators.required,
-        Validators.pattern('^[0-9]{7,8}$') // Solo números, 7-8 dígitos
+        Validators.pattern('^[0-9]{7,8}$')
       ]],
       fechaNacimiento: ['', [
         Validators.required,
@@ -49,7 +49,7 @@ export class Register {
       ]],
       telefono: ['', [
         Validators.required,
-        Validators.pattern('^[0-9]{10,15}$') // Solo números, 10-15 dígitos
+        Validators.pattern('^[0-9]{10,15}$')
       ]],
       email: ['', [
         Validators.required,
@@ -79,7 +79,6 @@ export class Register {
     });
   }
 
-  // Validador personalizado para la edad (mayor de 16 años)
   validateAge(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
     
@@ -95,7 +94,6 @@ export class Register {
     return age >= 16 ? null : { underage: true };
   }
 
-  // Validador personalizado para la contraseña (simplificado)
   validatePassword(control: AbstractControl): ValidationErrors | null {
     if (!control.value) return null;
 
@@ -111,7 +109,6 @@ export class Register {
     return Object.keys(errors).length ? errors : null;
   }
 
-  // Validador para confirmar contraseña
   passwordMatchValidator(form: AbstractControl): ValidationErrors | null {
     const password = form.get('password');
     const confirmarPassword = form.get('confirmarPassword');
@@ -121,7 +118,6 @@ export class Register {
     return password.value === confirmarPassword.value ? null : { passwordMismatch: true };
   }
 
-  // Validador para confirmar email
   emailMatchValidator(form: AbstractControl): ValidationErrors | null {
     const email = form.get('email');
     const confirmarEmail = form.get('confirmarEmail');
@@ -131,7 +127,6 @@ export class Register {
     return email.value === confirmarEmail.value ? null : { emailMismatch: true };
   }
 
-  // Método para obtener errores de un campo
   getFieldError(fieldName: string): string {
     const field = this.registerForm.get(fieldName);
     
@@ -186,7 +181,6 @@ export class Register {
     return errors[fieldName] || 'Formato inválido';
   }
 
-  // Verificar si un campo tiene errores
   hasFieldError(fieldName: string): boolean {
     const field = this.registerForm.get(fieldName);
     return !!(field && field.errors && (field.touched || this.isSubmitted)) || 
@@ -194,7 +188,6 @@ export class Register {
            (fieldName === 'confirmarEmail' && this.registerForm.errors?.['emailMismatch'] && (field?.touched || this.isSubmitted));
   }
 
-  // Métodos para verificar requisitos de contraseña
   hasUppercase(): boolean {
     const password = this.registerForm.get('password')?.value || '';
     return /[A-Z]/.test(password);
@@ -210,7 +203,6 @@ export class Register {
     return password.length >= 6;
   }
 
-  // Método para enviar el formulario
   onSubmit(): void {
     this.isSubmitted = true;
     this.registrationMessage = '';
@@ -227,26 +219,20 @@ export class Register {
           
           if (response.success) {
             this.registrationMessage = response.message || 'Usuario registrado exitosamente';
-            console.log('Registro exitoso:', response);
             
-            // Mostrar mensaje por unos segundos y luego redirigir al login
             setTimeout(() => {
               this.router.navigate(['/login']);
             }, 2000);
           } else {
             this.registrationError = response.error || response.message || 'Error en el registro';
-            console.error('Error en registro:', response);
           }
         },
         error: (error) => {
           this.isLoading = false;
           this.registrationError = 'Error de conexión. Por favor, intente nuevamente.';
-          console.error('Error de conexión:', error);
         }
       });
     } else {
-      console.log('Formulario inválido');
-      // Marcar todos los campos como touched para mostrar los errores
       Object.keys(this.registerForm.controls).forEach(key => {
         this.registerForm.get(key)?.markAsTouched();
       });

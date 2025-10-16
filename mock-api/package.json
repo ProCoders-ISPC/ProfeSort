@@ -1,4 +1,10 @@
 {
+  "name": "profesort-mock-api",
+  "version": "1.0.0",
+  "description": "Mock API para ProfeSort",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3000 --middlewares middleware.js"
+  },
   "dependencies": {
     "json-server": "^0.17.4"
   }

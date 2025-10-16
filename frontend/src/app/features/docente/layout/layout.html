@@ -1,17 +1,23 @@
 <div class="docente-layout">
-  <!-- Sidebar -->
   <nav class="docente-nav">
     <div class="nav-header">
-      <div class="nav-logo">ProfeSort</div>
+      <div class="nav-logo">ProfeSort Docente</div>
     </div>
     
     <div class="nav-menu">
+      <div class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/docente']">
+          <i class="fa fa-home nav-icon"></i>
+          Inicio
+        </a>
+      </div>
       <div class="nav-item" routerLinkActive="active">
         <a [routerLink]="['/docente/estudiantes']">
           <i class="fa fa-users nav-icon"></i>
           Estudiantes
         </a>
       </div>
+
       <div class="nav-item" routerLinkActive="active">
         <a [routerLink]="['/docente/materias']">
           <i class="fa fa-book nav-icon"></i>
@@ -20,15 +26,42 @@
       </div>
       <div class="nav-item" routerLinkActive="active">
         <a [routerLink]="['/docente/perfil']">
-          <i class="fa fa-user nav-icon"></i>
-          Perfil
+          <i class="fa fa-user-edit nav-icon"></i>
+          Mi Perfil
         </a>
       </div>
     </div>
   </nav>
 
-  <!-- Contenido Principal -->
   <main class="docente-content">
+    <div class="header header-sticky">
+      <button class="responsive-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="page-title">Panel de Control</div>
+      <div class="user-profile">
+        <button class="btn-home-header" (click)="irAlHome()" title="Ir al sitio web">
+          <i class="fas fa-home"></i>
+          <span>Sitio Web</span>
+        </button>
+        <div class="dropdown">
+          <button class="btn-user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="user-name">{{ userName }}</span>
+            <i class="fas fa-chevron-down ms-2"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#" (click)="volverAlPanel($event)">
+              <i class="fas fa-tachometer-alt me-2"></i>Panel Docente
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" (click)="cerrarSesion($event)">
+              <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </main>
+
 </div>

@@ -1,35 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Docente, User } from '../models/models';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-
-@Injectable({ providedIn: 'root' })
-export class DocentesService {
-  private docentes: Docente[] = [
-    { id: 1, name: 'Karina Quinteros', email: 'karina@gmail.com', legajo: 'DOC001', estado: 'Activo' },
-    { id: 2, name: 'Juan Pablo Sánchez', email: 'juan@gmail.com', legajo: 'DOC002', estado: 'Activo' },
-  ];
-
-  getAll(): Docente[] {
-    return this.docentes;
-  }
-
-  add(docente: Docente) {
-    this.docentes.push({ ...docente, id: Date.now() });
-  }
-
-  update(id: number, docente: Partial<Docente>) {
-    const index = this.docentes.findIndex(d => d.id === id);
-    if (index !== -1) {
-      this.docentes[index] = { ...this.docentes[index], ...docente };
-    }
-  }
-
-  delete(id: number) {
-    this.docentes = this.docentes.filter(d => d.id !== id);
-  }
-}
 
 export interface LoginRequest {
   email: string;
@@ -60,12 +33,17 @@ export interface ApiResponse<T> {
 
 export interface AuthUser {
   id: number;
+  name: string; 
   email: string;
-  name: string;
-  role: 'Admin' | 'User';
-  legajo?: string;
-  token: string;
-  isLoggedIn: boolean;
+  id_rol: number;
+  legajo: string;
+  dni: string;
+  fecha_nacimiento: string;
+  domicilio: string;
+  telefono: string;
+  area: string;
+  fecha_ingreso: string;
+  is_active: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -73,55 +51,75 @@ export class AuthService {
   
   private currentUserSubject = new BehaviorSubject<AuthUser | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
-  private apiUrl = 'http://localhost:3000/auth'; // Cambié de /api/auth a /auth
+  private apiUrl = `${environment.apiUrl}/usuarios`;
   
   constructor(private http: HttpClient) {
-    // Verificar si hay una sesión guardada al inicializar el servicio
     this.loadSavedSession();
   }
 
   private loadSavedSession(): void {
-    const savedUser = localStorage.getItem('currentUser');
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const userRole = localStorage.getItem('rol');
+    const savedUser = sessionStorage.getItem('currentUser');
 
-    if (savedUser && isLoggedIn === 'true') {
+    if (savedUser) {
       try {
         const user = JSON.parse(savedUser);
-        this.currentUserSubject.next(user);
+        
+        
+        const authUser: AuthUser = {
+          id: user.id || user.id_usuario || 0,
+          name: user.name || `${user.nombre || ''} ${user.apellido || ''}`.trim() || '',
+          email: user.email || '',
+          id_rol: user.id_rol || (user.id_rol === 'Admin' ? 1 : 2),
+          legajo: user.legajo || '',
+          dni: user.dni || '',
+          fecha_nacimiento: user.fecha_nacimiento || user.fechaNacimiento || '',
+          domicilio: user.domicilio || '',
+          telefono: user.telefono || '',
+          area: user.area || '',
+          fecha_ingreso: user.fecha_ingreso || user.createdAt || '',
+          is_active: user.is_active !== undefined ? user.is_active : (user.isActive || true)
+        };
+        
+        this.currentUserSubject.next(authUser);
       } catch (error) {
-        // Si hay error al parsear, limpiar localStorage
+        console.error('Error al cargar sesión:', error);
         this.clearSession();
       }
     }
   }
 
   private saveSession(user: AuthUser): void {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('rol', user.role);
-    if (user.token) {
-      localStorage.setItem('token', user.token);
-    }
+    
+    const normalizedUser: AuthUser = {
+      id: user.id || (user as any).id_usuario || 0,
+      name: user.name || '',
+      email: user.email || '',
+      id_rol: user.id_rol || 2,
+      legajo: user.legajo || '',
+      dni: user.dni || '',
+      fecha_nacimiento: user.fecha_nacimiento || '',
+      domicilio: user.domicilio || '',
+      telefono: user.telefono || '',
+      area: user.area || '',
+      fecha_ingreso: user.fecha_ingreso || '',
+      is_active: user.is_active !== undefined ? user.is_active : true
+    };
+    
+    sessionStorage.setItem('currentUser', JSON.stringify(normalizedUser));
   }
 
   private clearSession(): void {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('rol');
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('currentUser');
   }
 
-  // Login usando la API mock
   login(email: string, password: string): Observable<ApiResponse<AuthUser>> {
     const loginData: LoginRequest = { email, password };
     
     return new Observable<ApiResponse<AuthUser>>(observer => {
-      this.http.post<ApiResponse<AuthUser>>(`${this.apiUrl}/login`, loginData)
+      this.http.post<ApiResponse<AuthUser>>(`${this.apiUrl}/login/`, loginData)
         .subscribe({
           next: (response) => {
             if (response.success && response.data) {
-              // Guardar sesión
               this.saveSession(response.data);
               this.currentUserSubject.next(response.data);
             }
@@ -129,16 +127,53 @@ export class AuthService {
             observer.complete();
           },
           error: (error) => {
-            console.error('Error en login:', error);
+            console.error('Error en login service:', error);
             let errorResponse: ApiResponse<AuthUser>;
             
-            if (error.status === 401) {
+            
+            if (error.status === 403) {
               errorResponse = {
                 success: false,
-                message: 'Credenciales inválidas',
-                error: 'Email o contraseña incorrectos'
+                message: 'Tu cuenta está inactiva. Por favor, contacta al administrador para activarla.',
+                error: error.error?.error || 'Cuenta desactivada'
               };
-            } else {
+            } 
+          
+            else if (error.status === 401) {
+              errorResponse = {
+                success: false,
+                message: 'Usuario no registrado en ProfeSort',
+                error: error.error?.error || 'El usuario no existe'
+              };
+            } 
+            
+            else if (error.status === 400) {
+              
+              const errorMsg = error.error?.error || error.error?.message || '';
+              if (errorMsg.toLowerCase().includes('contraseña')) {
+                errorResponse = {
+                  success: false,
+                  message: 'Contraseña incorrecta',
+                  error: error.error?.error || 'La contraseña ingresada es incorrecta'
+                };
+              } else {
+                errorResponse = {
+                  success: false,
+                  message: 'Datos inválidos',
+                  error: error.error?.message || 'Verifica los datos ingresados'
+                };
+              }
+            }
+            
+            else if (error.status === 500) {
+              errorResponse = {
+                success: false,
+                message: 'Error en el servidor',
+                error: 'Ocurrió un error en el servidor. Intenta más tarde.'
+              };
+            }
+          
+            else {
               errorResponse = {
                 success: false,
                 message: 'Error de conexión',
@@ -153,17 +188,15 @@ export class AuthService {
     });
   }
 
-  // Registro usando la API mock
   register(registerData: RegisterRequest): Observable<ApiResponse<any>> {
     return new Observable<ApiResponse<any>>(observer => {
-      this.http.post<ApiResponse<any>>(`${this.apiUrl}/register`, registerData)
+      this.http.post<ApiResponse<any>>(`${this.apiUrl}/register/`, registerData)
         .subscribe({
           next: (response) => {
             observer.next(response);
             observer.complete();
           },
           error: (error) => {
-            console.error('Error en registro:', error);
             let errorResponse: ApiResponse<any>;
             
             if (error.status === 409) {
@@ -187,44 +220,88 @@ export class AuthService {
     });
   }
 
-  // Logout
   logout(): void {
     this.clearSession();
     this.currentUserSubject.next(null);
   }
 
-  // Verificar si está autenticado
   isAuthenticated(): boolean {
-    const currentUser = this.currentUserSubject.value;
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    return currentUser !== null && isLoggedIn;
+    return this.currentUserSubject.value !== null;
   }
 
-  // Verificar si es administrador
   isAdmin(): boolean {
     const currentUser = this.currentUserSubject.value;
-    const role = localStorage.getItem('rol');
-    return currentUser !== null && (currentUser.role === 'Admin' || role === 'Admin') && this.isAuthenticated();
+    return currentUser !== null && currentUser.id_rol === 1;
   }
 
-  // Verificar si es docente/usuario
   isUser(): boolean {
     const currentUser = this.currentUserSubject.value;
-    const role = localStorage.getItem('rol');
-    return currentUser !== null && (currentUser.role === 'User' || role === 'User') && this.isAuthenticated();
+    return currentUser !== null && currentUser.id_rol === 2;
   }
   
-  // Obtener usuario actual
   getCurrentUser(): AuthUser | null {
-    return this.currentUserSubject.value;
+    const user = this.currentUserSubject.value;
+    if (!user) return null;
+    
+    
+    return {
+      id: user.id || (user as any).id_usuario || 0,
+      name: user.name || '',
+      email: user.email || '',
+      id_rol: user.id_rol || 2,
+      legajo: user.legajo || '',
+      dni: user.dni || '',
+      fecha_nacimiento: user.fecha_nacimiento || '',
+      domicilio: user.domicilio || '',
+      telefono: user.telefono || '',
+      area: user.area || '',
+      fecha_ingreso: user.fecha_ingreso || '',
+      is_active: user.is_active !== undefined ? user.is_active : true
+    };
   }
 
-  // Obtener datos de sesión del localStorage (para compatibilidad)
   getSessionData() {
+    const user = this.getCurrentUser();
     return {
-      isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
-      rol: localStorage.getItem('rol') as 'Admin' | 'User' | null,
-      user: this.getCurrentUser()
+      isLoggedIn: user !== null,
+      rol: user?.id_rol === 1 ? 'Admin' : 'User',
+      user: user
     };
+  }
+
+  
+  refreshUserSession(): void {
+    this.loadSavedSession();
+  }
+
+ 
+  validateSession(): Observable<boolean> {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) {
+      return new Observable(observer => {
+        observer.next(false);
+        observer.complete();
+      });
+    }
+
+    return this.http.get<{success: boolean, data: any}>(`${this.apiUrl}/validate-session/${currentUser.id}`)
+      .pipe(
+        map(response => {
+          if (response.success && response.data) {
+            
+            this.saveSession(response.data);
+            return true;
+          } else {
+            
+            this.clearSession();
+            return false;
+          }
+        }),
+        catchError(() => {
+      
+          this.clearSession();
+          return of(false);
+        })
+      );
   }
 }

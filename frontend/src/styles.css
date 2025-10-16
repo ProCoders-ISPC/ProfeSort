@@ -1,21 +1,19 @@
 @import url('bootstrap/dist/css/bootstrap.min.css');
 @font-face {
     font-family: 'Acephimere';
-    src: url ('../fonts/Acephimere.otf') format('opentype');
+    src: url ('./fonts/Acephimere.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
-@import url('./assets/css/base/reset.css');
-@import url('./assets/css/base/variables.css');
-@import url('./assets/css/components/buttons.css');
-@import url('./assets/css/components/footer.css');
-@import url('./assets/css/components/forms.css');
-@import url('./assets/css/components/header.css');
+@import url('../public/css/base/reset.css');
+@import url('../public/css/base/variables.css');
+@import url('../public/css/components/buttons.css');
+@import url('../public/css/components/footer.css');
+@import url('../public/css/components/forms.css');
+@import url('../public/css/components/header.css');
 
-@import url('./assets/css/pages/login.css');
-@import url('./assets/css/pages/home.css');
-@import url('./assets/css/pages/about.css');
+
 
 /* Override Bootstrap styles */
 body {
@@ -82,13 +80,13 @@ router-outlet {
   width: 100% !important;
 }
 
-/*===FUENTES===*/
+/*===FUENTES===
 @font-face {
     font-family: 'Acephimere';
-    src: url('./assets/fonts/Acephimere.otf') format('opentype');
+    src: url('/fonts/Acephimere.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
-}
+}*/
 
 /* ===== SIDEBAR ===== */
 .sidebar {

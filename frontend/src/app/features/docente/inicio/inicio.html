@@ -1,0 +1,30 @@
+<div class="inicio-container">
+  <div class="welcome-card">
+    <div class="welcome-icon">
+      <i class="fas fa-chalkboard-teacher"></i>
+    </div>
+    <h1 class="welcome-title">¡Bienvenido a ProfeSort!</h1>
+    @if (currentUser) {
+      <p class="welcome-subtitle">
+        Hola, <strong>{{ currentUser.name }}</strong>
+      </p>
+    }
+    <div class="feature-cards">
+      <div class="feature-card clickable" (click)="navegarA('/docente/estudiantes')">
+        <i class="fas fa-users"></i>
+        <h3>Mis Estudiantes</h3>
+        <p>Gestiona tu lista de estudiantes asignados</p>
+      </div>
+      <div class="feature-card clickable" (click)="navegarA('/docente/materias')">
+        <i class="fas fa-book"></i>
+        <h3>Mis Materias</h3>
+        <p>Administra las materias que impartes</p>
+      </div>
+      <div class="feature-card clickable" (click)="navegarA('/docente/perfil')">
+        <i class="fas fa-user-edit"></i>
+        <h3>Mi Perfil</h3>
+        <p>Actualiza tu información personal</p>
+      </div>
+    </div>
+  </div>
+</div>

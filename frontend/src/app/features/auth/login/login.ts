@@ -36,7 +36,6 @@ export class Login {
     });
   }
 
-  // Método para obtener errores de un campo
   getFieldError(fieldName: string): string {
     const field = this.loginForm.get(fieldName);
     
@@ -56,7 +55,6 @@ export class Login {
     return labels[fieldName] || 'El campo';
   }
 
-  // Verificar si un campo tiene errores
   hasFieldError(fieldName: string): boolean {
     const field = this.loginForm.get(fieldName);
     return !!(field && field.errors && (field.touched || this.isSubmitted));
@@ -74,35 +72,26 @@ export class Login {
       this.authService.login(email, password).subscribe({
         next: (response) => {
           this.isLoading = false;
+          console.log('Respuesta de login:', response);
           
           if (response.success && response.data) {
             this.loginMessage = 'Inicio de sesión exitoso. Redirigiendo...';
             
-            // Redirección dinámica según el rol
             setTimeout(() => {
-              if (response.data?.role === 'Admin') {
+              if (response.data?.id_rol === 1) {
                 this.router.navigate(['/admin']);
-              } else if (response.data?.role === 'User') {
+              } else if (response.data?.id_rol === 2) {
                 this.router.navigate(['/docente']);
               } else {
-                // Fallback por si no tiene rol específico
                 this.router.navigate(['/home']);
               }
             }, 1000);
           } else {
-            this.loginError = response.error || response.message || 'Error en el inicio de sesión';
-            console.error('Error en login:', response);
+            this.loginError = response.message || response.error || 'Error en el inicio de sesión';
           }
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.loginError = 'Error de conexión. Por favor, intente nuevamente.';
-          console.error('Error de conexión:', error);
         }
       });
     } else {
-      console.log('Formulario inválido');
-      // Marcar todos los campos como touched para mostrar los errores
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
       });

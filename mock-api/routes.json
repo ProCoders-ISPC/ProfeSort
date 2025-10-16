@@ -1,19 +1,4 @@
 {
-  "/api/auth/login": "/api/auth/login",
-  "/api/auth/register": "/api/auth/register",
   "/auth/login": "/auth/login",
-  "/auth/register": "/auth/register",
-  "/api/docentes": "/docentes",
-  "/api/docentes/carga": "/carga",
-  "/api/docentes/:id": "/docentes/:id",
-  "/api/carga/:id": "/carga/:id",
-  "/api/estudiantes": "/estudiantes",
-  "/api/estudiantes/:id": "/estudiantes/:id",
-  "/api/inscripciones": "/inscripciones",
-  "/api/inscripciones/:id": "/inscripciones/:id",
-  "/api/asistencias": "/asistencias",
-  "/api/asistencias/:id": "/asistencias/:id",
-  "/api/calificaciones": "/calificaciones",
-  "/api/calificaciones/:id": "/calificaciones/:id",
-  "/api/*": "/$1"
+  "/auth/register": "/auth/register"
 }

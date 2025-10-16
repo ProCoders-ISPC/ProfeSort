@@ -1,10 +1,9 @@
-/* ===== LAYOUT CONTAINERS ===== */
+
 .docente-layout {
   display: flex;
   min-height: 100vh;
 }
 
-/* ===== SIDEBAR ===== */
 .docente-nav {
   width: 250px;
   background-color: #043237;
@@ -15,36 +14,32 @@
   top: 0;
   bottom: 0;
   z-index: 999;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-header {
   padding: 20px;
   text-align: center;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  background-color: #032328;
+  border-bottom: 1px solid #043237;
 }
 
 .nav-logo {
   font-size: 24px;
   font-weight: bold;
   color: white;
-  margin-bottom: 10px;
 }
 
 .nav-menu {
   padding: 20px 0;
-  height: calc(100vh - 100px);
-  overflow-y: auto;
 }
 
 .nav-item {
-  padding: 12px 20px;
+  padding: 15px 20px;
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: all 0.2s;
-  margin-bottom: 5px;
 }
 
 .nav-item a {
@@ -53,66 +48,134 @@
   display: flex;
   align-items: center;
   width: 100%;
-  font-size: 0.95rem;
 }
 
 .nav-item:hover {
-  background-color: #3abdcc;
+  background-color: #0F8795;
+  border-left: 4px solid #E5AF24;
+}
+
+.nav-item:hover .nav-icon {
+  color: #E5AF24;
 }
 
 .nav-item.active {
   background-color: #0F8795;
+  border-left: 4px solid #E5AF24;
+}
+
+.nav-item.active .nav-icon {
+  color: #E5AF24;
 }
 
 .nav-icon {
   margin-right: 10px;
   width: 20px;
   text-align: center;
+  transition: color 0.3s;
 }
 
-/* ===== CONTENIDO PRINCIPAL ===== */
 .docente-content {
   flex: 1;
   width: calc(100% - 250px);
   min-height: 100vh;
   margin-left: 250px;
   background-color: #f5f5f5;
-  position: relative;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.main-container {
-  padding: 20px;
-  margin-top: 60px; /* Espacio para el header fijo */
-}
-
-/* ===== HEADER ===== */
-.content-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
-  color: #043237;
+  background-color: #043237;
+  color: white;
   padding: 15px 20px;
   margin-bottom: 0;
-  position: fixed;
+}
+
+.header-sticky {
+  position: sticky;
   top: 0;
-  right: 0;
-  left: 250px;
-  height: 60px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  z-index: 998;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .page-title {
   font-size: 1.2rem;
   font-weight: 500;
-  color: #043237;
+  color: white;
 }
 
-/* ===== PERFIL DE USUARIO ===== */
 .user-profile {
   display: flex;
   align-items: center;
+  gap: 15px;
+}
+
+.btn-home-header {
+  background-color: #E5AF24;
+  color: #043237;
+  border: 1px solid #E5AF24;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.btn-home-header:hover {
+  background-color: #d19d1f;
+  border-color: #d19d1f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3);
+}
+
+.btn-user-dropdown {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.btn-user-dropdown:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.user-name {
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.btn-logout-header {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+.btn-logout-header:hover {
+  background-color: #d32f2f;
 }
 
 .user-avatar {
@@ -125,11 +188,28 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  margin-right: 10px;
 }
 
-/* Media queries */
+.responsive-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  display: none !important;
+  z-index: 1002;
+}
+
+.responsive-toggle:focus {
+  outline: none;
+}
+
 @media screen and (max-width: 768px) {
+  .responsive-toggle {
+    display: block !important;
+  }
+  
   .docente-nav {
     left: -250px;
   }
@@ -143,8 +223,30 @@
     width: 100%;
   }
   
-  .content-header {
-    left: 0;
+  .header {
     padding: 10px 15px;
   }
+}
+
+.dropdown-menu {
+  border: 1px solid #E5AF24 !important;
+  box-shadow: 0 4px 12px rgba(229, 175, 36, 0.15) !important;
+}
+
+.dropdown-item {
+  transition: all 0.3s !important;
+}
+
+.dropdown-item:hover {
+  background-color: #E5AF24 !important;
+  color: white !important;
+}
+
+.dropdown-item:hover i {
+  color: white !important;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #f44336 !important;
+  color: white !important;
 }

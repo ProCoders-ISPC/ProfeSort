@@ -1,4 +1,3 @@
-/* Estilos específicos para la página de estudiantes */
 .container-fluid {
   padding: 20px !important;
 }
@@ -10,8 +9,18 @@
 }
 
 .btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #E5AF24;
+  border-color: #E5AF24;
+  color: #043237;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-success:hover {
+  background-color: #d19d1f;
+  border-color: #d19d1f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(229, 175, 36, 0.3);
 }
 
 .btn-info {
@@ -40,4 +49,17 @@
   background-color: #f8f9fa;
   border-color: #ced4da;
 }
+
+@media screen and (max-width: 768px) {
+  .container-fluid { padding: 12px !important; }
+  .card { padding: 12px; }
+  .table th, .table td { padding: 8px 10px; font-size: 13px; }
+  .btn-success, .btn-info, .btn-warning, .btn-danger { padding: 8px 10px; font-size: 13px; }
+}
+
+@media screen and (max-width: 480px) {
+  .table { font-size: 13px; }
+  .input-group-text { font-size: 13px; }
+}
+
 

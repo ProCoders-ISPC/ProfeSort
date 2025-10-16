@@ -1,380 +1,323 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminDocenteService, DocenteCarga, EstadisticasCarga } from '../../../core/services/admindocente.service';
-import { Subject, takeUntil } from 'rxjs';
-
-interface DocenteModel {
-  id: number;
-  name: string;
-  email: string;
-  legajo: string;
-  estado: 'Activo' | 'Inactivo';
-}
+import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AdminDocenteService, DocenteCarga } from 'src/app/core/services/admindocente.service';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-docente',
-  imports: [ReactiveFormsModule, CommonModule],
+  selector: 'app-admindocente',
   templateUrl: './admindocente.html',
-  styleUrls: ['./admindocente.css']
+  styleUrls: ['./admindocente.css'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule]
 })
-export class Docente implements OnInit, OnDestroy {
-  // Propiedades del formulario
-  docenteForm: FormGroup;
-  docentes: DocenteModel[] = [];
+export class AdminDocenteComponent implements OnInit {
+  docentes: DocenteCarga[] = [];
+  docentesOriginales: DocenteCarga[] = [];
+  usuariosRegulares: any[] = [];
+  loading = false;
+  error = '';
+  mensaje = '';
   
-  // Propiedades de edición
-  isEditing = false;
-  editingIndex = -1;
-  editandoDocente = false;
-  docenteEditandoId: number | null = null;
-
-  // Propiedades para informe de carga
-  docentesCarga: DocenteCarga[] = [];
-  estadisticasCarga: EstadisticasCarga | null = null;
-  cargandoDatos = false;
-  errorCarga = '';
-  mostrarInformeCarga = false;
+  mostrarUsuariosRegulares = false;
   
-  // Control de suscripciones
-  private destroy$ = new Subject<void>();
-
-  private fb = inject(FormBuilder);
-  private adminDocenteService = inject(AdminDocenteService);
-new: any;
-
-  // Nueva propiedad para la fecha de actualización
-  fechaUltimaActualizacion: string = new Date().toLocaleString();
-
-  constructor() {
-    this.docenteForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      legajo: ['', [Validators.required]],
-      estado: ['Activo', [Validators.required]]
+  terminoBusqueda = '';
+  estadoFiltro = '';
+  areaFiltro = '';
+  searchTerms = new Subject<string>();
+  
+  currentPage = 1;
+  pageSize = 10;
+  totalItems = 0;
+  
+  mostrarModalEdicion = false;
+  docenteEditando: DocenteCarga | null = null;
+  formularioEdicion: FormGroup;
+  guardandoCambios = false;
+  mensajeModal = '';
+  errorModal = '';
+  
+  
+  constructor(
+    private adminDocenteService: AdminDocenteService,
+    private fb: FormBuilder
+  ) {
+    this.formularioEdicion = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(2), Validators.pattern('^[a-zA-ZÀ-ÿ\\u00f1\\u00d1\\s]+$')]],
+      email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]],
+      legajo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]{7,8}$')]],
+      fechaNacimiento: ['', [Validators.required]],
+      domicilio: ['', [Validators.required, Validators.minLength(5)]],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]],
+      estado: ['Activo', Validators.required]
+    });
+  }
+  
+  ngOnInit(): void {
+    this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(term => {
+      this.terminoBusqueda = term;
+      this.buscarDocentes();
+    });
+    
+    this.cargarDocentes();
+  }
+  
+  cargarDocentes(): void {
+    this.loading = true;
+    this.adminDocenteService.getDocentesCarga().subscribe({
+      next: (data) => {
+        this.docentesOriginales = data;
+        this.aplicarFiltros();
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar docentes:', err);
+        this.error = 'Error al cargar docentes';
+        this.loading = false;
+      }
     });
   }
 
-  ngOnInit(): void {
-    this.cargarDocentesIniciales();
-  }
+  aplicarFiltros(): void {
+    let docentesFiltrados = [...this.docentesOriginales];
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  // MÉTODOS PARA INFORME DE CARGA
-
-  /**
-   * Alternar la visibilidad del informe de carga
-   */
-  toggleInformeCarga(): void {
-    this.mostrarInformeCarga = !this.mostrarInformeCarga;
-    
-    if (this.mostrarInformeCarga && this.docentesCarga.length === 0) {
-      this.cargarInformeCarga();
-    }
-  }
-
-  /**
-   * Cargar datos del informe de carga desde el API
-   */
-  cargarInformeCarga(): void {
-    this.cargandoDatos = true;
-    this.errorCarga = '';
-    
-    console.log('Iniciando carga de datos de informe...');
-    
-    this.adminDocenteService.getDocentesCarga()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (data: DocenteCarga[]) => {
-          console.log('Datos de carga recibidos:', data);
-          this.docentesCarga = data;
-          this.calcularEstadisticas();
-          this.cargandoDatos = false;
-          // Actualizar la fecha cuando se cargan los datos
-          this.fechaUltimaActualizacion = new Date().toLocaleString();
-        },
-        error: (error) => {
-          console.error('Error al cargar datos de carga:', error);
-          this.errorCarga = error.message || 'Error al cargar los datos. Por favor, intente nuevamente.';
-          this.cargandoDatos = false;
-          this.docentesCarga = [];
-          this.estadisticasCarga = null;
-        }
-      });
-  }
-
-  /**
-   * Refrescar los datos del informe
-   */
-  refrescarInformeCarga(): void {
-    this.docentesCarga = [];
-    this.estadisticasCarga = null;
-    // Actualizar fecha al refrescar
-    this.fechaUltimaActualizacion = new Date().toLocaleString();
-    this.cargarInformeCarga();
-  }
-
-  /**
-   * Calcular estadísticas localmente
-   */
-  private calcularEstadisticas(): void {
-    if (this.docentesCarga.length === 0) {
-      this.estadisticasCarga = null;
-      return;
+    if (this.terminoBusqueda) {
+      const termino = this.terminoBusqueda.toLowerCase();
+      docentesFiltrados = docentesFiltrados.filter(docente =>
+        docente.name.toLowerCase().includes(termino) ||
+        docente.email.toLowerCase().includes(termino) ||
+        docente.legajo.toLowerCase().includes(termino) ||
+        docente.dni.toLowerCase().includes(termino)
+      );
     }
 
-    const totalDocentes = this.docentesCarga.length;
-    const docentesActivos = this.docentesCarga.filter(d => d.estado === 'Activo');
-    const docentesInactivos = this.docentesCarga.filter(d => d.estado === 'Inactivo');
-    
-    const totalMaterias = this.docentesCarga.reduce((sum, d) => sum + d.cantidadMaterias, 0);
-    const totalEstudiantes = this.docentesCarga.reduce((sum, d) => sum + d.cantidadEstudiantes, 0);
-    
-    const totalMateriasActivos = docentesActivos.reduce((sum, d) => sum + d.cantidadMaterias, 0);
-    const totalEstudiantesActivos = docentesActivos.reduce((sum, d) => sum + d.cantidadEstudiantes, 0);
+    if (this.estadoFiltro) {
+      docentesFiltrados = docentesFiltrados.filter(docente =>
+        docente.estado === this.estadoFiltro
+      );
+    }
 
-    this.estadisticasCarga = {
-      totalDocentes,
-      docentesActivos: docentesActivos.length,
-      docentesInactivos: docentesInactivos.length,
-      totalMaterias,
-      totalEstudiantes,
-      promedioMateriasActivos: docentesActivos.length > 0 ? 
-        Math.round((totalMateriasActivos / docentesActivos.length) * 100) / 100 : 0,
-      promedioEstudiantesActivos: docentesActivos.length > 0 ? 
-        Math.round((totalEstudiantesActivos / docentesActivos.length) * 100) / 100 : 0
-    };
+    if (this.areaFiltro) {
+      docentesFiltrados = docentesFiltrados.filter(docente =>
+        docente.area === this.areaFiltro
+      );
+    }
 
-    console.log('Estadísticas calculadas:', this.estadisticasCarga);
+    this.docentes = docentesFiltrados;
   }
-
-  /**
-   * Obtener color para el badge de estado
-   */
-  getEstadoBadgeClass(estado: string): string {
-    return estado === 'Activo' ? 'bg-success' : 'bg-secondary';
-  }
-
-  /**
-   * Obtener el departamento más frecuente
-   */
-  getDepartamentoMasFrecuente(): string {
-    if (this.docentesCarga.length === 0) return 'N/A';
-    
-    const departamentos = this.docentesCarga
-      .filter(d => d.departamento)
-      .map(d => d.departamento!);
-    
-    if (departamentos.length === 0) return 'N/A';
-    
-    const conteo = departamentos.reduce((acc, dept) => {
-      acc[dept] = (acc[dept] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
-    
-    return Object.entries(conteo)
-      .sort(([,a], [,b]) => b - a)[0][0];
-  }
-
-  // MÉTODOS DEL FORMULARIO CRUD (mantener los existentes)
-
-  // Método principal para guardar (crear o actualizar)
-  guardarDocente(): void {
-    if (this.docenteForm.valid) {
-      const docenteData = this.docenteForm.value;
-      
-      if (this.editandoDocente && this.docenteEditandoId !== null) {
-        this.actualizarDocente(docenteData);
-      } else {
-        this.crearDocente(docenteData);
+  
+  cargarUsuariosRegulares(): void {
+    this.loading = true;
+    this.adminDocenteService.getUsuariosRegulares().subscribe({
+      next: (data) => {
+        this.usuariosRegulares = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar usuarios:', err);
+        this.error = 'Error al cargar usuarios';
+        this.loading = false;
       }
-    } else {
-      this.marcarCamposComoTocados();
+    });
+  }
+  
+  asignarRolDocente(usuarioId: number): void {
+    this.loading = true;
+    this.adminDocenteService.asignarRol(usuarioId, this.adminDocenteService.ROL_DOCENTE).subscribe({
+      next: () => {
+        this.mensaje = 'Usuario convertido a docente correctamente';
+        this.cargarUsuariosRegulares();
+        this.cargarDocentes();
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al asignar rol:', err);
+        this.error = 'Error al asignar rol de docente';
+        this.loading = false;
+      }
+    });
+  }
+  
+  toggleMostrarUsuarios(): void {
+    this.mostrarUsuariosRegulares = !this.mostrarUsuariosRegulares;
+    if (this.mostrarUsuariosRegulares) {
+      this.cargarUsuariosRegulares();
     }
   }
-
-  // Método original onSubmit (mantener compatibilidad)
-  onSubmit() {
-    this.guardarDocente();
-  }
-
-  // Crear nuevo docente
-  private crearDocente(docenteData: any): void {
-    const nuevoDocente: DocenteModel = {
-      id: this.generarNuevoId(),
-      name: docenteData.name,
-      email: docenteData.email,
-      legajo: docenteData.legajo,
-      estado: docenteData.estado
-    };
-
-    this.docentes.push(nuevoDocente);
-    this.resetearFormulario();
-    console.log('Docente creado:', nuevoDocente);
-  }
-
-  // Actualizar docente existente
-  private actualizarDocente(docenteData: any): void {
-    const index = this.docentes.findIndex(d => d.id === this.docenteEditandoId);
-    if (index !== -1) {
-      this.docentes[index] = {
-        ...this.docentes[index],
-        name: docenteData.name,
-        email: docenteData.email,
-        legajo: docenteData.legajo,
-        estado: docenteData.estado
-      };
-      
-      this.cancelarEdicion();
-      console.log('Docente actualizado:', this.docentes[index]);
-    }
-  }
-
-  // Editar docente (método original)
-  editDocente(index: number) {
-    this.isEditing = true;
-    this.editingIndex = index;
-    const docente = this.docentes[index];
-    this.docenteForm.patchValue(docente);
+  
+  editarDocente(docente: DocenteCarga): void {
+    this.docenteEditando = { ...docente };
     
-    // También actualizar las nuevas propiedades
-    this.editandoDocente = true;
-    this.docenteEditandoId = docente.id;
-  }
-
-  // Editar docente (método nuevo para la tabla)
-  editarDocente(docente: DocenteModel): void {
-    this.editandoDocente = true;
-    this.docenteEditandoId = docente.id;
-    
-    // También actualizar las propiedades originales
-    this.isEditing = true;
-    this.editingIndex = this.docentes.findIndex(d => d.id === docente.id);
-    
-    this.docenteForm.patchValue({
-      name: docente.name,
+    this.formularioEdicion.patchValue({
+      nombre: docente.name || '',
+      dni: docente.dni,
+      fechaNacimiento: docente.fecha_nacimiento,
+      domicilio: docente.domicilio,
+      telefono: docente.telefono,
       email: docente.email,
       legajo: docente.legajo,
-      estado: docente.estado
+      estado: docente.estado || 'Activo'
     });
+    this.mostrarModalEdicion = true;
+    this.mensajeModal = '';
+    this.errorModal = '';
   }
 
-  // Eliminar docente (método original)
-  deleteDocente(index: number) {
-    this.docentes.splice(index, 1);
+  cerrarModal(): void {
+    this.mostrarModalEdicion = false;
+    this.docenteEditando = null;
+    this.formularioEdicion.reset();
+    this.mensajeModal = '';
+    this.errorModal = '';
   }
 
-  // Eliminar docente (método nuevo para la tabla)
-  eliminarDocente(id: number): void {
-    if (confirm('¿Está seguro de que desea eliminar este docente?')) {
-      this.docentes = this.docentes.filter(d => d.id !== id);
-      console.log('Docente eliminado con ID:', id);
+  cancelarEdicion(): void {
+    this.docenteEditando = null;
+    this.formularioEdicion.reset();
+    this.errorModal = '';
+  }
+
+  actualizarDocente(): void {
+    this.guardarCambios();
+  }
+
+  guardarCambios(): void {
+    Object.keys(this.formularioEdicion.controls).forEach(key => {
+      this.formularioEdicion.get(key)?.markAsTouched();
+    });
+
+    if (this.formularioEdicion.valid && this.docenteEditando) {
+      this.guardandoCambios = true;
+      this.errorModal = '';
+      
+      const formValues = this.formularioEdicion.value;
+      
+      const datosActualizados = {
+        name: formValues.nombre,
+        email: formValues.email,
+        legajo: formValues.legajo,
+        dni: formValues.dni,
+        fecha_nacimiento: formValues.fechaNacimiento,
+        domicilio: formValues.domicilio,
+        telefono: formValues.telefono,
+        is_active: formValues.estado === 'Activo'
+      };
+
+      console.log('Formulario válido:', this.formularioEdicion.valid);
+      console.log('Datos del formulario:', formValues);
+      console.log('Docente editando:', this.docenteEditando);
+      console.log('Datos actualizados a enviar:', datosActualizados);
+      
+      this.adminDocenteService.actualizarDocente(this.docenteEditando!.id, datosActualizados).subscribe({
+        next: (response) => {
+          console.log('Docente actualizado exitosamente:', response);
+          
+          const index = this.docentesOriginales.findIndex(d => d.id === this.docenteEditando!.id);
+          if (index !== -1) {
+            const docenteActualizado: DocenteCarga = {
+              ...this.docentesOriginales[index], 
+              ...response,                        
+              name: response.name || datosActualizados.name || this.docentesOriginales[index].name,  // Asegurar que name existe
+              estado: response.is_active ? 'Activo' : 'Inactivo'
+            };
+            this.docentesOriginales[index] = docenteActualizado;
+            this.aplicarFiltros(); 
+          }
+          
+          this.mensajeModal = 'Información del docente actualizada correctamente';
+          this.guardandoCambios = false;
+          
+          setTimeout(() => {
+            this.cerrarModal();
+            this.mostrarMensaje('Docente actualizado correctamente');
+          }, 2000);
+        },
+        error: (error) => {
+          console.error('Error al actualizar docente:', error);
+          this.errorModal = 'Error al guardar los cambios. Inténtalo de nuevo.';
+          this.guardandoCambios = false;
+        }
+      });
+    } else {
+      this.errorModal = 'Por favor, complete todos los campos requeridos';
     }
   }
+  
+  mostrarMensaje(texto: string): void {
+    this.mensaje = texto;
+    setTimeout(() => this.mensaje = '', 3000);
+  }
 
-  // Cancelar edición (método original)
-  cancelEdit() {
-    this.isEditing = false;
-    this.editingIndex = -1;
-    this.docenteForm.reset();
-    this.docenteForm.patchValue({ estado: 'Activo' });
+  getFieldError(fieldName: string): string {
+    const field = this.formularioEdicion.get(fieldName);
     
-    // También resetear las nuevas propiedades
-    this.editandoDocente = false;
-    this.docenteEditandoId = null;
-  }
-
-  // Cancelar edición (método nuevo)
-  cancelarEdicion(): void {
-    this.cancelEdit();
-  }
-
-  // Validadores para el template
-  campoEsInvalido(campo: string): boolean {
-    const control = this.docenteForm.get(campo);
-    return !!(control && control.invalid && control.touched);
-  }
-
-  obtenerMensajeError(campo: string): string {
-    const control = this.docenteForm.get(campo);
-    
-    if (control?.errors) {
-      if (control.errors['required']) {
-        return `${this.getNombreCampo(campo)} es requerido`;
-      }
-      if (control.errors['email']) {
-        return 'Ingrese un email válido';
-      }
-      if (control.errors['minlength']) {
-        return `${this.getNombreCampo(campo)} debe tener al menos ${control.errors['minlength'].requiredLength} caracteres`;
+    if (field && field.errors && field.touched) {
+      if (field.errors['required']) return `Este campo es obligatorio`;
+      if (field.errors['email']) return `Ingrese un correo electrónico válido`;
+      if (field.errors['minlength']) return `Debe tener al menos ${field.errors['minlength'].requiredLength} caracteres`;
+      if (field.errors['pattern']) {
+        if (fieldName === 'dni') return 'El DNI debe contener solo números (7-8 dígitos)';
+        if (fieldName === 'telefono') return 'El teléfono debe contener solo números (10-15 dígitos)';
       }
     }
     
     return '';
   }
 
-  private getNombreCampo(campo: string): string {
-    const nombres: { [key: string]: string } = {
-      'name': 'Nombre',
-      'email': 'Email',
-      'legajo': 'Legajo',
-      'estado': 'Estado'
-    };
-    return nombres[campo] || campo;
+  hasFieldError(fieldName: string): boolean {
+    const field = this.formularioEdicion.get(fieldName);
+    return !!(field && field.errors && field.touched);
+  }
+  
+
+  onSearch(term: string): void {
+    this.searchTerms.next(term);
+  }
+  
+  buscarDocentes(): void {
+    this.aplicarFiltros();
+  }
+  
+
+  filtrarPorEstado(estado: string): void {
+    this.estadoFiltro = estado;
+    this.aplicarFiltros();
   }
 
-  // Métodos auxiliares
-  private resetearFormulario(): void {
-    this.docenteForm.reset({
-      estado: 'Activo'
-    });
-    this.editandoDocente = false;
-    this.docenteEditandoId = null;
-    this.isEditing = false;
-    this.editingIndex = -1;
+  filtrarPorArea(area: string): void {
+    this.areaFiltro = area;
+    this.aplicarFiltros();
+  }
+  
+
+  cambiarPagina(pagina: number): void {
+    this.currentPage = pagina;
+    this.cargarDocentes();
   }
 
-  private marcarCamposComoTocados(): void {
-    Object.keys(this.docenteForm.controls).forEach(key => {
-      this.docenteForm.get(key)?.markAsTouched();
-    });
-  }
 
-  private generarNuevoId(): number {
-    return this.docentes.length > 0 ? Math.max(...this.docentes.map(d => d.id)) + 1 : 1;
-  }
+  promoverAAdmin(docenteId: number, nombreDocente: string): void {
 
-  private cargarDocentesIniciales(): void {
-    this.docentes = [
-      { id: 1, name: 'Juan Pérez', email: 'juan@ejemplo.com', legajo: 'DOC001', estado: 'Activo' },
-      { id: 2, name: 'María García', email: 'maria@ejemplo.com', legajo: 'DOC002', estado: 'Activo' },
-      { id: 3, name: 'Carlos López', email: 'carlos@ejemplo.com', legajo: 'DOC003', estado: 'Inactivo' }
-    ];
-  }
-
-  /**
-   * Track by function para optimizar el renderizado de la tabla
-   */
-  trackByDocenteId(index: number, docente: DocenteCarga): number {
-    return docente.id;
-  }
-
-  /**
-   * Obtener la fecha actual formateada
-   */
-  get fechaActual(): string {
-    return new Date().toLocaleString('es-ES', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
+    if(confirm(`⚠️ ADVERTENCIA: Estás por promover a "${nombreDocente}" a ADMINISTRADOR.\n\nEsto otorgará acceso completo al sistema. ¿Estás seguro?`)) {
+      this.loading = true;
+      
+      this.adminDocenteService.asignarRol(docenteId, this.adminDocenteService.ROL_ADMIN).subscribe({
+        next: () => {
+          this.mensaje = `✅ Docente "${nombreDocente}" promovido a Administrador correctamente`;
+          this.cargarDocentes(); 
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error al promover a admin:', err);
+          this.error = '❌ Error al promover a administrador: ' + 
+                      (err.error?.error || 'Intente nuevamente');
+          this.loading = false;
+        }
+      });
+    }
   }
 }

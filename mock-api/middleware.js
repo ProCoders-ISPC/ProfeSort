@@ -1,42 +1,27 @@
 module.exports = (req, res, next) => {
-  // Agregar headers CORS
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   
-  // Manejar preflight OPTIONS
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-  
-  // Logging de requests
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-  
-  // Simulación de latencia
-  setTimeout(() => {
-    // Simular errores basados en query parameters
-    if (req.query.simulate_error === 'server') {
-      return res.status(500).json({
-        error: 'Error interno del servidor',
-        message: 'Simulación de error 500',
-        timestamp: new Date().toISOString()
-      });
-    }
 
-    // Manejo especial para endpoints de autenticación (con y sin /api)
-    if ((req.url === '/api/auth/login' || req.url === '/auth/login') && req.method === 'POST') {
-      return handleLogin(req, res);
-    }
+  if ((req.url === '/api/auth/login' || req.url === '/auth/login') && req.method === 'POST') {
+    return handleLogin(req, res);
+  }
 
-    if ((req.url === '/api/auth/register' || req.url === '/auth/register') && req.method === 'POST') {
-      return handleRegister(req, res);
-    }
-    
-    next();
-  }, Math.random() * 300 + 200);
+  if ((req.url === '/api/auth/register' || req.url === '/auth/register') && req.method === 'POST') {
+    return handleRegister(req, res);
+  }
+
+  if (req.url.startsWith('/auth/validate-session/') && req.method === 'GET') {
+    return handleValidateSession(req, res);
+  }
+  
+  next();
 };
 
-// Handler para login
 function handleLogin(req, res) {
   const { email, password } = req.body;
   const fs = require('fs');
@@ -46,30 +31,32 @@ function handleLogin(req, res) {
     const dbPath = path.join(__dirname, 'db.json');
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
     
-    // Buscar usuario por email y password
-    const user = db.users.find(u => 
+    const user = db.usuarios.find(u => 
       u.email === email && 
       u.password === password && 
-      u.isActive
+      u.is_active
     );
 
     if (user) {
-      // Login exitoso
       return res.status(200).json({
         success: true,
         message: 'Login exitoso',
         data: {
-          id: user.id,
-          email: user.email,
+          id_usuario: user.id,
           name: user.name,
-          role: user.role,
+          email: user.email,
+          id_rol: user.id_rol,
           legajo: user.legajo || null,
-          token: `fake-jwt-token-${user.id}`,
-          isLoggedIn: true
+          dni: user.dni,
+          fecha_nacimiento: user.fecha_nacimiento,
+          domicilio: user.domicilio,
+          telefono: user.telefono,
+          area: user.area,
+          fecha_ingreso: user.fecha_ingreso,
+          is_active: user.is_active
         }
       });
     } else {
-      // Credenciales inválidas
       return res.status(401).json({
         success: false,
         message: 'Credenciales inválidas',
@@ -96,7 +83,7 @@ function handleRegister(req, res) {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
     
     // Verificar si el email ya existe
-    const existingUser = db.users.find(u => u.email === email);
+    const existingUser = db.usuarios.find(u => u.email === email);
     if (existingUser) {
       return res.status(409).json({
         success: false,
@@ -106,7 +93,7 @@ function handleRegister(req, res) {
     }
 
     // Verificar si el legajo ya existe
-    const existingLegajo = db.users.find(u => u.legajo === legajo);
+    const existingLegajo = db.usuarios.find(u => u.legajo === legajo);
     if (existingLegajo) {
       return res.status(409).json({
         success: false,
@@ -117,22 +104,24 @@ function handleRegister(req, res) {
 
     // Crear nuevo usuario
     const newUser = {
-      id: Math.max(...db.users.map(u => u.id)) + 1,
+      id: Math.max(...db.usuarios.map(u => u.id)) + 1,
+      name: `${nombre} ${apellido}`,
       email,
       password,
-      name: `${nombre} ${apellido}`,
-      role: 'User',
       legajo,
       dni,
-      fechaNacimiento,
+      fecha_nacimiento: fechaNacimiento,
       domicilio,
       telefono,
-      isActive: true,
-      createdAt: new Date().toISOString()
+      id_rol: 3, // USUARIO por defecto
+      area: null,
+      is_active: true,
+      fecha_ingreso: new Date().toISOString(),
+      created_at: new Date().toISOString()
     };
 
     // Agregar usuario a la base de datos
-    db.users.push(newUser);
+    db.usuarios.push(newUser);
     
     // Guardar cambios
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
@@ -142,13 +131,61 @@ function handleRegister(req, res) {
       success: true,
       message: 'Usuario registrado exitosamente',
       data: {
-        id: newUser.id,
-        email: newUser.email,
+        id_usuario: newUser.id,
         name: newUser.name,
-        role: newUser.role,
+        email: newUser.email,
+        id_rol: newUser.id_rol,
         legajo: newUser.legajo
       }
     });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error interno del servidor',
+      error: error.message
+    });
+  }
+}
+
+// Handler para validar sesión
+function handleValidateSession(req, res) {
+  const userId = req.url.split('/').pop();
+  const fs = require('fs');
+  const path = require('path');
+  
+  try {
+    const dbPath = path.join(__dirname, 'db.json');
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+    
+    // Buscar el usuario por ID y verificar que esté activo
+    const user = db.usuarios.find(u => u.id == userId && u.is_active);
+
+    if (user) {
+      return res.status(200).json({
+        success: true,
+        message: 'Sesión válida',
+        data: {
+          id_usuario: user.id,
+          name: user.name,
+          email: user.email,
+          id_rol: user.id_rol,
+          legajo: user.legajo || null,
+          dni: user.dni,
+          fecha_nacimiento: user.fecha_nacimiento,
+          domicilio: user.domicilio,
+          telefono: user.telefono,
+          area: user.area,
+          fecha_ingreso: user.fecha_ingreso,
+          is_active: user.is_active
+        }
+      });
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: 'Sesión inválida',
+        error: 'Usuario no encontrado o cuenta desactivada'
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       success: false,
